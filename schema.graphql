@@ -1,0 +1,640 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type BulkItemError {
+  field: String
+  message: String
+  code: String
+  index: Int
+}
+
+type Category implements Node {
+  id: ID!
+  created: DateTime!
+  updated: DateTime!
+  name: String!
+  slug: String!
+  vehicles(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): VehiclesConnection
+  customId: ID
+}
+
+type CategoryConnection {
+  pageInfo: PageInfo!
+  edges: [CategoryEdge]!
+}
+
+type CategoryCreate {
+  category: Category
+  errors: [Error!]!
+}
+
+type CategoryDelete {
+  errors: [Error!]!
+  category: Category
+}
+
+type CategoryEdge {
+  node: Category
+  cursor: String!
+}
+
+input CategoryInput {
+  name: String
+  slug: String
+}
+
+enum CategorySortField {
+  NAME
+}
+
+input CategorySortingInput {
+  direction: OrderDirection!
+  field: CategorySortField!
+}
+
+type CategoryUpdate {
+  category: Category
+  errors: [Error!]!
+}
+
+scalar Date
+
+scalar DateTime
+
+scalar Decimal
+
+type Document implements Node {
+  id: ID!
+  created: DateTime!
+  updated: DateTime!
+  name: String!
+  slug: String!
+  publicationDate: Date
+  isPublished: Boolean!
+  provider: Provider!
+  file: String!
+  expires: Boolean!
+  beginDate: Date
+  expirationDate: Date
+}
+
+type DocumentConnection {
+  pageInfo: PageInfo!
+  edges: [DocumentEdge]!
+}
+
+type DocumentCreate {
+  document: Document
+  errors: [Error!]!
+}
+
+type DocumentDelete {
+  errors: [Error!]!
+  document: Document
+}
+
+type DocumentEdge {
+  node: Document
+  cursor: String!
+}
+
+input DocumentInput {
+  name: String
+  slug: String
+  file: Upload
+  provider: ID
+  isPublished: Boolean
+  publicationDate: Date
+  expires: Boolean
+  beginDate: Date
+  expirationDate: Date
+}
+
+type DocumentUpdate {
+  document: Document
+  errors: [Error!]!
+}
+
+type DocumentsConnection {
+  pageInfo: PageInfo!
+  edges: [DocumentsEdge]!
+}
+
+type DocumentsEdge {
+  node: Document
+  cursor: String!
+}
+
+type Error {
+  field: String
+  message: String
+  code: String
+}
+
+scalar GenericScalar
+
+type Investment implements Node {
+  id: ID!
+  created: DateTime!
+  updated: DateTime!
+  publicationDate: Date
+  isPublished: Boolean!
+  mounth: Int!
+  year: Int!
+  items: [Item]
+}
+
+type InvestmentConnection {
+  pageInfo: PageInfo!
+  edges: [InvestmentEdge]!
+}
+
+type InvestmentCreate {
+  investment: Investment
+  errors: [Error!]!
+}
+
+type InvestmentDelete {
+  errors: [Error!]!
+  investment: Investment
+}
+
+type InvestmentEdge {
+  node: Investment
+  cursor: String!
+}
+
+input InvestmentInput {
+  mounth: Int
+  year: Int
+  isPublished: Boolean
+}
+
+type InvestmentUpdate {
+  document: Investment
+  errors: [Error!]!
+  investment: Investment
+}
+
+type Item implements Node {
+  id: ID!
+  name: String!
+  value: Decimal!
+  investment: Investment!
+}
+
+type ItemBulkCreate {
+  items: [Item]
+  errors: [BulkItemError!]!
+}
+
+input ItemBulkInput {
+  name: String
+  value: Float
+}
+
+type ItemCreate {
+  item: Item
+  errors: [Error!]!
+  investment: Investment
+}
+
+type ItemDelete {
+  errors: [Error!]!
+  item: Item
+}
+
+input ItemInput {
+  name: String
+  value: Float
+  investment: ID
+}
+
+type ItemUpdate {
+  item: Item
+  errors: [Error!]!
+}
+
+scalar JSONString
+
+type Mutation {
+  sessionCreate(input: SessionInput!): SessionCreate
+  sessionUpdate(id: ID, input: SessionInput!): SessionUpdate
+  sessionDelete(id: ID): SessionDelete
+  investmentCreate(input: InvestmentInput!): InvestmentCreate
+  investmentUpdate(id: ID, input: InvestmentInput!): InvestmentUpdate
+  investmentDelete(id: ID): InvestmentDelete
+  itemCreate(input: ItemInput!): ItemCreate
+  itemBulkCreate(investmentId: ID, items: [ItemBulkInput]!): ItemBulkCreate
+  itemUpdate(id: ID, input: ItemInput!): ItemUpdate
+  itemDelete(id: ID): ItemDelete
+  segmentCreate(input: SegmentInput!): SegmentCreate
+  segmentUpdate(id: ID, input: SegmentInput!): SegmentUpdate
+  segmentDelete(id: ID): SegmentDelete
+  providerCreate(input: ProviderInput!): ProviderCreate
+  providerUpdate(id: ID, input: ProviderInput!): ProviderUpdate
+  providerDelete(id: ID): ProviderDelete
+  documentCreate(input: DocumentInput!): DocumentCreate
+  documentUpdate(id: ID, input: DocumentInput!): DocumentUpdate
+  documentDelete(id: ID): DocumentDelete
+  categoryCreate(input: CategoryInput!): CategoryCreate
+  categoryUpdate(id: ID, input: CategoryInput!): CategoryUpdate
+  categoryDelete(id: ID): CategoryDelete
+  vehicleCreate(input: VehicleInput!): VehicleCreate
+  vehicleUpdate(id: ID, input: VehicleInput!): VehicleUpdate
+  vehicleDelete(id: ID): VehicleDelete
+  tokenAuth(email: String, password: String): ObtainJSONWebToken
+  verifyToken(token: String): Verify
+  refreshToken(token: String): Refresh
+}
+
+interface Node {
+  id: ID!
+}
+
+type ObtainJSONWebToken {
+  user: User
+  token: String
+  errors: [Error!]!
+}
+
+enum OrderDirection {
+  ASC
+  DESC
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type Permission {
+  code: String!
+  name: String!
+}
+
+type Provider implements Node {
+  id: ID!
+  created: DateTime!
+  updated: DateTime!
+  name: String!
+  slug: String!
+  publicationDate: Date
+  isPublished: Boolean!
+  documentNumber: String!
+  segment: Segment!
+  documents(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): DocumentsConnection
+}
+
+type ProviderConnection {
+  pageInfo: PageInfo!
+  edges: [ProviderEdge]!
+}
+
+type ProviderCreate {
+  provider: Provider
+  errors: [Error!]!
+}
+
+type ProviderDelete {
+  errors: [Error!]!
+  provider: Provider
+}
+
+type ProviderEdge {
+  node: Provider
+  cursor: String!
+}
+
+input ProviderInput {
+  name: String
+  slug: String
+  documentNumber: String
+  segment: ID
+  isPublished: Boolean
+  publicationDate: Date
+}
+
+enum ProviderSortField {
+  NAME
+  UPDATED
+  CREATED
+  PUBLISHED
+}
+
+input ProviderSortingInput {
+  direction: OrderDirection!
+  field: ProviderSortField!
+}
+
+type ProviderUpdate {
+  vehicle: Provider
+  errors: [Error!]!
+  provider: Provider
+}
+
+type ProvidersConnection {
+  pageInfo: PageInfo!
+  edges: [ProvidersEdge]!
+}
+
+type ProvidersEdge {
+  node: Provider
+  cursor: String!
+}
+
+type Query {
+  category(id: ID, slug: String): Category
+  categories(
+    sortBy: CategorySortingInput
+    offset: Int
+    before: String
+    after: String
+    first: Int
+    last: Int
+    name: String
+    name_Icontains: String
+    name_Istartswith: String
+  ): CategoryConnection
+  vehicle(id: ID, slug: String): Vehicle
+  vehicles(
+    offset: Int
+    before: String
+    after: String
+    first: Int
+    last: Int
+    name: String
+    name_Icontains: String
+    name_Istartswith: String
+    documentNumber: String
+    isPublished: Boolean
+  ): VehicleConnection
+  session(id: ID, slug: String): Session
+  sessions(
+    offset: Int
+    before: String
+    after: String
+    first: Int
+    last: Int
+    isPublished: Boolean
+  ): SessionConnection
+  segment(id: ID, slug: String): Segment
+  segments(
+    sortBy: SegmentSortingInput
+    offset: Int
+    before: String
+    after: String
+    first: Int
+    last: Int
+    name: String
+    name_Icontains: String
+    name_Istartswith: String
+  ): SegmentConnection
+  provider(id: ID, slug: String): Provider
+  providers(
+    sortBy: ProviderSortingInput
+    offset: Int
+    before: String
+    after: String
+    first: Int
+    last: Int
+    name: String
+    name_Icontains: String
+    name_Istartswith: String
+    documentNumber: String
+    isPublished: Boolean
+  ): ProviderConnection
+  document(id: ID): Document
+  documents(
+    offset: Int
+    before: String
+    after: String
+    first: Int
+    last: Int
+    name: String
+    name_Icontains: String
+    name_Istartswith: String
+    isPublished: Boolean
+    expires: Boolean
+    beginDate_Lte: Date
+    beginDate_Gte: Date
+    beginDate: Date
+    expirationDate_Lte: Date
+    expirationDate_Gte: Date
+    expirationDate: Date
+  ): DocumentConnection
+  investment(id: ID, mounth: Int, year: Int): Investment
+  investments(
+    offset: Int
+    before: String
+    after: String
+    first: Int
+    last: Int
+    mounth: Int
+    year: Int
+    isPublished: Boolean
+  ): InvestmentConnection
+  me: User
+}
+
+type Refresh {
+  payload: GenericScalar!
+  refreshExpiresIn: Int!
+  token: String!
+}
+
+type Segment implements Node {
+  id: ID!
+  created: DateTime!
+  updated: DateTime!
+  name: String!
+  slug: String!
+  providers(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ProvidersConnection
+}
+
+type SegmentConnection {
+  pageInfo: PageInfo!
+  edges: [SegmentEdge]!
+}
+
+type SegmentCreate {
+  segment: Segment
+  errors: [Error!]!
+}
+
+type SegmentDelete {
+  errors: [Error!]!
+  segment: Segment
+}
+
+type SegmentEdge {
+  node: Segment
+  cursor: String!
+}
+
+input SegmentInput {
+  name: String
+  slug: String
+}
+
+enum SegmentSortField {
+  NAME
+}
+
+input SegmentSortingInput {
+  direction: OrderDirection!
+  field: SegmentSortField!
+}
+
+type SegmentUpdate {
+  segment: Segment
+  errors: [Error!]!
+}
+
+type Session implements Node {
+  id: ID!
+  created: DateTime!
+  updated: DateTime!
+  name: String!
+  slug: String!
+  publicationDate: Date
+  isPublished: Boolean!
+  content: JSONString
+  date: Date!
+  time: Time!
+}
+
+type SessionConnection {
+  pageInfo: PageInfo!
+  edges: [SessionEdge]!
+}
+
+type SessionCreate {
+  vehicle: Session
+  errors: [Error!]!
+  session: Session
+}
+
+type SessionDelete {
+  errors: [Error!]!
+  session: Session
+}
+
+type SessionEdge {
+  node: Session
+  cursor: String!
+}
+
+input SessionInput {
+  name: String
+  slug: String
+  content: JSONString
+  date: Date
+  time: Time
+}
+
+type SessionUpdate {
+  vehicle: Session
+  errors: [Error!]!
+  session: Session
+}
+
+scalar Time
+
+scalar Upload
+
+type User implements Node {
+  id: ID!
+  password: String!
+  lastLogin: DateTime
+  isSuperuser: Boolean!
+  email: String!
+  firstName: String!
+  lastName: String!
+  isStaff: Boolean!
+  isActive: Boolean!
+  dateJoined: DateTime!
+  updatedAt: DateTime!
+  jwtTokenKey: String!
+  permissions: [Permission]
+}
+
+type Vehicle implements Node {
+  id: ID!
+  created: DateTime!
+  updated: DateTime!
+  name: String!
+  slug: String!
+  publicationDate: Date
+  isPublished: Boolean!
+  documentNumber: String!
+  documentFile: String!
+  category: Category!
+}
+
+type VehicleConnection {
+  pageInfo: PageInfo!
+  edges: [VehicleEdge]!
+}
+
+type VehicleCreate {
+  vehicle: Vehicle
+  errors: [Error!]!
+}
+
+type VehicleDelete {
+  errors: [Error!]!
+  vehicle: Vehicle
+}
+
+type VehicleEdge {
+  node: Vehicle
+  cursor: String!
+}
+
+input VehicleInput {
+  name: String
+  slug: String
+  documentNumber: String
+  category: ID
+  isPublished: Boolean
+  publicationDate: Date
+}
+
+type VehicleUpdate {
+  vehicle: Vehicle
+  errors: [Error!]!
+}
+
+type VehiclesConnection {
+  pageInfo: PageInfo!
+  edges: [VehiclesEdge]!
+}
+
+type VehiclesEdge {
+  node: Vehicle
+  cursor: String!
+}
+
+type Verify {
+  payload: GenericScalar!
+}
