@@ -1,10 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { gql, useMutation } from "@apollo/client";
+import React, { useState } from "react";
 import { Container, Input } from "@portal/UI";
-import { getToken, setToken } from "@portal/lib/auth";
 import { UserFragment, ErrorFragment } from "@portal/graphql";
-import useAuth from "../hook";
+import { useUser } from "..";
 
 export interface FieldsProps {
   email: string | undefined;
@@ -19,62 +16,24 @@ export interface ResponseProps {
   };
 }
 
-const TOKEN_AUTH = gql`
-  mutation tokenAuth($email: String!, $password: String!) {
-    tokenAuth(email: $email, password: $password) {
-      errors {
-        message
-        field
-        code
-      }
-      token
-      user {
-        email
-        firstName
-        lastName
-      }
-    }
-  }
-`;
-
 export const Login = () => {
-  const [tokenAuth, { data, loading, error }] =
-    useMutation<ResponseProps>(TOKEN_AUTH);
   const [form, setForm] = useState<FieldsProps>({
     email: "",
     password: "",
   });
   const [errors, setErrors] = useState<Array<ErrorFragment>>([]);
-  const navigate = useNavigate();
-  const { setUser } = useAuth();
 
-  useEffect(() => {
-    const token = getToken();
-    if (token) {
-      return navigate("/admin");
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!loading && data) {
-      if (data.tokenAuth.errors) {
-        setErrors(data.tokenAuth.errors);
-      }
-      if (data.tokenAuth.token) {
-        setToken(data.tokenAuth.token);
-        setUser(data.tokenAuth.user);
-        return navigate("/admin");
-      }
-    }
-  }, [loading, data, error]);
+  const { login } = useUser();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
     setErrors(errors.filter((error) => error.field !== e.target.name));
   };
 
-  const handleSubmit = () => {
-    tokenAuth({ variables: form });
+  const handleSubmit = async () => {
+    const result = await login(form.email, form.password);
+    const errors = result?.errors || [];
+    setErrors(errors);
   };
 
   return (

@@ -1,14 +1,13 @@
-import useAuth from "../auth/hook";
-import React, { useEffect } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 
 export const Home = () => {
-  const { getUser } = useAuth();
-
-  useEffect(() => {
-    getUser();
-  }, []);
-
-  return <div>dashboard</div>;
+  return (
+    <div>
+      <h1>Dashboard</h1>
+      <Link to="/admin/vehicles">Veículos</Link>
+    </div>
+  );
 };
 
 export default Home;

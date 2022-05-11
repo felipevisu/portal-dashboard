@@ -1,5 +1,16 @@
 schema: schema.graphql
 generates:
+  ./src/graphql/hooks.generated.ts:
+    documents:
+      - ./src/**/queries.ts
+      - ./src/**/mutations.ts
+      - ./src/**/fragments/*.ts
+      - ./src/searches/*.ts
+    preset: import-types
+    presetConfig:
+      typesPath: ./types.generated
+    plugins:
+      - typescript-react-apollo
   ./src/graphql/types.generated.ts:
     documents:
       - ./src/**/queries.ts

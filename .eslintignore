@@ -2,3 +2,5 @@
 public
 node_modules
 src/types.ts
+config-overrides.js
+./src/graphql/*/*.ts
