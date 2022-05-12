@@ -53,7 +53,7 @@ export const Login = () => {
             label="Email"
             error={errors.find((error) => error.field === "name")}
             extraInputClasses="mb-2"
-            handleChange={handleChange}
+            onChange={handleChange}
           />
         </div>
         <div>
@@ -63,7 +63,7 @@ export const Login = () => {
             label="Senha"
             error={errors.find((error) => error.field === "password")}
             extraInputClasses="mb-2"
-            handleChange={handleChange}
+            onChange={handleChange}
           />
         </div>
         <div>

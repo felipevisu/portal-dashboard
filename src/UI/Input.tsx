@@ -1,17 +1,19 @@
+import { ErrorFragment } from "@portal/graphql";
 import React from "react";
 
 interface InputProps {
   type: string;
   name: string;
   label?: string;
-  error: any | undefined;
+  value?: string | number;
+  error?: ErrorFragment | undefined;
   extraInputClasses?: string;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const Input = (props: InputProps) => {
   return (
-    <div>
+    <div className="mt-2">
       {props.label && <label className="mb-1 block">{props.label}</label>}
       <input
         className={`border w-full rounded py-2 px-4 ${
@@ -19,7 +21,8 @@ export const Input = (props: InputProps) => {
         }`}
         type={props.type}
         name={props.name}
-        onChange={(e) => props.handleChange(e)}
+        value={props.value}
+        onChange={(e) => props.onChange(e)}
       />
       {props.error && <div>{props.error.message}</div>}
     </div>

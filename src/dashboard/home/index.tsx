@@ -6,6 +6,7 @@ export const Home = () => {
     <div>
       <h1>Dashboard</h1>
       <Link to="/admin/vehicles">Veículos</Link>
+      <Link to="/admin/categories">Categorias</Link>
     </div>
   );
 };
