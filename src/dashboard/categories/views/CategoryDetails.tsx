@@ -2,17 +2,16 @@ import {
   useCategoryDetailsQuery,
   useCategoryUpdateMutation,
   useCategoryDeleteMutation,
-  CategoryDeleteMutation,
 } from "@portal/graphql";
-import { Container } from "@portal/UI";
+import { Button, Content, Header } from "@portal/UI";
 import React from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import CategoryForm, { FormProps } from "../components/CategoryForm";
 
 export const CategoryDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { data, loading, refetch } = useCategoryDetailsQuery({
+  const { data, loading } = useCategoryDetailsQuery({
     variables: { id },
   });
 
@@ -40,16 +39,26 @@ export const CategoryDetails = () => {
   }
 
   return (
-    <Container>
-      <h1>{data.category.name}</h1>
-      <Link to="/admin/categories">Voltar</Link>
-      <CategoryForm
-        initialData={{ name: data.category.name, slug: data.category.slug }}
-        onSubmit={handleSubmit}
-        errors={updateCategoryResult.data?.categoryUpdate.errors || []}
+    <div>
+      <Header
+        title={data.category.name}
+        buttonPath="/admin/categories"
+        buttonLabel="Voltar"
+        buttonVariant="secondary"
       />
-      <button onClick={handleCategoryDelete}>Excluir</button>
-    </Container>
+      <Content>
+        <CategoryForm
+          initialData={{ name: data.category.name, slug: data.category.slug }}
+          onSubmit={handleSubmit}
+          errors={updateCategoryResult.data?.categoryUpdate.errors || []}
+        />
+        <div className="bg-gray-50 p-2 rounded-md mt-4 flex justify-end">
+          <Button variant="danger" onClick={handleCategoryDelete}>
+            Excluir
+          </Button>
+        </div>
+      </Content>
+    </div>
   );
 };
 

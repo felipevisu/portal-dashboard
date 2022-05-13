@@ -1,7 +1,7 @@
 import { useCategoryCreateMutation } from "@portal/graphql";
-import { Container } from "@portal/UI";
+import { Content, Header } from "@portal/UI";
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import CategoryForm, { FormProps } from "../components/CategoryForm";
 
 export const CategoryCreate = () => {
@@ -18,14 +18,20 @@ export const CategoryCreate = () => {
   };
 
   return (
-    <Container>
-      <h1>Nova categoria</h1>
-      <Link to="/admin/categories">Voltar</Link>
-      <CategoryForm
-        onSubmit={handleSubmit}
-        errors={createCategoryResult.data?.categoryCreate.errors || []}
+    <div>
+      <Header
+        title="Nova categoria"
+        buttonPath="/admin/categories"
+        buttonLabel="Voltar"
+        buttonVariant="secondary"
       />
-    </Container>
+      <Content>
+        <CategoryForm
+          onSubmit={handleSubmit}
+          errors={createCategoryResult.data?.categoryCreate.errors || []}
+        />
+      </Content>
+    </div>
   );
 };
 

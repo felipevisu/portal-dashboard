@@ -1,5 +1,5 @@
 import { ErrorFragment } from "@portal/graphql";
-import { Input } from "@portal/UI";
+import { Button, Input } from "@portal/UI";
 import { getFormErrors } from "@portal/utils/errors";
 import React, { useState } from "react";
 
@@ -36,23 +36,26 @@ export const CategoryForm = ({
 
   return (
     <div>
-      <Input
-        type="text"
-        name="name"
-        label="Nome"
-        value={data.name}
-        error={formErrors.name}
-        onChange={handleChange}
-      />
-      <Input
-        type="text"
-        name="slug"
-        label="Atalho"
-        value={data.slug}
-        error={formErrors.slug}
-        onChange={handleChange}
-      />
-      <button onClick={handleSubmit}>Enviar</button>
+      <div className="mb-4">
+        <Input
+          type="text"
+          name="name"
+          label="Nome"
+          value={data.name}
+          error={formErrors.name}
+          onChange={handleChange}
+        />
+        <Input
+          type="text"
+          name="slug"
+          label="Atalho"
+          value={data.slug}
+          error={formErrors.slug}
+          onChange={handleChange}
+        />
+      </div>
+
+      <Button onClick={handleSubmit}>Enviar</Button>
     </div>
   );
 };

@@ -12,7 +12,7 @@ const httpLink = createHttpLink({
 });
 
 const authLink = setContext((_, { headers }) => {
-  let token;
+  let token: string | null;
 
   if (typeof window !== "undefined") {
     token = getToken();

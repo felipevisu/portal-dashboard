@@ -13,10 +13,10 @@ interface InputProps {
 
 export const Input = (props: InputProps) => {
   return (
-    <div className="mt-2">
+    <div className="mt-3">
       {props.label && <label className="mb-1 block">{props.label}</label>}
       <input
-        className={`border w-full rounded py-2 px-4 ${
+        className={`shadow-sm focus:outline-none border w-full rounded py-2 px-4 focus:border-blue-300 ${
           props.extraInputClasses ? props.extraInputClasses : ""
         }`}
         type={props.type}
@@ -24,7 +24,9 @@ export const Input = (props: InputProps) => {
         value={props.value}
         onChange={(e) => props.onChange(e)}
       />
-      {props.error && <div>{props.error.message}</div>}
+      {props.error && (
+        <span className="text-sm text-red-600">{props.error.message}</span>
+      )}
     </div>
   );
 };
