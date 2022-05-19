@@ -7,8 +7,10 @@ import {
 import { setContext } from "@apollo/client/link/context";
 import { getToken } from "../lib/auth";
 
+console.log(process.env)
+
 const httpLink = createHttpLink({
-  uri: "https://portaldatransparencia.herokuapp.com/graphql/",
+  uri: process.env.REACT_APP_API_URI,
 });
 
 const authLink = setContext((_, { headers }) => {

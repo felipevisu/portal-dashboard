@@ -1,0 +1,5 @@
+schema: https://portaldatransparencia.herokuapp.com/graphql/
+generates:
+  ./introspection.json:
+    plugins:
+      - introspection

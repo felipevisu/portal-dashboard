@@ -10,12 +10,40 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /**
+   * The `Date` scalar type represents a Date
+   * value as specified by
+   * [iso8601](https://en.wikipedia.org/wiki/ISO_8601).
+   */
   Date: any;
+  /**
+   * The `DateTime` scalar type represents a DateTime
+   * value as specified by
+   * [iso8601](https://en.wikipedia.org/wiki/ISO_8601).
+   */
   DateTime: any;
+  /** The `Decimal` scalar type represents a python Decimal. */
   Decimal: any;
+  /**
+   * The `GenericScalar` scalar type represents a generic
+   * GraphQL scalar value that could be:
+   * String, Boolean, Int, Float, List or Object.
+   */
   GenericScalar: any;
+  /**
+   * Allows use of a JSON String for input / output from the GraphQL schema.
+   *
+   * Use of this type is *not recommended* as you lose the benefits of having a defined, static
+   * schema (one of the key benefits of GraphQL).
+   */
   JSONString: any;
+  /**
+   * The `Time` scalar type represents a Time value as
+   * specified by
+   * [iso8601](https://en.wikipedia.org/wiki/ISO_8601).
+   */
   Time: any;
+  /** Variables of this type must be set to null in mutations. They will be replaced with a filename from a following multipart part containing a binary file. See: https://github.com/jaydenseric/graphql-multipart-request-spec. */
   Upload: any;
 };
 
@@ -30,6 +58,7 @@ export enum CategorySortField {
 
 export type CategorySortingInput = {
   direction: OrderDirection;
+  /** Sort categories by the selected field. */
   field: CategorySortField;
 };
 
@@ -85,6 +114,7 @@ export enum ProviderSortField {
 
 export type ProviderSortingInput = {
   direction: OrderDirection;
+  /** Sort providers by the selected field. */
   field: ProviderSortField;
 };
 
@@ -99,6 +129,7 @@ export enum SegmentSortField {
 
 export type SegmentSortingInput = {
   direction: OrderDirection;
+  /** Sort segments by the selected field. */
   field: SegmentSortField;
 };
 
