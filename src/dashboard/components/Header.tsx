@@ -1,6 +1,6 @@
+import { Button } from "@portal/UI";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Button from "./Button";
 
 interface HeaderProps {
   title: string;

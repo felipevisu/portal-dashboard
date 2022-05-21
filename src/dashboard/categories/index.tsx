@@ -3,7 +3,6 @@ import { Routes, Route } from "react-router-dom";
 import CategoryList from "./views/CategoryList";
 import CategoryCreate from "./views/CategoryCreate";
 import CategoryDetails from "./views/CategoryDetails";
-import { Content } from "@portal/UI";
 
 export const Categories = () => {
   return (

@@ -1,5 +1,6 @@
 import { useCategoryCreateMutation } from "@portal/graphql";
-import { Content, Header } from "@portal/UI";
+import { Content } from "@portal/UI";
+import { Header } from "../../components";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import CategoryForm, { FormProps } from "../components/CategoryForm";

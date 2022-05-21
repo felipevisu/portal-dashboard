@@ -7,8 +7,6 @@ import {
 import { setContext } from "@apollo/client/link/context";
 import { getToken } from "../lib/auth";
 
-console.log(process.env)
-
 const httpLink = createHttpLink({
   uri: process.env.REACT_APP_API_URI,
 });

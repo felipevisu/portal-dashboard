@@ -5,7 +5,8 @@ module.exports = function override(config) {
     "@portal/UI": "./src/UI",
     "@portal/lib": "./src/lib",
     "@portal/graphql": "./src/graphql",
-    "@portal/utils": "./src/utils"
+    "@portal/utils": "./src/utils",
+    "@portal/hooks": "./src/hooks"
   })(config);
 
   return config;

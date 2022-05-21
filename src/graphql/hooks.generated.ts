@@ -33,6 +33,14 @@ export const ErrorFragmentDoc = gql`
   message
 }
     `;
+export const PageInfoFragmentDoc = gql`
+    fragment PageInfo on PageInfo {
+  endCursor
+  hasNextPage
+  hasPreviousPage
+  startCursor
+}
+    `;
 export const VehicleFragmentDoc = gql`
     fragment Vehicle on Vehicle {
   id
@@ -248,16 +256,26 @@ export type CategoryDeleteMutationHookResult = ReturnType<typeof useCategoryDele
 export type CategoryDeleteMutationResult = Apollo.MutationResult<Types.CategoryDeleteMutation>;
 export type CategoryDeleteMutationOptions = Apollo.BaseMutationOptions<Types.CategoryDeleteMutation, Types.CategoryDeleteMutationVariables>;
 export const CategoriesDocument = gql`
-    query Categories {
-  categories {
+    query Categories($first: Int, $last: Int, $after: String, $before: String, $search: String) {
+  categories(
+    first: $first
+    last: $last
+    after: $after
+    before: $before
+    search: $search
+  ) {
     edges {
       node {
         ...Category
       }
     }
+    pageInfo {
+      ...PageInfo
+    }
   }
 }
-    ${CategoryFragmentDoc}`;
+    ${CategoryFragmentDoc}
+${PageInfoFragmentDoc}`;
 
 /**
  * __useCategoriesQuery__
@@ -271,6 +289,11 @@ export const CategoriesDocument = gql`
  * @example
  * const { data, loading, error } = useCategoriesQuery({
  *   variables: {
+ *      first: // value for 'first'
+ *      last: // value for 'last'
+ *      after: // value for 'after'
+ *      before: // value for 'before'
+ *      search: // value for 'search'
  *   },
  * });
  */
@@ -360,8 +383,8 @@ export type VehicleCreateMutationHookResult = ReturnType<typeof useVehicleCreate
 export type VehicleCreateMutationResult = Apollo.MutationResult<Types.VehicleCreateMutation>;
 export type VehicleCreateMutationOptions = Apollo.BaseMutationOptions<Types.VehicleCreateMutation, Types.VehicleCreateMutationVariables>;
 export const VehiclesDocument = gql`
-    query Vehicles {
-  vehicles {
+    query Vehicles($first: Int, $last: Int, $after: String, $before: String) {
+  vehicles(first: $first, last: $last, after: $after, before: $before) {
     edges {
       node {
         ...Vehicle
@@ -383,6 +406,10 @@ export const VehiclesDocument = gql`
  * @example
  * const { data, loading, error } = useVehiclesQuery({
  *   variables: {
+ *      first: // value for 'first'
+ *      last: // value for 'last'
+ *      after: // value for 'after'
+ *      before: // value for 'before'
  *   },
  * });
  */

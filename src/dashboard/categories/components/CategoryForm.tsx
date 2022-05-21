@@ -1,5 +1,5 @@
 import { ErrorFragment } from "@portal/graphql";
-import { Button, Input } from "@portal/UI";
+import { Button, Input, Space } from "@portal/UI";
 import { getFormErrors } from "@portal/utils/errors";
 import React, { useState } from "react";
 
@@ -45,6 +45,7 @@ export const CategoryForm = ({
           error={formErrors.name}
           onChange={handleChange}
         />
+        <Space />
         <Input
           type="text"
           name="slug"

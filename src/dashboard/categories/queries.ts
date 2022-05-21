@@ -1,12 +1,27 @@
 import { gql } from "@apollo/client";
 
 export const categories = gql`
-  query Categories {
-    categories {
+  query Categories(
+    $first: Int
+    $last: Int
+    $after: String
+    $before: String
+    $search: String
+  ) {
+    categories(
+      first: $first
+      last: $last
+      after: $after
+      before: $before
+      search: $search
+    ) {
       edges {
         node {
           ...Category
         }
+      }
+      pageInfo {
+        ...PageInfo
       }
     }
   }

@@ -3,7 +3,8 @@ import {
   useCategoryUpdateMutation,
   useCategoryDeleteMutation,
 } from "@portal/graphql";
-import { Button, Content, Header } from "@portal/UI";
+import { Button, Content } from "@portal/UI";
+import { Header } from "../../components";
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import CategoryForm, { FormProps } from "../components/CategoryForm";
