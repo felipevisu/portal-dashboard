@@ -1,2 +1,2 @@
-export { useSearch } from "./useSearch";
-export { usePaginator } from "./usePaginator";
+export { default as useSearch } from "./useSearch";
+export { default as usePaginator } from "./usePaginator";

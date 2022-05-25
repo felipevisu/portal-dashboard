@@ -233,3 +233,12 @@ export type PageInfoFragment = { __typename: 'PageInfo', endCursor: string | nul
 export type VehicleFragment = { __typename: 'Vehicle', id: string, name: string, slug: string };
 
 export type VehicleDetailsFragment = { __typename: 'Vehicle', id: string, name: string, slug: string, documentNumber: string, isPublished: boolean, category: { __typename: 'Category', id: string, name: string } };
+
+export type SearchCategoriesQueryVariables = Exact<{
+  after?: InputMaybe<Scalars['String']>;
+  first: Scalars['Int'];
+  query: Scalars['String'];
+}>;
+
+
+export type SearchCategoriesQuery = { __typename: 'Query', search: { __typename: 'CategoryConnection', edges: Array<{ __typename: 'CategoryEdge', node: { __typename: 'Category', id: string, name: string } | null } | null>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
