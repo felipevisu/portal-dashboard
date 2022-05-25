@@ -4,7 +4,7 @@ import {
   SearchCategoriesQuery,
   SearchCategoriesQueryVariables,
 } from "@portal/graphql";
-import makeTopLevelSearch from "@portal/hooks/makeTopLevelSearch";
+import { makeTopLevelSearch } from "@portal/hooks";
 
 export const searchCategories = gql`
   query SearchCategories($after: String, $first: Int!, $query: String!) {

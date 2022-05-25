@@ -1,14 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { useVehiclesQuery } from "@portal/graphql";
+import { Header } from "../../components";
 
 export const VehicleList = () => {
-  const { data, loading, refetch } = useVehiclesQuery();
-
   return (
     <div>
-      <h1>Veículos</h1>
-      <Link to="/admin/vehicles/create">Novo veículo</Link>
+      <Header
+        title="Veículos"
+        buttonLabel="Novo veículo"
+        buttonPath="/admin/vehicles/create"
+      />
     </div>
   );
 };

@@ -2,31 +2,36 @@ import { ErrorFragment } from "@portal/graphql";
 import { FiAlertCircle } from "react-icons/fi";
 import React from "react";
 
-interface InputProps {
-  type: string;
+interface CheckboxProps {
   name: string;
   label?: string;
   placeholder?: string;
-  value?: string | number;
+  value?: boolean;
   error?: ErrorFragment | undefined;
   extraInputClasses?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const Input = (props: InputProps) => {
+export const Checkbox = (props: CheckboxProps) => {
   return (
     <div className="">
-      {props.label && <label className="mb-1 block">{props.label}</label>}
       <input
-        className={`shadow-sm focus:outline-none border w-full rounded h-11 px-4 focus:border-blue-300 ${
-          props.extraInputClasses ? props.extraInputClasses : ""
-        }`}
+        id={props.name}
+        className={`
+        form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer
+          ${props.extraInputClasses}`}
         placeholder={props.placeholder}
-        type={props.type}
+        type={"checkbox"}
         name={props.name}
-        value={props.value}
+        checked={props.value}
         onChange={(e) => props.onChange(e)}
       />
+      <label
+        className="form-check-label inline-block text-gray-800"
+        htmlFor={props.name}
+      >
+        {props.label}
+      </label>
       {props.error && (
         <span className="text-sm text-red-600 flex items-center space-x-1 mt-1">
           <FiAlertCircle />
@@ -37,4 +42,4 @@ export const Input = (props: InputProps) => {
   );
 };
 
-export default Input;
+export default Checkbox;

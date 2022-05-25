@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 
 export type UseDebounceFn<T> = (...args: T[]) => void;
+
 function useDebounce<T>(
   debounceFn: UseDebounceFn<T>,
   time = 200
