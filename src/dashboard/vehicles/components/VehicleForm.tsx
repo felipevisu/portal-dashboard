@@ -1,6 +1,6 @@
 import { ErrorFragment, SearchCategoriesQuery } from "@portal/graphql";
 import { RelayToFlat } from "@portal/types";
-import { Button, Checkbox, Input, Select, Space } from "@portal/UI";
+import { TextField } from "@material-ui/core";
 import { getFormErrors } from "@portal/utils/errors";
 import React, { useState } from "react";
 
@@ -55,52 +55,30 @@ export const VehicleForm = ({
   return (
     <div>
       <div className="mb-4">
-        <Input
+        <TextField
           type="text"
           name="name"
           label="Nome"
           value={data.name}
-          error={formErrors.name}
           onChange={handleChange}
         />
-        <Space />
-        <Input
+        <TextField
           type="text"
           name="slug"
           label="Atalho"
           value={data.slug}
-          error={formErrors.slug}
           onChange={handleChange}
         />
-        <Space />
-        <Input
+        <TextField
           type="text"
           name="documentNumber"
           label="CNPJ"
           value={data.documentNumber}
-          error={formErrors.documentNumber}
-          onChange={handleChange}
-        />
-        <Space />
-        <Select
-          name="category"
-          label="Categoria"
-          value={data.category}
-          error={formErrors.category}
-          options={categories}
-          onChange={handleChange}
-        />
-        <Space />
-        <Checkbox
-          name="isPublished"
-          label="Publicado"
-          value={data.isPublished}
-          error={formErrors.isPublished}
           onChange={handleChange}
         />
       </div>
 
-      <Button onClick={handleSubmit}>Enviar</Button>
+      <button onClick={handleSubmit}>Enviar</button>
     </div>
   );
 };

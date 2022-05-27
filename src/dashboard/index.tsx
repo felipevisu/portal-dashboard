@@ -1,4 +1,3 @@
-import { Container } from "@portal/UI";
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Auth, { useUser } from "./auth";
@@ -13,15 +12,13 @@ const RoutesComponent = () => {
 
   if (authenticated) {
     return (
-      <div className="flex py-4">
+      <div>
         <Menu />
-        <div className="flex-1">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/vehicles/*" element={<Vehicles />} />
-            <Route path="/categories/*" element={<Categories />} />
-          </Routes>
-        </div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/vehicles/*" element={<Vehicles />} />
+          <Route path="/categories/*" element={<Categories />} />
+        </Routes>
       </div>
     );
   }
@@ -36,9 +33,7 @@ const RoutesComponent = () => {
 export const Dashboard = () => {
   return (
     <AuthProvider>
-      <Container>
-        <RoutesComponent />
-      </Container>
+      <RoutesComponent />
     </AuthProvider>
   );
 };

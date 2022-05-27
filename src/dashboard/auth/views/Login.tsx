@@ -1,7 +1,11 @@
 import React, { useState } from "react";
-import { Container, Input } from "@portal/UI";
+import { TextField, Typography } from "@material-ui/core";
 import { UserFragment, ErrorFragment } from "@portal/graphql";
+import { Button } from "@portal/components/Button";
+import { FormSpacer } from "@portal/components/FormSpacer";
+
 import { useUser } from "..";
+import useStyles from "./styles";
 
 export interface FieldsProps {
   email: string | undefined;
@@ -17,6 +21,8 @@ export interface ResponseProps {
 }
 
 export const Login = () => {
+  const classes = useStyles();
+
   const [form, setForm] = useState<FieldsProps>({
     email: "",
     password: "",
@@ -37,40 +43,46 @@ export const Login = () => {
   };
 
   return (
-    <Container className="max-w-screen-sm">
-      <div className="">
-        <div>
-          {errors
-            .filter((error) => error.field === null)
-            .map((error, key) => (
-              <div key={key}>{error.message}</div>
-            ))}
+    <div>
+      <Typography variant="h3" className={classes.header}>
+        Login
+      </Typography>
+      {errors.map((error, key) => (
+        <div className={classes.panel} key={key}>
+          {error.message}
         </div>
-        <div>
-          <Input
-            type="text"
-            name="email"
-            label="Email"
-            error={errors.find((error) => error.field === "name")}
-            extraInputClasses="mb-2"
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <Input
-            type="password"
-            name="password"
-            label="Senha"
-            error={errors.find((error) => error.field === "password")}
-            extraInputClasses="mb-2"
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <button onClick={() => handleSubmit()}>Enviar</button>
-        </div>
+      ))}
+      <TextField
+        autoFocus
+        fullWidth
+        autoComplete="username"
+        type="text"
+        name="email"
+        label="Email"
+        onChange={handleChange}
+      />
+      <FormSpacer />
+      <TextField
+        fullWidth
+        autoComplete="password"
+        type="password"
+        name="password"
+        label="Senha"
+        onChange={handleChange}
+      />
+      <FormSpacer />
+      <div className={classes.buttonContainer}>
+        <Button
+          className={classes.loginButton}
+          variant="primary"
+          onClick={handleSubmit}
+          type="submit"
+          data-test-id="submit"
+        >
+          Entrar
+        </Button>
       </div>
-    </Container>
+    </div>
   );
 };
 

@@ -1,5 +1,5 @@
 import { ErrorFragment } from "@portal/graphql";
-import { Button, Input, Space } from "@portal/UI";
+import { TextField } from "@material-ui/core";
 import { getFormErrors } from "@portal/utils/errors";
 import React, { useState } from "react";
 
@@ -37,26 +37,22 @@ export const CategoryForm = ({
   return (
     <div>
       <div className="mb-4">
-        <Input
+        <TextField
           type="text"
           name="name"
           label="Nome"
           value={data.name}
-          error={formErrors.name}
           onChange={handleChange}
         />
-        <Space />
-        <Input
+        <TextField
           type="text"
           name="slug"
           label="Atalho"
           value={data.slug}
-          error={formErrors.slug}
           onChange={handleChange}
         />
       </div>
-
-      <Button onClick={handleSubmit}>Enviar</Button>
+      <button onClick={handleSubmit}>Enviar</button>
     </div>
   );
 };

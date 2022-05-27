@@ -2,7 +2,6 @@ import React from "react";
 import { useVehicleCreateMutation } from "@portal/graphql";
 import { Header } from "../../components";
 import { useNavigate } from "react-router-dom";
-import { Content } from "@portal/UI";
 import VehicleForm from "../components/VehicleForm";
 import useCategorySearch from "@portal/searches/useCategorySearch";
 import { DEFAULT_INITIAL_SEARCH_DATA } from "@portal/config";
@@ -35,13 +34,11 @@ export const VehicleCreate = () => {
         buttonLabel="Voltar"
         buttonVariant="secondary"
       />
-      <Content>
-        <VehicleForm
-          onSubmit={handleSubmit}
-          categories={mapEdgesToItems(searchCategoryOpts?.data?.search) || []}
-          errors={createVehicleResult.data?.vehicleCreate.errors || []}
-        />
-      </Content>
+      <VehicleForm
+        onSubmit={handleSubmit}
+        categories={mapEdgesToItems(searchCategoryOpts?.data?.search) || []}
+        errors={createVehicleResult.data?.vehicleCreate.errors || []}
+      />
     </div>
   );
 };

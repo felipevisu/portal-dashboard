@@ -3,7 +3,6 @@ import {
   useCategoryUpdateMutation,
   useCategoryDeleteMutation,
 } from "@portal/graphql";
-import { Button, Content } from "@portal/UI";
 import { Header } from "../../components";
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -47,18 +46,14 @@ export const CategoryDetails = () => {
         buttonLabel="Voltar"
         buttonVariant="secondary"
       />
-      <Content>
-        <CategoryForm
-          initialData={{ name: data.category.name, slug: data.category.slug }}
-          onSubmit={handleSubmit}
-          errors={updateCategoryResult.data?.categoryUpdate.errors || []}
-        />
-        <div className="bg-gray-50 p-2 rounded-md mt-4 flex justify-end">
-          <Button variant="danger" onClick={handleCategoryDelete}>
-            Excluir
-          </Button>
-        </div>
-      </Content>
+      <CategoryForm
+        initialData={{ name: data.category.name, slug: data.category.slug }}
+        onSubmit={handleSubmit}
+        errors={updateCategoryResult.data?.categoryUpdate.errors || []}
+      />
+      <div className="bg-gray-50 p-2 rounded-md mt-4 flex justify-end">
+        <button onClick={handleCategoryDelete}>Excluir</button>
+      </div>
     </div>
   );
 };

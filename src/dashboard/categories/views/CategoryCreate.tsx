@@ -1,5 +1,4 @@
 import { useCategoryCreateMutation } from "@portal/graphql";
-import { Content } from "@portal/UI";
 import { Header } from "../../components";
 import React from "react";
 import { useNavigate } from "react-router-dom";
@@ -26,12 +25,10 @@ export const CategoryCreate = () => {
         buttonLabel="Voltar"
         buttonVariant="secondary"
       />
-      <Content>
-        <CategoryForm
-          onSubmit={handleSubmit}
-          errors={createCategoryResult.data?.categoryCreate.errors || []}
-        />
-      </Content>
+      <CategoryForm
+        onSubmit={handleSubmit}
+        errors={createCategoryResult.data?.categoryCreate.errors || []}
+      />
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React, { createContext, useContext } from "react";
 import { Routes, Route } from "react-router-dom";
 import { UserFragment } from "@portal/graphql";
 import Login from "./views/Login";
+import Layout from "./components/Layout";
 
 export interface ContextProps {
   login: (email: string, password: string) => Promise<any>;
@@ -20,9 +21,11 @@ export const UserContext = createContext<ContextProps>({
 
 export const Auth = () => {
   return (
-    <Routes>
-      <Route path="" element={<Login />} />
-    </Routes>
+    <Layout>
+      <Routes>
+        <Route path="" element={<Login />} />
+      </Routes>
+    </Layout>
   );
 };
 
