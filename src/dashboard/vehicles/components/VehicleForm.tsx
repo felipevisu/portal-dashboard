@@ -38,8 +38,6 @@ export const VehicleForm = ({
     errors
   );
 
-  console.log(data);
-
   const handleChange = (e: React.ChangeEvent<any>) => {
     setData({
       ...data,

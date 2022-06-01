@@ -9,8 +9,8 @@ import { makeStyles } from "@saleor/macaw-ui";
 import classNames from "classnames";
 import React from "react";
 
-import { Node } from "../../types";
-import Checkbox from "../Checkbox";
+import { Node } from "../types";
+import Checkbox from "./Checkbox";
 
 export interface TableHeadProps extends MuiTableHeadProps {
   colSpan: number;
@@ -101,20 +101,18 @@ const TableHead: React.FC<TableHeadProps> = (props) => {
           </TableCell>
         )}
         {selected ? (
-          <>
-            <TableCell
-              className={classNames(classes.cell, classes.root)}
-              colSpan={getColSpan(colSpan, dragRows)}
-            >
-              <div className={classes.container}>
-                {selected && (
-                  <Typography>{selected} items selecionados</Typography>
-                )}
-                <div className={classes.spacer} />
-                {toolbar && <div className={classes.toolbar}>{toolbar}</div>}
-              </div>
-            </TableCell>
-          </>
+          <TableCell
+            className={classNames(classes.cell, classes.root)}
+            colSpan={getColSpan(colSpan, dragRows)}
+          >
+            <div className={classes.container}>
+              {selected && (
+                <Typography>{selected} items selecionados</Typography>
+              )}
+              <div className={classes.spacer} />
+              {toolbar && <div className={classes.toolbar}>{toolbar}</div>}
+            </div>
+          </TableCell>
         ) : (
           children
         )}
@@ -122,5 +120,6 @@ const TableHead: React.FC<TableHeadProps> = (props) => {
     </MuiTableHead>
   );
 };
+
 TableHead.displayName = "TableHead";
 export default TableHead;

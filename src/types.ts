@@ -1,7 +1,33 @@
+import { PageInfoFragment } from "./graphql";
+
 export type RelayToFlat<T extends { edges: Array<{ node: any }> }> = Array<
   T["edges"][0]["node"]
 >;
 
 export interface Node {
   id: string;
+}
+
+export interface SearchProps {
+  onSearchChange: (e: React.ChangeEvent<any>) => void;
+}
+export interface SearchPageProps extends SearchProps {
+  initialSearch: string;
+}
+
+export interface ListActionsWithoutToolbar {
+  toggle: (id: string) => void;
+  toggleAll: (items: React.ReactNodeArray, selected: number) => void;
+  isChecked: (id: string) => boolean;
+  selected: number;
+}
+
+export interface ListActions extends ListActionsWithoutToolbar {
+  toolbar: React.ReactNode | React.ReactNodeArray;
+}
+
+export interface PaginateListProps {
+  pageInfo?: PageInfoFragment;
+  onNextPage: (value: string) => void;
+  onPreviousPage: () => void;
 }

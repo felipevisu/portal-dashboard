@@ -21,17 +21,17 @@ const useStyles = makeStyles(
 
 interface SearchBarProps {
   placeholder?: string;
-  onChangeSearch: (e: React.ChangeEvent<any>) => void;
+  onSearchChange: (e: React.ChangeEvent<any>) => void;
 }
 
-export const SearchBar = ({ placeholder, onChangeSearch }: SearchBarProps) => {
+export const SearchBar = ({ placeholder, onSearchChange }: SearchBarProps) => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <TextField
         fullWidth
-        onChange={onChangeSearch}
+        onChange={onSearchChange}
         inputProps={{
           className: classes.input,
           placeholder,

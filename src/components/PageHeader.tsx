@@ -2,8 +2,8 @@ import { Typography } from "@material-ui/core";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 
-import ExtendedPageHeader from "../ExtendedPageHeader";
-import Skeleton from "../Skeleton";
+import ExtendedPageHeader from "./ExtendedPageHeader";
+import Skeleton from "./Skeleton";
 
 const useStyles = makeStyles(
   (theme) => ({
