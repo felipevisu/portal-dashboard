@@ -35,3 +35,13 @@ export const categoryDelete = gql`
     }
   }
 `;
+
+export const categoryBulkDeleteMutation = gql`
+  mutation CategoryBulkDelete($ids: [ID!]!) {
+    categoryBulkDelete(ids: $ids) {
+      errors {
+        ...Error
+      }
+    }
+  }
+`;

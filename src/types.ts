@@ -8,6 +8,11 @@ export interface Node {
   id: string;
 }
 
+export interface DialogProps {
+  open: boolean;
+  onClose: () => void;
+}
+
 export interface SearchProps {
   onSearchChange: (e: React.ChangeEvent<any>) => void;
 }
@@ -31,3 +36,15 @@ export interface PaginateListProps {
   onNextPage: (value: string) => void;
   onPreviousPage: () => void;
 }
+
+export type BulkAction = Partial<{
+  ids: string[];
+}>;
+
+export type Dialog<TDialog extends string> = Partial<{
+  action: TDialog;
+}>;
+
+export type SingleAction = Partial<{
+  id: string;
+}>;

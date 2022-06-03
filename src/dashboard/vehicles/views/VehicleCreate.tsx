@@ -1,6 +1,5 @@
 import React from "react";
 import { useVehicleCreateMutation } from "@portal/graphql";
-import { Header } from "../../components";
 import { useNavigate } from "react-router-dom";
 import VehicleForm from "../components/VehicleForm";
 import useCategorySearch from "@portal/searches/useCategorySearch";
@@ -28,12 +27,6 @@ export const VehicleCreate = () => {
 
   return (
     <div>
-      <Header
-        title="Novo veículo"
-        buttonPath="/admin/vehicles"
-        buttonLabel="Voltar"
-        buttonVariant="secondary"
-      />
       <VehicleForm
         onSubmit={handleSubmit}
         categories={mapEdgesToItems(searchCategoryOpts?.data?.search) || []}

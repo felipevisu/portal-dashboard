@@ -26,6 +26,13 @@ type Category implements Node {
   vehicles(after: String, before: String, first: Int, last: Int): VehiclesConnection
 }
 
+"""Deletes categories."""
+type CategoryBulkDelete {
+  """Returns how many objects were affected."""
+  count: Int!
+  errors: [Error!]!
+}
+
 type CategoryConnection {
   """Contains the nodes in this connection."""
   edges: [CategoryEdge]!
@@ -291,6 +298,11 @@ schema (one of the key benefits of GraphQL).
 scalar JSONString
 
 type Mutation {
+  """Deletes categories."""
+  categoryBulkDelete(
+    """List of category IDs to delete."""
+    ids: [ID!]!
+  ): CategoryBulkDelete
   categoryCreate(input: CategoryInput!): CategoryCreate
   categoryDelete(id: ID): CategoryDelete
   categoryUpdate(id: ID, input: CategoryInput!): CategoryUpdate
@@ -461,13 +473,13 @@ type Query {
   investments(after: String, before: String, first: Int, isPublished: Boolean, last: Int, mounth: Int, offset: Int, year: Int): InvestmentConnection
   me: User
   provider(id: ID, slug: String): Provider
-  providers(after: String, before: String, first: Int, isPublished: Boolean, last: Int, offset: Int, search: String, sortBy: ProviderSortingInput): ProviderConnection
+  providers(after: String, before: String, first: Int, isPublished: Boolean, last: Int, offset: Int, search: String, segment: ID, sortBy: ProviderSortingInput): ProviderConnection
   segment(id: ID, slug: String): Segment
   segments(after: String, before: String, first: Int, last: Int, offset: Int, search: String, sortBy: SegmentSortingInput): SegmentConnection
   session(id: ID, slug: String): Session
   sessions(after: String, before: String, first: Int, isPublished: Boolean, last: Int, offset: Int): SessionConnection
   vehicle(id: ID, slug: String): Vehicle
-  vehicles(after: String, before: String, first: Int, isPublished: Boolean, last: Int, offset: Int, search: String): VehicleConnection
+  vehicles(after: String, before: String, category: ID, first: Int, isPublished: Boolean, last: Int, offset: Int, search: String): VehicleConnection
 }
 
 type Refresh {

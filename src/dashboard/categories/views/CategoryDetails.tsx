@@ -3,7 +3,6 @@ import {
   useCategoryUpdateMutation,
   useCategoryDeleteMutation,
 } from "@portal/graphql";
-import { Header } from "../../components";
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import CategoryForm, { FormProps } from "../components/CategoryForm";
@@ -40,12 +39,6 @@ export const CategoryDetails = () => {
 
   return (
     <div>
-      <Header
-        title={data.category.name}
-        buttonPath="/admin/categories"
-        buttonLabel="Voltar"
-        buttonVariant="secondary"
-      />
       <CategoryForm
         initialData={{ name: data.category.name, slug: data.category.slug }}
         onSubmit={handleSubmit}

@@ -4,7 +4,7 @@ import { CategoryFragment } from "@portal/graphql";
 import { SearchBar } from "@portal/components/SearchBar";
 import PageHeader from "@portal/components/PageHeader";
 import { Button } from "@portal/components/Button";
-import { Pagination } from "../../components";
+import { Pagination } from "@portal/components/Pagination";
 import { Card } from "@material-ui/core";
 import Container from "@portal/components/Container";
 import CategoryList from "./CategoryList";

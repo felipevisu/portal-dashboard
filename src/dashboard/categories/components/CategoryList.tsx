@@ -11,6 +11,13 @@ import Checkbox from "@portal/components/Checkbox";
 
 const useStyles = makeStyles(
   () => ({
+    colName: {
+      width: "auto",
+    },
+    colVehicles: {
+      width: 160,
+      textAlign: "center",
+    },
     tableRow: {
       cursor: "pointer",
     },
@@ -45,8 +52,8 @@ export const CategoryList = ({
         toggleAll={toggleAll}
         toolbar={toolbar}
       >
-        <TableCell>Nome</TableCell>
-        <TableCell>Veículos</TableCell>
+        <TableCell className={classes.colName}>Nome</TableCell>
+        <TableCell className={classes.colVehicles}>Veículos</TableCell>
       </TableHead>
       <TableBody>
         {renderCollection(categories, (category) => {
@@ -66,8 +73,8 @@ export const CategoryList = ({
                   onChange={() => toggle(category.id)}
                 />
               </TableCell>
-              <TableCell>{category.name}</TableCell>
-              <TableCell>0</TableCell>
+              <TableCell className={classes.colName}>{category.name}</TableCell>
+              <TableCell className={classes.colVehicles}>0</TableCell>
             </TableRowLink>
           );
         })}

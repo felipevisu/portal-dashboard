@@ -255,6 +255,41 @@ export function useCategoryDeleteMutation(baseOptions?: Apollo.MutationHookOptio
 export type CategoryDeleteMutationHookResult = ReturnType<typeof useCategoryDeleteMutation>;
 export type CategoryDeleteMutationResult = Apollo.MutationResult<Types.CategoryDeleteMutation>;
 export type CategoryDeleteMutationOptions = Apollo.BaseMutationOptions<Types.CategoryDeleteMutation, Types.CategoryDeleteMutationVariables>;
+export const CategoryBulkDeleteDocument = gql`
+    mutation CategoryBulkDelete($ids: [ID!]!) {
+  categoryBulkDelete(ids: $ids) {
+    errors {
+      ...Error
+    }
+  }
+}
+    ${ErrorFragmentDoc}`;
+export type CategoryBulkDeleteMutationFn = Apollo.MutationFunction<Types.CategoryBulkDeleteMutation, Types.CategoryBulkDeleteMutationVariables>;
+
+/**
+ * __useCategoryBulkDeleteMutation__
+ *
+ * To run a mutation, you first call `useCategoryBulkDeleteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCategoryBulkDeleteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [categoryBulkDeleteMutation, { data, loading, error }] = useCategoryBulkDeleteMutation({
+ *   variables: {
+ *      ids: // value for 'ids'
+ *   },
+ * });
+ */
+export function useCategoryBulkDeleteMutation(baseOptions?: Apollo.MutationHookOptions<Types.CategoryBulkDeleteMutation, Types.CategoryBulkDeleteMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Types.CategoryBulkDeleteMutation, Types.CategoryBulkDeleteMutationVariables>(CategoryBulkDeleteDocument, options);
+      }
+export type CategoryBulkDeleteMutationHookResult = ReturnType<typeof useCategoryBulkDeleteMutation>;
+export type CategoryBulkDeleteMutationResult = Apollo.MutationResult<Types.CategoryBulkDeleteMutation>;
+export type CategoryBulkDeleteMutationOptions = Apollo.BaseMutationOptions<Types.CategoryBulkDeleteMutation, Types.CategoryBulkDeleteMutationVariables>;
 export const CategoriesDocument = gql`
     query Categories($first: Int, $last: Int, $after: String, $before: String, $search: String) {
   categories(
