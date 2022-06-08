@@ -1,9 +1,9 @@
 import { Button } from "./Button";
-import { ButtonProps } from "@saleor/macaw-ui";
+import { ButtonProps } from "@mui/material";
 import React from "react";
 
 const BackButton: React.FC<ButtonProps> = (props) => (
-  <Button data-test-id="back" variant="secondary" color="text" {...props}>
+  <Button data-test-id="back" color="secondary" {...props}>
     Voltar
   </Button>
 );

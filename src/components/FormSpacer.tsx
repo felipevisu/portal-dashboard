@@ -1,8 +1,8 @@
-import { makeStyles } from "@saleor/macaw-ui";
+import { makeStyles } from "@mui/styles";
 import React from "react";
 
 const useStyles = makeStyles(
-  (theme) => ({
+  (theme: any) => ({
     spacer: {
       marginTop: theme.spacing(3),
     },

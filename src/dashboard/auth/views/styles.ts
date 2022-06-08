@@ -1,6 +1,6 @@
-import { makeStyles } from "@saleor/macaw-ui";
+import { makeStyles } from "@mui/styles";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: any) => ({
   buttonContainer: {
     display: "flex",
     justifyContent: "flex-end",

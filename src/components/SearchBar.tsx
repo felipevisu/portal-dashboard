@@ -1,9 +1,9 @@
 import React from "react";
-import { TextField } from "@material-ui/core";
-import { makeStyles } from "@saleor/macaw-ui";
+import { TextField } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles(
-  (theme) => ({
+  (theme: any) => ({
     root: {
       borderBottom: `1px solid ${theme.palette.divider}`,
       display: "flex",

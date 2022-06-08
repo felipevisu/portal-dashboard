@@ -1,9 +1,9 @@
-import { makeStyles } from "@saleor/macaw-ui";
+import { makeStyles } from "@mui/styles";
 import classNames from "classnames";
 import React from "react";
 
 const useStyles = makeStyles(
-  (theme) => ({
+  (theme: any) => ({
     "@keyframes skeleton-animation": {
       "0%": {
         opacity: 0.6,

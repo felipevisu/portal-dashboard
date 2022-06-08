@@ -1,7 +1,7 @@
 import { PageInfoFragment } from "@portal/graphql";
 import React from "react";
 import { useSearchParams } from "react-router-dom";
-import { Pagination as BasePagination, makeStyles } from "@saleor/macaw-ui";
+import { makeStyles } from "@mui/styles";
 
 interface PaginationProps {
   pageInfo: PageInfoFragment;
@@ -9,7 +9,7 @@ interface PaginationProps {
   onClickPreviousPage: () => void;
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: any) => ({
   pagination: {
     padding: theme.spacing(1, 2),
   },
@@ -25,17 +25,7 @@ export const Pagination = ({
   const nextDisabled = !pageInfo.hasNextPage;
   const classes = useStyles();
 
-  return (
-    <div className={classes.pagination}>
-      <BasePagination
-        hasNextPage={!nextDisabled}
-        hasPreviousPage={!previousDisabled}
-        onNextPage={() => onClickNextPage(pageInfo.endCursor)}
-        onPreviousPage={() => onClickPreviousPage()}
-        labels={{ noOfRows: "número de items" }}
-      />
-    </div>
-  );
+  return <div className={classes.pagination}></div>;
 };
 
 export default Pagination;

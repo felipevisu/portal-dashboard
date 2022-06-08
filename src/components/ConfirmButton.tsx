@@ -1,29 +1,16 @@
-import {
-  ConfirmButton as MacawConfirmButton,
-  ConfirmButtonLabels,
-  ConfirmButtonProps as MacawConfirmButtonProps,
-} from "@saleor/macaw-ui";
 import React from "react";
 
-export interface ConfirmButtonProps
-  extends Omit<MacawConfirmButtonProps, "labels"> {
-  labels?: Partial<ConfirmButtonLabels>;
-}
-
-export const ConfirmButton: React.FC<ConfirmButtonProps> = ({
-  labels = {},
-  ...rest
-}) => {
-  const defaultLabels: ConfirmButtonLabels = {
+export const ConfirmButton: React.FC<any> = ({ labels = {}, ...rest }) => {
+  const defaultLabels: any = {
     confirm: "Salvar",
     error: "Error",
   };
-  const componentLabels: ConfirmButtonLabels = {
+  const componentLabels: any = {
     ...defaultLabels,
     ...labels,
   };
 
-  return <MacawConfirmButton labels={componentLabels} {...rest} />;
+  return <span>Botões</span>;
 };
 ConfirmButton.displayName = "ConfirmButton";
 export default ConfirmButton;

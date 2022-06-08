@@ -1,5 +1,4 @@
-import { Dialog, DialogContent, DialogTitle } from "@material-ui/core";
-import { ConfirmButtonTransitionState } from "@saleor/macaw-ui";
+import { Dialog, DialogContent, DialogTitle } from "@mui/material";
 import { DialogProps } from "@portal/types";
 import React from "react";
 
@@ -8,7 +7,7 @@ import DialogButtons, { ActionDialogVariant, Size } from "./DialogButtons";
 export interface ActionDialogProps extends DialogProps {
   children?: React.ReactNode;
   confirmButtonLabel?: string;
-  confirmButtonState: ConfirmButtonTransitionState;
+  confirmButtonState: string;
   disabled?: boolean;
   maxWidth?: Size | false;
   title: string;

@@ -1,5 +1,5 @@
 import React from "react";
-import { DialogContentText } from "@material-ui/core";
+import { DialogContentText, IconButton } from "@mui/material";
 import {
   useCategoriesQuery,
   useCategoryBulkDeleteMutation,
@@ -8,7 +8,6 @@ import {
 import { mapEdgesToItems } from "@portal/utils/maps";
 import CategoryListPage from "../components/CategoryListPage";
 import { useBulkActions, usePaginator, useSearch } from "@portal/hooks";
-import { DeleteIcon, IconButton } from "@saleor/macaw-ui";
 import ActionDialog from "@portal/components/ActionDialog";
 import useModal from "@portal/hooks/useModal";
 
@@ -49,8 +48,8 @@ export const CategoryList = () => {
         selected={listElements.length}
         isChecked={isSelected}
         toolbar={
-          <IconButton variant="secondary" color="primary" onClick={openModal}>
-            <DeleteIcon />
+          <IconButton color="primary" onClick={openModal}>
+            <span>icon</span>
           </IconButton>
         }
         onSearchChange={handleSearch}

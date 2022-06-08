@@ -1,10 +1,10 @@
-import { Divider } from "@material-ui/core";
-import { makeStyles } from "@saleor/macaw-ui";
+import { Divider } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import classNames from "classnames";
 import React from "react";
 
 const useStyles = makeStyles(
-  (theme) => ({
+  (theme: any) => ({
     action: {
       flex: "0 0 auto",
     },

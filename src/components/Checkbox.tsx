@@ -1,14 +1,15 @@
-import MuiCheckbox, {
+import {
+  FormHelperText,
+  Checkbox as MuiCheckbox,
   CheckboxProps as MuiCheckboxProps,
-} from "@material-ui/core/Checkbox";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import { makeStyles } from "@saleor/macaw-ui";
+} from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import React from "react";
 
 const useStyles = makeStyles(
-  (theme) => ({
+  () => ({
     error: {
-      color: theme.palette.error.main,
+      color: "red",
     },
   }),
   { name: "Checkbox" }

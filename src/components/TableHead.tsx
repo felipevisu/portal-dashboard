@@ -3,9 +3,9 @@ import {
   TableHead as MuiTableHead,
   TableRow,
   Typography,
-} from "@material-ui/core";
-import { TableHeadProps as MuiTableHeadProps } from "@material-ui/core/TableHead";
-import { makeStyles } from "@saleor/macaw-ui";
+  TableHeadProps as MuiTableHeadProps,
+} from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import classNames from "classnames";
 import React from "react";
 
@@ -23,7 +23,7 @@ export interface TableHeadProps extends MuiTableHeadProps {
 }
 
 const useStyles = makeStyles(
-  (theme) => ({
+  (theme: any) => ({
     cell: {
       height: 56,
     },

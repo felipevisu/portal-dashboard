@@ -1,7 +1,7 @@
 import React from "react";
-import { makeStyles } from "@saleor/macaw-ui";
+import { makeStyles } from "@mui/styles";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: any) => ({
   footer: {
     position: "absolute",
     bottom: theme.spacing(4),

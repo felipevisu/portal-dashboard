@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TextField, Typography } from "@material-ui/core";
+import { TextField, Typography } from "@mui/material";
 import { UserFragment, ErrorFragment } from "@portal/graphql";
 import { Button } from "@portal/components/Button";
 import { FormSpacer } from "@portal/components/FormSpacer";
@@ -74,7 +74,7 @@ export const Login = () => {
       <div className={classes.buttonContainer}>
         <Button
           className={classes.loginButton}
-          variant="primary"
+          color="primary"
           onClick={handleSubmit}
           type="submit"
           data-test-id="submit"

@@ -1,5 +1,4 @@
-import { DialogActions } from "@material-ui/core";
-import { ConfirmButtonTransitionState } from "@saleor/macaw-ui";
+import { DialogActions } from "@mui/material";
 import React from "react";
 
 import BackButton from "./BackButton";
@@ -11,7 +10,7 @@ export type Size = "xs" | "sm" | "md" | "lg" | "xl";
 interface DialogButtonsProps {
   onClose: () => void;
   confirmButtonLabel?: string;
-  confirmButtonState?: ConfirmButtonTransitionState;
+  confirmButtonState?: string;
   disabled?: boolean;
   variant?: ActionDialogVariant;
   children?: React.ReactNode;

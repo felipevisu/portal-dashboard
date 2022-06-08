@@ -1,9 +1,9 @@
-import { Table } from "@material-ui/core";
-import { makeStyles } from "@saleor/macaw-ui";
+import { Table } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import React from "react";
 
 const useStyles = makeStyles(
-  (theme) => ({
+  (theme: any) => ({
     root: {
       [theme.breakpoints.up("md")]: {
         "&& table": {

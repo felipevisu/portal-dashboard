@@ -1,5 +1,5 @@
 import { ErrorFragment } from "@portal/graphql";
-import { TextField } from "@material-ui/core";
+import { TextField } from "@mui/material";
 import { getFormErrors } from "@portal/utils/errors";
 import React, { useState } from "react";
 

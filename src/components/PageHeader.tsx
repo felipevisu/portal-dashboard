@@ -1,12 +1,12 @@
-import { Typography } from "@material-ui/core";
-import { makeStyles } from "@saleor/macaw-ui";
+import { Typography } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import React from "react";
 
 import ExtendedPageHeader from "./ExtendedPageHeader";
 import Skeleton from "./Skeleton";
 
 const useStyles = makeStyles(
-  (theme) => ({
+  (theme: any) => ({
     limit: {
       marginRight: theme.spacing(4),
     },

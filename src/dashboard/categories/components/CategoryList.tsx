@@ -1,8 +1,8 @@
 import React from "react";
-import { TableCell, TableBody } from "@material-ui/core";
+import { TableCell, TableBody } from "@mui/material";
 import ResponsiveTable from "@portal/components/ResponsiveTable";
 import { CategoryFragment } from "@portal/graphql";
-import { makeStyles } from "@saleor/macaw-ui";
+import { makeStyles } from "@mui/styles";
 import TableHead from "@portal/components/TableHead";
 import { renderCollection } from "@portal/misc";
 import TableRowLink from "@portal/components/TableRowLink";

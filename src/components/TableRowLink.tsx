@@ -1,5 +1,5 @@
-import { TableRow, TableRowTypeMap } from "@material-ui/core";
-import { makeStyles } from "@saleor/macaw-ui";
+import { TableRow, TableRowTypeMap } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import { isExternalURL } from "@portal/utils/urls";
 import clsx from "classnames";
 import React from "react";

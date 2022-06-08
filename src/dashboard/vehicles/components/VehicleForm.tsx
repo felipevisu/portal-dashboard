@@ -1,6 +1,6 @@
 import { ErrorFragment, SearchCategoriesQuery } from "@portal/graphql";
 import { RelayToFlat } from "@portal/types";
-import { TextField } from "@material-ui/core";
+import { TextField } from "@mui/material";
 import { getFormErrors } from "@portal/utils/errors";
 import React, { useState } from "react";
 

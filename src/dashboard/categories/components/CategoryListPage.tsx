@@ -5,7 +5,7 @@ import { SearchBar } from "@portal/components/SearchBar";
 import PageHeader from "@portal/components/PageHeader";
 import { Button } from "@portal/components/Button";
 import { Pagination } from "@portal/components/Pagination";
-import { Card } from "@material-ui/core";
+import { Card } from "@mui/material";
 import Container from "@portal/components/Container";
 import CategoryList from "./CategoryList";
 
@@ -34,7 +34,7 @@ export const CategoryListPage = ({
     <Container>
       <PageHeader title={"Categorias"}>
         <Button
-          variant="primary"
+          color="primary"
           href={"/admin/categories/create"}
           data-test-id="create-category"
         >

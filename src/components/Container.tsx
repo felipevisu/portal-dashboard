@@ -1,14 +1,15 @@
-import { makeStyles } from "@saleor/macaw-ui";
+import { makeStyles } from "@mui/styles";
+import { Theme } from "@mui/material";
 import classNames from "classnames";
 import React from "react";
 
 const useStyles = makeStyles(
-  (theme) => ({
+  (theme: Theme) => ({
     root: {
       [theme.breakpoints.up("lg")]: {
         marginLeft: "auto",
         marginRight: "auto",
-        maxWidth: theme.breakpoints.width("lg"),
+        maxWidth: theme.breakpoints.values.lg,
       },
       [theme.breakpoints.up("sm")]: {
         padding: theme.spacing(0, 3),
