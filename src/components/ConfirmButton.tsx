@@ -1,16 +1,23 @@
-import React from "react";
+import { Button } from "@mui/material";
+import React, { ReactNode } from "react";
 
-export const ConfirmButton: React.FC<any> = ({ labels = {}, ...rest }) => {
-  const defaultLabels: any = {
-    confirm: "Salvar",
-    error: "Error",
-  };
-  const componentLabels: any = {
-    ...defaultLabels,
-    ...labels,
-  };
+export interface ConfirmButtonProps {
+  onClick: () => void;
+  disabled: boolean;
+  transitionState?: string;
+  error?: boolean;
+  children: ReactNode;
+}
 
-  return <span>Botões</span>;
+export const ConfirmButton: React.FC<ConfirmButtonProps> = ({
+  onClick,
+  children,
+}) => {
+  return (
+    <Button onClick={onClick} color="primary" variant="contained">
+      {children}
+    </Button>
+  );
 };
 ConfirmButton.displayName = "ConfirmButton";
 export default ConfirmButton;

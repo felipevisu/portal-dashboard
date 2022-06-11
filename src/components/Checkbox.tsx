@@ -3,17 +3,7 @@ import {
   Checkbox as MuiCheckbox,
   CheckboxProps as MuiCheckboxProps,
 } from "@mui/material";
-import { makeStyles } from "@mui/styles";
 import React from "react";
-
-const useStyles = makeStyles(
-  () => ({
-    error: {
-      color: "red",
-    },
-  }),
-  { name: "Checkbox" }
-);
 
 export type CheckboxProps = Omit<
   MuiCheckboxProps,
@@ -24,9 +14,8 @@ export type CheckboxProps = Omit<
   error?: boolean;
 };
 
-const Checkbox: React.FC<CheckboxProps> = ({ helperText, error, ...props }) => {
+const Checkbox: React.FC<CheckboxProps> = ({ helperText, ...props }) => {
   const { disableClickPropagation, ...rest } = props;
-  const classes = useStyles();
 
   return (
     <>
@@ -38,11 +27,7 @@ const Checkbox: React.FC<CheckboxProps> = ({ helperText, error, ...props }) => {
             : undefined
         }
       />
-      {helperText && (
-        <FormHelperText classes={{ root: error && classes.error }}>
-          {helperText}
-        </FormHelperText>
-      )}
+      {helperText && <FormHelperText>{helperText}</FormHelperText>}
     </>
   );
 };

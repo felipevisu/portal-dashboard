@@ -1,11 +1,11 @@
-import { TableRow, TableRowTypeMap } from "@mui/material";
-import { makeStyles } from "@mui/styles";
+import { TableRow, TableRowTypeMap, styled } from "@mui/material";
 import { isExternalURL } from "@portal/utils/urls";
-import clsx from "classnames";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link as BaseLink } from "react-router-dom";
 
 type MaterialTableRowPropsType = TableRowTypeMap["props"];
+
+const Link = styled(BaseLink)(() => ({ all: "inherit", display: "contents" }));
 
 export interface TableRowLinkProps
   extends Omit<MaterialTableRowPropsType, "onClick"> {
@@ -15,31 +15,19 @@ export interface TableRowLinkProps
   linkClassName?: string;
 }
 
-const useStyles = makeStyles(
-  {
-    link: {
-      all: "inherit",
-      display: "contents",
-    },
-  },
-  { name: "TableRowLink" }
-);
-
 const TableRowLink = ({
   href,
   children,
   linkClassName,
   ...props
 }: TableRowLinkProps) => {
-  const classes = useStyles();
-
   if (!href || isExternalURL(href)) {
     return <TableRow {...props}>{children}</TableRow>;
   }
 
   return (
     <TableRow {...props}>
-      <Link className={clsx(classes.link, linkClassName)} to={href}>
+      <Link className={linkClassName} to={href}>
         {children}
       </Link>
     </TableRow>

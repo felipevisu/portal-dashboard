@@ -3,7 +3,7 @@ import { ButtonProps } from "@mui/material";
 import React from "react";
 
 const BackButton: React.FC<ButtonProps> = (props) => (
-  <Button data-test-id="back" color="secondary" {...props}>
+  <Button color="secondary" variant="contained" {...props}>
     Voltar
   </Button>
 );

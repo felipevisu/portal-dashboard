@@ -1,57 +1,15 @@
-import { Divider } from "@mui/material";
-import { makeStyles } from "@mui/styles";
-import classNames from "classnames";
+import { Divider, styled } from "@mui/material";
 import React from "react";
 
-const useStyles = makeStyles(
-  (theme: any) => ({
-    action: {
-      flex: "0 0 auto",
-    },
-    block: {
-      [theme.breakpoints.down("xs")]: {
-        "&&": {
-          display: "block",
-        },
-      },
-    },
-    underline: {
-      marginBottom: theme.spacing(4),
-    },
-    grid: {
-      padding: theme.spacing(2),
-    },
-    menuButton: {
-      flex: "0 0 auto",
-      marginLeft: theme.spacing(-2),
-      marginRight: theme.spacing(3),
-      marginTop: theme.spacing(-2),
-    },
-    root: {
-      alignItems: "center",
-      display: "flex",
-      marginBottom: theme.spacing(3),
-      wordBreak: "break-all",
-    },
-    subtitle: {
-      alignItems: "center",
-      display: "flex",
-      marginBottom: theme.spacing(2),
-    },
-    titleRow: {
-      flex: 1,
-      display: "flex",
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "space-between",
-      minWidth: 0,
-      textOverflow: "ellipsis",
-    },
-  }),
-  {
-    name: "ExtendedPageHeader",
-  }
-);
+const Header = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  marginBottom: theme.spacing(3),
+}));
+
+const Title = styled("div")(() => ({
+  flexGrow: 1,
+}));
 
 interface ExtendedPageHeaderProps {
   children?: React.ReactNode;
@@ -64,34 +22,16 @@ interface ExtendedPageHeaderProps {
 }
 
 const ExtendedPageHeader = (props: ExtendedPageHeaderProps) => {
-  const {
-    children,
-    className,
-    childrenWrapperClassName,
-    inline,
-    underline,
-    title,
-    testId,
-  } = props;
-
-  const classes = useStyles(props);
+  const { children, underline, title } = props;
 
   return (
     <>
-      <div
-        data-test-id={testId}
-        className={classNames(classes.root, className, {
-          [classes.block]: !inline,
-          [classes.underline]: underline,
-        })}
-      >
-        <div className={classes.titleRow}>{title}</div>
-        <div className={classNames(classes.action, childrenWrapperClassName)}>
-          {children}
-        </div>
-      </div>
+      <Header>
+        <Title>{title}</Title>
+        <div>{children}</div>
+      </Header>
       {underline && (
-        <div className={classes.underline}>
+        <div>
           <Divider />
         </div>
       )}

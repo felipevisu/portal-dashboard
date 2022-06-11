@@ -4,13 +4,24 @@ import {
   TableRow,
   Typography,
   TableHeadProps as MuiTableHeadProps,
+  styled,
 } from "@mui/material";
-import { makeStyles } from "@mui/styles";
-import classNames from "classnames";
 import React from "react";
 
 import { Node } from "../types";
 import Checkbox from "./Checkbox";
+
+const Container = styled("div")(() => ({
+  alignItems: "center",
+  display: "flex",
+  padding: 0,
+}));
+
+const Spacer = styled("div")(() => ({ flex: 1 }));
+
+const Toolbar = styled("div")(({ theme }) => ({
+  marginRight: theme.spacing(2),
+}));
 
 export interface TableHeadProps extends MuiTableHeadProps {
   colSpan: number;
@@ -22,48 +33,10 @@ export interface TableHeadProps extends MuiTableHeadProps {
   toggleAll?: (items: Node[], selected: number) => void;
 }
 
-const useStyles = makeStyles(
-  (theme: any) => ({
-    cell: {
-      height: 56,
-    },
-    container: {
-      alignItems: "center",
-      display: "flex",
-      height: 47,
-      marginRight: theme.spacing(-2),
-    },
-    dragRows: {
-      padding: 0,
-      width: 52,
-    },
-    padding: {
-      "&:last-child": {
-        padding: 0,
-      },
-    },
-    root: {
-      paddingLeft: 0,
-      paddingRight: theme.spacing(4),
-    },
-    spacer: {
-      flex: 1,
-    },
-    toolbar: {
-      "& > *": {
-        marginLeft: theme.spacing(1),
-      },
-      marginRight: theme.spacing(1.5),
-    },
-  }),
-  { name: "TableHead" }
-);
-
 function getColSpan(colSpan: number, dragRows: boolean): number {
   if (dragRows) {
     return colSpan - 2;
   }
-
   return colSpan - 1;
 }
 
@@ -79,19 +52,13 @@ const TableHead: React.FC<TableHeadProps> = (props) => {
     toolbar,
     ...muiTableHeadProps
   } = props;
-  const classes = useStyles(props);
 
   return (
     <MuiTableHead {...muiTableHeadProps}>
       <TableRow>
         {dragRows && (items === undefined || items.length > 0) && <TableCell />}
         {(items === undefined || items.length > 0) && (
-          <TableCell
-            padding="checkbox"
-            className={classNames(classes.cell, {
-              [classes.dragRows]: dragRows,
-            })}
-          >
+          <TableCell padding="checkbox" sx={{ height: 56 }}>
             <Checkbox
               indeterminate={items && items.length > selected && selected > 0}
               checked={selected !== 0}
@@ -102,16 +69,16 @@ const TableHead: React.FC<TableHeadProps> = (props) => {
         )}
         {selected ? (
           <TableCell
-            className={classNames(classes.cell, classes.root)}
             colSpan={getColSpan(colSpan, dragRows)}
+            sx={{ height: 56 }}
           >
-            <div className={classes.container}>
+            <Container>
               {selected && (
                 <Typography>{selected} items selecionados</Typography>
               )}
-              <div className={classes.spacer} />
-              {toolbar && <div className={classes.toolbar}>{toolbar}</div>}
-            </div>
+              <Spacer />
+              {toolbar && <Toolbar>{toolbar}</Toolbar>}
+            </Container>
           </TableCell>
         ) : (
           children

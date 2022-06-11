@@ -31,7 +31,7 @@ const DialogButtons: React.FC<DialogButtonsProps> = (props) => {
   } = props;
 
   return (
-    <DialogActions>
+    <DialogActions sx={{ padding: "spacing.5" }}>
       {children}
       {showBackButton && <BackButton onClick={onClose} />}
       {variant !== "info" && (
@@ -40,7 +40,6 @@ const DialogButtons: React.FC<DialogButtonsProps> = (props) => {
           transitionState={confirmButtonState}
           onClick={onConfirm}
           error={variant === "delete"}
-          data-test-id="submit"
         >
           {confirmButtonLabel ||
             (variant === "delete" ? "Excluir" : "Confirma")}

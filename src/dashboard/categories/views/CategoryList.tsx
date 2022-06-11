@@ -10,6 +10,7 @@ import CategoryListPage from "../components/CategoryListPage";
 import { useBulkActions, usePaginator, useSearch } from "@portal/hooks";
 import ActionDialog from "@portal/components/ActionDialog";
 import useModal from "@portal/hooks/useModal";
+import { Delete } from "@mui/icons-material";
 
 export const CategoryList = () => {
   const { search, handleSearch } = useSearch();
@@ -49,7 +50,7 @@ export const CategoryList = () => {
         isChecked={isSelected}
         toolbar={
           <IconButton color="primary" onClick={openModal}>
-            <span>icon</span>
+            <Delete />
           </IconButton>
         }
         onSearchChange={handleSearch}
@@ -59,7 +60,7 @@ export const CategoryList = () => {
         pageInfo={data?.categories?.pageInfo}
       />
       <ActionDialog
-        confirmButtonState={"default"}
+        confirmButtonLabel="Excluir"
         onClose={closeModal}
         onConfirm={() =>
           categoryBulkDelete({ variables: { ids: listElements } })

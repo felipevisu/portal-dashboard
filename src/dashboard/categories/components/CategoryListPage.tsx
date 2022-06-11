@@ -35,10 +35,10 @@ export const CategoryListPage = ({
       <PageHeader title={"Categorias"}>
         <Button
           color="primary"
+          variant="contained"
           href={"/admin/categories/create"}
-          data-test-id="create-category"
         >
-          Nova categoria
+          Criar categoria
         </Button>
       </PageHeader>
       <Card>

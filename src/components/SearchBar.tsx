@@ -1,23 +1,10 @@
 import React from "react";
-import { TextField } from "@mui/material";
-import { makeStyles } from "@mui/styles";
+import { TextField, styled } from "@mui/material";
 
-const useStyles = makeStyles(
-  (theme: any) => ({
-    root: {
-      borderBottom: `1px solid ${theme.palette.divider}`,
-      display: "flex",
-      flexWrap: "wrap",
-      padding: theme.spacing(2, 2),
-    },
-    input: {
-      padding: "10.5px 12px",
-    },
-  }),
-  {
-    name: "SearchInput",
-  }
-);
+const Root = styled("div")(({ theme }) => ({
+  padding: theme.spacing(2),
+  borderBottom: `1px solid ${theme.palette.divider}`,
+}));
 
 interface SearchBarProps {
   placeholder?: string;
@@ -25,19 +12,15 @@ interface SearchBarProps {
 }
 
 export const SearchBar = ({ placeholder, onSearchChange }: SearchBarProps) => {
-  const classes = useStyles();
-
   return (
-    <div className={classes.root}>
+    <Root>
       <TextField
         fullWidth
         onChange={onSearchChange}
-        inputProps={{
-          className: classes.input,
-          placeholder,
-        }}
+        size="small"
+        inputProps={{ placeholder }}
       />
-    </div>
+    </Root>
   );
 };
 

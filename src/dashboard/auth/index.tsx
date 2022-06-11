@@ -23,7 +23,7 @@ export const Auth = () => {
   return (
     <Layout>
       <Routes>
-        <Route path="" element={<Login />} />
+        <Route path="*" element={<Login />} />
       </Routes>
     </Layout>
   );

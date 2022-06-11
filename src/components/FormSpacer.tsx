@@ -1,14 +1,9 @@
-import { makeStyles } from "@mui/styles";
+import { styled } from "@mui/material";
 import React from "react";
 
-const useStyles = makeStyles(
-  (theme: any) => ({
-    spacer: {
-      marginTop: theme.spacing(3),
-    },
-  }),
-  { name: "FormSpacer" }
-);
+const Spacer = styled("div")(({ theme }) => ({
+  marginTop: theme.spacing(3),
+}));
 
 interface FormSpacerProps {
   children?: React.ReactNode;
@@ -17,9 +12,7 @@ interface FormSpacerProps {
 export const FormSpacer: React.FC<FormSpacerProps> = (props) => {
   const { children } = props;
 
-  const classes = useStyles(props);
-
-  return <div className={classes.spacer}>{children}</div>;
+  return <Spacer>{children}</Spacer>;
 };
 
 FormSpacer.displayName = "FormSpacer";

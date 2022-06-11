@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { TextField, Typography } from "@mui/material";
+import { TextField, Typography, styled } from "@mui/material";
 import { UserFragment, ErrorFragment } from "@portal/graphql";
 import { Button } from "@portal/components/Button";
 import { FormSpacer } from "@portal/components/FormSpacer";
 
 import { useUser } from "..";
-import useStyles from "./styles";
 
 export interface FieldsProps {
   email: string | undefined;
@@ -20,9 +19,23 @@ export interface ResponseProps {
   };
 }
 
-export const Login = () => {
-  const classes = useStyles();
+const ButtonsContainer = styled("div")(() => ({
+  display: "flex",
+  justifyContent: "flex-end",
+}));
 
+const Panel = styled("div")(({ theme }) => ({
+  "& span": {
+    color: theme.palette.error.contrastText,
+  },
+  ...theme.typography.body1,
+  background: "red",
+  borderRadius: 8,
+  marginBottom: theme.spacing(2),
+  padding: theme.spacing(1.5, 2.5),
+}));
+
+export const Login = () => {
   const [form, setForm] = useState<FieldsProps>({
     email: "",
     password: "",
@@ -44,13 +57,11 @@ export const Login = () => {
 
   return (
     <div>
-      <Typography variant="h3" className={classes.header}>
+      <Typography variant="h3" sx={{ fontWeight: 700, marginBottom: 2 }}>
         Login
       </Typography>
       {errors.map((error, key) => (
-        <div className={classes.panel} key={key}>
-          {error.message}
-        </div>
+        <Panel key={key}>{error.message}</Panel>
       ))}
       <TextField
         autoFocus
@@ -71,9 +82,9 @@ export const Login = () => {
         onChange={handleChange}
       />
       <FormSpacer />
-      <div className={classes.buttonContainer}>
+      <ButtonsContainer>
         <Button
-          className={classes.loginButton}
+          sx={{ width: "100%" }}
           color="primary"
           onClick={handleSubmit}
           type="submit"
@@ -81,7 +92,7 @@ export const Login = () => {
         >
           Entrar
         </Button>
-      </div>
+      </ButtonsContainer>
     </div>
   );
 };

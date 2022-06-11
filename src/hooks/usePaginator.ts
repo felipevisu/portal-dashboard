@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
-const PAGE_SIZE = 20;
+const PAGE_SIZE = 1;
 
 export const usePaginator = () => {
   const [searchParams, setSearchParams] = useSearchParams();

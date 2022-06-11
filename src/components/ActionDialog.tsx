@@ -7,7 +7,6 @@ import DialogButtons, { ActionDialogVariant, Size } from "./DialogButtons";
 export interface ActionDialogProps extends DialogProps {
   children?: React.ReactNode;
   confirmButtonLabel?: string;
-  confirmButtonState: string;
   disabled?: boolean;
   maxWidth?: Size | false;
   title: string;

@@ -1,26 +1,5 @@
 import { Table } from "@mui/material";
-import { makeStyles } from "@mui/styles";
 import React from "react";
-
-const useStyles = makeStyles(
-  (theme: any) => ({
-    root: {
-      [theme.breakpoints.up("md")]: {
-        "&& table": {
-          tableLayout: "fixed",
-        },
-      },
-      "& table": {
-        tableLayout: "auto",
-      },
-      overflowX: "auto",
-      width: "100%",
-    },
-  }),
-  {
-    name: "ResponsiveTable",
-  }
-);
 
 interface ResponsiveTableProps {
   children: React.ReactNode | React.ReactNodeArray;
@@ -31,10 +10,8 @@ interface ResponsiveTableProps {
 const ResponsiveTable: React.FC<ResponsiveTableProps> = (props) => {
   const { children, className } = props;
 
-  const classes = useStyles(props);
-
   return (
-    <div className={classes.root}>
+    <div>
       <Table className={className}>{children}</Table>
     </div>
   );

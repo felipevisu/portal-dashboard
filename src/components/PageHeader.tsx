@@ -1,47 +1,7 @@
-import { Typography } from "@mui/material";
-import { makeStyles } from "@mui/styles";
+import { Typography, Skeleton } from "@mui/material";
 import React from "react";
 
 import ExtendedPageHeader from "./ExtendedPageHeader";
-import Skeleton from "./Skeleton";
-
-const useStyles = makeStyles(
-  (theme: any) => ({
-    limit: {
-      marginRight: theme.spacing(4),
-    },
-    preview: {
-      position: "absolute",
-      top: theme.spacing(-4),
-    },
-    root: {
-      alignItems: "center",
-      display: "flex",
-      [theme.breakpoints.down("xs")]: {
-        flexDirection: "column",
-        alignItems: "flex-start",
-        "& > *": {
-          width: "100%",
-        },
-        "& > *:not(first-child)": {
-          marginTop: theme.spacing(2),
-        },
-      },
-    },
-    title: {
-      [theme.breakpoints.down("sm")]: {
-        fontSize: 20,
-        padding: 0,
-      },
-      fontWeight: 700,
-      flex: 1,
-      whiteSpace: "nowrap",
-      overflow: "hidden",
-      textOverflow: "ellipsis",
-    },
-  }),
-  { name: "PageHeader" }
-);
 
 interface PageHeaderProps {
   children?: React.ReactNode;
@@ -57,8 +17,6 @@ const PageHeader = (props: PageHeaderProps) => {
   const { children, className, inline, underline, limitText, title, cardMenu } =
     props;
 
-  const classes = useStyles(props);
-
   return (
     <>
       <ExtendedPageHeader
@@ -68,22 +26,20 @@ const PageHeader = (props: PageHeaderProps) => {
         underline={underline}
         title={
           <>
-            <Typography className={classes.title} variant="h1">
+            <Typography variant="h3" fontWeight={"bold"}>
               {title !== undefined ? (
                 title
               ) : (
-                <Skeleton style={{ width: "10em" }} />
+                <Skeleton sx={{ width: "10em" }} />
               )}
             </Typography>
             {cardMenu}
           </>
         }
       >
-        <div className={classes.root}>
+        <div>
           {limitText && (
-            <Typography className={classes.limit} color="textSecondary">
-              {limitText}
-            </Typography>
+            <Typography color="textSecondary">{limitText}</Typography>
           )}
           {children}
         </div>
