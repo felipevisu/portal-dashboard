@@ -10,12 +10,10 @@ const MainPanel = styled("div")(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {
     padding: theme.spacing(2),
   },
-  background: theme.palette.background.paper,
   display: "flex",
   flexDirection: "column",
-  height: "100vh",
+  height: "98vh",
   justifyContent: "center",
-  padding: theme.spacing(5, 6, 4, 6),
   width: "100%",
 }));
 

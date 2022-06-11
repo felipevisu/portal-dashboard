@@ -1,28 +1,37 @@
-import { useCategoryCreateMutation } from "@portal/graphql";
+import {
+  CategoryCreateMutation,
+  useCategoryCreateMutation,
+} from "@portal/graphql";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import CategoryForm, { FormProps } from "../components/CategoryForm";
+import { CategoryCreatePage } from "../components/CategoryCreatePage";
+import { FormProps } from "../components/CategoryForm";
 
 export const CategoryCreate = () => {
-  const [createCategory, createCategoryResult] = useCategoryCreateMutation();
   const navigator = useNavigate();
 
-  const handleSubmit = async (data: FormProps) => {
-    const result = await createCategory({ variables: { input: { ...data } } });
-    if (!result.data?.categoryCreate.errors.length) {
+  const handleSuccess = (data: CategoryCreateMutation) => {
+    if (!data?.categoryCreate.errors.length) {
       navigator(
-        `/admin/categories/details/${result.data?.categoryCreate.category.id}`
+        `/admin/categories/details/${data?.categoryCreate.category.id}`
       );
     }
   };
 
+  const [createCategory, createCategoryResult] = useCategoryCreateMutation({
+    onCompleted: handleSuccess,
+  });
+
+  const handleSubmit = async (data: FormProps) => {
+    await createCategory({ variables: { input: { ...data } } });
+  };
+
   return (
-    <div>
-      <CategoryForm
-        onSubmit={handleSubmit}
-        errors={createCategoryResult.data?.categoryCreate.errors || []}
-      />
-    </div>
+    <CategoryCreatePage
+      onSubmit={handleSubmit}
+      errors={createCategoryResult.data?.categoryCreate.errors || []}
+      loading={createCategoryResult.loading}
+    />
   );
 };
 

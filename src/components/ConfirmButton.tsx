@@ -12,9 +12,14 @@ export interface ConfirmButtonProps {
 export const ConfirmButton: React.FC<ConfirmButtonProps> = ({
   onClick,
   children,
+  error,
 }) => {
   return (
-    <Button onClick={onClick} color="primary" variant="contained">
+    <Button
+      onClick={onClick}
+      color={error ? "error" : "primary"}
+      variant="contained"
+    >
       {children}
     </Button>
   );

@@ -4,6 +4,46 @@ const fontFamily = '"Inter", "sans-serif"';
 
 const theme = createTheme({
   spacing: (value = 1) => `${(value * 8) / 16}rem`,
+  components: {
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          boxShadow: "none",
+          borderRadius: 8,
+        },
+      },
+    },
+    MuiCardHeader: {
+      styleOverrides: {
+        root: {
+          padding: "24px 24px 8px",
+        },
+        title: {
+          fontSize: "1.2rem",
+          fontWeight: "600",
+        },
+      },
+    },
+    MuiCardContent: {
+      styleOverrides: {
+        root: {
+          padding: "16px 24px",
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          boxShadow: "none",
+          textTransform: "none",
+          fontWeight: 600,
+          "&:hover": {
+            boxShadow: "none",
+          },
+        },
+      },
+    },
+  },
   typography: {
     fontFamily: fontFamily,
     button: {
@@ -20,21 +60,6 @@ const theme = createTheme({
     body2: {
       fontSize: "1rem",
       lineHeight: 1.56,
-    },
-    h1: {
-      fontSize: "4rem",
-      fontWeight: 700,
-    },
-    h4: {
-      fontSize: "3.4rem",
-    },
-    h5: {
-      fontSize: "2.1rem",
-      fontWeight: 500,
-    },
-    h6: {
-      fontSize: "2rem",
-      fontWeight: 500,
     },
     subtitle1: {
       fontSize: "1.6rem",

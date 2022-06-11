@@ -13,7 +13,7 @@ interface PageHeaderProps {
   cardMenu?: React.ReactNode;
 }
 
-const PageHeader = (props: PageHeaderProps) => {
+export const PageHeader = (props: PageHeaderProps) => {
   const { children, className, inline, underline, limitText, title, cardMenu } =
     props;
 
@@ -26,7 +26,7 @@ const PageHeader = (props: PageHeaderProps) => {
         underline={underline}
         title={
           <>
-            <Typography variant="h3" fontWeight={"bold"}>
+            <Typography variant="h4" fontWeight={"bold"}>
               {title !== undefined ? (
                 title
               ) : (

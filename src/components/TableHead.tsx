@@ -15,6 +15,7 @@ const Container = styled("div")(() => ({
   alignItems: "center",
   display: "flex",
   padding: 0,
+  height: "20px",
 }));
 
 const Spacer = styled("div")(() => ({ flex: 1 }));

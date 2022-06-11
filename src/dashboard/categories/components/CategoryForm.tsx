@@ -1,7 +1,14 @@
 import { ErrorFragment } from "@portal/graphql";
-import { TextField } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  TextField,
+  FormControl,
+} from "@mui/material";
 import { getFormErrors } from "@portal/utils/errors";
-import React, { useState } from "react";
+import React from "react";
+import FormSpacer from "@portal/components/FormSpacer";
 
 export type FormProps = {
   name: string;
@@ -9,51 +16,45 @@ export type FormProps = {
 };
 
 interface CategoryFormProps {
-  initialData?: FormProps;
-  onSubmit: (data: FormProps) => Promise<void>;
+  data?: FormProps;
   errors: ErrorFragment[];
+  onChange: (e: React.ChangeEvent<any>) => void;
 }
 
-export const CategoryForm = ({
-  onSubmit,
-  errors,
-  initialData = { name: "", slug: "" },
-}: CategoryFormProps) => {
-  const [data, setData] = useState<{ name: string; slug: string }>(initialData);
-
+export const CategoryForm = ({ errors, data, onChange }: CategoryFormProps) => {
   const formErrors = getFormErrors(["name", "slug"], errors);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setData({
-      ...data,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = () => {
-    onSubmit(data);
-  };
-
   return (
-    <div>
-      <div className="mb-4">
-        <TextField
-          type="text"
-          name="name"
-          label="Nome"
-          value={data.name}
-          onChange={handleChange}
-        />
-        <TextField
-          type="text"
-          name="slug"
-          label="Atalho"
-          value={data.slug}
-          onChange={handleChange}
-        />
-      </div>
-      <button onClick={handleSubmit}>Enviar</button>
-    </div>
+    <Card>
+      <CardHeader title="Informações gerais" />
+      <CardContent>
+        <FormControl fullWidth>
+          <TextField
+            error={formErrors.name && true}
+            fullWidth
+            type="text"
+            name="name"
+            label="Nome"
+            value={data.name}
+            onChange={onChange}
+            helperText={formErrors.name?.message}
+          />
+        </FormControl>
+        <FormSpacer />
+        <FormControl fullWidth>
+          <TextField
+            error={formErrors.slug && true}
+            fullWidth
+            type="text"
+            name="slug"
+            label="Atalho"
+            value={data.slug}
+            onChange={onChange}
+            helperText={formErrors.slug?.message}
+          />
+        </FormControl>
+      </CardContent>
+    </Card>
   );
 };
 

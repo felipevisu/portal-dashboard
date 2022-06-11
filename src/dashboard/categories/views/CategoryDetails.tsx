@@ -1,11 +1,15 @@
+import { DialogContentText } from "@mui/material";
+import ActionDialog from "@portal/components/ActionDialog";
 import {
   useCategoryDetailsQuery,
   useCategoryUpdateMutation,
   useCategoryDeleteMutation,
 } from "@portal/graphql";
+import useModal from "@portal/hooks/useModal";
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import CategoryForm, { FormProps } from "../components/CategoryForm";
+import { CategoryDetailsPage } from "../components/CategoryDetailsPage";
+import { FormProps } from "../components/CategoryForm";
 
 export const CategoryDetails = () => {
   const { id } = useParams();
@@ -13,6 +17,7 @@ export const CategoryDetails = () => {
   const { data, loading } = useCategoryDetailsQuery({
     variables: { id },
   });
+  const { isOpen, openModal, closeModal } = useModal();
 
   const [updateCategory, updateCategoryResult] = useCategoryUpdateMutation();
   const [deleteCategory] = useCategoryDeleteMutation({
@@ -25,7 +30,7 @@ export const CategoryDetails = () => {
 
   const handleSubmit = async (data: FormProps) => {
     await updateCategory({
-      variables: { id: id, input: { ...data } },
+      variables: { id: id, input: { name: data.name, slug: data.slug } },
     });
   };
 
@@ -38,16 +43,29 @@ export const CategoryDetails = () => {
   }
 
   return (
-    <div>
-      <CategoryForm
-        initialData={{ name: data.category.name, slug: data.category.slug }}
+    <>
+      <CategoryDetailsPage
+        category={data.category}
+        errors={updateCategoryResult.data?.categoryUpdate?.errors || []}
         onSubmit={handleSubmit}
-        errors={updateCategoryResult.data?.categoryUpdate.errors || []}
+        onDelete={openModal}
+        loading={updateCategoryResult.loading}
       />
-      <div className="bg-gray-50 p-2 rounded-md mt-4 flex justify-end">
-        <button onClick={handleCategoryDelete}>Excluir</button>
-      </div>
-    </div>
+      <ActionDialog
+        onClose={closeModal}
+        onConfirm={handleCategoryDelete}
+        open={isOpen}
+        title="Excluir categoria"
+        variant="delete"
+      >
+        <DialogContentText>
+          Tem certeza que deseja excluir a categoria{" "}
+          <b>{data?.category?.name}</b>
+          <br />
+          Lembre-se esta ação não é reversível
+        </DialogContentText>
+      </ActionDialog>
+    </>
   );
 };
 

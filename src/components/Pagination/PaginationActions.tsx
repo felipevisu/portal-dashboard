@@ -1,12 +1,36 @@
 import ButtonBase, { ButtonBaseTypeMap } from "@mui/material/ButtonBase";
+import { styled } from "@mui/material";
 import ChevronLeft from "@mui/icons-material/ChevronLeft";
 import ChevronRight from "@mui/icons-material/ChevronRight";
-import clsx from "clsx";
 import React from "react";
 
 type BaseButtonProps<M = unknown> = M extends unknown
   ? ButtonBaseTypeMap<M & { component: React.ElementType }>["props"]
   : ButtonBaseTypeMap<{ href?: string }>["props"];
+
+const Button = styled(ButtonBase)(({ theme }) => ({
+  border: "2px solid",
+  borderColor: theme.palette.grey[500],
+  borderRadius: 2,
+  boxSizing: "border-box",
+  color: theme.palette.grey[500],
+  height: 36,
+  width: 36,
+  transition: theme.transitions.create("all", {
+    duration: theme.transitions.duration.shorter,
+  }),
+  "&:hover": {
+    color: theme.palette.primary.main,
+    borderColor: theme.palette.primary.main,
+  },
+  "&:last-child": {
+    marginLeft: theme.spacing(1.5),
+  },
+  "& svg": {
+    color: "currentColor",
+    width: 16,
+  },
+}));
 
 export interface PaginationActionsProps<BProps = unknown> {
   className?: string;
@@ -37,7 +61,7 @@ export const PaginationActions = <BProps,>({
 
   return (
     <div className={className} {...other}>
-      <ButtonBase
+      <Button
         disableRipple
         onClick={onPreviousPage}
         disabled={previousDisabled}
@@ -45,9 +69,9 @@ export const PaginationActions = <BProps,>({
         {...prevIconButtonProps}
       >
         <ChevronLeft />
-      </ButtonBase>
+      </Button>
 
-      <ButtonBase
+      <Button
         disableRipple
         onClick={onNextPage}
         disabled={nextDisabled}
@@ -55,7 +79,7 @@ export const PaginationActions = <BProps,>({
         {...nextIconButtonProps}
       >
         <ChevronRight />
-      </ButtonBase>
+      </Button>
     </div>
   );
 };

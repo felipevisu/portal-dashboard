@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { TextField, Typography, styled } from "@mui/material";
+import {
+  TextField,
+  Typography,
+  styled,
+  Card,
+  CardContent,
+} from "@mui/material";
 import { UserFragment, ErrorFragment } from "@portal/graphql";
 import { Button } from "@portal/components/Button";
 import { FormSpacer } from "@portal/components/FormSpacer";
@@ -56,44 +62,47 @@ export const Login = () => {
   };
 
   return (
-    <div>
-      <Typography variant="h3" sx={{ fontWeight: 700, marginBottom: 2 }}>
-        Login
-      </Typography>
-      {errors.map((error, key) => (
-        <Panel key={key}>{error.message}</Panel>
-      ))}
-      <TextField
-        autoFocus
-        fullWidth
-        autoComplete="username"
-        type="text"
-        name="email"
-        label="Email"
-        onChange={handleChange}
-      />
-      <FormSpacer />
-      <TextField
-        fullWidth
-        autoComplete="password"
-        type="password"
-        name="password"
-        label="Senha"
-        onChange={handleChange}
-      />
-      <FormSpacer />
-      <ButtonsContainer>
-        <Button
-          sx={{ width: "100%" }}
-          color="primary"
-          onClick={handleSubmit}
-          type="submit"
-          data-test-id="submit"
-        >
-          Entrar
-        </Button>
-      </ButtonsContainer>
-    </div>
+    <Card>
+      <CardContent sx={{ padding: 3 }}>
+        <Typography variant="h5" sx={{ fontWeight: 700, marginBottom: 3 }}>
+          Login
+        </Typography>
+        {errors.map((error, key) => (
+          <Panel key={key}>{error.message}</Panel>
+        ))}
+        <TextField
+          autoFocus
+          fullWidth
+          autoComplete="username"
+          type="text"
+          name="email"
+          label="Email"
+          onChange={handleChange}
+        />
+        <FormSpacer />
+        <TextField
+          fullWidth
+          autoComplete="password"
+          type="password"
+          name="password"
+          label="Senha"
+          onChange={handleChange}
+        />
+        <FormSpacer />
+        <ButtonsContainer>
+          <Button
+            sx={{ width: "100%" }}
+            color="primary"
+            variant="contained"
+            onClick={handleSubmit}
+            type="submit"
+            data-test-id="submit"
+          >
+            Entrar
+          </Button>
+        </ButtonsContainer>
+      </CardContent>
+    </Card>
   );
 };
 

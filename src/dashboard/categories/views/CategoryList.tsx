@@ -60,7 +60,6 @@ export const CategoryList = () => {
         pageInfo={data?.categories?.pageInfo}
       />
       <ActionDialog
-        confirmButtonLabel="Excluir"
         onClose={closeModal}
         onConfirm={() =>
           categoryBulkDelete({ variables: { ids: listElements } })

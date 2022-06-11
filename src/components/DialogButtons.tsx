@@ -31,7 +31,7 @@ const DialogButtons: React.FC<DialogButtonsProps> = (props) => {
   } = props;
 
   return (
-    <DialogActions sx={{ padding: "spacing.5" }}>
+    <DialogActions sx={{ padding: 3 }}>
       {children}
       {showBackButton && <BackButton onClick={onClose} />}
       {variant !== "info" && (

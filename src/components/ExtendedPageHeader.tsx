@@ -7,8 +7,9 @@ const Header = styled("div")(({ theme }) => ({
   marginBottom: theme.spacing(3),
 }));
 
-const Title = styled("div")(() => ({
+const Title = styled("div")(({ theme }) => ({
   flexGrow: 1,
+  color: theme.palette.text.primary,
 }));
 
 interface ExtendedPageHeaderProps {
