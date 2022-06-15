@@ -327,6 +327,12 @@ type Mutation {
   sessionDelete(id: ID): SessionDelete
   sessionUpdate(id: ID, input: SessionInput!): SessionUpdate
   tokenAuth(email: String, password: String): ObtainJSONWebToken
+
+  """Deletes vehicles."""
+  vehicleBulkDelete(
+    """List of vehicles IDs to delete."""
+    ids: [ID!]!
+  ): VehicleBulkDelete
   vehicleCreate(input: VehicleInput!): VehicleCreate
   vehicleDelete(id: ID): VehicleDelete
   vehicleUpdate(id: ID, input: VehicleInput!): VehicleUpdate
@@ -651,6 +657,13 @@ type Vehicle implements Node {
   publicationDate: Date
   slug: String!
   updated: DateTime!
+}
+
+"""Deletes vehicles."""
+type VehicleBulkDelete {
+  """Returns how many objects were affected."""
+  count: Int!
+  errors: [Error!]!
 }
 
 type VehicleConnection {

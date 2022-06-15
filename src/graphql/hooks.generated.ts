@@ -46,6 +46,11 @@ export const VehicleFragmentDoc = gql`
   id
   name
   slug
+  category {
+    id
+    name
+  }
+  isPublished
 }
     `;
 export const VehicleDetailsFragmentDoc = gql`
@@ -417,17 +422,137 @@ export function useVehicleCreateMutation(baseOptions?: Apollo.MutationHookOption
 export type VehicleCreateMutationHookResult = ReturnType<typeof useVehicleCreateMutation>;
 export type VehicleCreateMutationResult = Apollo.MutationResult<Types.VehicleCreateMutation>;
 export type VehicleCreateMutationOptions = Apollo.BaseMutationOptions<Types.VehicleCreateMutation, Types.VehicleCreateMutationVariables>;
+export const VehicleUpdateDocument = gql`
+    mutation VehicleUpdate($id: ID, $input: VehicleInput!) {
+  vehicleUpdate(id: $id, input: $input) {
+    vehicle {
+      ...VehicleDetails
+    }
+    errors {
+      ...Error
+    }
+  }
+}
+    ${VehicleDetailsFragmentDoc}
+${ErrorFragmentDoc}`;
+export type VehicleUpdateMutationFn = Apollo.MutationFunction<Types.VehicleUpdateMutation, Types.VehicleUpdateMutationVariables>;
+
+/**
+ * __useVehicleUpdateMutation__
+ *
+ * To run a mutation, you first call `useVehicleUpdateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useVehicleUpdateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [vehicleUpdateMutation, { data, loading, error }] = useVehicleUpdateMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useVehicleUpdateMutation(baseOptions?: Apollo.MutationHookOptions<Types.VehicleUpdateMutation, Types.VehicleUpdateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Types.VehicleUpdateMutation, Types.VehicleUpdateMutationVariables>(VehicleUpdateDocument, options);
+      }
+export type VehicleUpdateMutationHookResult = ReturnType<typeof useVehicleUpdateMutation>;
+export type VehicleUpdateMutationResult = Apollo.MutationResult<Types.VehicleUpdateMutation>;
+export type VehicleUpdateMutationOptions = Apollo.BaseMutationOptions<Types.VehicleUpdateMutation, Types.VehicleUpdateMutationVariables>;
+export const VehicleDeleteDocument = gql`
+    mutation VehicleDelete($id: ID!) {
+  vehicleDelete(id: $id) {
+    errors {
+      ...Error
+    }
+  }
+}
+    ${ErrorFragmentDoc}`;
+export type VehicleDeleteMutationFn = Apollo.MutationFunction<Types.VehicleDeleteMutation, Types.VehicleDeleteMutationVariables>;
+
+/**
+ * __useVehicleDeleteMutation__
+ *
+ * To run a mutation, you first call `useVehicleDeleteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useVehicleDeleteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [vehicleDeleteMutation, { data, loading, error }] = useVehicleDeleteMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useVehicleDeleteMutation(baseOptions?: Apollo.MutationHookOptions<Types.VehicleDeleteMutation, Types.VehicleDeleteMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Types.VehicleDeleteMutation, Types.VehicleDeleteMutationVariables>(VehicleDeleteDocument, options);
+      }
+export type VehicleDeleteMutationHookResult = ReturnType<typeof useVehicleDeleteMutation>;
+export type VehicleDeleteMutationResult = Apollo.MutationResult<Types.VehicleDeleteMutation>;
+export type VehicleDeleteMutationOptions = Apollo.BaseMutationOptions<Types.VehicleDeleteMutation, Types.VehicleDeleteMutationVariables>;
+export const VehicleBulkDeleteDocument = gql`
+    mutation VehicleBulkDelete($ids: [ID!]!) {
+  vehicleBulkDelete(ids: $ids) {
+    errors {
+      ...Error
+    }
+  }
+}
+    ${ErrorFragmentDoc}`;
+export type VehicleBulkDeleteMutationFn = Apollo.MutationFunction<Types.VehicleBulkDeleteMutation, Types.VehicleBulkDeleteMutationVariables>;
+
+/**
+ * __useVehicleBulkDeleteMutation__
+ *
+ * To run a mutation, you first call `useVehicleBulkDeleteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useVehicleBulkDeleteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [vehicleBulkDeleteMutation, { data, loading, error }] = useVehicleBulkDeleteMutation({
+ *   variables: {
+ *      ids: // value for 'ids'
+ *   },
+ * });
+ */
+export function useVehicleBulkDeleteMutation(baseOptions?: Apollo.MutationHookOptions<Types.VehicleBulkDeleteMutation, Types.VehicleBulkDeleteMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Types.VehicleBulkDeleteMutation, Types.VehicleBulkDeleteMutationVariables>(VehicleBulkDeleteDocument, options);
+      }
+export type VehicleBulkDeleteMutationHookResult = ReturnType<typeof useVehicleBulkDeleteMutation>;
+export type VehicleBulkDeleteMutationResult = Apollo.MutationResult<Types.VehicleBulkDeleteMutation>;
+export type VehicleBulkDeleteMutationOptions = Apollo.BaseMutationOptions<Types.VehicleBulkDeleteMutation, Types.VehicleBulkDeleteMutationVariables>;
 export const VehiclesDocument = gql`
-    query Vehicles($first: Int, $last: Int, $after: String, $before: String) {
-  vehicles(first: $first, last: $last, after: $after, before: $before) {
+    query Vehicles($first: Int, $last: Int, $after: String, $before: String, $search: String) {
+  vehicles(
+    first: $first
+    last: $last
+    after: $after
+    before: $before
+    search: $search
+  ) {
     edges {
       node {
         ...Vehicle
       }
     }
+    pageInfo {
+      ...PageInfo
+    }
   }
 }
-    ${VehicleFragmentDoc}`;
+    ${VehicleFragmentDoc}
+${PageInfoFragmentDoc}`;
 
 /**
  * __useVehiclesQuery__
@@ -445,6 +570,7 @@ export const VehiclesDocument = gql`
  *      last: // value for 'last'
  *      after: // value for 'after'
  *      before: // value for 'before'
+ *      search: // value for 'search'
  *   },
  * });
  */

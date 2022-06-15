@@ -5,6 +5,11 @@ export const vehicleFragment = gql`
     id
     name
     slug
+    category {
+      id
+      name
+    }
+    isPublished
   }
 `;
 

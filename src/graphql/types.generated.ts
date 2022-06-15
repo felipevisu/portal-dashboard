@@ -217,15 +217,38 @@ export type VehicleCreateMutationVariables = Exact<{
 
 export type VehicleCreateMutation = { __typename: 'Mutation', vehicleCreate: { __typename: 'VehicleCreate', vehicle: { __typename: 'Vehicle', id: string, name: string, slug: string, documentNumber: string, isPublished: boolean, category: { __typename: 'Category', id: string, name: string } } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
 
+export type VehicleUpdateMutationVariables = Exact<{
+  id?: InputMaybe<Scalars['ID']>;
+  input: VehicleInput;
+}>;
+
+
+export type VehicleUpdateMutation = { __typename: 'Mutation', vehicleUpdate: { __typename: 'VehicleUpdate', vehicle: { __typename: 'Vehicle', id: string, name: string, slug: string, documentNumber: string, isPublished: boolean, category: { __typename: 'Category', id: string, name: string } } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+
+export type VehicleDeleteMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type VehicleDeleteMutation = { __typename: 'Mutation', vehicleDelete: { __typename: 'VehicleDelete', errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+
+export type VehicleBulkDeleteMutationVariables = Exact<{
+  ids: Array<Scalars['ID']> | Scalars['ID'];
+}>;
+
+
+export type VehicleBulkDeleteMutation = { __typename: 'Mutation', vehicleBulkDelete: { __typename: 'VehicleBulkDelete', errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+
 export type VehiclesQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
+  search?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type VehiclesQuery = { __typename: 'Query', vehicles: { __typename: 'VehicleConnection', edges: Array<{ __typename: 'VehicleEdge', node: { __typename: 'Vehicle', id: string, name: string, slug: string } | null } | null> } | null };
+export type VehiclesQuery = { __typename: 'Query', vehicles: { __typename: 'VehicleConnection', edges: Array<{ __typename: 'VehicleEdge', node: { __typename: 'Vehicle', id: string, name: string, slug: string, isPublished: boolean, category: { __typename: 'Category', id: string, name: string } } | null } | null>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
 
 export type UserFragment = { __typename: 'User', id: string, email: string, firstName: string, lastName: string, isStaff: boolean };
 
@@ -237,7 +260,7 @@ export type ErrorFragment = { __typename: 'Error', code: string | null, field: s
 
 export type PageInfoFragment = { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null };
 
-export type VehicleFragment = { __typename: 'Vehicle', id: string, name: string, slug: string };
+export type VehicleFragment = { __typename: 'Vehicle', id: string, name: string, slug: string, isPublished: boolean, category: { __typename: 'Category', id: string, name: string } };
 
 export type VehicleDetailsFragment = { __typename: 'Vehicle', id: string, name: string, slug: string, documentNumber: string, isPublished: boolean, category: { __typename: 'Category', id: string, name: string } };
 
