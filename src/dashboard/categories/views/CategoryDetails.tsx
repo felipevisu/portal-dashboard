@@ -1,5 +1,6 @@
 import { DialogContentText } from "@mui/material";
 import ActionDialog from "@portal/components/ActionDialog";
+import CircularLoading from "@portal/components/Circular";
 import {
   useCategoryDetailsQuery,
   useCategoryUpdateMutation,
@@ -34,9 +35,7 @@ export const CategoryDetails = () => {
     });
   };
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  if (loading) return <CircularLoading />;
 
   if (!data?.category) {
     return <div>Categoria não encontrada</div>;

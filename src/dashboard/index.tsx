@@ -1,3 +1,4 @@
+import CircularLoading from "@portal/components/Circular";
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Auth, { useUser } from "./auth";
@@ -23,9 +24,7 @@ const RoutesComponent = () => {
     );
   }
 
-  if (authenticating) {
-    return <div>Loading...</div>;
-  }
+  if (authenticating) return <CircularLoading />;
 
   return <Auth />;
 };

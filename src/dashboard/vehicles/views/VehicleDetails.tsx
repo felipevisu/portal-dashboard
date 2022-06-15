@@ -14,6 +14,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { VehicleDetailsPage } from "../components/VehicleDetailsPage";
 import { FormProps } from "../components/VehicleForm";
 import useModal from "@portal/hooks/useModal";
+import CircularLoading from "@portal/components/Circular";
 
 export const VehicleDetails = () => {
   const navigator = useNavigate();
@@ -50,7 +51,7 @@ export const VehicleDetails = () => {
 
   const { data, loading } = useVehicleDetailsQuery({ variables: { id: id } });
 
-  if (loading) return null;
+  if (loading) return <CircularLoading />;
 
   return (
     <>
@@ -66,7 +67,7 @@ export const VehicleDetails = () => {
         onClose={closeModal}
         onConfirm={handleVehicleDelete}
         open={isOpen}
-        title="Excluir categoria"
+        title="Excluir veículo"
         variant="delete"
       >
         <DialogContentText>
