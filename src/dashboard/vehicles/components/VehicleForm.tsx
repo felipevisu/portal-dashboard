@@ -1,83 +1,108 @@
-import { ErrorFragment, SearchCategoriesQuery } from "@portal/graphql";
-import { RelayToFlat } from "@portal/types";
-import { TextField } from "@mui/material";
+import { ErrorFragment } from "@portal/graphql";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  TextField,
+  FormControl,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormHelperText,
+} from "@mui/material";
 import { getFormErrors } from "@portal/utils/errors";
-import React, { useState } from "react";
+import React from "react";
+import FormSpacer from "@portal/components/FormSpacer";
+import { SingleAutocompleteChoiceType } from "@portal/utils/data";
 
 export type FormProps = {
   name: string;
   slug: string;
   documentNumber: string;
-  category: "";
+  category: string;
   isPublished: boolean;
 };
 
-interface VehicleFormProps {
-  initialData?: FormProps;
-  onSubmit: (data: FormProps) => Promise<void>;
-  categories: RelayToFlat<SearchCategoriesQuery["search"]>;
+interface VehicleFormProps
+  extends Record<"categories", SingleAutocompleteChoiceType[]> {
+  data?: FormProps;
   errors: ErrorFragment[];
+  onChange: (e: React.ChangeEvent<any>) => void;
 }
 
 export const VehicleForm = ({
-  onSubmit,
-  categories,
   errors,
-  initialData = {
-    name: "",
-    slug: "",
-    documentNumber: "",
-    category: "",
-    isPublished: false,
-  },
+  data,
+  categories,
+  onChange,
 }: VehicleFormProps) => {
-  const [data, setData] = useState<FormProps>(initialData);
-
   const formErrors = getFormErrors(
     ["name", "slug", "documentNumber", "category", "isPublished"],
     errors
   );
 
-  const handleChange = (e: React.ChangeEvent<any>) => {
-    setData({
-      ...data,
-      [e.target.name]:
-        e.target.type === "checkbox" ? e.target.checked : e.target.value,
-    });
-  };
-
-  const handleSubmit = () => {
-    onSubmit(data);
-  };
-
   return (
-    <div>
-      <div className="mb-4">
-        <TextField
-          type="text"
-          name="name"
-          label="Nome"
-          value={data.name}
-          onChange={handleChange}
-        />
-        <TextField
-          type="text"
-          name="slug"
-          label="Atalho"
-          value={data.slug}
-          onChange={handleChange}
-        />
-        <TextField
-          type="text"
-          name="documentNumber"
-          label="CNPJ"
-          value={data.documentNumber}
-          onChange={handleChange}
-        />
-      </div>
-
-      <button onClick={handleSubmit}>Enviar</button>
-    </div>
+    <Card>
+      <CardHeader title="Informações gerais" />
+      <CardContent>
+        <FormControl fullWidth>
+          <TextField
+            error={formErrors.name && true}
+            fullWidth
+            type="text"
+            name="name"
+            label="Nome"
+            value={data.name}
+            onChange={onChange}
+            helperText={formErrors.name?.message}
+          />
+        </FormControl>
+        <FormSpacer />
+        <FormControl fullWidth>
+          <TextField
+            error={formErrors.slug && true}
+            fullWidth
+            type="text"
+            name="slug"
+            label="Atalho"
+            value={data.slug}
+            onChange={onChange}
+            helperText={formErrors.slug?.message}
+          />
+        </FormControl>
+        <FormSpacer />
+        <FormControl fullWidth>
+          <TextField
+            error={formErrors.documentNumber && true}
+            fullWidth
+            type="text"
+            name="documentNumber"
+            label="CNPJ"
+            value={data.documentNumber}
+            onChange={onChange}
+            helperText={formErrors.documentNumber?.message}
+          />
+        </FormControl>
+        <FormSpacer />
+        <FormControl fullWidth error={formErrors.category && true}>
+          <InputLabel>Categoria</InputLabel>
+          <Select
+            fullWidth
+            name="category"
+            label="Categoria"
+            value={data.category}
+            onChange={onChange}
+          >
+            {categories.map((category) => (
+              <MenuItem key={category.value} value={category.value}>
+                {category.label}
+              </MenuItem>
+            ))}
+          </Select>
+          <FormHelperText>{formErrors.category?.message}</FormHelperText>
+        </FormControl>
+      </CardContent>
+    </Card>
   );
 };
 

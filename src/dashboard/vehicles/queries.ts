@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const vehicles = gql`
+export const vehiclesQuery = gql`
   query Vehicles(
     $first: Int
     $last: Int
@@ -23,6 +23,14 @@ export const vehicles = gql`
       pageInfo {
         ...PageInfo
       }
+    }
+  }
+`;
+
+export const vehicleDetailsQuery = gql`
+  query VehicleDetails($id: ID!) {
+    vehicle(id: $id) {
+      ...VehicleDetails
     }
   }
 `;

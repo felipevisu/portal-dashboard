@@ -585,6 +585,41 @@ export function useVehiclesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<T
 export type VehiclesQueryHookResult = ReturnType<typeof useVehiclesQuery>;
 export type VehiclesLazyQueryHookResult = ReturnType<typeof useVehiclesLazyQuery>;
 export type VehiclesQueryResult = Apollo.QueryResult<Types.VehiclesQuery, Types.VehiclesQueryVariables>;
+export const VehicleDetailsDocument = gql`
+    query VehicleDetails($id: ID!) {
+  vehicle(id: $id) {
+    ...VehicleDetails
+  }
+}
+    ${VehicleDetailsFragmentDoc}`;
+
+/**
+ * __useVehicleDetailsQuery__
+ *
+ * To run a query within a React component, call `useVehicleDetailsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useVehicleDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useVehicleDetailsQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useVehicleDetailsQuery(baseOptions: Apollo.QueryHookOptions<Types.VehicleDetailsQuery, Types.VehicleDetailsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<Types.VehicleDetailsQuery, Types.VehicleDetailsQueryVariables>(VehicleDetailsDocument, options);
+      }
+export function useVehicleDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.VehicleDetailsQuery, Types.VehicleDetailsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<Types.VehicleDetailsQuery, Types.VehicleDetailsQueryVariables>(VehicleDetailsDocument, options);
+        }
+export type VehicleDetailsQueryHookResult = ReturnType<typeof useVehicleDetailsQuery>;
+export type VehicleDetailsLazyQueryHookResult = ReturnType<typeof useVehicleDetailsLazyQuery>;
+export type VehicleDetailsQueryResult = Apollo.QueryResult<Types.VehicleDetailsQuery, Types.VehicleDetailsQueryVariables>;
 export const SearchCategoriesDocument = gql`
     query SearchCategories($after: String, $first: Int!, $query: String!) {
   search: categories(after: $after, first: $first, search: $query) {

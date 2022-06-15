@@ -250,6 +250,13 @@ export type VehiclesQueryVariables = Exact<{
 
 export type VehiclesQuery = { __typename: 'Query', vehicles: { __typename: 'VehicleConnection', edges: Array<{ __typename: 'VehicleEdge', node: { __typename: 'Vehicle', id: string, name: string, slug: string, isPublished: boolean, category: { __typename: 'Category', id: string, name: string } } | null } | null>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
 
+export type VehicleDetailsQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type VehicleDetailsQuery = { __typename: 'Query', vehicle: { __typename: 'Vehicle', id: string, name: string, slug: string, documentNumber: string, isPublished: boolean, category: { __typename: 'Category', id: string, name: string } } | null };
+
 export type UserFragment = { __typename: 'User', id: string, email: string, firstName: string, lastName: string, isStaff: boolean };
 
 export type UserBaseFragment = { __typename: 'User', id: string, firstName: string, lastName: string };

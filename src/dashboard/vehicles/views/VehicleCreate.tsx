@@ -1,22 +1,30 @@
-import React from "react";
-import { useVehicleCreateMutation } from "@portal/graphql";
-import { useNavigate } from "react-router-dom";
-import VehicleForm from "../components/VehicleForm";
-import useCategorySearch from "@portal/searches/useCategorySearch";
 import { DEFAULT_INITIAL_SEARCH_DATA } from "@portal/config";
+import {
+  VehicleCreateMutation,
+  useVehicleCreateMutation,
+} from "@portal/graphql";
+import useCategorySearch from "@portal/searches/useCategorySearch";
 import { mapEdgesToItems } from "@portal/utils/maps";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { VehicleCreatePage } from "../components/VehicleCreatePage";
+import { FormProps } from "../components/VehicleForm";
 
 export const VehicleCreate = () => {
-  const [createVehicle, createVehicleResult] = useVehicleCreateMutation();
   const navigator = useNavigate();
 
-  const handleSubmit = async (data: any /* FormProps */) => {
-    const result = await createVehicle({ variables: { input: { ...data } } });
-    if (!result.data?.vehicleCreate.errors.length) {
-      navigator(
-        `/admin/vehicles/details/${result.data?.vehicleCreate.vehicle.id}`
-      );
+  const handleSuccess = (data: VehicleCreateMutation) => {
+    if (!data?.vehicleCreate.errors.length) {
+      navigator(`/admin/vehicles/details/${data?.vehicleCreate.vehicle.id}`);
     }
+  };
+
+  const [createVehicle, createVehicleResult] = useVehicleCreateMutation({
+    onCompleted: handleSuccess,
+  });
+
+  const handleSubmit = async (data: FormProps) => {
+    await createVehicle({ variables: { input: { ...data } } });
   };
 
   const {
@@ -26,13 +34,12 @@ export const VehicleCreate = () => {
   } = useCategorySearch({ variables: DEFAULT_INITIAL_SEARCH_DATA });
 
   return (
-    <div>
-      <VehicleForm
-        onSubmit={handleSubmit}
-        categories={mapEdgesToItems(searchCategoryOpts?.data?.search) || []}
-        errors={createVehicleResult.data?.vehicleCreate.errors || []}
-      />
-    </div>
+    <VehicleCreatePage
+      onSubmit={handleSubmit}
+      errors={createVehicleResult.data?.vehicleCreate.errors || []}
+      loading={createVehicleResult.loading}
+      categories={mapEdgesToItems(searchCategoryOpts?.data?.search) || []}
+    />
   );
 };
 
