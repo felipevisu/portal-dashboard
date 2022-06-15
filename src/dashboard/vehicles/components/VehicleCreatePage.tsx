@@ -31,10 +31,10 @@ export const VehicleCreatePage = ({
     isPublished: false,
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = ({ name, value }) => {
     setData({
       ...data,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
   };
 

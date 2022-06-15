@@ -9,6 +9,10 @@ import {
   MenuItem,
   InputLabel,
   FormHelperText,
+  Grid,
+  Checkbox,
+  FormControlLabel,
+  Divider,
 } from "@mui/material";
 import { getFormErrors } from "@portal/utils/errors";
 import React from "react";
@@ -27,7 +31,7 @@ interface VehicleFormProps
   extends Record<"categories", SingleAutocompleteChoiceType[]> {
   data?: FormProps;
   errors: ErrorFragment[];
-  onChange: (e: React.ChangeEvent<any>) => void;
+  onChange: ({ name, value }) => void;
 }
 
 export const VehicleForm = ({
@@ -41,68 +45,96 @@ export const VehicleForm = ({
     errors
   );
 
+  const handleChange = (e: React.ChangeEvent<any>) => {
+    if (e.type === "change") {
+      onChange({ name: e.target.name, value: e.target.checked });
+    } else {
+      onChange({ name: e.target.name, value: e.target.value });
+    }
+  };
+
   return (
-    <Card>
-      <CardHeader title="Informações gerais" />
-      <CardContent>
-        <FormControl fullWidth>
-          <TextField
-            error={formErrors.name && true}
-            fullWidth
-            type="text"
-            name="name"
-            label="Nome"
-            value={data.name}
-            onChange={onChange}
-            helperText={formErrors.name?.message}
-          />
-        </FormControl>
-        <FormSpacer />
-        <FormControl fullWidth>
-          <TextField
-            error={formErrors.slug && true}
-            fullWidth
-            type="text"
-            name="slug"
-            label="Atalho"
-            value={data.slug}
-            onChange={onChange}
-            helperText={formErrors.slug?.message}
-          />
-        </FormControl>
-        <FormSpacer />
-        <FormControl fullWidth>
-          <TextField
-            error={formErrors.documentNumber && true}
-            fullWidth
-            type="text"
-            name="documentNumber"
-            label="CNPJ"
-            value={data.documentNumber}
-            onChange={onChange}
-            helperText={formErrors.documentNumber?.message}
-          />
-        </FormControl>
-        <FormSpacer />
-        <FormControl fullWidth error={formErrors.category && true}>
-          <InputLabel>Categoria</InputLabel>
-          <Select
-            fullWidth
-            name="category"
-            label="Categoria"
-            value={data.category}
-            onChange={onChange}
-          >
-            {categories.map((category) => (
-              <MenuItem key={category.value} value={category.value}>
-                {category.label}
-              </MenuItem>
-            ))}
-          </Select>
-          <FormHelperText>{formErrors.category?.message}</FormHelperText>
-        </FormControl>
-      </CardContent>
-    </Card>
+    <Grid container spacing={2}>
+      <Grid item xs={8}>
+        <Card>
+          <CardHeader title="Informações gerais" />
+          <CardContent>
+            <FormControl fullWidth>
+              <TextField
+                error={formErrors.name && true}
+                fullWidth
+                type="text"
+                name="name"
+                label="Nome"
+                value={data.name}
+                onChange={handleChange}
+                helperText={formErrors.name?.message}
+              />
+            </FormControl>
+            <FormSpacer />
+            <FormControl fullWidth>
+              <TextField
+                error={formErrors.slug && true}
+                fullWidth
+                type="text"
+                name="slug"
+                label="Atalho"
+                value={data.slug}
+                onChange={handleChange}
+                helperText={formErrors.slug?.message}
+              />
+            </FormControl>
+            <FormSpacer />
+            <FormControl fullWidth>
+              <TextField
+                error={formErrors.documentNumber && true}
+                fullWidth
+                type="text"
+                name="documentNumber"
+                label="CNPJ"
+                value={data.documentNumber}
+                onChange={handleChange}
+                helperText={formErrors.documentNumber?.message}
+              />
+            </FormControl>
+          </CardContent>
+        </Card>
+      </Grid>
+      <Grid item xs={4}>
+        <Card>
+          <CardHeader title="Associação" />
+          <CardContent>
+            <FormControl fullWidth error={formErrors.category && true}>
+              <InputLabel>Categoria</InputLabel>
+              <Select
+                fullWidth
+                name="category"
+                label="Categoria"
+                value={data.category}
+                onChange={handleChange}
+              >
+                {categories.map((category) => (
+                  <MenuItem key={category.value} value={category.value}>
+                    {category.label}
+                  </MenuItem>
+                ))}
+              </Select>
+              <FormHelperText>{formErrors.category?.message}</FormHelperText>
+            </FormControl>
+            <FormSpacer />
+            <FormControl>
+              <FormControlLabel
+                label="Publicado"
+                onChange={handleChange}
+                control={
+                  <Checkbox name="isPublished" checked={data.isPublished} />
+                }
+              />
+            </FormControl>
+          </CardContent>
+        </Card>
+      </Grid>
+    </Grid>
   );
 };
 
