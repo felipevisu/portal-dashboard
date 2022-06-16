@@ -15,15 +15,15 @@ import { VehicleDetailsPage } from "../components/VehicleDetailsPage";
 import { FormProps } from "../components/VehicleForm";
 import useModal from "@portal/hooks/useModal";
 import CircularLoading from "@portal/components/Circular";
+import NotFound from "@portal/components/NotFound";
 
 export const VehicleDetails = () => {
-  const navigator = useNavigate();
   const { id } = useParams();
   const navigate = useNavigate();
   const { isOpen, openModal, closeModal } = useModal();
   const handleSuccess = (data: VehicleUpdateMutation) => {
     if (!data?.vehicleUpdate.errors.length) {
-      navigator(`/admin/vehicles/details/${data?.vehicleUpdate.vehicle.id}`);
+      navigate(`/admin/vehicles/details/${data?.vehicleUpdate.vehicle.id}`);
     }
   };
 
@@ -53,10 +53,12 @@ export const VehicleDetails = () => {
 
   if (loading) return <CircularLoading />;
 
+  if (!data?.vehicle) return <NotFound />;
+
   return (
     <>
       <VehicleDetailsPage
-        vehicle={data?.vehicle}
+        vehicle={data.vehicle}
         onSubmit={handleSubmit}
         onDelete={openModal}
         errors={updateVehicleResult.data?.vehicleUpdate.errors || []}

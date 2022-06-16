@@ -3,6 +3,7 @@ import React from "react";
 import { useSearchParams } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import { PaginationToolbar } from "./PaginationToolbar";
+import { Box } from "@mui/material";
 
 interface PaginationProps {
   pageInfo: PageInfoFragment;
@@ -12,6 +13,8 @@ interface PaginationProps {
 
 const Root = styled("div")(({ theme }) => ({
   padding: theme.spacing(0, 2),
+  display: "flex",
+  justifyContent: "end",
 }));
 
 export const Pagination = ({

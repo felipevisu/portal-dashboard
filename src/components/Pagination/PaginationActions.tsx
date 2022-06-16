@@ -70,7 +70,6 @@ export const PaginationActions = <BProps,>({
       >
         <ChevronLeft />
       </Button>
-
       <Button
         disableRipple
         onClick={onNextPage}

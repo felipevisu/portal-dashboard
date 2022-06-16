@@ -1,6 +1,7 @@
 import { DialogContentText } from "@mui/material";
 import ActionDialog from "@portal/components/ActionDialog";
 import CircularLoading from "@portal/components/Circular";
+import NotFound from "@portal/components/NotFound";
 import {
   useCategoryDetailsQuery,
   useCategoryUpdateMutation,
@@ -15,11 +16,12 @@ import { FormProps } from "../components/CategoryForm";
 export const CategoryDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+
+  const { isOpen, openModal, closeModal } = useModal();
+
   const { data, loading } = useCategoryDetailsQuery({
     variables: { id },
   });
-  const { isOpen, openModal, closeModal } = useModal();
-
   const [updateCategory, updateCategoryResult] = useCategoryUpdateMutation();
   const [deleteCategory] = useCategoryDeleteMutation({
     onCompleted: () => navigate("/admin/categories"),
@@ -37,9 +39,7 @@ export const CategoryDetails = () => {
 
   if (loading) return <CircularLoading />;
 
-  if (!data?.category) {
-    return <div>Categoria não encontrada</div>;
-  }
+  if (!data?.category) return <NotFound />;
 
   return (
     <>
