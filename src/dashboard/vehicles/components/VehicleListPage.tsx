@@ -1,7 +1,7 @@
 import React from "react";
 import { ListActions, PaginateListProps, SearchPageProps } from "@portal/types";
 import { VehicleFragment } from "@portal/graphql";
-import { SearchBar } from "@portal/components/SearchBar";
+import { FilterBar } from "@portal/components/FilterBar";
 import PageHeader from "@portal/components/PageHeader";
 import { Button } from "@portal/components/Button";
 import { Pagination } from "@portal/components/Pagination";
@@ -42,7 +42,7 @@ export const VehicleListPage = ({
         </Button>
       </PageHeader>
       <Card>
-        <SearchBar placeholder="Pesquisar" onSearchChange={onSearchChange} />
+        <FilterBar placeholder="Pesquisar" onSearchChange={onSearchChange} />
         <VehicleList
           selected={selected}
           vehicles={vehicles}
