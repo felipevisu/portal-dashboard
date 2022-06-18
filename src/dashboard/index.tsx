@@ -6,6 +6,7 @@ import AuthProvider from "./auth/authProvider";
 import Categories from "./categories";
 import Home from "./home";
 import Menu from "./menu";
+import Segments from "./segments";
 import Vehicles from "./vehicles";
 
 const RoutesComponent = () => {
@@ -19,6 +20,7 @@ const RoutesComponent = () => {
           <Route path="/" element={<Home />} />
           <Route path="/vehicles/*" element={<Vehicles />} />
           <Route path="/categories/*" element={<Categories />} />
+          <Route path="/segments/*" element={<Segments />} />
         </Routes>
       </div>
     );

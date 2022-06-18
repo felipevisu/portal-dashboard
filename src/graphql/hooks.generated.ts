@@ -41,6 +41,13 @@ export const PageInfoFragmentDoc = gql`
   startCursor
 }
     `;
+export const SegmentFragmentDoc = gql`
+    fragment Segment on Segment {
+  id
+  name
+  slug
+}
+    `;
 export const VehicleFragmentDoc = gql`
     fragment Vehicle on Vehicle {
   id
@@ -383,6 +390,243 @@ export function useCategoryDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOp
 export type CategoryDetailsQueryHookResult = ReturnType<typeof useCategoryDetailsQuery>;
 export type CategoryDetailsLazyQueryHookResult = ReturnType<typeof useCategoryDetailsLazyQuery>;
 export type CategoryDetailsQueryResult = Apollo.QueryResult<Types.CategoryDetailsQuery, Types.CategoryDetailsQueryVariables>;
+export const SegmentCreateDocument = gql`
+    mutation SegmentCreate($input: SegmentInput!) {
+  segmentCreate(input: $input) {
+    segment {
+      ...Segment
+    }
+    errors {
+      ...Error
+    }
+  }
+}
+    ${SegmentFragmentDoc}
+${ErrorFragmentDoc}`;
+export type SegmentCreateMutationFn = Apollo.MutationFunction<Types.SegmentCreateMutation, Types.SegmentCreateMutationVariables>;
+
+/**
+ * __useSegmentCreateMutation__
+ *
+ * To run a mutation, you first call `useSegmentCreateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSegmentCreateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [segmentCreateMutation, { data, loading, error }] = useSegmentCreateMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useSegmentCreateMutation(baseOptions?: Apollo.MutationHookOptions<Types.SegmentCreateMutation, Types.SegmentCreateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Types.SegmentCreateMutation, Types.SegmentCreateMutationVariables>(SegmentCreateDocument, options);
+      }
+export type SegmentCreateMutationHookResult = ReturnType<typeof useSegmentCreateMutation>;
+export type SegmentCreateMutationResult = Apollo.MutationResult<Types.SegmentCreateMutation>;
+export type SegmentCreateMutationOptions = Apollo.BaseMutationOptions<Types.SegmentCreateMutation, Types.SegmentCreateMutationVariables>;
+export const SegmentUpdateDocument = gql`
+    mutation SegmentUpdate($id: ID, $input: SegmentInput!) {
+  segmentUpdate(id: $id, input: $input) {
+    segment {
+      ...Segment
+    }
+    errors {
+      ...Error
+    }
+  }
+}
+    ${SegmentFragmentDoc}
+${ErrorFragmentDoc}`;
+export type SegmentUpdateMutationFn = Apollo.MutationFunction<Types.SegmentUpdateMutation, Types.SegmentUpdateMutationVariables>;
+
+/**
+ * __useSegmentUpdateMutation__
+ *
+ * To run a mutation, you first call `useSegmentUpdateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSegmentUpdateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [segmentUpdateMutation, { data, loading, error }] = useSegmentUpdateMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useSegmentUpdateMutation(baseOptions?: Apollo.MutationHookOptions<Types.SegmentUpdateMutation, Types.SegmentUpdateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Types.SegmentUpdateMutation, Types.SegmentUpdateMutationVariables>(SegmentUpdateDocument, options);
+      }
+export type SegmentUpdateMutationHookResult = ReturnType<typeof useSegmentUpdateMutation>;
+export type SegmentUpdateMutationResult = Apollo.MutationResult<Types.SegmentUpdateMutation>;
+export type SegmentUpdateMutationOptions = Apollo.BaseMutationOptions<Types.SegmentUpdateMutation, Types.SegmentUpdateMutationVariables>;
+export const SegmentDeleteDocument = gql`
+    mutation SegmentDelete($id: ID!) {
+  segmentDelete(id: $id) {
+    errors {
+      ...Error
+    }
+  }
+}
+    ${ErrorFragmentDoc}`;
+export type SegmentDeleteMutationFn = Apollo.MutationFunction<Types.SegmentDeleteMutation, Types.SegmentDeleteMutationVariables>;
+
+/**
+ * __useSegmentDeleteMutation__
+ *
+ * To run a mutation, you first call `useSegmentDeleteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSegmentDeleteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [segmentDeleteMutation, { data, loading, error }] = useSegmentDeleteMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useSegmentDeleteMutation(baseOptions?: Apollo.MutationHookOptions<Types.SegmentDeleteMutation, Types.SegmentDeleteMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Types.SegmentDeleteMutation, Types.SegmentDeleteMutationVariables>(SegmentDeleteDocument, options);
+      }
+export type SegmentDeleteMutationHookResult = ReturnType<typeof useSegmentDeleteMutation>;
+export type SegmentDeleteMutationResult = Apollo.MutationResult<Types.SegmentDeleteMutation>;
+export type SegmentDeleteMutationOptions = Apollo.BaseMutationOptions<Types.SegmentDeleteMutation, Types.SegmentDeleteMutationVariables>;
+export const SegmentBulkDeleteDocument = gql`
+    mutation SegmentBulkDelete($ids: [ID!]!) {
+  segmentBulkDelete(ids: $ids) {
+    errors {
+      ...Error
+    }
+  }
+}
+    ${ErrorFragmentDoc}`;
+export type SegmentBulkDeleteMutationFn = Apollo.MutationFunction<Types.SegmentBulkDeleteMutation, Types.SegmentBulkDeleteMutationVariables>;
+
+/**
+ * __useSegmentBulkDeleteMutation__
+ *
+ * To run a mutation, you first call `useSegmentBulkDeleteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSegmentBulkDeleteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [segmentBulkDeleteMutation, { data, loading, error }] = useSegmentBulkDeleteMutation({
+ *   variables: {
+ *      ids: // value for 'ids'
+ *   },
+ * });
+ */
+export function useSegmentBulkDeleteMutation(baseOptions?: Apollo.MutationHookOptions<Types.SegmentBulkDeleteMutation, Types.SegmentBulkDeleteMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Types.SegmentBulkDeleteMutation, Types.SegmentBulkDeleteMutationVariables>(SegmentBulkDeleteDocument, options);
+      }
+export type SegmentBulkDeleteMutationHookResult = ReturnType<typeof useSegmentBulkDeleteMutation>;
+export type SegmentBulkDeleteMutationResult = Apollo.MutationResult<Types.SegmentBulkDeleteMutation>;
+export type SegmentBulkDeleteMutationOptions = Apollo.BaseMutationOptions<Types.SegmentBulkDeleteMutation, Types.SegmentBulkDeleteMutationVariables>;
+export const SegmentsDocument = gql`
+    query Segments($first: Int, $last: Int, $after: String, $before: String, $search: String) {
+  segments(
+    first: $first
+    last: $last
+    after: $after
+    before: $before
+    search: $search
+  ) {
+    edges {
+      node {
+        ...Segment
+      }
+    }
+    pageInfo {
+      ...PageInfo
+    }
+  }
+}
+    ${SegmentFragmentDoc}
+${PageInfoFragmentDoc}`;
+
+/**
+ * __useSegmentsQuery__
+ *
+ * To run a query within a React component, call `useSegmentsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSegmentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSegmentsQuery({
+ *   variables: {
+ *      first: // value for 'first'
+ *      last: // value for 'last'
+ *      after: // value for 'after'
+ *      before: // value for 'before'
+ *      search: // value for 'search'
+ *   },
+ * });
+ */
+export function useSegmentsQuery(baseOptions?: Apollo.QueryHookOptions<Types.SegmentsQuery, Types.SegmentsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<Types.SegmentsQuery, Types.SegmentsQueryVariables>(SegmentsDocument, options);
+      }
+export function useSegmentsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.SegmentsQuery, Types.SegmentsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<Types.SegmentsQuery, Types.SegmentsQueryVariables>(SegmentsDocument, options);
+        }
+export type SegmentsQueryHookResult = ReturnType<typeof useSegmentsQuery>;
+export type SegmentsLazyQueryHookResult = ReturnType<typeof useSegmentsLazyQuery>;
+export type SegmentsQueryResult = Apollo.QueryResult<Types.SegmentsQuery, Types.SegmentsQueryVariables>;
+export const SegmentDetailsDocument = gql`
+    query SegmentDetails($id: ID!) {
+  segment(id: $id) {
+    ...Segment
+  }
+}
+    ${SegmentFragmentDoc}`;
+
+/**
+ * __useSegmentDetailsQuery__
+ *
+ * To run a query within a React component, call `useSegmentDetailsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSegmentDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSegmentDetailsQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useSegmentDetailsQuery(baseOptions: Apollo.QueryHookOptions<Types.SegmentDetailsQuery, Types.SegmentDetailsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<Types.SegmentDetailsQuery, Types.SegmentDetailsQueryVariables>(SegmentDetailsDocument, options);
+      }
+export function useSegmentDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.SegmentDetailsQuery, Types.SegmentDetailsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<Types.SegmentDetailsQuery, Types.SegmentDetailsQueryVariables>(SegmentDetailsDocument, options);
+        }
+export type SegmentDetailsQueryHookResult = ReturnType<typeof useSegmentDetailsQuery>;
+export type SegmentDetailsLazyQueryHookResult = ReturnType<typeof useSegmentDetailsLazyQuery>;
+export type SegmentDetailsQueryResult = Apollo.QueryResult<Types.SegmentDetailsQuery, Types.SegmentDetailsQueryVariables>;
 export const VehicleCreateDocument = gql`
     mutation VehicleCreate($input: VehicleInput!) {
   vehicleCreate(input: $input) {

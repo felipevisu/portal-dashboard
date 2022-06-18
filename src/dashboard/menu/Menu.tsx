@@ -5,6 +5,7 @@ const ITEMS = [
   { label: "Homepage", path: "/admin" },
   { label: "Veículos", path: "/admin/vehicles" },
   { label: "Categorias", path: "/admin/categories" },
+  { label: "Segmentos", path: "/admin/segments" },
 ];
 
 type ItemProps = { label: string; path: string; active: boolean };

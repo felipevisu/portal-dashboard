@@ -320,6 +320,12 @@ type Mutation {
   providerDelete(id: ID): ProviderDelete
   providerUpdate(id: ID, input: ProviderInput!): ProviderUpdate
   refreshToken(token: String): Refresh
+
+  """Deletes categories."""
+  segmentBulkDelete(
+    """List of category IDs to delete."""
+    ids: [ID!]!
+  ): SegmentBulkDelete
   segmentCreate(input: SegmentInput!): SegmentCreate
   segmentDelete(id: ID): SegmentDelete
   segmentUpdate(id: ID, input: SegmentInput!): SegmentUpdate
@@ -503,6 +509,13 @@ type Segment implements Node {
   providers(after: String, before: String, first: Int, last: Int): ProvidersConnection
   slug: String!
   updated: DateTime!
+}
+
+"""Deletes categories."""
+type SegmentBulkDelete {
+  """Returns how many objects were affected."""
+  count: Int!
+  errors: [Error!]!
 }
 
 type SegmentConnection {
