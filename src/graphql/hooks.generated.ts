@@ -533,13 +533,15 @@ export type VehicleBulkDeleteMutationHookResult = ReturnType<typeof useVehicleBu
 export type VehicleBulkDeleteMutationResult = Apollo.MutationResult<Types.VehicleBulkDeleteMutation>;
 export type VehicleBulkDeleteMutationOptions = Apollo.BaseMutationOptions<Types.VehicleBulkDeleteMutation, Types.VehicleBulkDeleteMutationVariables>;
 export const VehiclesDocument = gql`
-    query Vehicles($first: Int, $last: Int, $after: String, $before: String, $search: String) {
+    query Vehicles($first: Int, $last: Int, $after: String, $before: String, $search: String, $isPublished: Boolean, $category: ID) {
   vehicles(
     first: $first
     last: $last
     after: $after
     before: $before
     search: $search
+    category: $category
+    isPublished: $isPublished
   ) {
     edges {
       node {
@@ -571,6 +573,8 @@ ${PageInfoFragmentDoc}`;
  *      after: // value for 'after'
  *      before: // value for 'before'
  *      search: // value for 'search'
+ *      isPublished: // value for 'isPublished'
+ *      category: // value for 'category'
  *   },
  * });
  */

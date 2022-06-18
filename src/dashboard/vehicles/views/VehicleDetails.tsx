@@ -21,6 +21,7 @@ export const VehicleDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { isOpen, openModal, closeModal } = useModal();
+
   const handleSuccess = (data: VehicleUpdateMutation) => {
     if (!data?.vehicleUpdate.errors.length) {
       navigate(`/admin/vehicles/details/${data?.vehicleUpdate.vehicle.id}`);
@@ -43,11 +44,9 @@ export const VehicleDetails = () => {
     await deleteVehicle({ variables: { id } });
   };
 
-  const {
-    loadMore: loadMoreCategories,
-    search: searchCategory,
-    result: searchCategoryOpts,
-  } = useCategorySearch({ variables: DEFAULT_INITIAL_SEARCH_DATA });
+  const { result: searchCategoryOpts } = useCategorySearch({
+    variables: DEFAULT_INITIAL_SEARCH_DATA,
+  });
 
   const { data, loading } = useVehicleDetailsQuery({ variables: { id: id } });
 

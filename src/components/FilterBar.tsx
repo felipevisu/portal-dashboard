@@ -10,15 +10,20 @@ const Root = styled("div")(({ theme }) => ({
   gap: theme.spacing(2),
 }));
 
-interface FilterBarProps {
+interface FilterBarProps<F> {
   placeholder?: string;
   onSearchChange: (e: React.ChangeEvent<any>) => void;
+  filterOpts: F;
 }
 
-export const FilterBar = ({ placeholder, onSearchChange }: FilterBarProps) => {
+export const FilterBar = <F,>({
+  placeholder,
+  onSearchChange,
+  filterOpts,
+}: FilterBarProps<F>) => {
   return (
     <Root>
-      <Filter />
+      <Filter<F> {...filterOpts} />
       <TextField
         fullWidth
         onChange={onSearchChange}

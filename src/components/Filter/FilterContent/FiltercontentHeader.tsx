@@ -8,14 +8,24 @@ const Header = styled("div")(({ theme }) => ({
   gap: theme.spacing(1),
 }));
 
-export const FilterContentHeader = () => {
+interface FilterContentHeaderProps {
+  onClickApply: () => void;
+  onClickClear: () => void;
+}
+
+export const FilterContentHeader = ({
+  onClickApply,
+  onClickClear,
+}: FilterContentHeaderProps) => {
   return (
     <Header>
       <Typography fontWeight={600} sx={{ flexGrow: 1 }}>
         Filtros
       </Typography>
-      <Button size="small">Limpar</Button>
-      <Button variant="contained" size="small">
+      <Button size="small" onClick={onClickClear}>
+        Limpar
+      </Button>
+      <Button variant="contained" size="small" onClick={onClickApply}>
         Aplicar
       </Button>
     </Header>

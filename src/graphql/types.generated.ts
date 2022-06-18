@@ -245,6 +245,8 @@ export type VehiclesQueryVariables = Exact<{
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   search?: InputMaybe<Scalars['String']>;
+  isPublished?: InputMaybe<Scalars['Boolean']>;
+  category?: InputMaybe<Scalars['ID']>;
 }>;
 
 

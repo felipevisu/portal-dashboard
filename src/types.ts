@@ -1,4 +1,5 @@
 import { PageInfoFragment } from "./graphql";
+import { SingleAutocompleteChoiceType } from "./utils/data";
 
 export type RelayToFlat<T extends { edges: Array<{ node: any }> }> = Array<
   T["edges"][0]["node"]
@@ -48,3 +49,10 @@ export type Dialog<TDialog extends string> = Partial<{
 export type SingleAction = Partial<{
   id: string;
 }>;
+
+export interface FilterOpts<T> {
+  name: string;
+  active: boolean;
+  choices: SingleAutocompleteChoiceType[]
+  value: T;
+}

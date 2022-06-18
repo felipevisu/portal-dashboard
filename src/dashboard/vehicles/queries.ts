@@ -7,6 +7,8 @@ export const vehiclesQuery = gql`
     $after: String
     $before: String
     $search: String
+    $isPublished: Boolean
+    $category: ID
   ) {
     vehicles(
       first: $first
@@ -14,6 +16,8 @@ export const vehiclesQuery = gql`
       after: $after
       before: $before
       search: $search
+      category: $category
+      isPublished: $isPublished
     ) {
       edges {
         node {

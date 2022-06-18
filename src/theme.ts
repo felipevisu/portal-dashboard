@@ -5,6 +5,13 @@ const fontFamily = '"Inter", "sans-serif"';
 const theme = createTheme({
   spacing: (value = 1) => `${(value * 8) / 16}rem`,
   components: {
+    MuiAccordion: {
+      styleOverrides: {
+        root: {
+          boxShadow: "none",
+        },
+      },
+    },
     MuiCard: {
       styleOverrides: {
         root: {

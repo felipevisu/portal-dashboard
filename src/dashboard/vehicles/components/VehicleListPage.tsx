@@ -1,5 +1,10 @@
 import React from "react";
-import { ListActions, PaginateListProps, SearchPageProps } from "@portal/types";
+import {
+  FilterOpts,
+  ListActions,
+  PaginateListProps,
+  SearchPageProps,
+} from "@portal/types";
 import { VehicleFragment } from "@portal/graphql";
 import { FilterBar } from "@portal/components/FilterBar";
 import PageHeader from "@portal/components/PageHeader";
@@ -9,12 +14,18 @@ import { Card } from "@mui/material";
 import Container from "@portal/components/Container";
 import VehicleList from "./VehicleList";
 
+export type VehicleListFilterOpts = {
+  isPublished: FilterOpts<string>;
+  category: FilterOpts<string>;
+};
+
 interface VehicleListPageProps
   extends ListActions,
     SearchPageProps,
     PaginateListProps {
   vehicles: VehicleFragment[];
   disabled: boolean;
+  filterOpts: VehicleListFilterOpts;
 }
 
 export const VehicleListPage = ({
@@ -29,6 +40,7 @@ export const VehicleListPage = ({
   onNextPage,
   onPreviousPage,
   disabled,
+  filterOpts,
 }: VehicleListPageProps) => {
   return (
     <Container>
@@ -42,7 +54,11 @@ export const VehicleListPage = ({
         </Button>
       </PageHeader>
       <Card>
-        <FilterBar placeholder="Pesquisar" onSearchChange={onSearchChange} />
+        <FilterBar<VehicleListFilterOpts>
+          placeholder="Pesquisar"
+          onSearchChange={onSearchChange}
+          filterOpts={filterOpts}
+        />
         <VehicleList
           selected={selected}
           vehicles={vehicles}
