@@ -316,14 +316,20 @@ type Mutation {
   itemCreate(input: ItemInput!): ItemCreate
   itemDelete(id: ID): ItemDelete
   itemUpdate(id: ID, input: ItemInput!): ItemUpdate
+
+  """Deletes providers."""
+  providerBulkDelete(
+    """List of providers IDs to delete."""
+    ids: [ID!]!
+  ): ProviderBulkDelete
   providerCreate(input: ProviderInput!): ProviderCreate
   providerDelete(id: ID): ProviderDelete
   providerUpdate(id: ID, input: ProviderInput!): ProviderUpdate
   refreshToken(token: String): Refresh
 
-  """Deletes categories."""
+  """Deletes segments."""
   segmentBulkDelete(
-    """List of category IDs to delete."""
+    """List of segments IDs to delete."""
     ids: [ID!]!
   ): SegmentBulkDelete
   segmentCreate(input: SegmentInput!): SegmentCreate
@@ -401,6 +407,13 @@ type Provider implements Node {
   segment: Segment!
   slug: String!
   updated: DateTime!
+}
+
+"""Deletes providers."""
+type ProviderBulkDelete {
+  """Returns how many objects were affected."""
+  count: Int!
+  errors: [Error!]!
 }
 
 type ProviderConnection {
@@ -511,7 +524,7 @@ type Segment implements Node {
   updated: DateTime!
 }
 
-"""Deletes categories."""
+"""Deletes segments."""
 type SegmentBulkDelete {
   """Returns how many objects were affected."""
   count: Int!

@@ -8,6 +8,7 @@ import Home from "./home";
 import Menu from "./menu";
 import Segments from "./segments";
 import Vehicles from "./vehicles";
+import Providers from "./providers";
 
 const RoutesComponent = () => {
   const { authenticated, authenticating } = useUser();
@@ -21,6 +22,7 @@ const RoutesComponent = () => {
           <Route path="/vehicles/*" element={<Vehicles />} />
           <Route path="/categories/*" element={<Categories />} />
           <Route path="/segments/*" element={<Segments />} />
+          <Route path="/providers/*" element={<Providers />} />
         </Routes>
       </div>
     );

@@ -210,6 +210,55 @@ export type CategoryDetailsQueryVariables = Exact<{
 
 export type CategoryDetailsQuery = { __typename: 'Query', category: { __typename: 'Category', id: string, name: string, slug: string } | null };
 
+export type ProviderCreateMutationVariables = Exact<{
+  input: ProviderInput;
+}>;
+
+
+export type ProviderCreateMutation = { __typename: 'Mutation', providerCreate: { __typename: 'ProviderCreate', provider: { __typename: 'Provider', id: string, name: string, slug: string, documentNumber: string, isPublished: boolean, segment: { __typename: 'Segment', id: string, name: string } } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+
+export type ProviderUpdateMutationVariables = Exact<{
+  id?: InputMaybe<Scalars['ID']>;
+  input: ProviderInput;
+}>;
+
+
+export type ProviderUpdateMutation = { __typename: 'Mutation', providerUpdate: { __typename: 'ProviderUpdate', provider: { __typename: 'Provider', id: string, name: string, slug: string, documentNumber: string, isPublished: boolean, segment: { __typename: 'Segment', id: string, name: string } } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+
+export type ProviderDeleteMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type ProviderDeleteMutation = { __typename: 'Mutation', providerDelete: { __typename: 'ProviderDelete', errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+
+export type ProviderBulkDeleteMutationVariables = Exact<{
+  ids: Array<Scalars['ID']> | Scalars['ID'];
+}>;
+
+
+export type ProviderBulkDeleteMutation = { __typename: 'Mutation', providerBulkDelete: { __typename: 'ProviderBulkDelete', errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+
+export type ProvidersQueryVariables = Exact<{
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  search?: InputMaybe<Scalars['String']>;
+  isPublished?: InputMaybe<Scalars['Boolean']>;
+  segment?: InputMaybe<Scalars['ID']>;
+}>;
+
+
+export type ProvidersQuery = { __typename: 'Query', providers: { __typename: 'ProviderConnection', edges: Array<{ __typename: 'ProviderEdge', node: { __typename: 'Provider', id: string, name: string, slug: string, isPublished: boolean, segment: { __typename: 'Segment', id: string, name: string } } | null } | null>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
+
+export type ProviderDetailsQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type ProviderDetailsQuery = { __typename: 'Query', provider: { __typename: 'Provider', id: string, name: string, slug: string, documentNumber: string, isPublished: boolean, segment: { __typename: 'Segment', id: string, name: string } } | null };
+
 export type SegmentCreateMutationVariables = Exact<{
   input: SegmentInput;
 }>;
@@ -316,6 +365,10 @@ export type ErrorFragment = { __typename: 'Error', code: string | null, field: s
 
 export type PageInfoFragment = { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null };
 
+export type ProviderFragment = { __typename: 'Provider', id: string, name: string, slug: string, isPublished: boolean, segment: { __typename: 'Segment', id: string, name: string } };
+
+export type ProviderDetailsFragment = { __typename: 'Provider', id: string, name: string, slug: string, documentNumber: string, isPublished: boolean, segment: { __typename: 'Segment', id: string, name: string } };
+
 export type SegmentFragment = { __typename: 'Segment', id: string, name: string, slug: string };
 
 export type VehicleFragment = { __typename: 'Vehicle', id: string, name: string, slug: string, isPublished: boolean, category: { __typename: 'Category', id: string, name: string } };
@@ -330,3 +383,12 @@ export type SearchCategoriesQueryVariables = Exact<{
 
 
 export type SearchCategoriesQuery = { __typename: 'Query', search: { __typename: 'CategoryConnection', edges: Array<{ __typename: 'CategoryEdge', node: { __typename: 'Category', id: string, name: string } | null } | null>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
+
+export type SearchSegmentsQueryVariables = Exact<{
+  after?: InputMaybe<Scalars['String']>;
+  first: Scalars['Int'];
+  query: Scalars['String'];
+}>;
+
+
+export type SearchSegmentsQuery = { __typename: 'Query', search: { __typename: 'SegmentConnection', edges: Array<{ __typename: 'SegmentEdge', node: { __typename: 'Segment', id: string, name: string } | null } | null>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };

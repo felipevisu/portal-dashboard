@@ -6,6 +6,7 @@ const ITEMS = [
   { label: "Veículos", path: "/admin/vehicles" },
   { label: "Categorias", path: "/admin/categories" },
   { label: "Segmentos", path: "/admin/segments" },
+  { label: "Prestadores de serviço", path: "/admin/providers" },
 ];
 
 type ItemProps = { label: string; path: string; active: boolean };

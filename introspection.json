@@ -2638,6 +2638,43 @@
             "deprecationReason": null
           },
           {
+            "name": "providerBulkDelete",
+            "description": "Deletes providers.",
+            "args": [
+              {
+                "name": "ids",
+                "description": "List of providers IDs to delete.",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "SCALAR",
+                        "name": "ID",
+                        "ofType": null
+                      }
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "ProviderBulkDelete",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "providerCreate",
             "description": null,
             "args": [
@@ -2759,11 +2796,11 @@
           },
           {
             "name": "segmentBulkDelete",
-            "description": "Deletes categories.",
+            "description": "Deletes segments.",
             "args": [
               {
                 "name": "ids",
-                "description": "List of category IDs to delete.",
+                "description": "List of segments IDs to delete.",
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
@@ -3664,6 +3701,57 @@
             "ofType": null
           }
         ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ProviderBulkDelete",
+        "description": "Deletes providers.",
+        "fields": [
+          {
+            "name": "count",
+            "description": "Returns how many objects were affected.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "errors",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Error",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
         "enumValues": null,
         "possibleTypes": null
       },
@@ -5454,7 +5542,7 @@
       {
         "kind": "OBJECT",
         "name": "SegmentBulkDelete",
-        "description": "Deletes categories.",
+        "description": "Deletes segments.",
         "fields": [
           {
             "name": "count",
