@@ -7,6 +7,10 @@ import { renderCollection } from "@portal/misc";
 import TableRowLink from "@portal/components/TableRowLink";
 import { ListActions } from "@portal/types";
 import Checkbox from "@portal/components/Checkbox";
+import TableCellHeader from "@portal/components/TableCell";
+import { CheckCircle } from "@mui/icons-material";
+import { Box } from "@mui/system";
+import TableCellWithStatus from "@portal/components/TableCellWithStatus";
 
 interface VehicleListProps extends ListActions {
   vehicles: VehicleFragment[];
@@ -34,9 +38,9 @@ export const VehicleList = ({
         toggleAll={toggleAll}
         toolbar={toolbar}
       >
-        <TableCell>Nome</TableCell>
-        <TableCell>Categoria</TableCell>
-        <TableCell>Status</TableCell>
+        <TableCellHeader>Nome</TableCellHeader>
+        <TableCellHeader>Categoria</TableCellHeader>
+        <TableCellHeader>Status</TableCellHeader>
       </TableHead>
       <TableBody>
         {renderCollection(vehicles, (vehicle) => {
@@ -58,9 +62,7 @@ export const VehicleList = ({
               </TableCell>
               <TableCell>{vehicle.name}</TableCell>
               <TableCell>{vehicle.category.name}</TableCell>
-              <TableCell>
-                {vehicle.isPublished ? "Publicado" : "Despublicado"}
-              </TableCell>
+              <TableCellWithStatus status={vehicle.isPublished} />
             </TableRowLink>
           );
         })}

@@ -1,15 +1,46 @@
+import { Typography, Box } from "@mui/material";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import CategoryIcon from "@mui/icons-material/Category";
+import SegmentIcon from "@mui/icons-material/Segment";
+import DesignServicesIcon from "@mui/icons-material/DesignServices";
+import ChatIcon from "@mui/icons-material/Chat";
 
 const ITEMS = [
-  { label: "Homepage", path: "/admin" },
-  { label: "Veículos", path: "/admin/vehicles" },
-  { label: "Categorias", path: "/admin/categories" },
-  { label: "Segmentos", path: "/admin/segments" },
-  { label: "Prestadores de serviço", path: "/admin/providers" },
+  {
+    label: "Homepage",
+    path: "/admin",
+    icon: <DashboardIcon />,
+  },
+  {
+    label: "Categorias",
+    path: "/admin/categories",
+    icon: <CategoryIcon />,
+  },
+  {
+    label: "Veículos de comunicação",
+    path: "/admin/vehicles",
+    icon: <ChatIcon />,
+  },
+  {
+    label: "Segmentos",
+    path: "/admin/segments",
+    icon: <SegmentIcon />,
+  },
+  {
+    label: "Prestadores de serviço",
+    path: "/admin/providers",
+    icon: <DesignServicesIcon />,
+  },
 ];
 
-type ItemProps = { label: string; path: string; active: boolean };
+type ItemProps = {
+  label: string;
+  path: string;
+  active: boolean;
+  icon: React.ReactNode | string;
+};
 
 const isActive = (path: string, location: string) => {
   if (path === "/admin") {
@@ -18,14 +49,34 @@ const isActive = (path: string, location: string) => {
   return location.includes(path);
 };
 
-export const Item = ({ label, path, active }: ItemProps) => {
-  const activeClass = "bg-blue-100 hover:bg-blue-200 text-blue-600";
-  const defaultClass =
-    "block px-6 py-3 mb-2 rounded-full hover:bg-gray-100 font-medium";
+export const Item = ({ label, path, active, icon }: ItemProps) => {
   return (
     <li>
-      <Link to={path} className={`${defaultClass} ${active && activeClass}`}>
-        {label}
+      <Link to={path}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            padding: (theme) => theme.spacing(2, 4),
+            marginBottom: 2,
+            gap: 2,
+            color: active ? "primary.main" : "text.secondary",
+            "&:hover": { color: "primary.main" },
+            background: active ? "white" : "",
+            borderRadius: "0 8px 8px 0",
+          }}
+        >
+          {icon}
+          <Typography
+            fontWeight={600}
+            sx={{
+              color: "inherit",
+              "&:hover": { color: (theme) => theme.palette.primary.main },
+            }}
+          >
+            {label}
+          </Typography>
+        </Box>
       </Link>
     </li>
   );
@@ -35,8 +86,8 @@ export const Menu = () => {
   const location = useLocation();
 
   return (
-    <div style={{ width: "300px" }}>
-      <ul className="pr-8">
+    <div>
+      <ul>
         {ITEMS.map((item) => (
           <Item
             key={item.path}

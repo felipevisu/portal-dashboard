@@ -46,10 +46,13 @@ export const VehicleForm = ({
   );
 
   const handleChange = (e: React.ChangeEvent<any>) => {
-    if (e.type === "change") {
-      onChange({ name: e.target.name, value: e.target.checked });
-    } else {
-      onChange({ name: e.target.name, value: e.target.value });
+    switch (e.target.type) {
+      case "checkbox":
+        onChange({ name: e.target.name, value: e.target.checked });
+        break;
+      default:
+        onChange({ name: e.target.name, value: e.target.value });
+        break;
     }
   };
 

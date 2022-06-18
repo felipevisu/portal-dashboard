@@ -7,6 +7,7 @@ import { renderCollection } from "@portal/misc";
 import TableRowLink from "@portal/components/TableRowLink";
 import { ListActions } from "@portal/types";
 import Checkbox from "@portal/components/Checkbox";
+import TableCellHeader from "@portal/components/TableCell";
 
 interface CategoryListProps extends ListActions {
   categories: CategoryFragment[];
@@ -34,8 +35,10 @@ export const CategoryList = ({
         toggleAll={toggleAll}
         toolbar={toolbar}
       >
-        <TableCell sx={{ width: "auto" }}>Nome</TableCell>
-        <TableCell sx={{ width: 160, textAlign: "center" }}>Veículos</TableCell>
+        <TableCellHeader sx={{ width: "auto" }}>Nome</TableCellHeader>
+        <TableCellHeader sx={{ width: 160, textAlign: "center" }}>
+          Veículos
+        </TableCellHeader>
       </TableHead>
       <TableBody>
         {renderCollection(categories, (category) => {

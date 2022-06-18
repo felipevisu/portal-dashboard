@@ -7,6 +7,7 @@ import { renderCollection } from "@portal/misc";
 import TableRowLink from "@portal/components/TableRowLink";
 import { ListActions } from "@portal/types";
 import Checkbox from "@portal/components/Checkbox";
+import TableCellHeader from "@portal/components/TableCell";
 
 interface SegmentListProps extends ListActions {
   segments: SegmentFragment[];
@@ -34,10 +35,10 @@ export const SegmentList = ({
         toggleAll={toggleAll}
         toolbar={toolbar}
       >
-        <TableCell sx={{ width: "auto" }}>Nome</TableCell>
-        <TableCell sx={{ width: 160, textAlign: "center" }}>
+        <TableCellHeader sx={{ width: "auto" }}>Nome</TableCellHeader>
+        <TableCellHeader sx={{ width: 160, textAlign: "center" }}>
           Provedores
-        </TableCell>
+        </TableCellHeader>
       </TableHead>
       <TableBody>
         {renderCollection(segments, (segment) => {

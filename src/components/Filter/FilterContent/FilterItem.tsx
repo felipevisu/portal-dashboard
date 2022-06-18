@@ -19,7 +19,6 @@ interface FilterItemProps {
 }
 
 const FilterItem = ({ name, filter, onClick, selected }: FilterItemProps) => {
-  console.log(selected);
   return (
     <Accordion disableGutters>
       <AccordionSummary

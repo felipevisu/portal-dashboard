@@ -44,7 +44,7 @@ export const ProviderListPage = ({
 }: ProviderListPageProps) => {
   return (
     <Container>
-      <PageHeader title={"Prestador de serviço"}>
+      <PageHeader title={"Prestadores de serviço"}>
         <Button
           color="primary"
           variant="contained"

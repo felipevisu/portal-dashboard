@@ -9,22 +9,33 @@ import Menu from "./menu";
 import Segments from "./segments";
 import Vehicles from "./vehicles";
 import Providers from "./providers";
+import { Box } from "@mui/material";
 
 const RoutesComponent = () => {
   const { authenticated, authenticating } = useUser();
 
   if (authenticated) {
     return (
-      <div>
-        <Menu />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/vehicles/*" element={<Vehicles />} />
-          <Route path="/categories/*" element={<Categories />} />
-          <Route path="/segments/*" element={<Segments />} />
-          <Route path="/providers/*" element={<Providers />} />
-        </Routes>
-      </div>
+      <Box
+        sx={{
+          display: "flex",
+          minHeight: "100vh",
+          paddingTop: 3,
+        }}
+      >
+        <Box>
+          <Menu />
+        </Box>
+        <Box sx={{ flexGrow: "1", position: "relative" }}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/vehicles/*" element={<Vehicles />} />
+            <Route path="/categories/*" element={<Categories />} />
+            <Route path="/segments/*" element={<Segments />} />
+            <Route path="/providers/*" element={<Providers />} />
+          </Routes>
+        </Box>
+      </Box>
     );
   }
 

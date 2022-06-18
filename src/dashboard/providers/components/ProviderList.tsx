@@ -7,6 +7,9 @@ import { renderCollection } from "@portal/misc";
 import TableRowLink from "@portal/components/TableRowLink";
 import { ListActions } from "@portal/types";
 import Checkbox from "@portal/components/Checkbox";
+import TableCellHeader from "@portal/components/TableCell";
+import { CheckCircle } from "@mui/icons-material";
+import TableCellWithStatus from "@portal/components/TableCellWithStatus";
 
 interface ProviderListProps extends ListActions {
   providers: ProviderFragment[];
@@ -22,7 +25,7 @@ export const ProviderList = ({
   selected,
   toolbar,
 }: ProviderListProps) => {
-  const numberOfColumns = providers?.length === 0 ? 3 : 4;
+  const numberOfColumns = providers?.length === 0 ? 4 : 5;
 
   return (
     <ResponsiveTable>
@@ -34,9 +37,12 @@ export const ProviderList = ({
         toggleAll={toggleAll}
         toolbar={toolbar}
       >
-        <TableCell>Nome</TableCell>
-        <TableCell>Segmento</TableCell>
-        <TableCell>Status</TableCell>
+        <TableCellHeader>Nome</TableCellHeader>
+        <TableCellHeader>Segmento</TableCellHeader>
+        <TableCellHeader sx={{ textAlign: "center" }}>
+          Documentos
+        </TableCellHeader>
+        <TableCellHeader>Status</TableCellHeader>
       </TableHead>
       <TableBody>
         {renderCollection(providers, (provider) => {
@@ -58,9 +64,8 @@ export const ProviderList = ({
               </TableCell>
               <TableCell>{provider.name}</TableCell>
               <TableCell>{provider.segment.name}</TableCell>
-              <TableCell>
-                {provider.isPublished ? "Publicado" : "Despublicado"}
-              </TableCell>
+              <TableCell sx={{ textAlign: "center" }}>0</TableCell>
+              <TableCellWithStatus status={provider.isPublished} />
             </TableRowLink>
           );
         })}

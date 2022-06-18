@@ -8,7 +8,7 @@ export function getFilterOpts(
   const [searchParams] = useSearchParams();
   return {
     segment: {
-      name: "Categoria",
+      name: "Segmento",
       active: searchParams.get("segment") !== null,
       choices: segments,
       value: searchParams.get("segment"),
