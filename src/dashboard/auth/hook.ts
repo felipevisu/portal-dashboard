@@ -28,22 +28,23 @@ export function useAuthProvider({ apolloClient }) {
     }
   }, [meQuery]);
 
-  const tokenAuth = useTokenAuthMutation({
+  const [tokenAuth, tokenAuthResult] = useTokenAuthMutation({
     client: apolloClient,
   });
 
+  useEffect(() => {
+    if (tokenAuthResult.data?.tokenAuth?.token) {
+      setToken(tokenAuthResult.data.tokenAuth.token);
+      setAuthenticated(true);
+    }
+    if (tokenAuthResult.data?.tokenAuth?.user) {
+      setUser(tokenAuthResult.data.tokenAuth.user);
+    }
+  }, [tokenAuthResult]);
+
   const handleLogin = async (email: string, password: string) => {
-    const login = tokenAuth[0];
     try {
-      const response = await login({ variables: { email, password } });
-      if (response && !response.data.tokenAuth.errors.length) {
-        setToken(response.data.tokenAuth.token);
-        setUser(response.data.tokenAuth.user);
-        setAuthenticated(true);
-      } else {
-        setError("loginError");
-      }
-      return response.data.tokenAuth;
+      await tokenAuth({ variables: { email, password } });
     } catch (error) {
       setError("serverError");
     }
@@ -59,7 +60,8 @@ export function useAuthProvider({ apolloClient }) {
     login: handleLogin,
     logout: handleLogout,
     authenticated: authenticated,
-    authenticating: (authenticating && !error) || meQuery.loading,
+    authenticating:
+      (authenticating && !error) || meQuery.loading || tokenAuthResult.loading,
     user,
     error,
   };

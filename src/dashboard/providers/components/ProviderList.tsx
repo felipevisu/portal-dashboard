@@ -8,7 +8,6 @@ import TableRowLink from "@portal/components/TableRowLink";
 import { ListActions } from "@portal/types";
 import Checkbox from "@portal/components/Checkbox";
 import TableCellHeader from "@portal/components/TableCell";
-import { CheckCircle } from "@mui/icons-material";
 import TableCellWithStatus from "@portal/components/TableCellWithStatus";
 
 interface ProviderListProps extends ListActions {
