@@ -7,10 +7,10 @@ import {
   CardContent,
 } from "@mui/material";
 import { UserFragment, ErrorFragment } from "@portal/graphql";
-import { Button } from "@portal/components/Button";
 import { FormSpacer } from "@portal/components/FormSpacer";
 
 import { useUser } from "..";
+import { LoadingButton } from "@mui/lab";
 
 export interface FieldsProps {
   email: string | undefined;
@@ -48,7 +48,7 @@ export const Login = () => {
   });
   const [errors, setErrors] = useState<Array<ErrorFragment>>([]);
 
-  const { login } = useUser();
+  const { login, loading } = useUser();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -64,43 +64,46 @@ export const Login = () => {
   return (
     <Card>
       <CardContent sx={{ padding: 3 }}>
-        <Typography variant="h5" sx={{ fontWeight: 700, marginBottom: 3 }}>
-          Login
-        </Typography>
-        {errors.map((error, key) => (
-          <Panel key={key}>{error.message}</Panel>
-        ))}
-        <TextField
-          autoFocus
-          fullWidth
-          autoComplete="username"
-          type="text"
-          name="email"
-          label="Email"
-          onChange={handleChange}
-        />
-        <FormSpacer />
-        <TextField
-          fullWidth
-          autoComplete="password"
-          type="password"
-          name="password"
-          label="Senha"
-          onChange={handleChange}
-        />
-        <FormSpacer />
-        <ButtonsContainer>
-          <Button
-            sx={{ width: "100%" }}
-            color="primary"
-            variant="contained"
-            onClick={handleSubmit}
-            type="submit"
-            data-test-id="submit"
-          >
-            Entrar
-          </Button>
-        </ButtonsContainer>
+        <form onSubmit={handleSubmit}>
+          <Typography variant="h5" sx={{ fontWeight: 700, marginBottom: 3 }}>
+            Login
+          </Typography>
+          {errors.map((error, key) => (
+            <Panel key={key}>{error.message}</Panel>
+          ))}
+          <TextField
+            autoFocus
+            fullWidth
+            autoComplete="username"
+            type="text"
+            name="email"
+            label="Email"
+            onChange={handleChange}
+          />
+          <FormSpacer />
+          <TextField
+            fullWidth
+            autoComplete="password"
+            type="password"
+            name="password"
+            label="Senha"
+            onChange={handleChange}
+          />
+          <FormSpacer />
+          <ButtonsContainer>
+            <LoadingButton
+              loading={loading}
+              sx={{ width: "100%" }}
+              color="primary"
+              variant="contained"
+              onClick={handleSubmit}
+              type="submit"
+              data-test-id="submit"
+            >
+              Entrar
+            </LoadingButton>
+          </ButtonsContainer>
+        </form>
       </CardContent>
     </Card>
   );

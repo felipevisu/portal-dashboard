@@ -1,10 +1,14 @@
+import { Typography } from "@mui/material";
+import Container from "@portal/components/Container";
 import React from "react";
 
 export const Home = () => {
   return (
-    <div>
-      <h1>Dashboard</h1>
-    </div>
+    <Container>
+      <Typography variant="h4" fontWeight={700}>
+        Dashboard
+      </Typography>
+    </Container>
   );
 };
 

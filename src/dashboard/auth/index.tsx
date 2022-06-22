@@ -10,6 +10,7 @@ export interface ContextProps {
   user?: UserFragment;
   authenticating: boolean;
   authenticated: boolean;
+  loading: boolean;
 }
 
 export const UserContext = createContext<ContextProps>({
@@ -17,6 +18,7 @@ export const UserContext = createContext<ContextProps>({
   logout: undefined,
   authenticating: false,
   authenticated: false,
+  loading: false,
 });
 
 export const Auth = () => {

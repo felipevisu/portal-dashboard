@@ -60,8 +60,8 @@ export function useAuthProvider({ apolloClient }) {
     login: handleLogin,
     logout: handleLogout,
     authenticated: authenticated,
-    authenticating:
-      (authenticating && !error) || meQuery.loading || tokenAuthResult.loading,
+    authenticating: (authenticating && !error) || meQuery.loading,
+    loading: tokenAuthResult.loading,
     user,
     error,
   };
