@@ -4,6 +4,18 @@ const fontFamily = '"Inter", "sans-serif"';
 
 const theme = createTheme({
   spacing: (value = 1) => `${(value * 8) / 16}rem`,
+  palette: {
+    text: {
+      primary: "#28234a",
+      secondary: "rgba(40, 35, 74, 0.6)",
+    },
+    primary: {
+      main: "#056dff",
+    },
+    error: {
+      main: "#b63755",
+    },
+  },
   components: {
     MuiAccordion: {
       styleOverrides: {

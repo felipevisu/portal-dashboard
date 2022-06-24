@@ -5,6 +5,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import CategoryIcon from "@mui/icons-material/Category";
 import SegmentIcon from "@mui/icons-material/Segment";
 import DesignServicesIcon from "@mui/icons-material/DesignServices";
+import EventNoteIcon from "@mui/icons-material/EventNote";
 import ChatIcon from "@mui/icons-material/Chat";
 
 const ITEMS = [
@@ -32,6 +33,11 @@ const ITEMS = [
     label: "Prestadores de serviço",
     path: "/admin/providers",
     icon: <DesignServicesIcon />,
+  },
+  {
+    label: "Sessões públicas",
+    path: "/admin/sessions",
+    icon: <EventNoteIcon />,
   },
 ];
 
@@ -68,7 +74,7 @@ export const Item = ({ label, path, active, icon }: ItemProps) => {
         >
           {icon}
           <Typography
-            fontWeight={600}
+            fontWeight="bold"
             sx={{
               color: "inherit",
               "&:hover": { color: (theme) => theme.palette.primary.main },

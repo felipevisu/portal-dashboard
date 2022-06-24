@@ -1,121 +1,134 @@
-import * as Types from './types.generated';
+import * as Types from "./types.generated";
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
+import { gql } from "@apollo/client";
+import * as Apollo from "@apollo/client";
 const defaultOptions = {} as const;
 export const UserFragmentDoc = gql`
-    fragment User on User {
-  id
-  email
-  firstName
-  lastName
-  isStaff
-}
-    `;
+  fragment User on User {
+    id
+    email
+    firstName
+    lastName
+    isStaff
+  }
+`;
 export const UserBaseFragmentDoc = gql`
-    fragment UserBase on User {
-  id
-  firstName
-  lastName
-}
-    `;
+  fragment UserBase on User {
+    id
+    firstName
+    lastName
+  }
+`;
 export const CategoryFragmentDoc = gql`
-    fragment Category on Category {
-  id
-  name
-  slug
-}
-    `;
+  fragment Category on Category {
+    id
+    name
+    slug
+  }
+`;
 export const ErrorFragmentDoc = gql`
-    fragment Error on Error {
-  code
-  field
-  message
-}
-    `;
+  fragment Error on Error {
+    code
+    field
+    message
+  }
+`;
 export const PageInfoFragmentDoc = gql`
-    fragment PageInfo on PageInfo {
-  endCursor
-  hasNextPage
-  hasPreviousPage
-  startCursor
-}
-    `;
+  fragment PageInfo on PageInfo {
+    endCursor
+    hasNextPage
+    hasPreviousPage
+    startCursor
+  }
+`;
 export const ProviderFragmentDoc = gql`
-    fragment Provider on Provider {
-  id
-  name
-  slug
-  segment {
+  fragment Provider on Provider {
     id
     name
+    slug
+    segment {
+      id
+      name
+    }
+    isPublished
   }
-  isPublished
-}
-    `;
+`;
 export const ProviderDetailsFragmentDoc = gql`
-    fragment ProviderDetails on Provider {
-  id
-  name
-  slug
-  documentNumber
-  segment {
+  fragment ProviderDetails on Provider {
     id
     name
+    slug
+    documentNumber
+    segment {
+      id
+      name
+    }
+    isPublished
   }
-  isPublished
-}
-    `;
+`;
 export const SegmentFragmentDoc = gql`
-    fragment Segment on Segment {
-  id
-  name
-  slug
-}
-    `;
+  fragment Segment on Segment {
+    id
+    name
+    slug
+  }
+`;
+export const SessionFragmentDoc = gql`
+  fragment Session on Session {
+    id
+    name
+    slug
+    date
+    time
+    isPublished
+  }
+`;
 export const VehicleFragmentDoc = gql`
-    fragment Vehicle on Vehicle {
-  id
-  name
-  slug
-  category {
+  fragment Vehicle on Vehicle {
     id
     name
+    slug
+    category {
+      id
+      name
+    }
+    isPublished
   }
-  isPublished
-}
-    `;
+`;
 export const VehicleDetailsFragmentDoc = gql`
-    fragment VehicleDetails on Vehicle {
-  id
-  name
-  slug
-  documentNumber
-  category {
+  fragment VehicleDetails on Vehicle {
     id
     name
+    slug
+    documentNumber
+    category {
+      id
+      name
+    }
+    isPublished
   }
-  isPublished
-}
-    `;
+`;
 export const TokenAuthDocument = gql`
-    mutation tokenAuth($email: String!, $password: String!) {
-  tokenAuth(email: $email, password: $password) {
-    errors {
-      message
-      field
-      code
-    }
-    token
-    user {
-      email
-      firstName
-      lastName
+  mutation tokenAuth($email: String!, $password: String!) {
+    tokenAuth(email: $email, password: $password) {
+      errors {
+        message
+        field
+        code
+      }
+      token
+      user {
+        email
+        firstName
+        lastName
+      }
     }
   }
-}
-    `;
-export type TokenAuthMutationFn = Apollo.MutationFunction<Types.TokenAuthMutation, Types.TokenAuthMutationVariables>;
+`;
+export type TokenAuthMutationFn = Apollo.MutationFunction<
+  Types.TokenAuthMutation,
+  Types.TokenAuthMutationVariables
+>;
 
 /**
  * __useTokenAuthMutation__
@@ -135,22 +148,36 @@ export type TokenAuthMutationFn = Apollo.MutationFunction<Types.TokenAuthMutatio
  *   },
  * });
  */
-export function useTokenAuthMutation(baseOptions?: Apollo.MutationHookOptions<Types.TokenAuthMutation, Types.TokenAuthMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<Types.TokenAuthMutation, Types.TokenAuthMutationVariables>(TokenAuthDocument, options);
-      }
-export type TokenAuthMutationHookResult = ReturnType<typeof useTokenAuthMutation>;
-export type TokenAuthMutationResult = Apollo.MutationResult<Types.TokenAuthMutation>;
-export type TokenAuthMutationOptions = Apollo.BaseMutationOptions<Types.TokenAuthMutation, Types.TokenAuthMutationVariables>;
-export const MeDocument = gql`
-    query Me {
-  me {
-    email
-    firstName
-    lastName
-  }
+export function useTokenAuthMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.TokenAuthMutation,
+    Types.TokenAuthMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    Types.TokenAuthMutation,
+    Types.TokenAuthMutationVariables
+  >(TokenAuthDocument, options);
 }
-    `;
+export type TokenAuthMutationHookResult = ReturnType<
+  typeof useTokenAuthMutation
+>;
+export type TokenAuthMutationResult =
+  Apollo.MutationResult<Types.TokenAuthMutation>;
+export type TokenAuthMutationOptions = Apollo.BaseMutationOptions<
+  Types.TokenAuthMutation,
+  Types.TokenAuthMutationVariables
+>;
+export const MeDocument = gql`
+  query Me {
+    me {
+      email
+      firstName
+      lastName
+    }
+  }
+`;
 
 /**
  * __useMeQuery__
@@ -167,31 +194,51 @@ export const MeDocument = gql`
  *   },
  * });
  */
-export function useMeQuery(baseOptions?: Apollo.QueryHookOptions<Types.MeQuery, Types.MeQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<Types.MeQuery, Types.MeQueryVariables>(MeDocument, options);
-      }
-export function useMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.MeQuery, Types.MeQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<Types.MeQuery, Types.MeQueryVariables>(MeDocument, options);
-        }
+export function useMeQuery(
+  baseOptions?: Apollo.QueryHookOptions<Types.MeQuery, Types.MeQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<Types.MeQuery, Types.MeQueryVariables>(
+    MeDocument,
+    options
+  );
+}
+export function useMeLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    Types.MeQuery,
+    Types.MeQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<Types.MeQuery, Types.MeQueryVariables>(
+    MeDocument,
+    options
+  );
+}
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
-export type MeQueryResult = Apollo.QueryResult<Types.MeQuery, Types.MeQueryVariables>;
+export type MeQueryResult = Apollo.QueryResult<
+  Types.MeQuery,
+  Types.MeQueryVariables
+>;
 export const CategoryCreateDocument = gql`
-    mutation CategoryCreate($input: CategoryInput!) {
-  categoryCreate(input: $input) {
-    category {
-      ...Category
-    }
-    errors {
-      ...Error
+  mutation CategoryCreate($input: CategoryInput!) {
+    categoryCreate(input: $input) {
+      category {
+        ...Category
+      }
+      errors {
+        ...Error
+      }
     }
   }
-}
-    ${CategoryFragmentDoc}
-${ErrorFragmentDoc}`;
-export type CategoryCreateMutationFn = Apollo.MutationFunction<Types.CategoryCreateMutation, Types.CategoryCreateMutationVariables>;
+  ${CategoryFragmentDoc}
+  ${ErrorFragmentDoc}
+`;
+export type CategoryCreateMutationFn = Apollo.MutationFunction<
+  Types.CategoryCreateMutation,
+  Types.CategoryCreateMutationVariables
+>;
 
 /**
  * __useCategoryCreateMutation__
@@ -210,27 +257,45 @@ export type CategoryCreateMutationFn = Apollo.MutationFunction<Types.CategoryCre
  *   },
  * });
  */
-export function useCategoryCreateMutation(baseOptions?: Apollo.MutationHookOptions<Types.CategoryCreateMutation, Types.CategoryCreateMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<Types.CategoryCreateMutation, Types.CategoryCreateMutationVariables>(CategoryCreateDocument, options);
-      }
-export type CategoryCreateMutationHookResult = ReturnType<typeof useCategoryCreateMutation>;
-export type CategoryCreateMutationResult = Apollo.MutationResult<Types.CategoryCreateMutation>;
-export type CategoryCreateMutationOptions = Apollo.BaseMutationOptions<Types.CategoryCreateMutation, Types.CategoryCreateMutationVariables>;
+export function useCategoryCreateMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.CategoryCreateMutation,
+    Types.CategoryCreateMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    Types.CategoryCreateMutation,
+    Types.CategoryCreateMutationVariables
+  >(CategoryCreateDocument, options);
+}
+export type CategoryCreateMutationHookResult = ReturnType<
+  typeof useCategoryCreateMutation
+>;
+export type CategoryCreateMutationResult =
+  Apollo.MutationResult<Types.CategoryCreateMutation>;
+export type CategoryCreateMutationOptions = Apollo.BaseMutationOptions<
+  Types.CategoryCreateMutation,
+  Types.CategoryCreateMutationVariables
+>;
 export const CategoryUpdateDocument = gql`
-    mutation CategoryUpdate($id: ID, $input: CategoryInput!) {
-  categoryUpdate(id: $id, input: $input) {
-    category {
-      ...Category
-    }
-    errors {
-      ...Error
+  mutation CategoryUpdate($id: ID, $input: CategoryInput!) {
+    categoryUpdate(id: $id, input: $input) {
+      category {
+        ...Category
+      }
+      errors {
+        ...Error
+      }
     }
   }
-}
-    ${CategoryFragmentDoc}
-${ErrorFragmentDoc}`;
-export type CategoryUpdateMutationFn = Apollo.MutationFunction<Types.CategoryUpdateMutation, Types.CategoryUpdateMutationVariables>;
+  ${CategoryFragmentDoc}
+  ${ErrorFragmentDoc}
+`;
+export type CategoryUpdateMutationFn = Apollo.MutationFunction<
+  Types.CategoryUpdateMutation,
+  Types.CategoryUpdateMutationVariables
+>;
 
 /**
  * __useCategoryUpdateMutation__
@@ -250,23 +315,41 @@ export type CategoryUpdateMutationFn = Apollo.MutationFunction<Types.CategoryUpd
  *   },
  * });
  */
-export function useCategoryUpdateMutation(baseOptions?: Apollo.MutationHookOptions<Types.CategoryUpdateMutation, Types.CategoryUpdateMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<Types.CategoryUpdateMutation, Types.CategoryUpdateMutationVariables>(CategoryUpdateDocument, options);
-      }
-export type CategoryUpdateMutationHookResult = ReturnType<typeof useCategoryUpdateMutation>;
-export type CategoryUpdateMutationResult = Apollo.MutationResult<Types.CategoryUpdateMutation>;
-export type CategoryUpdateMutationOptions = Apollo.BaseMutationOptions<Types.CategoryUpdateMutation, Types.CategoryUpdateMutationVariables>;
+export function useCategoryUpdateMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.CategoryUpdateMutation,
+    Types.CategoryUpdateMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    Types.CategoryUpdateMutation,
+    Types.CategoryUpdateMutationVariables
+  >(CategoryUpdateDocument, options);
+}
+export type CategoryUpdateMutationHookResult = ReturnType<
+  typeof useCategoryUpdateMutation
+>;
+export type CategoryUpdateMutationResult =
+  Apollo.MutationResult<Types.CategoryUpdateMutation>;
+export type CategoryUpdateMutationOptions = Apollo.BaseMutationOptions<
+  Types.CategoryUpdateMutation,
+  Types.CategoryUpdateMutationVariables
+>;
 export const CategoryDeleteDocument = gql`
-    mutation CategoryDelete($id: ID!) {
-  categoryDelete(id: $id) {
-    errors {
-      ...Error
+  mutation CategoryDelete($id: ID!) {
+    categoryDelete(id: $id) {
+      errors {
+        ...Error
+      }
     }
   }
-}
-    ${ErrorFragmentDoc}`;
-export type CategoryDeleteMutationFn = Apollo.MutationFunction<Types.CategoryDeleteMutation, Types.CategoryDeleteMutationVariables>;
+  ${ErrorFragmentDoc}
+`;
+export type CategoryDeleteMutationFn = Apollo.MutationFunction<
+  Types.CategoryDeleteMutation,
+  Types.CategoryDeleteMutationVariables
+>;
 
 /**
  * __useCategoryDeleteMutation__
@@ -285,23 +368,41 @@ export type CategoryDeleteMutationFn = Apollo.MutationFunction<Types.CategoryDel
  *   },
  * });
  */
-export function useCategoryDeleteMutation(baseOptions?: Apollo.MutationHookOptions<Types.CategoryDeleteMutation, Types.CategoryDeleteMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<Types.CategoryDeleteMutation, Types.CategoryDeleteMutationVariables>(CategoryDeleteDocument, options);
-      }
-export type CategoryDeleteMutationHookResult = ReturnType<typeof useCategoryDeleteMutation>;
-export type CategoryDeleteMutationResult = Apollo.MutationResult<Types.CategoryDeleteMutation>;
-export type CategoryDeleteMutationOptions = Apollo.BaseMutationOptions<Types.CategoryDeleteMutation, Types.CategoryDeleteMutationVariables>;
+export function useCategoryDeleteMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.CategoryDeleteMutation,
+    Types.CategoryDeleteMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    Types.CategoryDeleteMutation,
+    Types.CategoryDeleteMutationVariables
+  >(CategoryDeleteDocument, options);
+}
+export type CategoryDeleteMutationHookResult = ReturnType<
+  typeof useCategoryDeleteMutation
+>;
+export type CategoryDeleteMutationResult =
+  Apollo.MutationResult<Types.CategoryDeleteMutation>;
+export type CategoryDeleteMutationOptions = Apollo.BaseMutationOptions<
+  Types.CategoryDeleteMutation,
+  Types.CategoryDeleteMutationVariables
+>;
 export const CategoryBulkDeleteDocument = gql`
-    mutation CategoryBulkDelete($ids: [ID!]!) {
-  categoryBulkDelete(ids: $ids) {
-    errors {
-      ...Error
+  mutation CategoryBulkDelete($ids: [ID!]!) {
+    categoryBulkDelete(ids: $ids) {
+      errors {
+        ...Error
+      }
     }
   }
-}
-    ${ErrorFragmentDoc}`;
-export type CategoryBulkDeleteMutationFn = Apollo.MutationFunction<Types.CategoryBulkDeleteMutation, Types.CategoryBulkDeleteMutationVariables>;
+  ${ErrorFragmentDoc}
+`;
+export type CategoryBulkDeleteMutationFn = Apollo.MutationFunction<
+  Types.CategoryBulkDeleteMutation,
+  Types.CategoryBulkDeleteMutationVariables
+>;
 
 /**
  * __useCategoryBulkDeleteMutation__
@@ -320,34 +421,55 @@ export type CategoryBulkDeleteMutationFn = Apollo.MutationFunction<Types.Categor
  *   },
  * });
  */
-export function useCategoryBulkDeleteMutation(baseOptions?: Apollo.MutationHookOptions<Types.CategoryBulkDeleteMutation, Types.CategoryBulkDeleteMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<Types.CategoryBulkDeleteMutation, Types.CategoryBulkDeleteMutationVariables>(CategoryBulkDeleteDocument, options);
-      }
-export type CategoryBulkDeleteMutationHookResult = ReturnType<typeof useCategoryBulkDeleteMutation>;
-export type CategoryBulkDeleteMutationResult = Apollo.MutationResult<Types.CategoryBulkDeleteMutation>;
-export type CategoryBulkDeleteMutationOptions = Apollo.BaseMutationOptions<Types.CategoryBulkDeleteMutation, Types.CategoryBulkDeleteMutationVariables>;
+export function useCategoryBulkDeleteMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.CategoryBulkDeleteMutation,
+    Types.CategoryBulkDeleteMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    Types.CategoryBulkDeleteMutation,
+    Types.CategoryBulkDeleteMutationVariables
+  >(CategoryBulkDeleteDocument, options);
+}
+export type CategoryBulkDeleteMutationHookResult = ReturnType<
+  typeof useCategoryBulkDeleteMutation
+>;
+export type CategoryBulkDeleteMutationResult =
+  Apollo.MutationResult<Types.CategoryBulkDeleteMutation>;
+export type CategoryBulkDeleteMutationOptions = Apollo.BaseMutationOptions<
+  Types.CategoryBulkDeleteMutation,
+  Types.CategoryBulkDeleteMutationVariables
+>;
 export const CategoriesDocument = gql`
-    query Categories($first: Int, $last: Int, $after: String, $before: String, $search: String) {
-  categories(
-    first: $first
-    last: $last
-    after: $after
-    before: $before
-    search: $search
+  query Categories(
+    $first: Int
+    $last: Int
+    $after: String
+    $before: String
+    $search: String
   ) {
-    edges {
-      node {
-        ...Category
+    categories(
+      first: $first
+      last: $last
+      after: $after
+      before: $before
+      search: $search
+    ) {
+      edges {
+        node {
+          ...Category
+        }
       }
-    }
-    pageInfo {
-      ...PageInfo
+      pageInfo {
+        ...PageInfo
+      }
     }
   }
-}
-    ${CategoryFragmentDoc}
-${PageInfoFragmentDoc}`;
+  ${CategoryFragmentDoc}
+  ${PageInfoFragmentDoc}
+`;
 
 /**
  * __useCategoriesQuery__
@@ -369,24 +491,46 @@ ${PageInfoFragmentDoc}`;
  *   },
  * });
  */
-export function useCategoriesQuery(baseOptions?: Apollo.QueryHookOptions<Types.CategoriesQuery, Types.CategoriesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<Types.CategoriesQuery, Types.CategoriesQueryVariables>(CategoriesDocument, options);
-      }
-export function useCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.CategoriesQuery, Types.CategoriesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<Types.CategoriesQuery, Types.CategoriesQueryVariables>(CategoriesDocument, options);
-        }
-export type CategoriesQueryHookResult = ReturnType<typeof useCategoriesQuery>;
-export type CategoriesLazyQueryHookResult = ReturnType<typeof useCategoriesLazyQuery>;
-export type CategoriesQueryResult = Apollo.QueryResult<Types.CategoriesQuery, Types.CategoriesQueryVariables>;
-export const CategoryDetailsDocument = gql`
-    query CategoryDetails($id: ID!) {
-  category(id: $id) {
-    ...Category
-  }
+export function useCategoriesQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    Types.CategoriesQuery,
+    Types.CategoriesQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<Types.CategoriesQuery, Types.CategoriesQueryVariables>(
+    CategoriesDocument,
+    options
+  );
 }
-    ${CategoryFragmentDoc}`;
+export function useCategoriesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    Types.CategoriesQuery,
+    Types.CategoriesQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    Types.CategoriesQuery,
+    Types.CategoriesQueryVariables
+  >(CategoriesDocument, options);
+}
+export type CategoriesQueryHookResult = ReturnType<typeof useCategoriesQuery>;
+export type CategoriesLazyQueryHookResult = ReturnType<
+  typeof useCategoriesLazyQuery
+>;
+export type CategoriesQueryResult = Apollo.QueryResult<
+  Types.CategoriesQuery,
+  Types.CategoriesQueryVariables
+>;
+export const CategoryDetailsDocument = gql`
+  query CategoryDetails($id: ID!) {
+    category(id: $id) {
+      ...Category
+    }
+  }
+  ${CategoryFragmentDoc}
+`;
 
 /**
  * __useCategoryDetailsQuery__
@@ -404,31 +548,58 @@ export const CategoryDetailsDocument = gql`
  *   },
  * });
  */
-export function useCategoryDetailsQuery(baseOptions: Apollo.QueryHookOptions<Types.CategoryDetailsQuery, Types.CategoryDetailsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<Types.CategoryDetailsQuery, Types.CategoryDetailsQueryVariables>(CategoryDetailsDocument, options);
-      }
-export function useCategoryDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.CategoryDetailsQuery, Types.CategoryDetailsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<Types.CategoryDetailsQuery, Types.CategoryDetailsQueryVariables>(CategoryDetailsDocument, options);
-        }
-export type CategoryDetailsQueryHookResult = ReturnType<typeof useCategoryDetailsQuery>;
-export type CategoryDetailsLazyQueryHookResult = ReturnType<typeof useCategoryDetailsLazyQuery>;
-export type CategoryDetailsQueryResult = Apollo.QueryResult<Types.CategoryDetailsQuery, Types.CategoryDetailsQueryVariables>;
+export function useCategoryDetailsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    Types.CategoryDetailsQuery,
+    Types.CategoryDetailsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    Types.CategoryDetailsQuery,
+    Types.CategoryDetailsQueryVariables
+  >(CategoryDetailsDocument, options);
+}
+export function useCategoryDetailsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    Types.CategoryDetailsQuery,
+    Types.CategoryDetailsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    Types.CategoryDetailsQuery,
+    Types.CategoryDetailsQueryVariables
+  >(CategoryDetailsDocument, options);
+}
+export type CategoryDetailsQueryHookResult = ReturnType<
+  typeof useCategoryDetailsQuery
+>;
+export type CategoryDetailsLazyQueryHookResult = ReturnType<
+  typeof useCategoryDetailsLazyQuery
+>;
+export type CategoryDetailsQueryResult = Apollo.QueryResult<
+  Types.CategoryDetailsQuery,
+  Types.CategoryDetailsQueryVariables
+>;
 export const ProviderCreateDocument = gql`
-    mutation ProviderCreate($input: ProviderInput!) {
-  providerCreate(input: $input) {
-    provider {
-      ...ProviderDetails
-    }
-    errors {
-      ...Error
+  mutation ProviderCreate($input: ProviderInput!) {
+    providerCreate(input: $input) {
+      provider {
+        ...ProviderDetails
+      }
+      errors {
+        ...Error
+      }
     }
   }
-}
-    ${ProviderDetailsFragmentDoc}
-${ErrorFragmentDoc}`;
-export type ProviderCreateMutationFn = Apollo.MutationFunction<Types.ProviderCreateMutation, Types.ProviderCreateMutationVariables>;
+  ${ProviderDetailsFragmentDoc}
+  ${ErrorFragmentDoc}
+`;
+export type ProviderCreateMutationFn = Apollo.MutationFunction<
+  Types.ProviderCreateMutation,
+  Types.ProviderCreateMutationVariables
+>;
 
 /**
  * __useProviderCreateMutation__
@@ -447,27 +618,45 @@ export type ProviderCreateMutationFn = Apollo.MutationFunction<Types.ProviderCre
  *   },
  * });
  */
-export function useProviderCreateMutation(baseOptions?: Apollo.MutationHookOptions<Types.ProviderCreateMutation, Types.ProviderCreateMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<Types.ProviderCreateMutation, Types.ProviderCreateMutationVariables>(ProviderCreateDocument, options);
-      }
-export type ProviderCreateMutationHookResult = ReturnType<typeof useProviderCreateMutation>;
-export type ProviderCreateMutationResult = Apollo.MutationResult<Types.ProviderCreateMutation>;
-export type ProviderCreateMutationOptions = Apollo.BaseMutationOptions<Types.ProviderCreateMutation, Types.ProviderCreateMutationVariables>;
+export function useProviderCreateMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.ProviderCreateMutation,
+    Types.ProviderCreateMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    Types.ProviderCreateMutation,
+    Types.ProviderCreateMutationVariables
+  >(ProviderCreateDocument, options);
+}
+export type ProviderCreateMutationHookResult = ReturnType<
+  typeof useProviderCreateMutation
+>;
+export type ProviderCreateMutationResult =
+  Apollo.MutationResult<Types.ProviderCreateMutation>;
+export type ProviderCreateMutationOptions = Apollo.BaseMutationOptions<
+  Types.ProviderCreateMutation,
+  Types.ProviderCreateMutationVariables
+>;
 export const ProviderUpdateDocument = gql`
-    mutation ProviderUpdate($id: ID, $input: ProviderInput!) {
-  providerUpdate(id: $id, input: $input) {
-    provider {
-      ...ProviderDetails
-    }
-    errors {
-      ...Error
+  mutation ProviderUpdate($id: ID, $input: ProviderInput!) {
+    providerUpdate(id: $id, input: $input) {
+      provider {
+        ...ProviderDetails
+      }
+      errors {
+        ...Error
+      }
     }
   }
-}
-    ${ProviderDetailsFragmentDoc}
-${ErrorFragmentDoc}`;
-export type ProviderUpdateMutationFn = Apollo.MutationFunction<Types.ProviderUpdateMutation, Types.ProviderUpdateMutationVariables>;
+  ${ProviderDetailsFragmentDoc}
+  ${ErrorFragmentDoc}
+`;
+export type ProviderUpdateMutationFn = Apollo.MutationFunction<
+  Types.ProviderUpdateMutation,
+  Types.ProviderUpdateMutationVariables
+>;
 
 /**
  * __useProviderUpdateMutation__
@@ -487,23 +676,41 @@ export type ProviderUpdateMutationFn = Apollo.MutationFunction<Types.ProviderUpd
  *   },
  * });
  */
-export function useProviderUpdateMutation(baseOptions?: Apollo.MutationHookOptions<Types.ProviderUpdateMutation, Types.ProviderUpdateMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<Types.ProviderUpdateMutation, Types.ProviderUpdateMutationVariables>(ProviderUpdateDocument, options);
-      }
-export type ProviderUpdateMutationHookResult = ReturnType<typeof useProviderUpdateMutation>;
-export type ProviderUpdateMutationResult = Apollo.MutationResult<Types.ProviderUpdateMutation>;
-export type ProviderUpdateMutationOptions = Apollo.BaseMutationOptions<Types.ProviderUpdateMutation, Types.ProviderUpdateMutationVariables>;
+export function useProviderUpdateMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.ProviderUpdateMutation,
+    Types.ProviderUpdateMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    Types.ProviderUpdateMutation,
+    Types.ProviderUpdateMutationVariables
+  >(ProviderUpdateDocument, options);
+}
+export type ProviderUpdateMutationHookResult = ReturnType<
+  typeof useProviderUpdateMutation
+>;
+export type ProviderUpdateMutationResult =
+  Apollo.MutationResult<Types.ProviderUpdateMutation>;
+export type ProviderUpdateMutationOptions = Apollo.BaseMutationOptions<
+  Types.ProviderUpdateMutation,
+  Types.ProviderUpdateMutationVariables
+>;
 export const ProviderDeleteDocument = gql`
-    mutation ProviderDelete($id: ID!) {
-  providerDelete(id: $id) {
-    errors {
-      ...Error
+  mutation ProviderDelete($id: ID!) {
+    providerDelete(id: $id) {
+      errors {
+        ...Error
+      }
     }
   }
-}
-    ${ErrorFragmentDoc}`;
-export type ProviderDeleteMutationFn = Apollo.MutationFunction<Types.ProviderDeleteMutation, Types.ProviderDeleteMutationVariables>;
+  ${ErrorFragmentDoc}
+`;
+export type ProviderDeleteMutationFn = Apollo.MutationFunction<
+  Types.ProviderDeleteMutation,
+  Types.ProviderDeleteMutationVariables
+>;
 
 /**
  * __useProviderDeleteMutation__
@@ -522,23 +729,41 @@ export type ProviderDeleteMutationFn = Apollo.MutationFunction<Types.ProviderDel
  *   },
  * });
  */
-export function useProviderDeleteMutation(baseOptions?: Apollo.MutationHookOptions<Types.ProviderDeleteMutation, Types.ProviderDeleteMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<Types.ProviderDeleteMutation, Types.ProviderDeleteMutationVariables>(ProviderDeleteDocument, options);
-      }
-export type ProviderDeleteMutationHookResult = ReturnType<typeof useProviderDeleteMutation>;
-export type ProviderDeleteMutationResult = Apollo.MutationResult<Types.ProviderDeleteMutation>;
-export type ProviderDeleteMutationOptions = Apollo.BaseMutationOptions<Types.ProviderDeleteMutation, Types.ProviderDeleteMutationVariables>;
+export function useProviderDeleteMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.ProviderDeleteMutation,
+    Types.ProviderDeleteMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    Types.ProviderDeleteMutation,
+    Types.ProviderDeleteMutationVariables
+  >(ProviderDeleteDocument, options);
+}
+export type ProviderDeleteMutationHookResult = ReturnType<
+  typeof useProviderDeleteMutation
+>;
+export type ProviderDeleteMutationResult =
+  Apollo.MutationResult<Types.ProviderDeleteMutation>;
+export type ProviderDeleteMutationOptions = Apollo.BaseMutationOptions<
+  Types.ProviderDeleteMutation,
+  Types.ProviderDeleteMutationVariables
+>;
 export const ProviderBulkDeleteDocument = gql`
-    mutation ProviderBulkDelete($ids: [ID!]!) {
-  providerBulkDelete(ids: $ids) {
-    errors {
-      ...Error
+  mutation ProviderBulkDelete($ids: [ID!]!) {
+    providerBulkDelete(ids: $ids) {
+      errors {
+        ...Error
+      }
     }
   }
-}
-    ${ErrorFragmentDoc}`;
-export type ProviderBulkDeleteMutationFn = Apollo.MutationFunction<Types.ProviderBulkDeleteMutation, Types.ProviderBulkDeleteMutationVariables>;
+  ${ErrorFragmentDoc}
+`;
+export type ProviderBulkDeleteMutationFn = Apollo.MutationFunction<
+  Types.ProviderBulkDeleteMutation,
+  Types.ProviderBulkDeleteMutationVariables
+>;
 
 /**
  * __useProviderBulkDeleteMutation__
@@ -557,36 +782,59 @@ export type ProviderBulkDeleteMutationFn = Apollo.MutationFunction<Types.Provide
  *   },
  * });
  */
-export function useProviderBulkDeleteMutation(baseOptions?: Apollo.MutationHookOptions<Types.ProviderBulkDeleteMutation, Types.ProviderBulkDeleteMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<Types.ProviderBulkDeleteMutation, Types.ProviderBulkDeleteMutationVariables>(ProviderBulkDeleteDocument, options);
-      }
-export type ProviderBulkDeleteMutationHookResult = ReturnType<typeof useProviderBulkDeleteMutation>;
-export type ProviderBulkDeleteMutationResult = Apollo.MutationResult<Types.ProviderBulkDeleteMutation>;
-export type ProviderBulkDeleteMutationOptions = Apollo.BaseMutationOptions<Types.ProviderBulkDeleteMutation, Types.ProviderBulkDeleteMutationVariables>;
+export function useProviderBulkDeleteMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.ProviderBulkDeleteMutation,
+    Types.ProviderBulkDeleteMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    Types.ProviderBulkDeleteMutation,
+    Types.ProviderBulkDeleteMutationVariables
+  >(ProviderBulkDeleteDocument, options);
+}
+export type ProviderBulkDeleteMutationHookResult = ReturnType<
+  typeof useProviderBulkDeleteMutation
+>;
+export type ProviderBulkDeleteMutationResult =
+  Apollo.MutationResult<Types.ProviderBulkDeleteMutation>;
+export type ProviderBulkDeleteMutationOptions = Apollo.BaseMutationOptions<
+  Types.ProviderBulkDeleteMutation,
+  Types.ProviderBulkDeleteMutationVariables
+>;
 export const ProvidersDocument = gql`
-    query Providers($first: Int, $last: Int, $after: String, $before: String, $search: String, $isPublished: Boolean, $segment: ID) {
-  providers(
-    first: $first
-    last: $last
-    after: $after
-    before: $before
-    search: $search
-    segment: $segment
-    isPublished: $isPublished
+  query Providers(
+    $first: Int
+    $last: Int
+    $after: String
+    $before: String
+    $search: String
+    $isPublished: Boolean
+    $segment: ID
   ) {
-    edges {
-      node {
-        ...Provider
+    providers(
+      first: $first
+      last: $last
+      after: $after
+      before: $before
+      search: $search
+      segment: $segment
+      isPublished: $isPublished
+    ) {
+      edges {
+        node {
+          ...Provider
+        }
       }
-    }
-    pageInfo {
-      ...PageInfo
+      pageInfo {
+        ...PageInfo
+      }
     }
   }
-}
-    ${ProviderFragmentDoc}
-${PageInfoFragmentDoc}`;
+  ${ProviderFragmentDoc}
+  ${PageInfoFragmentDoc}
+`;
 
 /**
  * __useProvidersQuery__
@@ -610,24 +858,46 @@ ${PageInfoFragmentDoc}`;
  *   },
  * });
  */
-export function useProvidersQuery(baseOptions?: Apollo.QueryHookOptions<Types.ProvidersQuery, Types.ProvidersQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<Types.ProvidersQuery, Types.ProvidersQueryVariables>(ProvidersDocument, options);
-      }
-export function useProvidersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.ProvidersQuery, Types.ProvidersQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<Types.ProvidersQuery, Types.ProvidersQueryVariables>(ProvidersDocument, options);
-        }
-export type ProvidersQueryHookResult = ReturnType<typeof useProvidersQuery>;
-export type ProvidersLazyQueryHookResult = ReturnType<typeof useProvidersLazyQuery>;
-export type ProvidersQueryResult = Apollo.QueryResult<Types.ProvidersQuery, Types.ProvidersQueryVariables>;
-export const ProviderDetailsDocument = gql`
-    query ProviderDetails($id: ID!) {
-  provider(id: $id) {
-    ...ProviderDetails
-  }
+export function useProvidersQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    Types.ProvidersQuery,
+    Types.ProvidersQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<Types.ProvidersQuery, Types.ProvidersQueryVariables>(
+    ProvidersDocument,
+    options
+  );
 }
-    ${ProviderDetailsFragmentDoc}`;
+export function useProvidersLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    Types.ProvidersQuery,
+    Types.ProvidersQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    Types.ProvidersQuery,
+    Types.ProvidersQueryVariables
+  >(ProvidersDocument, options);
+}
+export type ProvidersQueryHookResult = ReturnType<typeof useProvidersQuery>;
+export type ProvidersLazyQueryHookResult = ReturnType<
+  typeof useProvidersLazyQuery
+>;
+export type ProvidersQueryResult = Apollo.QueryResult<
+  Types.ProvidersQuery,
+  Types.ProvidersQueryVariables
+>;
+export const ProviderDetailsDocument = gql`
+  query ProviderDetails($id: ID!) {
+    provider(id: $id) {
+      ...ProviderDetails
+    }
+  }
+  ${ProviderDetailsFragmentDoc}
+`;
 
 /**
  * __useProviderDetailsQuery__
@@ -645,31 +915,58 @@ export const ProviderDetailsDocument = gql`
  *   },
  * });
  */
-export function useProviderDetailsQuery(baseOptions: Apollo.QueryHookOptions<Types.ProviderDetailsQuery, Types.ProviderDetailsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<Types.ProviderDetailsQuery, Types.ProviderDetailsQueryVariables>(ProviderDetailsDocument, options);
-      }
-export function useProviderDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.ProviderDetailsQuery, Types.ProviderDetailsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<Types.ProviderDetailsQuery, Types.ProviderDetailsQueryVariables>(ProviderDetailsDocument, options);
-        }
-export type ProviderDetailsQueryHookResult = ReturnType<typeof useProviderDetailsQuery>;
-export type ProviderDetailsLazyQueryHookResult = ReturnType<typeof useProviderDetailsLazyQuery>;
-export type ProviderDetailsQueryResult = Apollo.QueryResult<Types.ProviderDetailsQuery, Types.ProviderDetailsQueryVariables>;
+export function useProviderDetailsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    Types.ProviderDetailsQuery,
+    Types.ProviderDetailsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    Types.ProviderDetailsQuery,
+    Types.ProviderDetailsQueryVariables
+  >(ProviderDetailsDocument, options);
+}
+export function useProviderDetailsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    Types.ProviderDetailsQuery,
+    Types.ProviderDetailsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    Types.ProviderDetailsQuery,
+    Types.ProviderDetailsQueryVariables
+  >(ProviderDetailsDocument, options);
+}
+export type ProviderDetailsQueryHookResult = ReturnType<
+  typeof useProviderDetailsQuery
+>;
+export type ProviderDetailsLazyQueryHookResult = ReturnType<
+  typeof useProviderDetailsLazyQuery
+>;
+export type ProviderDetailsQueryResult = Apollo.QueryResult<
+  Types.ProviderDetailsQuery,
+  Types.ProviderDetailsQueryVariables
+>;
 export const SegmentCreateDocument = gql`
-    mutation SegmentCreate($input: SegmentInput!) {
-  segmentCreate(input: $input) {
-    segment {
-      ...Segment
-    }
-    errors {
-      ...Error
+  mutation SegmentCreate($input: SegmentInput!) {
+    segmentCreate(input: $input) {
+      segment {
+        ...Segment
+      }
+      errors {
+        ...Error
+      }
     }
   }
-}
-    ${SegmentFragmentDoc}
-${ErrorFragmentDoc}`;
-export type SegmentCreateMutationFn = Apollo.MutationFunction<Types.SegmentCreateMutation, Types.SegmentCreateMutationVariables>;
+  ${SegmentFragmentDoc}
+  ${ErrorFragmentDoc}
+`;
+export type SegmentCreateMutationFn = Apollo.MutationFunction<
+  Types.SegmentCreateMutation,
+  Types.SegmentCreateMutationVariables
+>;
 
 /**
  * __useSegmentCreateMutation__
@@ -688,27 +985,45 @@ export type SegmentCreateMutationFn = Apollo.MutationFunction<Types.SegmentCreat
  *   },
  * });
  */
-export function useSegmentCreateMutation(baseOptions?: Apollo.MutationHookOptions<Types.SegmentCreateMutation, Types.SegmentCreateMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<Types.SegmentCreateMutation, Types.SegmentCreateMutationVariables>(SegmentCreateDocument, options);
-      }
-export type SegmentCreateMutationHookResult = ReturnType<typeof useSegmentCreateMutation>;
-export type SegmentCreateMutationResult = Apollo.MutationResult<Types.SegmentCreateMutation>;
-export type SegmentCreateMutationOptions = Apollo.BaseMutationOptions<Types.SegmentCreateMutation, Types.SegmentCreateMutationVariables>;
+export function useSegmentCreateMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.SegmentCreateMutation,
+    Types.SegmentCreateMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    Types.SegmentCreateMutation,
+    Types.SegmentCreateMutationVariables
+  >(SegmentCreateDocument, options);
+}
+export type SegmentCreateMutationHookResult = ReturnType<
+  typeof useSegmentCreateMutation
+>;
+export type SegmentCreateMutationResult =
+  Apollo.MutationResult<Types.SegmentCreateMutation>;
+export type SegmentCreateMutationOptions = Apollo.BaseMutationOptions<
+  Types.SegmentCreateMutation,
+  Types.SegmentCreateMutationVariables
+>;
 export const SegmentUpdateDocument = gql`
-    mutation SegmentUpdate($id: ID, $input: SegmentInput!) {
-  segmentUpdate(id: $id, input: $input) {
-    segment {
-      ...Segment
-    }
-    errors {
-      ...Error
+  mutation SegmentUpdate($id: ID, $input: SegmentInput!) {
+    segmentUpdate(id: $id, input: $input) {
+      segment {
+        ...Segment
+      }
+      errors {
+        ...Error
+      }
     }
   }
-}
-    ${SegmentFragmentDoc}
-${ErrorFragmentDoc}`;
-export type SegmentUpdateMutationFn = Apollo.MutationFunction<Types.SegmentUpdateMutation, Types.SegmentUpdateMutationVariables>;
+  ${SegmentFragmentDoc}
+  ${ErrorFragmentDoc}
+`;
+export type SegmentUpdateMutationFn = Apollo.MutationFunction<
+  Types.SegmentUpdateMutation,
+  Types.SegmentUpdateMutationVariables
+>;
 
 /**
  * __useSegmentUpdateMutation__
@@ -728,23 +1043,41 @@ export type SegmentUpdateMutationFn = Apollo.MutationFunction<Types.SegmentUpdat
  *   },
  * });
  */
-export function useSegmentUpdateMutation(baseOptions?: Apollo.MutationHookOptions<Types.SegmentUpdateMutation, Types.SegmentUpdateMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<Types.SegmentUpdateMutation, Types.SegmentUpdateMutationVariables>(SegmentUpdateDocument, options);
-      }
-export type SegmentUpdateMutationHookResult = ReturnType<typeof useSegmentUpdateMutation>;
-export type SegmentUpdateMutationResult = Apollo.MutationResult<Types.SegmentUpdateMutation>;
-export type SegmentUpdateMutationOptions = Apollo.BaseMutationOptions<Types.SegmentUpdateMutation, Types.SegmentUpdateMutationVariables>;
+export function useSegmentUpdateMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.SegmentUpdateMutation,
+    Types.SegmentUpdateMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    Types.SegmentUpdateMutation,
+    Types.SegmentUpdateMutationVariables
+  >(SegmentUpdateDocument, options);
+}
+export type SegmentUpdateMutationHookResult = ReturnType<
+  typeof useSegmentUpdateMutation
+>;
+export type SegmentUpdateMutationResult =
+  Apollo.MutationResult<Types.SegmentUpdateMutation>;
+export type SegmentUpdateMutationOptions = Apollo.BaseMutationOptions<
+  Types.SegmentUpdateMutation,
+  Types.SegmentUpdateMutationVariables
+>;
 export const SegmentDeleteDocument = gql`
-    mutation SegmentDelete($id: ID!) {
-  segmentDelete(id: $id) {
-    errors {
-      ...Error
+  mutation SegmentDelete($id: ID!) {
+    segmentDelete(id: $id) {
+      errors {
+        ...Error
+      }
     }
   }
-}
-    ${ErrorFragmentDoc}`;
-export type SegmentDeleteMutationFn = Apollo.MutationFunction<Types.SegmentDeleteMutation, Types.SegmentDeleteMutationVariables>;
+  ${ErrorFragmentDoc}
+`;
+export type SegmentDeleteMutationFn = Apollo.MutationFunction<
+  Types.SegmentDeleteMutation,
+  Types.SegmentDeleteMutationVariables
+>;
 
 /**
  * __useSegmentDeleteMutation__
@@ -763,23 +1096,41 @@ export type SegmentDeleteMutationFn = Apollo.MutationFunction<Types.SegmentDelet
  *   },
  * });
  */
-export function useSegmentDeleteMutation(baseOptions?: Apollo.MutationHookOptions<Types.SegmentDeleteMutation, Types.SegmentDeleteMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<Types.SegmentDeleteMutation, Types.SegmentDeleteMutationVariables>(SegmentDeleteDocument, options);
-      }
-export type SegmentDeleteMutationHookResult = ReturnType<typeof useSegmentDeleteMutation>;
-export type SegmentDeleteMutationResult = Apollo.MutationResult<Types.SegmentDeleteMutation>;
-export type SegmentDeleteMutationOptions = Apollo.BaseMutationOptions<Types.SegmentDeleteMutation, Types.SegmentDeleteMutationVariables>;
+export function useSegmentDeleteMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.SegmentDeleteMutation,
+    Types.SegmentDeleteMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    Types.SegmentDeleteMutation,
+    Types.SegmentDeleteMutationVariables
+  >(SegmentDeleteDocument, options);
+}
+export type SegmentDeleteMutationHookResult = ReturnType<
+  typeof useSegmentDeleteMutation
+>;
+export type SegmentDeleteMutationResult =
+  Apollo.MutationResult<Types.SegmentDeleteMutation>;
+export type SegmentDeleteMutationOptions = Apollo.BaseMutationOptions<
+  Types.SegmentDeleteMutation,
+  Types.SegmentDeleteMutationVariables
+>;
 export const SegmentBulkDeleteDocument = gql`
-    mutation SegmentBulkDelete($ids: [ID!]!) {
-  segmentBulkDelete(ids: $ids) {
-    errors {
-      ...Error
+  mutation SegmentBulkDelete($ids: [ID!]!) {
+    segmentBulkDelete(ids: $ids) {
+      errors {
+        ...Error
+      }
     }
   }
-}
-    ${ErrorFragmentDoc}`;
-export type SegmentBulkDeleteMutationFn = Apollo.MutationFunction<Types.SegmentBulkDeleteMutation, Types.SegmentBulkDeleteMutationVariables>;
+  ${ErrorFragmentDoc}
+`;
+export type SegmentBulkDeleteMutationFn = Apollo.MutationFunction<
+  Types.SegmentBulkDeleteMutation,
+  Types.SegmentBulkDeleteMutationVariables
+>;
 
 /**
  * __useSegmentBulkDeleteMutation__
@@ -798,34 +1149,55 @@ export type SegmentBulkDeleteMutationFn = Apollo.MutationFunction<Types.SegmentB
  *   },
  * });
  */
-export function useSegmentBulkDeleteMutation(baseOptions?: Apollo.MutationHookOptions<Types.SegmentBulkDeleteMutation, Types.SegmentBulkDeleteMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<Types.SegmentBulkDeleteMutation, Types.SegmentBulkDeleteMutationVariables>(SegmentBulkDeleteDocument, options);
-      }
-export type SegmentBulkDeleteMutationHookResult = ReturnType<typeof useSegmentBulkDeleteMutation>;
-export type SegmentBulkDeleteMutationResult = Apollo.MutationResult<Types.SegmentBulkDeleteMutation>;
-export type SegmentBulkDeleteMutationOptions = Apollo.BaseMutationOptions<Types.SegmentBulkDeleteMutation, Types.SegmentBulkDeleteMutationVariables>;
+export function useSegmentBulkDeleteMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.SegmentBulkDeleteMutation,
+    Types.SegmentBulkDeleteMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    Types.SegmentBulkDeleteMutation,
+    Types.SegmentBulkDeleteMutationVariables
+  >(SegmentBulkDeleteDocument, options);
+}
+export type SegmentBulkDeleteMutationHookResult = ReturnType<
+  typeof useSegmentBulkDeleteMutation
+>;
+export type SegmentBulkDeleteMutationResult =
+  Apollo.MutationResult<Types.SegmentBulkDeleteMutation>;
+export type SegmentBulkDeleteMutationOptions = Apollo.BaseMutationOptions<
+  Types.SegmentBulkDeleteMutation,
+  Types.SegmentBulkDeleteMutationVariables
+>;
 export const SegmentsDocument = gql`
-    query Segments($first: Int, $last: Int, $after: String, $before: String, $search: String) {
-  segments(
-    first: $first
-    last: $last
-    after: $after
-    before: $before
-    search: $search
+  query Segments(
+    $first: Int
+    $last: Int
+    $after: String
+    $before: String
+    $search: String
   ) {
-    edges {
-      node {
-        ...Segment
+    segments(
+      first: $first
+      last: $last
+      after: $after
+      before: $before
+      search: $search
+    ) {
+      edges {
+        node {
+          ...Segment
+        }
       }
-    }
-    pageInfo {
-      ...PageInfo
+      pageInfo {
+        ...PageInfo
+      }
     }
   }
-}
-    ${SegmentFragmentDoc}
-${PageInfoFragmentDoc}`;
+  ${SegmentFragmentDoc}
+  ${PageInfoFragmentDoc}
+`;
 
 /**
  * __useSegmentsQuery__
@@ -847,24 +1219,46 @@ ${PageInfoFragmentDoc}`;
  *   },
  * });
  */
-export function useSegmentsQuery(baseOptions?: Apollo.QueryHookOptions<Types.SegmentsQuery, Types.SegmentsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<Types.SegmentsQuery, Types.SegmentsQueryVariables>(SegmentsDocument, options);
-      }
-export function useSegmentsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.SegmentsQuery, Types.SegmentsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<Types.SegmentsQuery, Types.SegmentsQueryVariables>(SegmentsDocument, options);
-        }
-export type SegmentsQueryHookResult = ReturnType<typeof useSegmentsQuery>;
-export type SegmentsLazyQueryHookResult = ReturnType<typeof useSegmentsLazyQuery>;
-export type SegmentsQueryResult = Apollo.QueryResult<Types.SegmentsQuery, Types.SegmentsQueryVariables>;
-export const SegmentDetailsDocument = gql`
-    query SegmentDetails($id: ID!) {
-  segment(id: $id) {
-    ...Segment
-  }
+export function useSegmentsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    Types.SegmentsQuery,
+    Types.SegmentsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<Types.SegmentsQuery, Types.SegmentsQueryVariables>(
+    SegmentsDocument,
+    options
+  );
 }
-    ${SegmentFragmentDoc}`;
+export function useSegmentsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    Types.SegmentsQuery,
+    Types.SegmentsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<Types.SegmentsQuery, Types.SegmentsQueryVariables>(
+    SegmentsDocument,
+    options
+  );
+}
+export type SegmentsQueryHookResult = ReturnType<typeof useSegmentsQuery>;
+export type SegmentsLazyQueryHookResult = ReturnType<
+  typeof useSegmentsLazyQuery
+>;
+export type SegmentsQueryResult = Apollo.QueryResult<
+  Types.SegmentsQuery,
+  Types.SegmentsQueryVariables
+>;
+export const SegmentDetailsDocument = gql`
+  query SegmentDetails($id: ID!) {
+    segment(id: $id) {
+      ...Segment
+    }
+  }
+  ${SegmentFragmentDoc}
+`;
 
 /**
  * __useSegmentDetailsQuery__
@@ -882,31 +1276,192 @@ export const SegmentDetailsDocument = gql`
  *   },
  * });
  */
-export function useSegmentDetailsQuery(baseOptions: Apollo.QueryHookOptions<Types.SegmentDetailsQuery, Types.SegmentDetailsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<Types.SegmentDetailsQuery, Types.SegmentDetailsQueryVariables>(SegmentDetailsDocument, options);
+export function useSegmentDetailsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    Types.SegmentDetailsQuery,
+    Types.SegmentDetailsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    Types.SegmentDetailsQuery,
+    Types.SegmentDetailsQueryVariables
+  >(SegmentDetailsDocument, options);
+}
+export function useSegmentDetailsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    Types.SegmentDetailsQuery,
+    Types.SegmentDetailsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    Types.SegmentDetailsQuery,
+    Types.SegmentDetailsQueryVariables
+  >(SegmentDetailsDocument, options);
+}
+export type SegmentDetailsQueryHookResult = ReturnType<
+  typeof useSegmentDetailsQuery
+>;
+export type SegmentDetailsLazyQueryHookResult = ReturnType<
+  typeof useSegmentDetailsLazyQuery
+>;
+export type SegmentDetailsQueryResult = Apollo.QueryResult<
+  Types.SegmentDetailsQuery,
+  Types.SegmentDetailsQueryVariables
+>;
+export const SessionBulkDeleteDocument = gql`
+  mutation SessionBulkDelete($ids: [ID!]!) {
+    sessionBulkDelete(ids: $ids) {
+      errors {
+        ...Error
       }
-export function useSegmentDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.SegmentDetailsQuery, Types.SegmentDetailsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<Types.SegmentDetailsQuery, Types.SegmentDetailsQueryVariables>(SegmentDetailsDocument, options);
-        }
-export type SegmentDetailsQueryHookResult = ReturnType<typeof useSegmentDetailsQuery>;
-export type SegmentDetailsLazyQueryHookResult = ReturnType<typeof useSegmentDetailsLazyQuery>;
-export type SegmentDetailsQueryResult = Apollo.QueryResult<Types.SegmentDetailsQuery, Types.SegmentDetailsQueryVariables>;
-export const VehicleCreateDocument = gql`
-    mutation VehicleCreate($input: VehicleInput!) {
-  vehicleCreate(input: $input) {
-    vehicle {
-      ...VehicleDetails
-    }
-    errors {
-      ...Error
     }
   }
+  ${ErrorFragmentDoc}
+`;
+export type SessionBulkDeleteMutationFn = Apollo.MutationFunction<
+  Types.SessionBulkDeleteMutation,
+  Types.SessionBulkDeleteMutationVariables
+>;
+
+/**
+ * __useSessionBulkDeleteMutation__
+ *
+ * To run a mutation, you first call `useSessionBulkDeleteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSessionBulkDeleteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [sessionBulkDeleteMutation, { data, loading, error }] = useSessionBulkDeleteMutation({
+ *   variables: {
+ *      ids: // value for 'ids'
+ *   },
+ * });
+ */
+export function useSessionBulkDeleteMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.SessionBulkDeleteMutation,
+    Types.SessionBulkDeleteMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    Types.SessionBulkDeleteMutation,
+    Types.SessionBulkDeleteMutationVariables
+  >(SessionBulkDeleteDocument, options);
 }
-    ${VehicleDetailsFragmentDoc}
-${ErrorFragmentDoc}`;
-export type VehicleCreateMutationFn = Apollo.MutationFunction<Types.VehicleCreateMutation, Types.VehicleCreateMutationVariables>;
+export type SessionBulkDeleteMutationHookResult = ReturnType<
+  typeof useSessionBulkDeleteMutation
+>;
+export type SessionBulkDeleteMutationResult =
+  Apollo.MutationResult<Types.SessionBulkDeleteMutation>;
+export type SessionBulkDeleteMutationOptions = Apollo.BaseMutationOptions<
+  Types.SessionBulkDeleteMutation,
+  Types.SessionBulkDeleteMutationVariables
+>;
+export const SessionsDocument = gql`
+  query Sessions(
+    $first: Int
+    $last: Int
+    $after: String
+    $before: String
+    $search: String
+  ) {
+    sessions(
+      first: $first
+      last: $last
+      after: $after
+      before: $before
+      search: $search
+    ) {
+      edges {
+        node {
+          ...Session
+        }
+      }
+      pageInfo {
+        ...PageInfo
+      }
+    }
+  }
+  ${SessionFragmentDoc}
+  ${PageInfoFragmentDoc}
+`;
+
+/**
+ * __useSessionsQuery__
+ *
+ * To run a query within a React component, call `useSessionsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSessionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSessionsQuery({
+ *   variables: {
+ *      first: // value for 'first'
+ *      last: // value for 'last'
+ *      after: // value for 'after'
+ *      before: // value for 'before'
+ *      search: // value for 'search'
+ *   },
+ * });
+ */
+export function useSessionsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    Types.SessionsQuery,
+    Types.SessionsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<Types.SessionsQuery, Types.SessionsQueryVariables>(
+    SessionsDocument,
+    options
+  );
+}
+export function useSessionsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    Types.SessionsQuery,
+    Types.SessionsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<Types.SessionsQuery, Types.SessionsQueryVariables>(
+    SessionsDocument,
+    options
+  );
+}
+export type SessionsQueryHookResult = ReturnType<typeof useSessionsQuery>;
+export type SessionsLazyQueryHookResult = ReturnType<
+  typeof useSessionsLazyQuery
+>;
+export type SessionsQueryResult = Apollo.QueryResult<
+  Types.SessionsQuery,
+  Types.SessionsQueryVariables
+>;
+export const VehicleCreateDocument = gql`
+  mutation VehicleCreate($input: VehicleInput!) {
+    vehicleCreate(input: $input) {
+      vehicle {
+        ...VehicleDetails
+      }
+      errors {
+        ...Error
+      }
+    }
+  }
+  ${VehicleDetailsFragmentDoc}
+  ${ErrorFragmentDoc}
+`;
+export type VehicleCreateMutationFn = Apollo.MutationFunction<
+  Types.VehicleCreateMutation,
+  Types.VehicleCreateMutationVariables
+>;
 
 /**
  * __useVehicleCreateMutation__
@@ -925,27 +1480,45 @@ export type VehicleCreateMutationFn = Apollo.MutationFunction<Types.VehicleCreat
  *   },
  * });
  */
-export function useVehicleCreateMutation(baseOptions?: Apollo.MutationHookOptions<Types.VehicleCreateMutation, Types.VehicleCreateMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<Types.VehicleCreateMutation, Types.VehicleCreateMutationVariables>(VehicleCreateDocument, options);
-      }
-export type VehicleCreateMutationHookResult = ReturnType<typeof useVehicleCreateMutation>;
-export type VehicleCreateMutationResult = Apollo.MutationResult<Types.VehicleCreateMutation>;
-export type VehicleCreateMutationOptions = Apollo.BaseMutationOptions<Types.VehicleCreateMutation, Types.VehicleCreateMutationVariables>;
+export function useVehicleCreateMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.VehicleCreateMutation,
+    Types.VehicleCreateMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    Types.VehicleCreateMutation,
+    Types.VehicleCreateMutationVariables
+  >(VehicleCreateDocument, options);
+}
+export type VehicleCreateMutationHookResult = ReturnType<
+  typeof useVehicleCreateMutation
+>;
+export type VehicleCreateMutationResult =
+  Apollo.MutationResult<Types.VehicleCreateMutation>;
+export type VehicleCreateMutationOptions = Apollo.BaseMutationOptions<
+  Types.VehicleCreateMutation,
+  Types.VehicleCreateMutationVariables
+>;
 export const VehicleUpdateDocument = gql`
-    mutation VehicleUpdate($id: ID, $input: VehicleInput!) {
-  vehicleUpdate(id: $id, input: $input) {
-    vehicle {
-      ...VehicleDetails
-    }
-    errors {
-      ...Error
+  mutation VehicleUpdate($id: ID, $input: VehicleInput!) {
+    vehicleUpdate(id: $id, input: $input) {
+      vehicle {
+        ...VehicleDetails
+      }
+      errors {
+        ...Error
+      }
     }
   }
-}
-    ${VehicleDetailsFragmentDoc}
-${ErrorFragmentDoc}`;
-export type VehicleUpdateMutationFn = Apollo.MutationFunction<Types.VehicleUpdateMutation, Types.VehicleUpdateMutationVariables>;
+  ${VehicleDetailsFragmentDoc}
+  ${ErrorFragmentDoc}
+`;
+export type VehicleUpdateMutationFn = Apollo.MutationFunction<
+  Types.VehicleUpdateMutation,
+  Types.VehicleUpdateMutationVariables
+>;
 
 /**
  * __useVehicleUpdateMutation__
@@ -965,23 +1538,41 @@ export type VehicleUpdateMutationFn = Apollo.MutationFunction<Types.VehicleUpdat
  *   },
  * });
  */
-export function useVehicleUpdateMutation(baseOptions?: Apollo.MutationHookOptions<Types.VehicleUpdateMutation, Types.VehicleUpdateMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<Types.VehicleUpdateMutation, Types.VehicleUpdateMutationVariables>(VehicleUpdateDocument, options);
-      }
-export type VehicleUpdateMutationHookResult = ReturnType<typeof useVehicleUpdateMutation>;
-export type VehicleUpdateMutationResult = Apollo.MutationResult<Types.VehicleUpdateMutation>;
-export type VehicleUpdateMutationOptions = Apollo.BaseMutationOptions<Types.VehicleUpdateMutation, Types.VehicleUpdateMutationVariables>;
+export function useVehicleUpdateMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.VehicleUpdateMutation,
+    Types.VehicleUpdateMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    Types.VehicleUpdateMutation,
+    Types.VehicleUpdateMutationVariables
+  >(VehicleUpdateDocument, options);
+}
+export type VehicleUpdateMutationHookResult = ReturnType<
+  typeof useVehicleUpdateMutation
+>;
+export type VehicleUpdateMutationResult =
+  Apollo.MutationResult<Types.VehicleUpdateMutation>;
+export type VehicleUpdateMutationOptions = Apollo.BaseMutationOptions<
+  Types.VehicleUpdateMutation,
+  Types.VehicleUpdateMutationVariables
+>;
 export const VehicleDeleteDocument = gql`
-    mutation VehicleDelete($id: ID!) {
-  vehicleDelete(id: $id) {
-    errors {
-      ...Error
+  mutation VehicleDelete($id: ID!) {
+    vehicleDelete(id: $id) {
+      errors {
+        ...Error
+      }
     }
   }
-}
-    ${ErrorFragmentDoc}`;
-export type VehicleDeleteMutationFn = Apollo.MutationFunction<Types.VehicleDeleteMutation, Types.VehicleDeleteMutationVariables>;
+  ${ErrorFragmentDoc}
+`;
+export type VehicleDeleteMutationFn = Apollo.MutationFunction<
+  Types.VehicleDeleteMutation,
+  Types.VehicleDeleteMutationVariables
+>;
 
 /**
  * __useVehicleDeleteMutation__
@@ -1000,23 +1591,41 @@ export type VehicleDeleteMutationFn = Apollo.MutationFunction<Types.VehicleDelet
  *   },
  * });
  */
-export function useVehicleDeleteMutation(baseOptions?: Apollo.MutationHookOptions<Types.VehicleDeleteMutation, Types.VehicleDeleteMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<Types.VehicleDeleteMutation, Types.VehicleDeleteMutationVariables>(VehicleDeleteDocument, options);
-      }
-export type VehicleDeleteMutationHookResult = ReturnType<typeof useVehicleDeleteMutation>;
-export type VehicleDeleteMutationResult = Apollo.MutationResult<Types.VehicleDeleteMutation>;
-export type VehicleDeleteMutationOptions = Apollo.BaseMutationOptions<Types.VehicleDeleteMutation, Types.VehicleDeleteMutationVariables>;
+export function useVehicleDeleteMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.VehicleDeleteMutation,
+    Types.VehicleDeleteMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    Types.VehicleDeleteMutation,
+    Types.VehicleDeleteMutationVariables
+  >(VehicleDeleteDocument, options);
+}
+export type VehicleDeleteMutationHookResult = ReturnType<
+  typeof useVehicleDeleteMutation
+>;
+export type VehicleDeleteMutationResult =
+  Apollo.MutationResult<Types.VehicleDeleteMutation>;
+export type VehicleDeleteMutationOptions = Apollo.BaseMutationOptions<
+  Types.VehicleDeleteMutation,
+  Types.VehicleDeleteMutationVariables
+>;
 export const VehicleBulkDeleteDocument = gql`
-    mutation VehicleBulkDelete($ids: [ID!]!) {
-  vehicleBulkDelete(ids: $ids) {
-    errors {
-      ...Error
+  mutation VehicleBulkDelete($ids: [ID!]!) {
+    vehicleBulkDelete(ids: $ids) {
+      errors {
+        ...Error
+      }
     }
   }
-}
-    ${ErrorFragmentDoc}`;
-export type VehicleBulkDeleteMutationFn = Apollo.MutationFunction<Types.VehicleBulkDeleteMutation, Types.VehicleBulkDeleteMutationVariables>;
+  ${ErrorFragmentDoc}
+`;
+export type VehicleBulkDeleteMutationFn = Apollo.MutationFunction<
+  Types.VehicleBulkDeleteMutation,
+  Types.VehicleBulkDeleteMutationVariables
+>;
 
 /**
  * __useVehicleBulkDeleteMutation__
@@ -1035,36 +1644,59 @@ export type VehicleBulkDeleteMutationFn = Apollo.MutationFunction<Types.VehicleB
  *   },
  * });
  */
-export function useVehicleBulkDeleteMutation(baseOptions?: Apollo.MutationHookOptions<Types.VehicleBulkDeleteMutation, Types.VehicleBulkDeleteMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<Types.VehicleBulkDeleteMutation, Types.VehicleBulkDeleteMutationVariables>(VehicleBulkDeleteDocument, options);
-      }
-export type VehicleBulkDeleteMutationHookResult = ReturnType<typeof useVehicleBulkDeleteMutation>;
-export type VehicleBulkDeleteMutationResult = Apollo.MutationResult<Types.VehicleBulkDeleteMutation>;
-export type VehicleBulkDeleteMutationOptions = Apollo.BaseMutationOptions<Types.VehicleBulkDeleteMutation, Types.VehicleBulkDeleteMutationVariables>;
+export function useVehicleBulkDeleteMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.VehicleBulkDeleteMutation,
+    Types.VehicleBulkDeleteMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    Types.VehicleBulkDeleteMutation,
+    Types.VehicleBulkDeleteMutationVariables
+  >(VehicleBulkDeleteDocument, options);
+}
+export type VehicleBulkDeleteMutationHookResult = ReturnType<
+  typeof useVehicleBulkDeleteMutation
+>;
+export type VehicleBulkDeleteMutationResult =
+  Apollo.MutationResult<Types.VehicleBulkDeleteMutation>;
+export type VehicleBulkDeleteMutationOptions = Apollo.BaseMutationOptions<
+  Types.VehicleBulkDeleteMutation,
+  Types.VehicleBulkDeleteMutationVariables
+>;
 export const VehiclesDocument = gql`
-    query Vehicles($first: Int, $last: Int, $after: String, $before: String, $search: String, $isPublished: Boolean, $category: ID) {
-  vehicles(
-    first: $first
-    last: $last
-    after: $after
-    before: $before
-    search: $search
-    category: $category
-    isPublished: $isPublished
+  query Vehicles(
+    $first: Int
+    $last: Int
+    $after: String
+    $before: String
+    $search: String
+    $isPublished: Boolean
+    $category: ID
   ) {
-    edges {
-      node {
-        ...Vehicle
+    vehicles(
+      first: $first
+      last: $last
+      after: $after
+      before: $before
+      search: $search
+      category: $category
+      isPublished: $isPublished
+    ) {
+      edges {
+        node {
+          ...Vehicle
+        }
       }
-    }
-    pageInfo {
-      ...PageInfo
+      pageInfo {
+        ...PageInfo
+      }
     }
   }
-}
-    ${VehicleFragmentDoc}
-${PageInfoFragmentDoc}`;
+  ${VehicleFragmentDoc}
+  ${PageInfoFragmentDoc}
+`;
 
 /**
  * __useVehiclesQuery__
@@ -1088,24 +1720,46 @@ ${PageInfoFragmentDoc}`;
  *   },
  * });
  */
-export function useVehiclesQuery(baseOptions?: Apollo.QueryHookOptions<Types.VehiclesQuery, Types.VehiclesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<Types.VehiclesQuery, Types.VehiclesQueryVariables>(VehiclesDocument, options);
-      }
-export function useVehiclesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.VehiclesQuery, Types.VehiclesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<Types.VehiclesQuery, Types.VehiclesQueryVariables>(VehiclesDocument, options);
-        }
-export type VehiclesQueryHookResult = ReturnType<typeof useVehiclesQuery>;
-export type VehiclesLazyQueryHookResult = ReturnType<typeof useVehiclesLazyQuery>;
-export type VehiclesQueryResult = Apollo.QueryResult<Types.VehiclesQuery, Types.VehiclesQueryVariables>;
-export const VehicleDetailsDocument = gql`
-    query VehicleDetails($id: ID!) {
-  vehicle(id: $id) {
-    ...VehicleDetails
-  }
+export function useVehiclesQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    Types.VehiclesQuery,
+    Types.VehiclesQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<Types.VehiclesQuery, Types.VehiclesQueryVariables>(
+    VehiclesDocument,
+    options
+  );
 }
-    ${VehicleDetailsFragmentDoc}`;
+export function useVehiclesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    Types.VehiclesQuery,
+    Types.VehiclesQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<Types.VehiclesQuery, Types.VehiclesQueryVariables>(
+    VehiclesDocument,
+    options
+  );
+}
+export type VehiclesQueryHookResult = ReturnType<typeof useVehiclesQuery>;
+export type VehiclesLazyQueryHookResult = ReturnType<
+  typeof useVehiclesLazyQuery
+>;
+export type VehiclesQueryResult = Apollo.QueryResult<
+  Types.VehiclesQuery,
+  Types.VehiclesQueryVariables
+>;
+export const VehicleDetailsDocument = gql`
+  query VehicleDetails($id: ID!) {
+    vehicle(id: $id) {
+      ...VehicleDetails
+    }
+  }
+  ${VehicleDetailsFragmentDoc}
+`;
 
 /**
  * __useVehicleDetailsQuery__
@@ -1123,32 +1777,56 @@ export const VehicleDetailsDocument = gql`
  *   },
  * });
  */
-export function useVehicleDetailsQuery(baseOptions: Apollo.QueryHookOptions<Types.VehicleDetailsQuery, Types.VehicleDetailsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<Types.VehicleDetailsQuery, Types.VehicleDetailsQueryVariables>(VehicleDetailsDocument, options);
-      }
-export function useVehicleDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.VehicleDetailsQuery, Types.VehicleDetailsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<Types.VehicleDetailsQuery, Types.VehicleDetailsQueryVariables>(VehicleDetailsDocument, options);
-        }
-export type VehicleDetailsQueryHookResult = ReturnType<typeof useVehicleDetailsQuery>;
-export type VehicleDetailsLazyQueryHookResult = ReturnType<typeof useVehicleDetailsLazyQuery>;
-export type VehicleDetailsQueryResult = Apollo.QueryResult<Types.VehicleDetailsQuery, Types.VehicleDetailsQueryVariables>;
+export function useVehicleDetailsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    Types.VehicleDetailsQuery,
+    Types.VehicleDetailsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    Types.VehicleDetailsQuery,
+    Types.VehicleDetailsQueryVariables
+  >(VehicleDetailsDocument, options);
+}
+export function useVehicleDetailsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    Types.VehicleDetailsQuery,
+    Types.VehicleDetailsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    Types.VehicleDetailsQuery,
+    Types.VehicleDetailsQueryVariables
+  >(VehicleDetailsDocument, options);
+}
+export type VehicleDetailsQueryHookResult = ReturnType<
+  typeof useVehicleDetailsQuery
+>;
+export type VehicleDetailsLazyQueryHookResult = ReturnType<
+  typeof useVehicleDetailsLazyQuery
+>;
+export type VehicleDetailsQueryResult = Apollo.QueryResult<
+  Types.VehicleDetailsQuery,
+  Types.VehicleDetailsQueryVariables
+>;
 export const SearchCategoriesDocument = gql`
-    query SearchCategories($after: String, $first: Int!, $query: String!) {
-  search: categories(after: $after, first: $first, search: $query) {
-    edges {
-      node {
-        id
-        name
+  query SearchCategories($after: String, $first: Int!, $query: String!) {
+    search: categories(after: $after, first: $first, search: $query) {
+      edges {
+        node {
+          id
+          name
+        }
       }
-    }
-    pageInfo {
-      ...PageInfo
+      pageInfo {
+        ...PageInfo
+      }
     }
   }
-}
-    ${PageInfoFragmentDoc}`;
+  ${PageInfoFragmentDoc}
+`;
 
 /**
  * __useSearchCategoriesQuery__
@@ -1168,32 +1846,56 @@ export const SearchCategoriesDocument = gql`
  *   },
  * });
  */
-export function useSearchCategoriesQuery(baseOptions: Apollo.QueryHookOptions<Types.SearchCategoriesQuery, Types.SearchCategoriesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<Types.SearchCategoriesQuery, Types.SearchCategoriesQueryVariables>(SearchCategoriesDocument, options);
-      }
-export function useSearchCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.SearchCategoriesQuery, Types.SearchCategoriesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<Types.SearchCategoriesQuery, Types.SearchCategoriesQueryVariables>(SearchCategoriesDocument, options);
-        }
-export type SearchCategoriesQueryHookResult = ReturnType<typeof useSearchCategoriesQuery>;
-export type SearchCategoriesLazyQueryHookResult = ReturnType<typeof useSearchCategoriesLazyQuery>;
-export type SearchCategoriesQueryResult = Apollo.QueryResult<Types.SearchCategoriesQuery, Types.SearchCategoriesQueryVariables>;
+export function useSearchCategoriesQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    Types.SearchCategoriesQuery,
+    Types.SearchCategoriesQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    Types.SearchCategoriesQuery,
+    Types.SearchCategoriesQueryVariables
+  >(SearchCategoriesDocument, options);
+}
+export function useSearchCategoriesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    Types.SearchCategoriesQuery,
+    Types.SearchCategoriesQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    Types.SearchCategoriesQuery,
+    Types.SearchCategoriesQueryVariables
+  >(SearchCategoriesDocument, options);
+}
+export type SearchCategoriesQueryHookResult = ReturnType<
+  typeof useSearchCategoriesQuery
+>;
+export type SearchCategoriesLazyQueryHookResult = ReturnType<
+  typeof useSearchCategoriesLazyQuery
+>;
+export type SearchCategoriesQueryResult = Apollo.QueryResult<
+  Types.SearchCategoriesQuery,
+  Types.SearchCategoriesQueryVariables
+>;
 export const SearchSegmentsDocument = gql`
-    query SearchSegments($after: String, $first: Int!, $query: String!) {
-  search: segments(after: $after, first: $first, search: $query) {
-    edges {
-      node {
-        id
-        name
+  query SearchSegments($after: String, $first: Int!, $query: String!) {
+    search: segments(after: $after, first: $first, search: $query) {
+      edges {
+        node {
+          id
+          name
+        }
       }
-    }
-    pageInfo {
-      ...PageInfo
+      pageInfo {
+        ...PageInfo
+      }
     }
   }
-}
-    ${PageInfoFragmentDoc}`;
+  ${PageInfoFragmentDoc}
+`;
 
 /**
  * __useSearchSegmentsQuery__
@@ -1213,14 +1915,37 @@ export const SearchSegmentsDocument = gql`
  *   },
  * });
  */
-export function useSearchSegmentsQuery(baseOptions: Apollo.QueryHookOptions<Types.SearchSegmentsQuery, Types.SearchSegmentsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<Types.SearchSegmentsQuery, Types.SearchSegmentsQueryVariables>(SearchSegmentsDocument, options);
-      }
-export function useSearchSegmentsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.SearchSegmentsQuery, Types.SearchSegmentsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<Types.SearchSegmentsQuery, Types.SearchSegmentsQueryVariables>(SearchSegmentsDocument, options);
-        }
-export type SearchSegmentsQueryHookResult = ReturnType<typeof useSearchSegmentsQuery>;
-export type SearchSegmentsLazyQueryHookResult = ReturnType<typeof useSearchSegmentsLazyQuery>;
-export type SearchSegmentsQueryResult = Apollo.QueryResult<Types.SearchSegmentsQuery, Types.SearchSegmentsQueryVariables>;
+export function useSearchSegmentsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    Types.SearchSegmentsQuery,
+    Types.SearchSegmentsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    Types.SearchSegmentsQuery,
+    Types.SearchSegmentsQueryVariables
+  >(SearchSegmentsDocument, options);
+}
+export function useSearchSegmentsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    Types.SearchSegmentsQuery,
+    Types.SearchSegmentsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    Types.SearchSegmentsQuery,
+    Types.SearchSegmentsQueryVariables
+  >(SearchSegmentsDocument, options);
+}
+export type SearchSegmentsQueryHookResult = ReturnType<
+  typeof useSearchSegmentsQuery
+>;
+export type SearchSegmentsLazyQueryHookResult = ReturnType<
+  typeof useSearchSegmentsLazyQuery
+>;
+export type SearchSegmentsQueryResult = Apollo.QueryResult<
+  Types.SearchSegmentsQuery,
+  Types.SearchSegmentsQueryVariables
+>;

@@ -9,6 +9,7 @@ import Menu from "./menu";
 import Segments from "./segments";
 import Vehicles from "./vehicles";
 import Providers from "./providers";
+import Sessions from "./sessions";
 import { Box } from "@mui/material";
 
 const RoutesComponent = () => {
@@ -33,6 +34,7 @@ const RoutesComponent = () => {
             <Route path="/categories/*" element={<Categories />} />
             <Route path="/segments/*" element={<Segments />} />
             <Route path="/providers/*" element={<Providers />} />
+            <Route path="/sessions" element={<Sessions />} />
           </Routes>
         </Box>
       </Box>

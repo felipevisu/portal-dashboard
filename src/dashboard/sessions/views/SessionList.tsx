@@ -1,22 +1,22 @@
 import React from "react";
 import { DialogContentText, IconButton } from "@mui/material";
 import {
-  useSegmentsQuery,
-  useSegmentBulkDeleteMutation,
-  SegmentBulkDeleteMutation,
-} from "@portal/graphql";
-import { mapEdgesToItems } from "@portal/utils/maps";
-import SegmentListPage from "../components/SegmentListPage";
-import {
   useBulkActions,
   usePaginator,
   useSearch,
   useModal,
 } from "@portal/hooks";
+import {
+  useSessionsQuery,
+  useSessionBulkDeleteMutation,
+  SessionBulkDeleteMutation,
+} from "@portal/graphql";
+import { mapEdgesToItems } from "@portal/utils/maps";
+import SessionListPage from "../components/SessionListPage";
 import ActionDialog from "@portal/components/ActionDialog";
 import { Delete } from "@mui/icons-material";
 
-export const SegmentList = () => {
+export const SessionList = () => {
   const { search, handleSearch } = useSearch();
   const { after, first, handleNextPage, handlePreviousPage } = usePaginator();
 
@@ -26,30 +26,30 @@ export const SegmentList = () => {
 
   const { isOpen, openModal, closeModal } = useModal();
 
-  const { data, loading, refetch } = useSegmentsQuery({
+  const { data, loading, refetch } = useSessionsQuery({
     fetchPolicy: "cache-and-network",
     variables: { search, after, first },
   });
 
-  const handleSegmentBulkDelete = (data: SegmentBulkDeleteMutation) => {
-    if (data.segmentBulkDelete.errors.length === 0) {
+  const handleSessionBulkDelete = (data: SessionBulkDeleteMutation) => {
+    if (data.sessionBulkDelete.errors.length === 0) {
       refetch();
       reset();
       closeModal();
     }
   };
 
-  const [segmentBulkDelete] = useSegmentBulkDeleteMutation({
-    onCompleted: handleSegmentBulkDelete,
+  const [sessionBulkDelete] = useSessionBulkDeleteMutation({
+    onCompleted: handleSessionBulkDelete,
   });
 
   return (
     <>
-      <SegmentListPage
+      <SessionListPage
         disabled={loading}
         toggle={toggle}
         toggleAll={toggleAll}
-        segments={mapEdgesToItems(data?.segments)}
+        sessions={mapEdgesToItems(data?.sessions)}
         selected={listElements.length}
         isChecked={isSelected}
         toolbar={
@@ -61,19 +61,19 @@ export const SegmentList = () => {
         initialSearch={search}
         onNextPage={handleNextPage}
         onPreviousPage={handlePreviousPage}
-        pageInfo={data?.segments?.pageInfo}
+        pageInfo={data?.sessions?.pageInfo}
       />
       <ActionDialog
         onClose={closeModal}
         onConfirm={() =>
-          segmentBulkDelete({ variables: { ids: listElements } })
+          sessionBulkDelete({ variables: { ids: listElements } })
         }
         open={isOpen}
-        title={"Excluir segmentos"}
+        title={"Excluir sessões"}
         variant="delete"
       >
         <DialogContentText>
-          Tem certeza que deseja excluir {listElements.length} segmentos?
+          Tem certeza que deseja excluir {listElements.length} sessões?
           <br />
           Lembre-se esta ação não é reversível
         </DialogContentText>
@@ -82,4 +82,4 @@ export const SegmentList = () => {
   );
 };
 
-export default SegmentList;
+export default SessionList;

@@ -335,6 +335,12 @@ type Mutation {
   segmentCreate(input: SegmentInput!): SegmentCreate
   segmentDelete(id: ID): SegmentDelete
   segmentUpdate(id: ID, input: SegmentInput!): SegmentUpdate
+
+  """Deletes sessions."""
+  sessionBulkDelete(
+    """List of category IDs to delete."""
+    ids: [ID!]!
+  ): SessionBulkDelete
   sessionCreate(input: SessionInput!): SessionCreate
   sessionDelete(id: ID): SessionDelete
   sessionUpdate(id: ID, input: SessionInput!): SessionUpdate
@@ -502,7 +508,7 @@ type Query {
   segment(id: ID, slug: String): Segment
   segments(after: String, before: String, first: Int, last: Int, offset: Int, search: String, sortBy: SegmentSortingInput): SegmentConnection
   session(id: ID, slug: String): Session
-  sessions(after: String, before: String, first: Int, isPublished: Boolean, last: Int, offset: Int): SessionConnection
+  sessions(after: String, before: String, first: Int, isPublished: Boolean, last: Int, offset: Int, search: String): SessionConnection
   vehicle(id: ID, slug: String): Vehicle
   vehicles(after: String, before: String, category: ID, first: Int, isPublished: Boolean, last: Int, offset: Int, search: String): VehicleConnection
 }
@@ -592,6 +598,13 @@ type Session implements Node {
   slug: String!
   time: Time!
   updated: DateTime!
+}
+
+"""Deletes sessions."""
+type SessionBulkDelete {
+  """Returns how many objects were affected."""
+  count: Int!
+  errors: [Error!]!
 }
 
 type SessionConnection {

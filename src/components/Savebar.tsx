@@ -26,8 +26,10 @@ export const Savebar = ({
   return (
     <Root>
       <Container>
-        <Card>
-          <CardContent>
+        <Card
+          sx={{ borderRadius: "8px 8px 0 0", paddingBottom: "0 !important" }}
+        >
+          <CardContent sx={{ paddingBottom: "16px !important" }}>
             <Box sx={{ display: "flex", gap: 1 }}>
               {onDelete && (
                 <Button variant="contained" color="error" onClick={onDelete}>
