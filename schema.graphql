@@ -338,7 +338,7 @@ type Mutation {
 
   """Deletes sessions."""
   sessionBulkDelete(
-    """List of category IDs to delete."""
+    """List of sessions IDs to delete."""
     ids: [ID!]!
   ): SessionBulkDelete
   sessionCreate(input: SessionInput!): SessionCreate
@@ -618,7 +618,6 @@ type SessionConnection {
 type SessionCreate {
   errors: [Error!]!
   session: Session
-  vehicle: Session
 }
 
 type SessionDelete {
@@ -638,6 +637,7 @@ type SessionEdge {
 input SessionInput {
   content: JSONString
   date: Date
+  isPublished: Boolean
   name: String
   slug: String
   time: Time

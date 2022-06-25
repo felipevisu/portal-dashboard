@@ -24,7 +24,7 @@ export const SessionList = ({
   selected,
   toolbar,
 }: SessionListProps) => {
-  const numberOfColumns = sessions?.length === 0 ? 2 : 3;
+  const numberOfColumns = sessions?.length === 0 ? 4 : 5;
 
   return (
     <ResponsiveTable>
@@ -38,6 +38,7 @@ export const SessionList = ({
       >
         <TableCellHeader>Nome</TableCellHeader>
         <TableCellHeader>Data</TableCellHeader>
+        <TableCellHeader>Horário</TableCellHeader>
         <TableCellHeader>Status</TableCellHeader>
       </TableHead>
       <TableBody>
@@ -60,6 +61,7 @@ export const SessionList = ({
               </TableCell>
               <TableCell>{session.name}</TableCell>
               <TableCell>{session.date}</TableCell>
+              <TableCell>{session.time}</TableCell>
               <TableCellWithStatus status={session.isPublished} />
             </TableRowLink>
           );

@@ -34,7 +34,7 @@ const RoutesComponent = () => {
             <Route path="/categories/*" element={<Categories />} />
             <Route path="/segments/*" element={<Segments />} />
             <Route path="/providers/*" element={<Providers />} />
-            <Route path="/sessions" element={<Sessions />} />
+            <Route path="/sessions/*" element={<Sessions />} />
           </Routes>
         </Box>
       </Box>

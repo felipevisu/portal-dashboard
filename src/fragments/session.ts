@@ -10,3 +10,15 @@ export const sessionFragment = gql`
     isPublished
   }
 `;
+
+export const sessionDetailsFragment = gql`
+  fragment SessionDetails on Session {
+    id
+    name
+    slug
+    content
+    date
+    time
+    isPublished
+  }
+`;

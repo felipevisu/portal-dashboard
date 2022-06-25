@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { DialogContentText, IconButton } from "@mui/material";
 import {
   useBulkActions,
@@ -12,11 +12,17 @@ import {
   SessionBulkDeleteMutation,
 } from "@portal/graphql";
 import { mapEdgesToItems } from "@portal/utils/maps";
-import SessionListPage from "../components/SessionListPage";
+import SessionListPage, {
+  SessionListFilterOpts,
+} from "../components/SessionListPage";
 import ActionDialog from "@portal/components/ActionDialog";
 import { Delete } from "@mui/icons-material";
+import { getFilterOpts } from "./filter";
+import { getQuery } from "@portal/utils/filters";
+import { useSearchParams } from "react-router-dom";
 
 export const SessionList = () => {
+  const [searchParams] = useSearchParams();
   const { search, handleSearch } = useSearch();
   const { after, first, handleNextPage, handlePreviousPage } = usePaginator();
 
@@ -26,9 +32,16 @@ export const SessionList = () => {
 
   const { isOpen, openModal, closeModal } = useModal();
 
+  const filterOpts = getFilterOpts();
+
+  const queryParameters = useMemo(
+    () => getQuery<SessionListFilterOpts>(filterOpts, searchParams),
+    [searchParams]
+  );
+
   const { data, loading, refetch } = useSessionsQuery({
     fetchPolicy: "cache-and-network",
-    variables: { search, after, first },
+    variables: { search, after, first, ...queryParameters },
   });
 
   const handleSessionBulkDelete = (data: SessionBulkDeleteMutation) => {
@@ -59,6 +72,7 @@ export const SessionList = () => {
         }
         onSearchChange={handleSearch}
         initialSearch={search}
+        filterOpts={filterOpts}
         onNextPage={handleNextPage}
         onPreviousPage={handlePreviousPage}
         pageInfo={data?.sessions?.pageInfo}

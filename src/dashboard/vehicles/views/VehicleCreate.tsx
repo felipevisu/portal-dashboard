@@ -11,11 +11,11 @@ import { VehicleCreatePage } from "../components/VehicleCreatePage";
 import { FormProps } from "../components/VehicleForm";
 
 export const VehicleCreate = () => {
-  const navigator = useNavigate();
+  const navigate = useNavigate();
 
   const handleSuccess = (data: VehicleCreateMutation) => {
     if (!data?.vehicleCreate.errors.length) {
-      navigator(`/admin/vehicles/details/${data?.vehicleCreate.vehicle.id}`);
+      navigate(`/admin/vehicles/details/${data?.vehicleCreate.vehicle.id}`);
     }
   };
 
