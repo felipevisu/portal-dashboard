@@ -30,8 +30,7 @@ export const SessionCreate = () => {
           content: JSON.stringify(
             convertToRaw(data.content.getCurrentContent())
           ),
-          date: data.date?.toISOString().split("T")[0] || null,
-          time: "20:30",
+          date: data.date?.toISOString() || null,
         },
       },
     });

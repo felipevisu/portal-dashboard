@@ -1,6 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import SessionCreate from "./views/SessionCreate";
+import SessionDetails from "./views/SessionDetails";
 import SessionList from "./views/SessionList";
 
 export const Sessions = () => {
@@ -8,6 +9,7 @@ export const Sessions = () => {
     <Routes>
       <Route path="/" element={<SessionList />} />
       <Route path="/create" element={<SessionCreate />} />
+      <Route path="/details/:id" element={<SessionDetails />} />
     </Routes>
   );
 };

@@ -37,12 +37,6 @@ export type Scalars = {
    * schema (one of the key benefits of GraphQL).
    */
   JSONString: any;
-  /**
-   * The `Time` scalar type represents a Time value as
-   * specified by
-   * [iso8601](https://en.wikipedia.org/wiki/ISO_8601).
-   */
-  Time: any;
   /** Variables of this type must be set to null in mutations. They will be replaced with a filename from a following multipart part containing a binary file. See: https://github.com/jaydenseric/graphql-multipart-request-spec. */
   Upload: any;
 };
@@ -135,11 +129,10 @@ export type SegmentSortingInput = {
 
 export type SessionInput = {
   content?: InputMaybe<Scalars['JSONString']>;
-  date?: InputMaybe<Scalars['Date']>;
+  date?: InputMaybe<Scalars['DateTime']>;
   isPublished?: InputMaybe<Scalars['Boolean']>;
   name?: InputMaybe<Scalars['String']>;
   slug?: InputMaybe<Scalars['String']>;
-  time?: InputMaybe<Scalars['Time']>;
 };
 
 export type VehicleInput = {
@@ -312,7 +305,22 @@ export type SessionCreateMutationVariables = Exact<{
 }>;
 
 
-export type SessionCreateMutation = { __typename: 'Mutation', sessionCreate: { __typename: 'SessionCreate', session: { __typename: 'Session', id: string, name: string, slug: string, content: any | null, date: any, time: any, isPublished: boolean } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+export type SessionCreateMutation = { __typename: 'Mutation', sessionCreate: { __typename: 'SessionCreate', session: { __typename: 'Session', id: string, name: string, slug: string, content: any | null, date: any, isPublished: boolean } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+
+export type SessionUpdateMutationVariables = Exact<{
+  id?: InputMaybe<Scalars['ID']>;
+  input: SessionInput;
+}>;
+
+
+export type SessionUpdateMutation = { __typename: 'Mutation', sessionUpdate: { __typename: 'SessionUpdate', session: { __typename: 'Session', id: string, name: string, slug: string, content: any | null, date: any, isPublished: boolean } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+
+export type SessionDeleteMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type SessionDeleteMutation = { __typename: 'Mutation', sessionDelete: { __typename: 'SessionDelete', errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
 
 export type SessionBulkDeleteMutationVariables = Exact<{
   ids: Array<Scalars['ID']> | Scalars['ID'];
@@ -331,7 +339,14 @@ export type SessionsQueryVariables = Exact<{
 }>;
 
 
-export type SessionsQuery = { __typename: 'Query', sessions: { __typename: 'SessionConnection', edges: Array<{ __typename: 'SessionEdge', node: { __typename: 'Session', id: string, name: string, slug: string, date: any, time: any, isPublished: boolean } | null } | null>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
+export type SessionsQuery = { __typename: 'Query', sessions: { __typename: 'SessionConnection', edges: Array<{ __typename: 'SessionEdge', node: { __typename: 'Session', id: string, name: string, slug: string, date: any, isPublished: boolean } | null } | null>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
+
+export type SessionDetailsQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type SessionDetailsQuery = { __typename: 'Query', session: { __typename: 'Session', id: string, name: string, slug: string, content: any | null, date: any, isPublished: boolean } | null };
 
 export type VehicleCreateMutationVariables = Exact<{
   input: VehicleInput;
@@ -398,9 +413,9 @@ export type ProviderDetailsFragment = { __typename: 'Provider', id: string, name
 
 export type SegmentFragment = { __typename: 'Segment', id: string, name: string, slug: string };
 
-export type SessionFragment = { __typename: 'Session', id: string, name: string, slug: string, date: any, time: any, isPublished: boolean };
+export type SessionFragment = { __typename: 'Session', id: string, name: string, slug: string, date: any, isPublished: boolean };
 
-export type SessionDetailsFragment = { __typename: 'Session', id: string, name: string, slug: string, content: any | null, date: any, time: any, isPublished: boolean };
+export type SessionDetailsFragment = { __typename: 'Session', id: string, name: string, slug: string, content: any | null, date: any, isPublished: boolean };
 
 export type VehicleFragment = { __typename: 'Vehicle', id: string, name: string, slug: string, isPublished: boolean, category: { __typename: 'Category', id: string, name: string } };
 

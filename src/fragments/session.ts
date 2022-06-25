@@ -6,7 +6,6 @@ export const sessionFragment = gql`
     name
     slug
     date
-    time
     isPublished
   }
 `;
@@ -18,7 +17,6 @@ export const sessionDetailsFragment = gql`
     slug
     content
     date
-    time
     isPublished
   }
 `;

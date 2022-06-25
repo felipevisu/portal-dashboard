@@ -79,7 +79,6 @@ export const SessionFragmentDoc = gql`
   name
   slug
   date
-  time
   isPublished
 }
     `;
@@ -90,7 +89,6 @@ export const SessionDetailsFragmentDoc = gql`
   slug
   content
   date
-  time
   isPublished
 }
     `;
@@ -953,6 +951,81 @@ export function useSessionCreateMutation(baseOptions?: Apollo.MutationHookOption
 export type SessionCreateMutationHookResult = ReturnType<typeof useSessionCreateMutation>;
 export type SessionCreateMutationResult = Apollo.MutationResult<Types.SessionCreateMutation>;
 export type SessionCreateMutationOptions = Apollo.BaseMutationOptions<Types.SessionCreateMutation, Types.SessionCreateMutationVariables>;
+export const SessionUpdateDocument = gql`
+    mutation SessionUpdate($id: ID, $input: SessionInput!) {
+  sessionUpdate(id: $id, input: $input) {
+    session {
+      ...SessionDetails
+    }
+    errors {
+      ...Error
+    }
+  }
+}
+    ${SessionDetailsFragmentDoc}
+${ErrorFragmentDoc}`;
+export type SessionUpdateMutationFn = Apollo.MutationFunction<Types.SessionUpdateMutation, Types.SessionUpdateMutationVariables>;
+
+/**
+ * __useSessionUpdateMutation__
+ *
+ * To run a mutation, you first call `useSessionUpdateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSessionUpdateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [sessionUpdateMutation, { data, loading, error }] = useSessionUpdateMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useSessionUpdateMutation(baseOptions?: Apollo.MutationHookOptions<Types.SessionUpdateMutation, Types.SessionUpdateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Types.SessionUpdateMutation, Types.SessionUpdateMutationVariables>(SessionUpdateDocument, options);
+      }
+export type SessionUpdateMutationHookResult = ReturnType<typeof useSessionUpdateMutation>;
+export type SessionUpdateMutationResult = Apollo.MutationResult<Types.SessionUpdateMutation>;
+export type SessionUpdateMutationOptions = Apollo.BaseMutationOptions<Types.SessionUpdateMutation, Types.SessionUpdateMutationVariables>;
+export const SessionDeleteDocument = gql`
+    mutation SessionDelete($id: ID!) {
+  sessionDelete(id: $id) {
+    errors {
+      ...Error
+    }
+  }
+}
+    ${ErrorFragmentDoc}`;
+export type SessionDeleteMutationFn = Apollo.MutationFunction<Types.SessionDeleteMutation, Types.SessionDeleteMutationVariables>;
+
+/**
+ * __useSessionDeleteMutation__
+ *
+ * To run a mutation, you first call `useSessionDeleteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSessionDeleteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [sessionDeleteMutation, { data, loading, error }] = useSessionDeleteMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useSessionDeleteMutation(baseOptions?: Apollo.MutationHookOptions<Types.SessionDeleteMutation, Types.SessionDeleteMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Types.SessionDeleteMutation, Types.SessionDeleteMutationVariables>(SessionDeleteDocument, options);
+      }
+export type SessionDeleteMutationHookResult = ReturnType<typeof useSessionDeleteMutation>;
+export type SessionDeleteMutationResult = Apollo.MutationResult<Types.SessionDeleteMutation>;
+export type SessionDeleteMutationOptions = Apollo.BaseMutationOptions<Types.SessionDeleteMutation, Types.SessionDeleteMutationVariables>;
 export const SessionBulkDeleteDocument = gql`
     mutation SessionBulkDelete($ids: [ID!]!) {
   sessionBulkDelete(ids: $ids) {
@@ -1043,6 +1116,41 @@ export function useSessionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<T
 export type SessionsQueryHookResult = ReturnType<typeof useSessionsQuery>;
 export type SessionsLazyQueryHookResult = ReturnType<typeof useSessionsLazyQuery>;
 export type SessionsQueryResult = Apollo.QueryResult<Types.SessionsQuery, Types.SessionsQueryVariables>;
+export const SessionDetailsDocument = gql`
+    query SessionDetails($id: ID!) {
+  session(id: $id) {
+    ...SessionDetails
+  }
+}
+    ${SessionDetailsFragmentDoc}`;
+
+/**
+ * __useSessionDetailsQuery__
+ *
+ * To run a query within a React component, call `useSessionDetailsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSessionDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSessionDetailsQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useSessionDetailsQuery(baseOptions: Apollo.QueryHookOptions<Types.SessionDetailsQuery, Types.SessionDetailsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<Types.SessionDetailsQuery, Types.SessionDetailsQueryVariables>(SessionDetailsDocument, options);
+      }
+export function useSessionDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.SessionDetailsQuery, Types.SessionDetailsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<Types.SessionDetailsQuery, Types.SessionDetailsQueryVariables>(SessionDetailsDocument, options);
+        }
+export type SessionDetailsQueryHookResult = ReturnType<typeof useSessionDetailsQuery>;
+export type SessionDetailsLazyQueryHookResult = ReturnType<typeof useSessionDetailsLazyQuery>;
+export type SessionDetailsQueryResult = Apollo.QueryResult<Types.SessionDetailsQuery, Types.SessionDetailsQueryVariables>;
 export const VehicleCreateDocument = gql`
     mutation VehicleCreate($input: VehicleInput!) {
   vehicleCreate(input: $input) {

@@ -1,8 +1,5 @@
-import {
-  LocalizationProvider,
-  DesktopDatePicker,
-  DesktopTimePicker,
-} from "@mui/x-date-pickers";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import {
   Card,
   CardContent,
@@ -26,7 +23,6 @@ export type FormProps = {
   slug: string;
   content: EditorState;
   date: Date | null;
-  time: Date | null;
   isPublished: boolean;
 };
 
@@ -100,9 +96,9 @@ export const SessionForm = ({ errors, data, onChange }: SessionFormProps) => {
             <CardHeader title="Status" />
             <CardContent>
               <FormControl>
-                <DesktopDatePicker
+                <DateTimePicker
                   label="Data"
-                  inputFormat="MM/dd/yyyy"
+                  inputFormat="yyyy/MM/dd - HH:mm"
                   value={data.date}
                   onChange={(value) => onChange({ name: "date", value: value })}
                   renderInput={(params) => (
@@ -131,3 +127,5 @@ export const SessionForm = ({ errors, data, onChange }: SessionFormProps) => {
     </LocalizationProvider>
   );
 };
+
+export default SessionForm;

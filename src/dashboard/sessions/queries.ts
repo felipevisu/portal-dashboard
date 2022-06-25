@@ -28,3 +28,11 @@ export const sessionsQuery = gql`
     }
   }
 `;
+
+export const sessionDetailsQuery = gql`
+  query SessionDetails($id: ID!) {
+    session(id: $id) {
+      ...SessionDetails
+    }
+  }
+`;

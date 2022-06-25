@@ -5,7 +5,7 @@ import React from "react";
 export const Home = () => {
   return (
     <Container>
-      <Typography variant="h4" fontWeight={700}>
+      <Typography variant="h3" fontWeight="bold">
         Dashboard
       </Typography>
     </Container>

@@ -9,6 +9,7 @@ import { ListActions } from "@portal/types";
 import Checkbox from "@portal/components/Checkbox";
 import TableCellHeader from "@portal/components/TableCell";
 import TableCellWithStatus from "@portal/components/TableCellWithStatus";
+import { formatDate } from "@portal/utils/date";
 
 interface SessionListProps extends ListActions {
   sessions: SessionFragment[];
@@ -24,7 +25,7 @@ export const SessionList = ({
   selected,
   toolbar,
 }: SessionListProps) => {
-  const numberOfColumns = sessions?.length === 0 ? 4 : 5;
+  const numberOfColumns = sessions?.length === 0 ? 3 : 4;
 
   return (
     <ResponsiveTable>
@@ -38,12 +39,12 @@ export const SessionList = ({
       >
         <TableCellHeader>Nome</TableCellHeader>
         <TableCellHeader>Data</TableCellHeader>
-        <TableCellHeader>Horário</TableCellHeader>
         <TableCellHeader>Status</TableCellHeader>
       </TableHead>
       <TableBody>
         {renderCollection(sessions, (session) => {
           const isSelected = sessions ? isChecked(session.id) : false;
+          const date = new Date(session.date);
           return (
             <TableRowLink
               key={session ? session.id : "skeleton"}
@@ -60,8 +61,7 @@ export const SessionList = ({
                 />
               </TableCell>
               <TableCell>{session.name}</TableCell>
-              <TableCell>{session.date}</TableCell>
-              <TableCell>{session.time}</TableCell>
+              <TableCell>{formatDate(date)}</TableCell>
               <TableCellWithStatus status={session.isPublished} />
             </TableRowLink>
           );

@@ -588,7 +588,7 @@ type SegmentUpdate {
 type Session implements Node {
   content: JSONString
   created: DateTime!
-  date: Date!
+  date: DateTime!
 
   """The ID of the object."""
   id: ID!
@@ -596,7 +596,6 @@ type Session implements Node {
   name: String!
   publicationDate: Date
   slug: String!
-  time: Time!
   updated: DateTime!
 }
 
@@ -636,11 +635,10 @@ type SessionEdge {
 
 input SessionInput {
   content: JSONString
-  date: Date
+  date: DateTime
   isPublished: Boolean
   name: String
   slug: String
-  time: Time
 }
 
 type SessionUpdate {
@@ -648,13 +646,6 @@ type SessionUpdate {
   session: Session
   vehicle: Session
 }
-
-"""
-The `Time` scalar type represents a Time value as
-specified by
-[iso8601](https://en.wikipedia.org/wiki/ISO_8601).
-"""
-scalar Time
 
 """
 Variables of this type must be set to null in mutations. They will be replaced with a filename from a following multipart part containing a binary file. See: https://github.com/jaydenseric/graphql-multipart-request-spec.
