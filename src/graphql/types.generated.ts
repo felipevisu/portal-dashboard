@@ -327,6 +327,7 @@ export type SessionsQueryVariables = Exact<{
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   search?: InputMaybe<Scalars['String']>;
+  isPublished?: InputMaybe<Scalars['Boolean']>;
 }>;
 
 

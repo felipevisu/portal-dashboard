@@ -989,13 +989,14 @@ export type SessionBulkDeleteMutationHookResult = ReturnType<typeof useSessionBu
 export type SessionBulkDeleteMutationResult = Apollo.MutationResult<Types.SessionBulkDeleteMutation>;
 export type SessionBulkDeleteMutationOptions = Apollo.BaseMutationOptions<Types.SessionBulkDeleteMutation, Types.SessionBulkDeleteMutationVariables>;
 export const SessionsDocument = gql`
-    query Sessions($first: Int, $last: Int, $after: String, $before: String, $search: String) {
+    query Sessions($first: Int, $last: Int, $after: String, $before: String, $search: String, $isPublished: Boolean) {
   sessions(
     first: $first
     last: $last
     after: $after
     before: $before
     search: $search
+    isPublished: $isPublished
   ) {
     edges {
       node {
@@ -1027,6 +1028,7 @@ ${PageInfoFragmentDoc}`;
  *      after: // value for 'after'
  *      before: // value for 'before'
  *      search: // value for 'search'
+ *      isPublished: // value for 'isPublished'
  *   },
  * });
  */

@@ -7,6 +7,7 @@ export const sessionsQuery = gql`
     $after: String
     $before: String
     $search: String
+    $isPublished: Boolean
   ) {
     sessions(
       first: $first
@@ -14,6 +15,7 @@ export const sessionsQuery = gql`
       after: $after
       before: $before
       search: $search
+      isPublished: $isPublished
     ) {
       edges {
         node {
