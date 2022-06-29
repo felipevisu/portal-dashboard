@@ -1,4 +1,4 @@
-import { Divider, Paper } from "@mui/material";
+import { Paper } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import FilterContentHeader from "./FiltercontentHeader";

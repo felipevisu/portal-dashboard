@@ -12,7 +12,6 @@ import {
   Grid,
   Checkbox,
   FormControlLabel,
-  Divider,
 } from "@mui/material";
 import { getFormErrors } from "@portal/utils/errors";
 import React from "react";

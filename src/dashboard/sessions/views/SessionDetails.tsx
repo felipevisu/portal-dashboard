@@ -77,7 +77,7 @@ export const SessionDetails = () => {
         variant="delete"
       >
         <DialogContentText>
-          Tem certeza que deseja excluir a sessão <b>{data?.session?.name}</b>
+          Tem certeza que deseja excluir a sessão <b>{data?.session?.name}</b>.
           <br />
           Lembre-se esta ação não é reversível
         </DialogContentText>

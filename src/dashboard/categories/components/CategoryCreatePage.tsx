@@ -5,10 +5,10 @@ import { Savebar } from "@portal/components/Savebar";
 import { ErrorFragment } from "@portal/graphql";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import CategoryForm from "./CategoryForm";
+import CategoryForm, { FormProps } from "./CategoryForm";
 
 interface CategoryCreatePageProps {
-  onSubmit: any;
+  onSubmit: (data: FormProps) => Promise<void>;
   errors: ErrorFragment[];
   loading: boolean;
 }

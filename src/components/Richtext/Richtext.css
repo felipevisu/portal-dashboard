@@ -28,6 +28,19 @@
   display: none;
 }
 
+.public-DraftStyleDefault-pre{
+  padding: 0px;
+}
+
+.public-DraftStyleDefault-ul{
+  padding-left: 24px;
+  margin: 8px 0
+}
+
+.public-DraftStyleDefault-block{
+  margin: 8px 0;
+}
+
 .RichEditor-editor .RichEditor-blockquote {
   border-left: 5px solid #eee;
   color: #666;

@@ -25,7 +25,7 @@ const sanitizeProvider = (provider: ProviderDetailsFragment) => {
 
 interface ProviderDetailsPageProps {
   provider: ProviderDetailsFragment;
-  onSubmit: any;
+  onSubmit: (data: FormProps) => Promise<void>;
   onDelete: () => void;
   errors: ErrorFragment[];
   loading: boolean;

@@ -25,7 +25,7 @@ const sanitizeVehicle = (vehicle: VehicleDetailsFragment) => {
 
 interface VehicleDetailsPageProps {
   vehicle: VehicleDetailsFragment;
-  onSubmit: any;
+  onSubmit: (data: FormProps) => Promise<void>;
   onDelete: () => void;
   errors: ErrorFragment[];
   loading: boolean;

@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { FormProps, SessionForm } from "./SessionForm";
 
 interface SessionCreatePageProps {
-  onSubmit: any;
+  onSubmit: (data: FormProps) => Promise<void>;
   errors: ErrorFragment[];
   loading: boolean;
 }

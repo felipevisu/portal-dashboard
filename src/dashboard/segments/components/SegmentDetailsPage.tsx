@@ -5,12 +5,12 @@ import { Savebar } from "@portal/components/Savebar";
 import { SegmentFragment, ErrorFragment } from "@portal/graphql";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import SegmentForm from "./SegmentForm";
+import SegmentForm, { FormProps } from "./SegmentForm";
 
 interface SegmentDetailsPageProps {
   segment: SegmentFragment;
-  onSubmit: any;
-  onDelete: any;
+  onSubmit: (data: FormProps) => Promise<void>;
+  onDelete: () => void;
   errors: ErrorFragment[];
   loading: boolean;
 }

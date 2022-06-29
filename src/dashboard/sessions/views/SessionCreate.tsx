@@ -30,7 +30,7 @@ export const SessionCreate = () => {
           content: JSON.stringify(
             convertToRaw(data.content.getCurrentContent())
           ),
-          date: data.date?.toISOString() || null,
+          date: data.date,
         },
       },
     });

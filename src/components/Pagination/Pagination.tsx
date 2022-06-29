@@ -3,7 +3,6 @@ import React from "react";
 import { useSearchParams } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import { PaginationToolbar } from "./PaginationToolbar";
-import { Box } from "@mui/material";
 
 interface PaginationProps {
   pageInfo: PageInfoFragment;
