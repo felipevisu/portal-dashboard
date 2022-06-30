@@ -59,7 +59,9 @@ export const CategoryList = ({
                 />
               </TableCell>
               <TableCell sx={{ width: "auto" }}>{category.name}</TableCell>
-              <TableCell sx={{ width: 160, textAlign: "center" }}>0</TableCell>
+              <TableCell sx={{ width: 160, textAlign: "center" }}>
+                {category.vehicles.totalCount}
+              </TableCell>
             </TableRowLink>
           );
         })}

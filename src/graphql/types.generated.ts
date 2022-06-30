@@ -162,7 +162,7 @@ export type CategoryCreateMutationVariables = Exact<{
 }>;
 
 
-export type CategoryCreateMutation = { __typename: 'Mutation', categoryCreate: { __typename: 'CategoryCreate', category: { __typename: 'Category', id: string, name: string, slug: string } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+export type CategoryCreateMutation = { __typename: 'Mutation', categoryCreate: { __typename: 'CategoryCreate', category: { __typename: 'Category', id: string, name: string, slug: string, vehicles: { __typename: 'VehiclesConnection', totalCount: number | null } | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
 
 export type CategoryUpdateMutationVariables = Exact<{
   id?: InputMaybe<Scalars['ID']>;
@@ -170,7 +170,7 @@ export type CategoryUpdateMutationVariables = Exact<{
 }>;
 
 
-export type CategoryUpdateMutation = { __typename: 'Mutation', categoryUpdate: { __typename: 'CategoryUpdate', category: { __typename: 'Category', id: string, name: string, slug: string } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+export type CategoryUpdateMutation = { __typename: 'Mutation', categoryUpdate: { __typename: 'CategoryUpdate', category: { __typename: 'Category', id: string, name: string, slug: string, vehicles: { __typename: 'VehiclesConnection', totalCount: number | null } | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
 
 export type CategoryDeleteMutationVariables = Exact<{
   id: Scalars['ID'];
@@ -195,14 +195,14 @@ export type CategoriesQueryVariables = Exact<{
 }>;
 
 
-export type CategoriesQuery = { __typename: 'Query', categories: { __typename: 'CategoryConnection', edges: Array<{ __typename: 'CategoryEdge', node: { __typename: 'Category', id: string, name: string, slug: string } | null } | null>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
+export type CategoriesQuery = { __typename: 'Query', categories: { __typename: 'CategoryConnection', edges: Array<{ __typename: 'CategoryEdge', node: { __typename: 'Category', id: string, name: string, slug: string, vehicles: { __typename: 'VehiclesConnection', totalCount: number | null } | null } | null } | null>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
 
 export type CategoryDetailsQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type CategoryDetailsQuery = { __typename: 'Query', category: { __typename: 'Category', id: string, name: string, slug: string } | null };
+export type CategoryDetailsQuery = { __typename: 'Query', category: { __typename: 'Category', id: string, name: string, slug: string, vehicles: { __typename: 'VehiclesConnection', totalCount: number | null } | null } | null };
 
 export type ProviderCreateMutationVariables = Exact<{
   input: ProviderInput;
@@ -258,7 +258,7 @@ export type SegmentCreateMutationVariables = Exact<{
 }>;
 
 
-export type SegmentCreateMutation = { __typename: 'Mutation', segmentCreate: { __typename: 'SegmentCreate', segment: { __typename: 'Segment', id: string, name: string, slug: string } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+export type SegmentCreateMutation = { __typename: 'Mutation', segmentCreate: { __typename: 'SegmentCreate', segment: { __typename: 'Segment', id: string, name: string, slug: string, providers: { __typename: 'ProvidersConnection', totalCount: number | null } | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
 
 export type SegmentUpdateMutationVariables = Exact<{
   id?: InputMaybe<Scalars['ID']>;
@@ -266,7 +266,7 @@ export type SegmentUpdateMutationVariables = Exact<{
 }>;
 
 
-export type SegmentUpdateMutation = { __typename: 'Mutation', segmentUpdate: { __typename: 'SegmentUpdate', segment: { __typename: 'Segment', id: string, name: string, slug: string } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+export type SegmentUpdateMutation = { __typename: 'Mutation', segmentUpdate: { __typename: 'SegmentUpdate', segment: { __typename: 'Segment', id: string, name: string, slug: string, providers: { __typename: 'ProvidersConnection', totalCount: number | null } | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
 
 export type SegmentDeleteMutationVariables = Exact<{
   id: Scalars['ID'];
@@ -291,14 +291,14 @@ export type SegmentsQueryVariables = Exact<{
 }>;
 
 
-export type SegmentsQuery = { __typename: 'Query', segments: { __typename: 'SegmentConnection', edges: Array<{ __typename: 'SegmentEdge', node: { __typename: 'Segment', id: string, name: string, slug: string } | null } | null>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
+export type SegmentsQuery = { __typename: 'Query', segments: { __typename: 'SegmentConnection', edges: Array<{ __typename: 'SegmentEdge', node: { __typename: 'Segment', id: string, name: string, slug: string, providers: { __typename: 'ProvidersConnection', totalCount: number | null } | null } | null } | null>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
 
 export type SegmentDetailsQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type SegmentDetailsQuery = { __typename: 'Query', segment: { __typename: 'Segment', id: string, name: string, slug: string } | null };
+export type SegmentDetailsQuery = { __typename: 'Query', segment: { __typename: 'Segment', id: string, name: string, slug: string, providers: { __typename: 'ProvidersConnection', totalCount: number | null } | null } | null };
 
 export type SessionCreateMutationVariables = Exact<{
   input: SessionInput;
@@ -401,7 +401,7 @@ export type UserFragment = { __typename: 'User', id: string, email: string, firs
 
 export type UserBaseFragment = { __typename: 'User', id: string, firstName: string, lastName: string };
 
-export type CategoryFragment = { __typename: 'Category', id: string, name: string, slug: string };
+export type CategoryFragment = { __typename: 'Category', id: string, name: string, slug: string, vehicles: { __typename: 'VehiclesConnection', totalCount: number | null } | null };
 
 export type ErrorFragment = { __typename: 'Error', code: string | null, field: string | null, message: string | null };
 
@@ -411,7 +411,7 @@ export type ProviderFragment = { __typename: 'Provider', id: string, name: strin
 
 export type ProviderDetailsFragment = { __typename: 'Provider', id: string, name: string, slug: string, documentNumber: string, isPublished: boolean, segment: { __typename: 'Segment', id: string, name: string } };
 
-export type SegmentFragment = { __typename: 'Segment', id: string, name: string, slug: string };
+export type SegmentFragment = { __typename: 'Segment', id: string, name: string, slug: string, providers: { __typename: 'ProvidersConnection', totalCount: number | null } | null };
 
 export type SessionFragment = { __typename: 'Session', id: string, name: string, slug: string, date: any, isPublished: boolean };
 

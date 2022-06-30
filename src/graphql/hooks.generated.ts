@@ -24,6 +24,9 @@ export const CategoryFragmentDoc = gql`
   id
   name
   slug
+  vehicles {
+    totalCount
+  }
 }
     `;
 export const ErrorFragmentDoc = gql`
@@ -71,6 +74,9 @@ export const SegmentFragmentDoc = gql`
   id
   name
   slug
+  providers {
+    totalCount
+  }
 }
     `;
 export const SessionFragmentDoc = gql`

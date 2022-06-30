@@ -59,7 +59,9 @@ export const SegmentList = ({
                 />
               </TableCell>
               <TableCell sx={{ width: "auto" }}>{segment.name}</TableCell>
-              <TableCell sx={{ width: 160, textAlign: "center" }}>0</TableCell>
+              <TableCell sx={{ width: 160, textAlign: "center" }}>
+                {segment.providers.totalCount}
+              </TableCell>
             </TableRowLink>
           );
         })}

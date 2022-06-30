@@ -39,6 +39,7 @@ type CategoryConnection {
 
   """Pagination data for this connection."""
   pageInfo: PageInfo!
+  totalCount: Int
 }
 
 type CategoryCreate {
@@ -121,6 +122,7 @@ type DocumentConnection {
 
   """Pagination data for this connection."""
   pageInfo: PageInfo!
+  totalCount: Int
 }
 
 type DocumentCreate {
@@ -165,6 +167,7 @@ type DocumentsConnection {
 
   """Pagination data for this connection."""
   pageInfo: PageInfo!
+  totalCount: Int
 }
 
 """A Relay edge containing a `Documents` and its cursor."""
@@ -216,6 +219,7 @@ type InvestmentConnection {
 
   """Pagination data for this connection."""
   pageInfo: PageInfo!
+  totalCount: Int
 }
 
 type InvestmentCreate {
@@ -428,6 +432,7 @@ type ProviderConnection {
 
   """Pagination data for this connection."""
   pageInfo: PageInfo!
+  totalCount: Int
 }
 
 type ProviderCreate {
@@ -484,6 +489,7 @@ type ProvidersConnection {
 
   """Pagination data for this connection."""
   pageInfo: PageInfo!
+  totalCount: Int
 }
 
 """A Relay edge containing a `Providers` and its cursor."""
@@ -543,6 +549,7 @@ type SegmentConnection {
 
   """Pagination data for this connection."""
   pageInfo: PageInfo!
+  totalCount: Int
 }
 
 type SegmentCreate {
@@ -612,6 +619,7 @@ type SessionConnection {
 
   """Pagination data for this connection."""
   pageInfo: PageInfo!
+  totalCount: Int
 }
 
 type SessionCreate {
@@ -702,6 +710,7 @@ type VehicleConnection {
 
   """Pagination data for this connection."""
   pageInfo: PageInfo!
+  totalCount: Int
 }
 
 type VehicleCreate {
@@ -743,6 +752,7 @@ type VehiclesConnection {
 
   """Pagination data for this connection."""
   pageInfo: PageInfo!
+  totalCount: Int
 }
 
 """A Relay edge containing a `Vehicles` and its cursor."""

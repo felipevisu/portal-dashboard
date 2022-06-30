@@ -5,5 +5,8 @@ export const segmentFragment = gql`
     id
     name
     slug
+    providers {
+      totalCount
+    }
   }
 `;
