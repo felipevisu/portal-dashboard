@@ -11,6 +11,7 @@ import Vehicles from "./vehicles";
 import Providers from "./providers";
 import Sessions from "./sessions";
 import { Box } from "@mui/material";
+import Investments from "./investments";
 
 const RoutesComponent = () => {
   const { authenticated, authenticating } = useUser();
@@ -35,6 +36,7 @@ const RoutesComponent = () => {
             <Route path="/segments/*" element={<Segments />} />
             <Route path="/providers/*" element={<Providers />} />
             <Route path="/sessions/*" element={<Sessions />} />
+            <Route path="/investments/*" element={<Investments />} />
           </Routes>
         </Box>
       </Box>

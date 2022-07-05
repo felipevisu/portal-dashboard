@@ -9,6 +9,9 @@ export const providerFragment = gql`
       id
       name
     }
+    documents {
+      totalCount
+    }
     isPublished
   }
 `;

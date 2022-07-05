@@ -70,7 +70,7 @@ export type DocumentInput = {
 
 export type InvestmentInput = {
   isPublished?: InputMaybe<Scalars['Boolean']>;
-  mounth?: InputMaybe<Scalars['Int']>;
+  month?: InputMaybe<Scalars['Int']>;
   year?: InputMaybe<Scalars['Int']>;
 };
 
@@ -204,6 +204,24 @@ export type CategoryDetailsQueryVariables = Exact<{
 
 export type CategoryDetailsQuery = { __typename: 'Query', category: { __typename: 'Category', id: string, name: string, slug: string, vehicles: { __typename: 'VehiclesConnection', totalCount: number | null } | null } | null };
 
+export type InvestmentBulkDeleteMutationVariables = Exact<{
+  ids: Array<Scalars['ID']> | Scalars['ID'];
+}>;
+
+
+export type InvestmentBulkDeleteMutation = { __typename: 'Mutation', investmentBulkDelete: { __typename: 'InvestmentBulkDelete', errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+
+export type InvestmentsQueryVariables = Exact<{
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  isPublished?: InputMaybe<Scalars['Boolean']>;
+}>;
+
+
+export type InvestmentsQuery = { __typename: 'Query', investments: { __typename: 'InvestmentConnection', edges: Array<{ __typename: 'InvestmentEdge', node: { __typename: 'Investment', id: string, year: number, month: number, isPublished: boolean } | null } | null>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
+
 export type ProviderCreateMutationVariables = Exact<{
   input: ProviderInput;
 }>;
@@ -244,7 +262,7 @@ export type ProvidersQueryVariables = Exact<{
 }>;
 
 
-export type ProvidersQuery = { __typename: 'Query', providers: { __typename: 'ProviderConnection', edges: Array<{ __typename: 'ProviderEdge', node: { __typename: 'Provider', id: string, name: string, slug: string, isPublished: boolean, segment: { __typename: 'Segment', id: string, name: string } } | null } | null>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
+export type ProvidersQuery = { __typename: 'Query', providers: { __typename: 'ProviderConnection', edges: Array<{ __typename: 'ProviderEdge', node: { __typename: 'Provider', id: string, name: string, slug: string, isPublished: boolean, segment: { __typename: 'Segment', id: string, name: string }, documents: { __typename: 'DocumentsConnection', totalCount: number | null } | null } | null } | null>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
 
 export type ProviderDetailsQueryVariables = Exact<{
   id: Scalars['ID'];
@@ -405,9 +423,11 @@ export type CategoryFragment = { __typename: 'Category', id: string, name: strin
 
 export type ErrorFragment = { __typename: 'Error', code: string | null, field: string | null, message: string | null };
 
+export type InvestmentFragment = { __typename: 'Investment', id: string, year: number, month: number, isPublished: boolean };
+
 export type PageInfoFragment = { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null };
 
-export type ProviderFragment = { __typename: 'Provider', id: string, name: string, slug: string, isPublished: boolean, segment: { __typename: 'Segment', id: string, name: string } };
+export type ProviderFragment = { __typename: 'Provider', id: string, name: string, slug: string, isPublished: boolean, segment: { __typename: 'Segment', id: string, name: string }, documents: { __typename: 'DocumentsConnection', totalCount: number | null } | null };
 
 export type ProviderDetailsFragment = { __typename: 'Provider', id: string, name: string, slug: string, documentNumber: string, isPublished: boolean, segment: { __typename: 'Segment', id: string, name: string } };
 

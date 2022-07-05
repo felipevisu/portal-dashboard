@@ -36,6 +36,14 @@ export const ErrorFragmentDoc = gql`
   message
 }
     `;
+export const InvestmentFragmentDoc = gql`
+    fragment Investment on Investment {
+  id
+  year
+  month
+  isPublished
+}
+    `;
 export const PageInfoFragmentDoc = gql`
     fragment PageInfo on PageInfo {
   endCursor
@@ -52,6 +60,9 @@ export const ProviderFragmentDoc = gql`
   segment {
     id
     name
+  }
+  documents {
+    totalCount
   }
   isPublished
 }
@@ -440,6 +451,94 @@ export function useCategoryDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOp
 export type CategoryDetailsQueryHookResult = ReturnType<typeof useCategoryDetailsQuery>;
 export type CategoryDetailsLazyQueryHookResult = ReturnType<typeof useCategoryDetailsLazyQuery>;
 export type CategoryDetailsQueryResult = Apollo.QueryResult<Types.CategoryDetailsQuery, Types.CategoryDetailsQueryVariables>;
+export const InvestmentBulkDeleteDocument = gql`
+    mutation InvestmentBulkDelete($ids: [ID!]!) {
+  investmentBulkDelete(ids: $ids) {
+    errors {
+      ...Error
+    }
+  }
+}
+    ${ErrorFragmentDoc}`;
+export type InvestmentBulkDeleteMutationFn = Apollo.MutationFunction<Types.InvestmentBulkDeleteMutation, Types.InvestmentBulkDeleteMutationVariables>;
+
+/**
+ * __useInvestmentBulkDeleteMutation__
+ *
+ * To run a mutation, you first call `useInvestmentBulkDeleteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInvestmentBulkDeleteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [investmentBulkDeleteMutation, { data, loading, error }] = useInvestmentBulkDeleteMutation({
+ *   variables: {
+ *      ids: // value for 'ids'
+ *   },
+ * });
+ */
+export function useInvestmentBulkDeleteMutation(baseOptions?: Apollo.MutationHookOptions<Types.InvestmentBulkDeleteMutation, Types.InvestmentBulkDeleteMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Types.InvestmentBulkDeleteMutation, Types.InvestmentBulkDeleteMutationVariables>(InvestmentBulkDeleteDocument, options);
+      }
+export type InvestmentBulkDeleteMutationHookResult = ReturnType<typeof useInvestmentBulkDeleteMutation>;
+export type InvestmentBulkDeleteMutationResult = Apollo.MutationResult<Types.InvestmentBulkDeleteMutation>;
+export type InvestmentBulkDeleteMutationOptions = Apollo.BaseMutationOptions<Types.InvestmentBulkDeleteMutation, Types.InvestmentBulkDeleteMutationVariables>;
+export const InvestmentsDocument = gql`
+    query Investments($first: Int, $last: Int, $after: String, $before: String, $isPublished: Boolean) {
+  investments(
+    first: $first
+    last: $last
+    after: $after
+    before: $before
+    isPublished: $isPublished
+  ) {
+    edges {
+      node {
+        ...Investment
+      }
+    }
+    pageInfo {
+      ...PageInfo
+    }
+  }
+}
+    ${InvestmentFragmentDoc}
+${PageInfoFragmentDoc}`;
+
+/**
+ * __useInvestmentsQuery__
+ *
+ * To run a query within a React component, call `useInvestmentsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useInvestmentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useInvestmentsQuery({
+ *   variables: {
+ *      first: // value for 'first'
+ *      last: // value for 'last'
+ *      after: // value for 'after'
+ *      before: // value for 'before'
+ *      isPublished: // value for 'isPublished'
+ *   },
+ * });
+ */
+export function useInvestmentsQuery(baseOptions?: Apollo.QueryHookOptions<Types.InvestmentsQuery, Types.InvestmentsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<Types.InvestmentsQuery, Types.InvestmentsQueryVariables>(InvestmentsDocument, options);
+      }
+export function useInvestmentsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.InvestmentsQuery, Types.InvestmentsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<Types.InvestmentsQuery, Types.InvestmentsQueryVariables>(InvestmentsDocument, options);
+        }
+export type InvestmentsQueryHookResult = ReturnType<typeof useInvestmentsQuery>;
+export type InvestmentsLazyQueryHookResult = ReturnType<typeof useInvestmentsLazyQuery>;
+export type InvestmentsQueryResult = Apollo.QueryResult<Types.InvestmentsQuery, Types.InvestmentsQueryVariables>;
 export const ProviderCreateDocument = gql`
     mutation ProviderCreate($input: ProviderInput!) {
   providerCreate(input: $input) {

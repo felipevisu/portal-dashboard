@@ -6,7 +6,9 @@ import {
   useProvidersQuery,
 } from "@portal/graphql";
 import { mapEdgesToItems } from "@portal/utils/maps";
-import ProviderListPage from "../components/ProviderListPage";
+import ProviderListPage, {
+  ProviderListFilterOpts,
+} from "../components/ProviderListPage";
 import { useBulkActions, usePaginator, useSearch } from "@portal/hooks";
 import ActionDialog from "@portal/components/ActionDialog";
 import useModal from "@portal/hooks/useModal";
@@ -16,7 +18,7 @@ import { DEFAULT_INITIAL_SEARCH_DATA } from "@portal/config";
 import { getChoices } from "@portal/utils/data";
 import { getFilterOpts } from "./filter";
 import { useSearchParams } from "react-router-dom";
-import { boolean, isBooleanable } from "boolean";
+import { getQuery } from "@portal/utils/filters";
 
 export const ProviderList = () => {
   const [searchParams] = useSearchParams();
@@ -39,19 +41,10 @@ export const ProviderList = () => {
 
   const filterOpts = getFilterOpts(segments);
 
-  const queryParameters = useMemo(() => {
-    let query = {};
-    Object.keys(filterOpts).forEach((name) => {
-      let value: string | boolean = searchParams.get(name);
-      if (value) {
-        if (isBooleanable(value)) {
-          value = boolean(value);
-        }
-        query = { ...query, [name]: value };
-      }
-    });
-    return query;
-  }, [searchParams]);
+  const queryParameters = useMemo(
+    () => getQuery<ProviderListFilterOpts>(filterOpts, searchParams),
+    [searchParams]
+  );
 
   const { data, loading, refetch } = useProvidersQuery({
     fetchPolicy: "cache-and-network",

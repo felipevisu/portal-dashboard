@@ -7,6 +7,7 @@ import SegmentIcon from "@mui/icons-material/Segment";
 import DesignServicesIcon from "@mui/icons-material/DesignServices";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import ChatIcon from "@mui/icons-material/Chat";
+import { AttachMoney } from "@mui/icons-material";
 
 const ITEMS = [
   {
@@ -33,6 +34,11 @@ const ITEMS = [
     label: "Prestadores de serviço",
     path: "/admin/providers",
     icon: <DesignServicesIcon />,
+  },
+  {
+    label: "Investimentos",
+    path: "/admin/investments",
+    icon: <AttachMoney />,
   },
   {
     label: "Sessões públicas",

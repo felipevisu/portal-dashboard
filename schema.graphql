@@ -207,10 +207,17 @@ type Investment implements Node {
   id: ID!
   isPublished: Boolean!
   items: [Item]
-  mounth: Int!
+  month: Int!
   publicationDate: Date
   updated: DateTime!
   year: Int!
+}
+
+"""Deletes segments."""
+type InvestmentBulkDelete {
+  """Returns how many objects were affected."""
+  count: Int!
+  errors: [Error!]!
 }
 
 type InvestmentConnection {
@@ -243,7 +250,7 @@ type InvestmentEdge {
 
 input InvestmentInput {
   isPublished: Boolean
-  mounth: Int
+  month: Int
   year: Int
 }
 
@@ -313,6 +320,12 @@ type Mutation {
   documentCreate(input: DocumentInput!): DocumentCreate
   documentDelete(id: ID): DocumentDelete
   documentUpdate(id: ID, input: DocumentInput!): DocumentUpdate
+
+  """Deletes segments."""
+  investmentBulkDelete(
+    """List of segments IDs to delete."""
+    ids: [ID!]!
+  ): InvestmentBulkDelete
   investmentCreate(input: InvestmentInput!): InvestmentCreate
   investmentDelete(id: ID): InvestmentDelete
   investmentUpdate(id: ID, input: InvestmentInput!): InvestmentUpdate
@@ -506,8 +519,8 @@ type Query {
   category(id: ID, slug: String): Category
   document(id: ID): Document
   documents(after: String, before: String, beginDate: Date, beginDate_Gte: Date, beginDate_Lte: Date, expirationDate: Date, expirationDate_Gte: Date, expirationDate_Lte: Date, expires: Boolean, first: Int, isPublished: Boolean, last: Int, offset: Int, search: String): DocumentConnection
-  investment(id: ID, mounth: Int, year: Int): Investment
-  investments(after: String, before: String, first: Int, isPublished: Boolean, last: Int, mounth: Int, offset: Int, year: Int): InvestmentConnection
+  investment(id: ID, month: Int, year: Int): Investment
+  investments(after: String, before: String, first: Int, isPublished: Boolean, last: Int, month: Int, offset: Int, year: Int): InvestmentConnection
   me: User
   provider(id: ID, slug: String): Provider
   providers(after: String, before: String, first: Int, isPublished: Boolean, last: Int, offset: Int, search: String, segment: ID, sortBy: ProviderSortingInput): ProviderConnection

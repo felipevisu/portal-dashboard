@@ -1472,7 +1472,7 @@
             "deprecationReason": null
           },
           {
-            "name": "mounth",
+            "name": "month",
             "description": null,
             "args": [],
             "type": {
@@ -1540,6 +1540,57 @@
             "ofType": null
           }
         ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "InvestmentBulkDelete",
+        "description": "Deletes segments.",
+        "fields": [
+          {
+            "name": "count",
+            "description": "Returns how many objects were affected.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "errors",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Error",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
         "enumValues": null,
         "possibleTypes": null
       },
@@ -1754,7 +1805,7 @@
             "deprecationReason": null
           },
           {
-            "name": "mounth",
+            "name": "month",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -2445,6 +2496,43 @@
             "type": {
               "kind": "OBJECT",
               "name": "DocumentUpdate",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "investmentBulkDelete",
+            "description": "Deletes segments.",
+            "args": [
+              {
+                "name": "ids",
+                "description": "List of segments IDs to delete.",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "SCALAR",
+                        "name": "ID",
+                        "ofType": null
+                      }
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "InvestmentBulkDelete",
               "ofType": null
             },
             "isDeprecated": false,
@@ -4712,7 +4800,7 @@
                 "deprecationReason": null
               },
               {
-                "name": "mounth",
+                "name": "month",
                 "description": null,
                 "type": {
                   "kind": "SCALAR",
@@ -4809,7 +4897,7 @@
                 "deprecationReason": null
               },
               {
-                "name": "mounth",
+                "name": "month",
                 "description": null,
                 "type": {
                   "kind": "SCALAR",
