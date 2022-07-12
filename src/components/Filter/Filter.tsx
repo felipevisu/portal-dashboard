@@ -1,11 +1,13 @@
+import React, { useState } from "react";
+
 import {
   Box,
   Button,
+  ClickAwayListener,
   Popper,
   PopperPlacementType,
-  ClickAwayListener,
 } from "@mui/material";
-import React, { useState } from "react";
+
 import FilterContent from "./FilterContent";
 
 export const Filter = <F,>(filterOpts: F) => {

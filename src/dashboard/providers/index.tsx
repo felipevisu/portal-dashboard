@@ -1,8 +1,9 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
-import ProviderList from "./views/ProviderList";
+import { Route, Routes } from "react-router-dom";
+
 import ProviderCreate from "./views/ProviderCreate";
 import ProviderDetails from "./views/ProviderDetails";
+import ProviderList from "./views/ProviderList";
 
 export const Providers = () => {
   return (

@@ -1,14 +1,15 @@
 import React from "react";
-import { TableCell, TableBody } from "@mui/material";
-import ResponsiveTable from "@portal/components/ResponsiveTable";
-import { VehicleFragment } from "@portal/graphql";
-import TableHead from "@portal/components/TableHead";
-import { renderCollection } from "@portal/misc";
-import TableRowLink from "@portal/components/TableRowLink";
-import { ListActions } from "@portal/types";
+
+import { TableBody, TableCell } from "@mui/material";
 import Checkbox from "@portal/components/Checkbox";
+import ResponsiveTable from "@portal/components/ResponsiveTable";
 import TableCellHeader from "@portal/components/TableCell";
 import TableCellWithStatus from "@portal/components/TableCellWithStatus";
+import TableHead from "@portal/components/TableHead";
+import TableRowLink from "@portal/components/TableRowLink";
+import { VehicleFragment } from "@portal/graphql";
+import { renderCollection } from "@portal/misc";
+import { ListActions } from "@portal/types";
 
 interface VehicleListProps extends ListActions {
   vehicles: VehicleFragment[];

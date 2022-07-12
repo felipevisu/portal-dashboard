@@ -1,3 +1,7 @@
+import React from "react";
+import { convertToRaw } from "draft-js";
+import { useNavigate, useParams } from "react-router-dom";
+
 import { DialogContentText } from "@mui/material";
 import ActionDialog from "@portal/components/ActionDialog";
 import CircularLoading from "@portal/components/Circular";
@@ -9,9 +13,7 @@ import {
   useSessionUpdateMutation,
 } from "@portal/graphql";
 import { useModal } from "@portal/hooks";
-import { convertToRaw } from "draft-js";
-import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+
 import { SessionDetailsPage } from "../components/SessionDetailsPage";
 import { FormProps } from "../components/SessionForm";
 

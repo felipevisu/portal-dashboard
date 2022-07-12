@@ -1,14 +1,16 @@
-import {
-  TableCell,
-  TableHead as MuiTableHead,
-  TableRow,
-  Typography,
-  TableHeadProps as MuiTableHeadProps,
-  styled,
-} from "@mui/material";
 import React from "react";
 
+import {
+  styled,
+  TableCell,
+  TableHead as MuiTableHead,
+  TableHeadProps as MuiTableHeadProps,
+  TableRow,
+  Typography,
+} from "@mui/material";
+
 import { Node } from "../types";
+
 import Checkbox from "./Checkbox";
 
 const Container = styled("div")(() => ({

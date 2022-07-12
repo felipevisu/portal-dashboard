@@ -1,25 +1,28 @@
 import React, { useMemo } from "react";
+import { useSearchParams } from "react-router-dom";
+
+import { Delete } from "@mui/icons-material";
 import { DialogContentText, IconButton } from "@mui/material";
+import ActionDialog from "@portal/components/ActionDialog";
+import {
+  SessionBulkDeleteMutation,
+  useSessionBulkDeleteMutation,
+  useSessionsQuery,
+} from "@portal/graphql";
 import {
   useBulkActions,
+  useModal,
   usePaginator,
   useSearch,
-  useModal,
 } from "@portal/hooks";
-import {
-  useSessionsQuery,
-  useSessionBulkDeleteMutation,
-  SessionBulkDeleteMutation,
-} from "@portal/graphql";
+import { getQuery } from "@portal/utils/filters";
 import { mapEdgesToItems } from "@portal/utils/maps";
+
 import SessionListPage, {
   SessionListFilterOpts,
 } from "../components/SessionListPage";
-import ActionDialog from "@portal/components/ActionDialog";
-import { Delete } from "@mui/icons-material";
+
 import { getFilterOpts } from "./filter";
-import { getQuery } from "@portal/utils/filters";
-import { useSearchParams } from "react-router-dom";
 
 export const SessionList = () => {
   const [searchParams] = useSearchParams();

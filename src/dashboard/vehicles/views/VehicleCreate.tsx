@@ -1,12 +1,14 @@
+import React from "react";
+import { useNavigate } from "react-router-dom";
+
 import { DEFAULT_INITIAL_SEARCH_DATA } from "@portal/config";
 import {
-  VehicleCreateMutation,
   useVehicleCreateMutation,
+  VehicleCreateMutation,
 } from "@portal/graphql";
 import useCategorySearch from "@portal/searches/useCategorySearch";
 import { mapEdgesToItems } from "@portal/utils/maps";
-import React from "react";
-import { useNavigate } from "react-router-dom";
+
 import { VehicleCreatePage } from "../components/VehicleCreatePage";
 import { FormProps } from "../components/VehicleForm";
 

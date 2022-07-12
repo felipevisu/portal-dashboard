@@ -1,6 +1,7 @@
+import React from "react";
+
 import type { ButtonBaseProps } from "@mui/material";
 import { ButtonBase, styled } from "@mui/material";
-import React from "react";
 
 const Button = styled(ButtonBase)(({ theme }) => ({
   "&:hover": {

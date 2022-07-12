@@ -1,21 +1,23 @@
-import { DEFAULT_INITIAL_SEARCH_DATA } from "@portal/config";
-import { DialogContentText } from "@mui/material";
-import ActionDialog from "@portal/components/ActionDialog";
-import {
-  VehicleUpdateMutation,
-  useVehicleUpdateMutation,
-  useVehicleDetailsQuery,
-  useVehicleDeleteMutation,
-} from "@portal/graphql";
-import useCategorySearch from "@portal/searches/useCategorySearch";
-import { mapEdgesToItems } from "@portal/utils/maps";
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { VehicleDetailsPage } from "../components/VehicleDetailsPage";
-import { FormProps } from "../components/VehicleForm";
-import useModal from "@portal/hooks/useModal";
+
+import { DialogContentText } from "@mui/material";
+import ActionDialog from "@portal/components/ActionDialog";
 import CircularLoading from "@portal/components/Circular";
 import NotFound from "@portal/components/NotFound";
+import { DEFAULT_INITIAL_SEARCH_DATA } from "@portal/config";
+import {
+  useVehicleDeleteMutation,
+  useVehicleDetailsQuery,
+  useVehicleUpdateMutation,
+  VehicleUpdateMutation,
+} from "@portal/graphql";
+import useModal from "@portal/hooks/useModal";
+import useCategorySearch from "@portal/searches/useCategorySearch";
+import { mapEdgesToItems } from "@portal/utils/maps";
+
+import { VehicleDetailsPage } from "../components/VehicleDetailsPage";
+import { FormProps } from "../components/VehicleForm";
 
 export const VehicleDetails = () => {
   const { id } = useParams();

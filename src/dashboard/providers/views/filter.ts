@@ -1,5 +1,7 @@
-import { SingleAutocompleteChoiceType } from "@portal/utils/data";
 import { useSearchParams } from "react-router-dom";
+
+import { SingleAutocompleteChoiceType } from "@portal/utils/data";
+
 import { ProviderListFilterOpts } from "../components/ProviderListPage";
 
 export function getFilterOpts(

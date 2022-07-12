@@ -1,15 +1,17 @@
+import React from "react";
+import { useNavigate, useParams } from "react-router-dom";
+
 import { DialogContentText } from "@mui/material";
 import ActionDialog from "@portal/components/ActionDialog";
 import CircularLoading from "@portal/components/Circular";
 import NotFound from "@portal/components/NotFound";
 import {
+  useCategoryDeleteMutation,
   useCategoryDetailsQuery,
   useCategoryUpdateMutation,
-  useCategoryDeleteMutation,
 } from "@portal/graphql";
 import useModal from "@portal/hooks/useModal";
-import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+
 import { CategoryDetailsPage } from "../components/CategoryDetailsPage";
 import { FormProps } from "../components/CategoryForm";
 

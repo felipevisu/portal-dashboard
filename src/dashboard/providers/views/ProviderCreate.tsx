@@ -1,3 +1,6 @@
+import React from "react";
+import { useNavigate } from "react-router-dom";
+
 import { DEFAULT_INITIAL_SEARCH_DATA } from "@portal/config";
 import {
   ProviderCreateMutation,
@@ -5,8 +8,7 @@ import {
 } from "@portal/graphql";
 import useSegmentSearch from "@portal/searches/useSegmentSearch";
 import { mapEdgesToItems } from "@portal/utils/maps";
-import React from "react";
-import { useNavigate } from "react-router-dom";
+
 import { ProviderCreatePage } from "../components/ProviderCreatePage";
 import { FormProps } from "../components/ProviderForm";
 

@@ -1,13 +1,14 @@
 import React from "react";
-import { TableCell, TableBody } from "@mui/material";
-import ResponsiveTable from "@portal/components/ResponsiveTable";
-import { SegmentFragment } from "@portal/graphql";
-import TableHead from "@portal/components/TableHead";
-import { renderCollection } from "@portal/misc";
-import TableRowLink from "@portal/components/TableRowLink";
-import { ListActions } from "@portal/types";
+
+import { TableBody, TableCell } from "@mui/material";
 import Checkbox from "@portal/components/Checkbox";
+import ResponsiveTable from "@portal/components/ResponsiveTable";
 import TableCellHeader from "@portal/components/TableCell";
+import TableHead from "@portal/components/TableHead";
+import TableRowLink from "@portal/components/TableRowLink";
+import { SegmentFragment } from "@portal/graphql";
+import { renderCollection } from "@portal/misc";
+import { ListActions } from "@portal/types";
 
 interface SegmentListProps extends ListActions {
   segments: SegmentFragment[];

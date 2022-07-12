@@ -1,5 +1,6 @@
-import { Table } from "@mui/material";
 import React from "react";
+
+import { Table } from "@mui/material";
 
 interface ResponsiveTableProps {
   children: React.ReactNode | React.ReactNodeArray;

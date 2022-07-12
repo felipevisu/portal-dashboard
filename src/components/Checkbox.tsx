@@ -1,9 +1,10 @@
+import React from "react";
+
 import {
-  FormHelperText,
   Checkbox as MuiCheckbox,
   CheckboxProps as MuiCheckboxProps,
+  FormHelperText,
 } from "@mui/material";
-import React from "react";
 
 export type CheckboxProps = Omit<
   MuiCheckboxProps,

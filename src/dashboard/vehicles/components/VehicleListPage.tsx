@@ -1,17 +1,19 @@
 import React from "react";
+
+import { Card } from "@mui/material";
+import { Button } from "@portal/components/Button";
+import Container from "@portal/components/Container";
+import { FilterBar } from "@portal/components/FilterBar";
+import PageHeader from "@portal/components/PageHeader";
+import { Pagination } from "@portal/components/Pagination";
+import { VehicleFragment } from "@portal/graphql";
 import {
   FilterOpts,
   ListActions,
   PaginateListProps,
   SearchPageProps,
 } from "@portal/types";
-import { VehicleFragment } from "@portal/graphql";
-import { FilterBar } from "@portal/components/FilterBar";
-import PageHeader from "@portal/components/PageHeader";
-import { Button } from "@portal/components/Button";
-import { Pagination } from "@portal/components/Pagination";
-import { Card } from "@mui/material";
-import Container from "@portal/components/Container";
+
 import VehicleList from "./VehicleList";
 
 export type VehicleListFilterOpts = {

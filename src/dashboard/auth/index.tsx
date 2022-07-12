@@ -1,8 +1,10 @@
 import React, { createContext, useContext } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+
 import { UserFragment } from "@portal/graphql";
-import Login from "./views/Login";
+
 import Layout from "./components/Layout";
+import Login from "./views/Login";
 
 export interface ContextProps {
   login: (email: string, password: string) => Promise<any>;

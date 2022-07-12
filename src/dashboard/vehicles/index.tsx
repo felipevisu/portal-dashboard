@@ -1,8 +1,9 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
-import VehicleList from "./views/VehicleList";
+import { Route, Routes } from "react-router-dom";
+
 import VehicleCreate from "./views/VehicleCreate";
 import VehicleDetails from "./views/VehicleDetails";
+import VehicleList from "./views/VehicleList";
 
 export const Vehicles = () => {
   return (

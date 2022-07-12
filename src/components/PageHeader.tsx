@@ -1,5 +1,6 @@
-import { Typography, Skeleton } from "@mui/material";
 import React from "react";
+
+import { Skeleton, Typography } from "@mui/material";
 
 import ExtendedPageHeader from "./ExtendedPageHeader";
 

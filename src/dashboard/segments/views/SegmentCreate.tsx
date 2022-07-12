@@ -1,9 +1,11 @@
+import React from "react";
+import { useNavigate } from "react-router-dom";
+
 import {
   SegmentCreateMutation,
   useSegmentCreateMutation,
 } from "@portal/graphql";
-import React from "react";
-import { useNavigate } from "react-router-dom";
+
 import { SegmentCreatePage } from "../components/SegmentCreatePage";
 import { FormProps } from "../components/SegmentForm";
 

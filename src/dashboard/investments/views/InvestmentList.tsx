@@ -1,3 +1,5 @@
+import React from "react";
+
 import { Delete } from "@mui/icons-material";
 import { DialogContentText, IconButton } from "@mui/material";
 import ActionDialog from "@portal/components/ActionDialog";
@@ -8,7 +10,7 @@ import {
 } from "@portal/graphql";
 import { useBulkActions, useModal, usePaginator } from "@portal/hooks";
 import { mapEdgesToItems } from "@portal/utils/maps";
-import React from "react";
+
 import InvestmentListPage from "../components/InvestmentListPage";
 
 export const InvestmentList = () => {

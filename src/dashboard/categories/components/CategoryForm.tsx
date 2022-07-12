@@ -1,14 +1,15 @@
-import { ErrorFragment } from "@portal/graphql";
+import React from "react";
+
 import {
   Card,
   CardContent,
   CardHeader,
-  TextField,
   FormControl,
+  TextField,
 } from "@mui/material";
-import { getFormErrors } from "@portal/utils/errors";
-import React from "react";
 import FormSpacer from "@portal/components/FormSpacer";
+import { ErrorFragment } from "@portal/graphql";
+import { getFormErrors } from "@portal/utils/errors";
 
 export type FormProps = {
   name: string;

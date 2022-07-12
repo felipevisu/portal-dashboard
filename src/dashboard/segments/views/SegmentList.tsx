@@ -1,20 +1,22 @@
 import React from "react";
+
+import { Delete } from "@mui/icons-material";
 import { DialogContentText, IconButton } from "@mui/material";
+import ActionDialog from "@portal/components/ActionDialog";
 import {
-  useSegmentsQuery,
-  useSegmentBulkDeleteMutation,
   SegmentBulkDeleteMutation,
+  useSegmentBulkDeleteMutation,
+  useSegmentsQuery,
 } from "@portal/graphql";
-import { mapEdgesToItems } from "@portal/utils/maps";
-import SegmentListPage from "../components/SegmentListPage";
 import {
   useBulkActions,
+  useModal,
   usePaginator,
   useSearch,
-  useModal,
 } from "@portal/hooks";
-import ActionDialog from "@portal/components/ActionDialog";
-import { Delete } from "@mui/icons-material";
+import { mapEdgesToItems } from "@portal/utils/maps";
+
+import SegmentListPage from "../components/SegmentListPage";
 
 export const SegmentList = () => {
   const { search, handleSearch } = useSearch();

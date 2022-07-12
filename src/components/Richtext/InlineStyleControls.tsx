@@ -1,5 +1,6 @@
-import { EditorState } from "draft-js";
 import React from "react";
+import { EditorState } from "draft-js";
+
 import StyleButton from "./StyleButton";
 
 const INLINE_STYLES = [

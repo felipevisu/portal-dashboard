@@ -1,3 +1,5 @@
+import { DocumentNode } from "graphql";
+
 import {
   ApolloError,
   ApolloQueryResult,
@@ -5,7 +7,6 @@ import {
   QueryResult,
   useQuery as useBaseQuery,
 } from "@apollo/client";
-import { DocumentNode } from "graphql";
 export interface LoadMore<TData, TVariables> {
   loadMore: (
     mergeFunc: (prev: TData, next: TData) => TData,

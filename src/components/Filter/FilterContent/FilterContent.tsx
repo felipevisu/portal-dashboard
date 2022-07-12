@@ -1,6 +1,8 @@
-import { Paper } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+
+import { Paper } from "@mui/material";
+
 import FilterContentHeader from "./FiltercontentHeader";
 import FilterItem from "./FilterItem";
 

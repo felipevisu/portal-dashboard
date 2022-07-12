@@ -1,16 +1,17 @@
 import React, { useState } from "react";
+
+import { LoadingButton } from "@mui/lab";
 import {
-  TextField,
-  Typography,
-  styled,
   Card,
   CardContent,
+  styled,
+  TextField,
+  Typography,
 } from "@mui/material";
-import { UserFragment, ErrorFragment } from "@portal/graphql";
 import { FormSpacer } from "@portal/components/FormSpacer";
+import { ErrorFragment, UserFragment } from "@portal/graphql";
 
 import { useUser } from "..";
-import { LoadingButton } from "@mui/lab";
 
 export interface FieldsProps {
   email: string | undefined;

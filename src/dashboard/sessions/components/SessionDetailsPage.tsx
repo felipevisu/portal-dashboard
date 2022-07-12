@@ -1,11 +1,13 @@
+import React, { useState } from "react";
+import { convertFromRaw, EditorState } from "draft-js";
+import { useNavigate } from "react-router-dom";
+
 import { Backlink } from "@portal/components/Backlink";
 import Container from "@portal/components/Container";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
 import { ErrorFragment, SessionDetailsFragment } from "@portal/graphql";
-import { convertFromRaw, EditorState } from "draft-js";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+
 import SessionForm, { FormProps } from "./SessionForm";
 
 const sanitizeSession = (session: SessionDetailsFragment) => {

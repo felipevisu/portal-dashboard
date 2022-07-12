@@ -1,9 +1,11 @@
+import React from "react";
+import { useNavigate } from "react-router-dom";
+
 import {
   CategoryCreateMutation,
   useCategoryCreateMutation,
 } from "@portal/graphql";
-import React from "react";
-import { useNavigate } from "react-router-dom";
+
 import { CategoryCreatePage } from "../components/CategoryCreatePage";
 import { FormProps } from "../components/CategoryForm";
 

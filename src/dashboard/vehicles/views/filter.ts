@@ -1,5 +1,7 @@
-import { SingleAutocompleteChoiceType } from "@portal/utils/data";
 import { useSearchParams } from "react-router-dom";
+
+import { SingleAutocompleteChoiceType } from "@portal/utils/data";
+
 import { VehicleListFilterOpts } from "../components/VehicleListPage";
 
 export function getFilterOpts(

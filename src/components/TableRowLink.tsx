@@ -1,7 +1,8 @@
-import { TableRow, TableRowTypeMap, styled } from "@mui/material";
-import { isExternalURL } from "@portal/utils/urls";
 import React from "react";
 import { Link as BaseLink } from "react-router-dom";
+
+import { styled, TableRow, TableRowTypeMap } from "@mui/material";
+import { isExternalURL } from "@portal/utils/urls";
 
 type MaterialTableRowPropsType = TableRowTypeMap["props"];
 

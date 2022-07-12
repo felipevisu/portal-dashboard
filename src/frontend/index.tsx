@@ -1,10 +1,11 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+
 import Home from "./home";
-import Providers from "./providers";
-import Vehicles from "./vehicles";
 import Investments from "./investments";
+import Providers from "./providers";
 import Sessions from "./sessions";
+import Vehicles from "./vehicles";
 
 export const Dashboard = () => {
   return (

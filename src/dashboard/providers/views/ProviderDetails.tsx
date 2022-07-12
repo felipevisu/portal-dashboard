@@ -1,21 +1,23 @@
-import { DEFAULT_INITIAL_SEARCH_DATA } from "@portal/config";
-import { DialogContentText } from "@mui/material";
-import ActionDialog from "@portal/components/ActionDialog";
-import {
-  ProviderUpdateMutation,
-  useProviderUpdateMutation,
-  useProviderDetailsQuery,
-  useProviderDeleteMutation,
-} from "@portal/graphql";
-import useSegmentSearch from "@portal/searches/useSegmentSearch";
-import { mapEdgesToItems } from "@portal/utils/maps";
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { ProviderDetailsPage } from "../components/ProviderDetailsPage";
-import { FormProps } from "../components/ProviderForm";
-import useModal from "@portal/hooks/useModal";
+
+import { DialogContentText } from "@mui/material";
+import ActionDialog from "@portal/components/ActionDialog";
 import CircularLoading from "@portal/components/Circular";
 import NotFound from "@portal/components/NotFound";
+import { DEFAULT_INITIAL_SEARCH_DATA } from "@portal/config";
+import {
+  ProviderUpdateMutation,
+  useProviderDeleteMutation,
+  useProviderDetailsQuery,
+  useProviderUpdateMutation,
+} from "@portal/graphql";
+import useModal from "@portal/hooks/useModal";
+import useSegmentSearch from "@portal/searches/useSegmentSearch";
+import { mapEdgesToItems } from "@portal/utils/maps";
+
+import { ProviderDetailsPage } from "../components/ProviderDetailsPage";
+import { FormProps } from "../components/ProviderForm";
 
 export const ProviderDetails = () => {
   const { id } = useParams();

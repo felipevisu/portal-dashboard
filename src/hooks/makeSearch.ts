@@ -1,6 +1,7 @@
-import { QueryResult } from "@apollo/client";
-import { DocumentNode } from "graphql";
 import { useState } from "react";
+import { DocumentNode } from "graphql";
+
+import { QueryResult } from "@apollo/client";
 
 import makeQuery, { UseQueryResult } from "./makeQuery";
 import useDebounce from "./useDebounce";

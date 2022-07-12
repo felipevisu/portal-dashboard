@@ -1,7 +1,9 @@
-import { PageInfoFragment } from "@portal/graphql";
 import React from "react";
 import { useSearchParams } from "react-router-dom";
+
 import { styled } from "@mui/material/styles";
+import { PageInfoFragment } from "@portal/graphql";
+
 import { PaginationToolbar } from "./PaginationToolbar";
 
 interface PaginationProps {

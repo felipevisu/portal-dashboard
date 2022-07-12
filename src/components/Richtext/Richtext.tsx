@@ -1,5 +1,6 @@
 import React from "react";
 import { Editor, EditorState, RichUtils } from "draft-js";
+
 import BlockStyleControls from "./BlockStyleControls";
 import InlineStyleControls from "./InlineStyleControls";
 

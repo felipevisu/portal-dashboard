@@ -1,24 +1,27 @@
 import React, { useMemo } from "react";
+import { useSearchParams } from "react-router-dom";
+
+import { Delete } from "@mui/icons-material";
 import { DialogContentText, IconButton } from "@mui/material";
+import ActionDialog from "@portal/components/ActionDialog";
+import { DEFAULT_INITIAL_SEARCH_DATA } from "@portal/config";
 import {
-  useProviderBulkDeleteMutation,
   ProviderBulkDeleteMutation,
+  useProviderBulkDeleteMutation,
   useProvidersQuery,
 } from "@portal/graphql";
+import { useBulkActions, usePaginator, useSearch } from "@portal/hooks";
+import useModal from "@portal/hooks/useModal";
+import useSegmentSearch from "@portal/searches/useSegmentSearch";
+import { getChoices } from "@portal/utils/data";
+import { getQuery } from "@portal/utils/filters";
 import { mapEdgesToItems } from "@portal/utils/maps";
+
 import ProviderListPage, {
   ProviderListFilterOpts,
 } from "../components/ProviderListPage";
-import { useBulkActions, usePaginator, useSearch } from "@portal/hooks";
-import ActionDialog from "@portal/components/ActionDialog";
-import useModal from "@portal/hooks/useModal";
-import { Delete } from "@mui/icons-material";
-import useSegmentSearch from "@portal/searches/useSegmentSearch";
-import { DEFAULT_INITIAL_SEARCH_DATA } from "@portal/config";
-import { getChoices } from "@portal/utils/data";
+
 import { getFilterOpts } from "./filter";
-import { useSearchParams } from "react-router-dom";
-import { getQuery } from "@portal/utils/filters";
 
 export const ProviderList = () => {
   const [searchParams] = useSearchParams();

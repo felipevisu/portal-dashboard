@@ -1,8 +1,9 @@
-import ButtonBase, { ButtonBaseTypeMap } from "@mui/material/ButtonBase";
-import { styled } from "@mui/material";
+import React from "react";
+
 import ChevronLeft from "@mui/icons-material/ChevronLeft";
 import ChevronRight from "@mui/icons-material/ChevronRight";
-import React from "react";
+import { styled } from "@mui/material";
+import ButtonBase, { ButtonBaseTypeMap } from "@mui/material/ButtonBase";
 
 type BaseButtonProps<M = unknown> = M extends unknown
   ? ButtonBaseTypeMap<M & { component: React.ElementType }>["props"]

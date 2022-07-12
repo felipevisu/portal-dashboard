@@ -1,6 +1,7 @@
+import React from "react";
+
 import { Dialog, DialogContent, DialogTitle } from "@mui/material";
 import { DialogProps } from "@portal/types";
-import React from "react";
 
 import DialogButtons, { ActionDialogVariant, Size } from "./DialogButtons";
 

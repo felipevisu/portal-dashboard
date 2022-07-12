@@ -1,15 +1,17 @@
+import React from "react";
+import { useNavigate, useParams } from "react-router-dom";
+
 import { DialogContentText } from "@mui/material";
 import ActionDialog from "@portal/components/ActionDialog";
 import CircularLoading from "@portal/components/Circular";
 import NotFound from "@portal/components/NotFound";
 import {
+  useSegmentDeleteMutation,
   useSegmentDetailsQuery,
   useSegmentUpdateMutation,
-  useSegmentDeleteMutation,
 } from "@portal/graphql";
 import useModal from "@portal/hooks/useModal";
-import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+
 import { SegmentDetailsPage } from "../components/SegmentDetailsPage";
 import { FormProps } from "../components/SegmentForm";
 

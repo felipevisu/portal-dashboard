@@ -1,10 +1,12 @@
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { Backlink } from "@portal/components/Backlink";
 import Container from "@portal/components/Container";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
-import { SegmentFragment, ErrorFragment } from "@portal/graphql";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { ErrorFragment, SegmentFragment } from "@portal/graphql";
+
 import SegmentForm, { FormProps } from "./SegmentForm";
 
 interface SegmentDetailsPageProps {

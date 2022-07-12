@@ -1,8 +1,9 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
-import CategoryList from "./views/CategoryList";
+import { Route, Routes } from "react-router-dom";
+
 import CategoryCreate from "./views/CategoryCreate";
 import CategoryDetails from "./views/CategoryDetails";
+import CategoryList from "./views/CategoryList";
 
 export const Categories = () => {
   return (

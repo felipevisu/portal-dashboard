@@ -1,10 +1,12 @@
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { Backlink } from "@portal/components/Backlink";
 import Container from "@portal/components/Container";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
 import { CategoryFragment, ErrorFragment } from "@portal/graphql";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+
 import CategoryForm from "./CategoryForm";
 
 interface CategoryDetailsPageProps {

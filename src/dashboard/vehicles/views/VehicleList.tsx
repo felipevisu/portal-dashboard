@@ -1,24 +1,27 @@
 import React, { useMemo } from "react";
+import { useSearchParams } from "react-router-dom";
+
+import { Delete } from "@mui/icons-material";
 import { DialogContentText, IconButton } from "@mui/material";
+import ActionDialog from "@portal/components/ActionDialog";
+import { DEFAULT_INITIAL_SEARCH_DATA } from "@portal/config";
 import {
   useVehicleBulkDeleteMutation,
-  VehicleBulkDeleteMutation,
   useVehiclesQuery,
+  VehicleBulkDeleteMutation,
 } from "@portal/graphql";
+import { useBulkActions, usePaginator, useSearch } from "@portal/hooks";
+import useModal from "@portal/hooks/useModal";
+import useCategorySearch from "@portal/searches/useCategorySearch";
+import { getChoices } from "@portal/utils/data";
+import { getQuery } from "@portal/utils/filters";
 import { mapEdgesToItems } from "@portal/utils/maps";
+
 import VehicleListPage, {
   VehicleListFilterOpts,
 } from "../components/VehicleListPage";
-import { useBulkActions, usePaginator, useSearch } from "@portal/hooks";
-import ActionDialog from "@portal/components/ActionDialog";
-import useModal from "@portal/hooks/useModal";
-import { Delete } from "@mui/icons-material";
-import useCategorySearch from "@portal/searches/useCategorySearch";
-import { DEFAULT_INITIAL_SEARCH_DATA } from "@portal/config";
-import { getChoices } from "@portal/utils/data";
+
 import { getFilterOpts } from "./filter";
-import { useSearchParams } from "react-router-dom";
-import { getQuery } from "@portal/utils/filters";
 
 export const VehicleList = () => {
   const [searchParams] = useSearchParams();

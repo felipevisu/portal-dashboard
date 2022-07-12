@@ -1,16 +1,18 @@
 import React from "react";
+
+import { Delete } from "@mui/icons-material";
 import { DialogContentText, IconButton } from "@mui/material";
+import ActionDialog from "@portal/components/ActionDialog";
 import {
+  CategoryBulkDeleteMutation,
   useCategoriesQuery,
   useCategoryBulkDeleteMutation,
-  CategoryBulkDeleteMutation,
 } from "@portal/graphql";
-import { mapEdgesToItems } from "@portal/utils/maps";
-import CategoryListPage from "../components/CategoryListPage";
 import { useBulkActions, usePaginator, useSearch } from "@portal/hooks";
-import ActionDialog from "@portal/components/ActionDialog";
 import useModal from "@portal/hooks/useModal";
-import { Delete } from "@mui/icons-material";
+import { mapEdgesToItems } from "@portal/utils/maps";
+
+import CategoryListPage from "../components/CategoryListPage";
 
 export const CategoryList = () => {
   const { search, handleSearch } = useSearch();

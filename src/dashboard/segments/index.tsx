@@ -1,8 +1,9 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
-import SegmentList from "./views/SegmentList";
+import { Route, Routes } from "react-router-dom";
+
 import SegmentCreate from "./views/SegmentCreate";
 import SegmentDetails from "./views/SegmentDetails";
+import SegmentList from "./views/SegmentList";
 
 export const Segments = () => {
   return (

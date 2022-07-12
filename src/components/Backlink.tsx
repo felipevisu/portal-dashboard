@@ -1,7 +1,9 @@
-import { ArrowBack } from "@mui/icons-material";
-import { isExternalURL } from "@portal/utils/urls";
 import React from "react";
 import { Link } from "react-router-dom";
+
+import { ArrowBack } from "@mui/icons-material";
+import { isExternalURL } from "@portal/utils/urls";
+
 import { LayoutButton, LayoutButtonProps } from "./LayoutButton";
 
 export type BacklinkProps<T extends React.ElementType> =

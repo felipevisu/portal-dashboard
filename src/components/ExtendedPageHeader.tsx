@@ -1,5 +1,6 @@
-import { Divider, styled } from "@mui/material";
 import React from "react";
+
+import { Divider, styled } from "@mui/material";
 
 const Header = styled("div")(({ theme }) => ({
   display: "flex",

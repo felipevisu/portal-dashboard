@@ -1,12 +1,14 @@
 import React from "react";
-import { ListActions, PaginateListProps, SearchPageProps } from "@portal/types";
-import { SegmentFragment } from "@portal/graphql";
-import { SearchBar } from "@portal/components/SearchBar";
-import PageHeader from "@portal/components/PageHeader";
-import { Button } from "@portal/components/Button";
-import { Pagination } from "@portal/components/Pagination";
+
 import { Card } from "@mui/material";
+import { Button } from "@portal/components/Button";
 import Container from "@portal/components/Container";
+import PageHeader from "@portal/components/PageHeader";
+import { Pagination } from "@portal/components/Pagination";
+import { SearchBar } from "@portal/components/SearchBar";
+import { SegmentFragment } from "@portal/graphql";
+import { ListActions, PaginateListProps, SearchPageProps } from "@portal/types";
+
 import SegmentList from "./SegmentList";
 
 interface SegmentListPageProps

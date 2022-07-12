@@ -1,3 +1,6 @@
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { Backlink } from "@portal/components/Backlink";
 import Container from "@portal/components/Container";
 import PageHeader from "@portal/components/PageHeader";
@@ -5,8 +8,7 @@ import { Savebar } from "@portal/components/Savebar";
 import { ErrorFragment, SearchCategoriesQuery } from "@portal/graphql";
 import { RelayToFlat } from "@portal/types";
 import { getChoices } from "@portal/utils/data";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+
 import VehicleForm, { FormProps } from "./VehicleForm";
 
 interface VehicleCreatePageProps {

@@ -1,4 +1,5 @@
 import { useSearchParams } from "react-router-dom";
+
 import { SessionListFilterOpts } from "../components/SessionListPage";
 
 export function getFilterOpts(): SessionListFilterOpts {

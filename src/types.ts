@@ -53,6 +53,6 @@ export type SingleAction = Partial<{
 export interface FilterOpts<T> {
   name: string;
   active: boolean;
-  choices: SingleAutocompleteChoiceType[]
+  choices: SingleAutocompleteChoiceType[];
   value: T;
 }

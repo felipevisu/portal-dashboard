@@ -1,5 +1,6 @@
-import { PageInfoFragment } from "@portal/graphql";
 import { DocumentNode } from "graphql";
+
+import { PageInfoFragment } from "@portal/graphql";
 
 import makeSearch, { SearchVariables, UseSearchHook } from "./makeSearch";
 

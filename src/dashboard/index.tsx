@@ -1,17 +1,19 @@
-import CircularLoading from "@portal/components/Circular";
 import React from "react";
-import { Routes, Route } from "react-router-dom";
-import Auth, { useUser } from "./auth";
+import { Route, Routes } from "react-router-dom";
+
+import { Box } from "@mui/material";
+import CircularLoading from "@portal/components/Circular";
+
 import AuthProvider from "./auth/authProvider";
+import Auth, { useUser } from "./auth";
 import Categories from "./categories";
 import Home from "./home";
-import Menu from "./menu";
-import Segments from "./segments";
-import Vehicles from "./vehicles";
-import Providers from "./providers";
-import Sessions from "./sessions";
-import { Box } from "@mui/material";
 import Investments from "./investments";
+import Menu from "./menu";
+import Providers from "./providers";
+import Segments from "./segments";
+import Sessions from "./sessions";
+import Vehicles from "./vehicles";
 
 const RoutesComponent = () => {
   const { authenticated, authenticating } = useUser();
