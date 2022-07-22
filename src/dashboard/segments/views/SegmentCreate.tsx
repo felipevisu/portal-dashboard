@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 
 import {
   SegmentCreateMutation,
+  SegmentInput,
   useSegmentCreateMutation,
 } from "@portal/graphql";
 
 import { SegmentCreatePage } from "../components/SegmentCreatePage";
-import { FormProps } from "../components/SegmentForm";
 
 export const SegmentCreate = () => {
   const navigator = useNavigate();
@@ -22,7 +22,7 @@ export const SegmentCreate = () => {
     onCompleted: handleSuccess,
   });
 
-  const handleSubmit = async (data: FormProps) => {
+  const handleSubmit = async (data: SegmentInput) => {
     await createSegment({ variables: { input: { ...data } } });
   };
 

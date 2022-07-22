@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { convertFromRaw, EditorState } from "draft-js";
+import { convertFromRaw, convertToRaw, EditorState } from "draft-js";
 import { useNavigate } from "react-router-dom";
 
 import { Backlink } from "@portal/components/Backlink";
@@ -48,7 +48,12 @@ export const SessionDetailsPage = ({
   };
 
   const handleSubmit = () => {
-    onSubmit(data);
+    onSubmit({
+      name: data.name,
+      slug: data.slug,
+      content: JSON.stringify(convertToRaw(data.content.getCurrentContent())),
+      date: data.date,
+    });
   };
 
   return (

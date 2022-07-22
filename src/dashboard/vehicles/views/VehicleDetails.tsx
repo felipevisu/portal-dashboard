@@ -10,6 +10,7 @@ import {
   useVehicleDeleteMutation,
   useVehicleDetailsQuery,
   useVehicleUpdateMutation,
+  VehicleInput,
   VehicleUpdateMutation,
 } from "@portal/graphql";
 import useModal from "@portal/hooks/useModal";
@@ -17,7 +18,6 @@ import useCategorySearch from "@portal/searches/useCategorySearch";
 import { mapEdgesToItems } from "@portal/utils/maps";
 
 import { VehicleDetailsPage } from "../components/VehicleDetailsPage";
-import { FormProps } from "../components/VehicleForm";
 
 export const VehicleDetails = () => {
   const { id } = useParams();
@@ -34,7 +34,7 @@ export const VehicleDetails = () => {
     onCompleted: handleSuccess,
   });
 
-  const handleSubmit = async (data: FormProps) => {
+  const handleSubmit = async (data: VehicleInput) => {
     await updateVehicle({ variables: { id: id, input: { ...data } } });
   };
 

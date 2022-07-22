@@ -4,13 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { DEFAULT_INITIAL_SEARCH_DATA } from "@portal/config";
 import {
   ProviderCreateMutation,
+  ProviderInput,
   useProviderCreateMutation,
 } from "@portal/graphql";
 import useSegmentSearch from "@portal/searches/useSegmentSearch";
 import { mapEdgesToItems } from "@portal/utils/maps";
 
 import { ProviderCreatePage } from "../components/ProviderCreatePage";
-import { FormProps } from "../components/ProviderForm";
 
 export const ProviderCreate = () => {
   const navigator = useNavigate();
@@ -25,7 +25,7 @@ export const ProviderCreate = () => {
     onCompleted: handleSuccess,
   });
 
-  const handleSubmit = async (data: FormProps) => {
+  const handleSubmit = async (data: ProviderInput) => {
     await createProvider({ variables: { input: { ...data } } });
   };
 

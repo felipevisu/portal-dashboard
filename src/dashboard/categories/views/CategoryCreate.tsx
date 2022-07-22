@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 
 import {
   CategoryCreateMutation,
+  CategoryInput,
   useCategoryCreateMutation,
 } from "@portal/graphql";
 
 import { CategoryCreatePage } from "../components/CategoryCreatePage";
-import { FormProps } from "../components/CategoryForm";
 
 export const CategoryCreate = () => {
   const navigator = useNavigate();
@@ -24,7 +24,7 @@ export const CategoryCreate = () => {
     onCompleted: handleSuccess,
   });
 
-  const handleSubmit = async (data: FormProps) => {
+  const handleSubmit = async (data: CategoryInput) => {
     await createCategory({ variables: { input: { ...data } } });
   };
 

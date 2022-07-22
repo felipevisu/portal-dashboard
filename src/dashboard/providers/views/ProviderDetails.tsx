@@ -7,6 +7,7 @@ import CircularLoading from "@portal/components/Circular";
 import NotFound from "@portal/components/NotFound";
 import { DEFAULT_INITIAL_SEARCH_DATA } from "@portal/config";
 import {
+  ProviderInput,
   ProviderUpdateMutation,
   useProviderDeleteMutation,
   useProviderDetailsQuery,
@@ -17,7 +18,6 @@ import useSegmentSearch from "@portal/searches/useSegmentSearch";
 import { mapEdgesToItems } from "@portal/utils/maps";
 
 import { ProviderDetailsPage } from "../components/ProviderDetailsPage";
-import { FormProps } from "../components/ProviderForm";
 
 export const ProviderDetails = () => {
   const { id } = useParams();
@@ -34,7 +34,7 @@ export const ProviderDetails = () => {
     onCompleted: handleSuccess,
   });
 
-  const handleSubmit = async (data: FormProps) => {
+  const handleSubmit = async (data: ProviderInput) => {
     await updateProvider({ variables: { id: id, input: { ...data } } });
   };
 

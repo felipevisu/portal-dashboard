@@ -204,6 +204,13 @@ export type CategoryDetailsQueryVariables = Exact<{
 
 export type CategoryDetailsQuery = { __typename: 'Query', category: { __typename: 'Category', id: string, name: string, slug: string, vehicles: { __typename: 'VehiclesConnection', totalCount: number | null } | null } | null };
 
+export type InvestmentCreateMutationVariables = Exact<{
+  input: InvestmentInput;
+}>;
+
+
+export type InvestmentCreateMutation = { __typename: 'Mutation', investmentCreate: { __typename: 'InvestmentCreate', investment: { __typename: 'Investment', id: string } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+
 export type InvestmentBulkDeleteMutationVariables = Exact<{
   ids: Array<Scalars['ID']> | Scalars['ID'];
 }>;

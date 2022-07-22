@@ -6,6 +6,7 @@ import ActionDialog from "@portal/components/ActionDialog";
 import CircularLoading from "@portal/components/Circular";
 import NotFound from "@portal/components/NotFound";
 import {
+  CategoryInput,
   useCategoryDeleteMutation,
   useCategoryDetailsQuery,
   useCategoryUpdateMutation,
@@ -13,7 +14,6 @@ import {
 import useModal from "@portal/hooks/useModal";
 
 import { CategoryDetailsPage } from "../components/CategoryDetailsPage";
-import { FormProps } from "../components/CategoryForm";
 
 export const CategoryDetails = () => {
   const { id } = useParams();
@@ -33,9 +33,9 @@ export const CategoryDetails = () => {
     await deleteCategory({ variables: { id } });
   };
 
-  const handleSubmit = async (data: FormProps) => {
+  const handleSubmit = async (data: CategoryInput) => {
     await updateCategory({
-      variables: { id: id, input: { name: data.name, slug: data.slug } },
+      variables: { id: id, input: { ...data } },
     });
   };
 

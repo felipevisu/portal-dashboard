@@ -6,6 +6,7 @@ import ActionDialog from "@portal/components/ActionDialog";
 import CircularLoading from "@portal/components/Circular";
 import NotFound from "@portal/components/NotFound";
 import {
+  SegmentInput,
   useSegmentDeleteMutation,
   useSegmentDetailsQuery,
   useSegmentUpdateMutation,
@@ -13,7 +14,6 @@ import {
 import useModal from "@portal/hooks/useModal";
 
 import { SegmentDetailsPage } from "../components/SegmentDetailsPage";
-import { FormProps } from "../components/SegmentForm";
 
 export const SegmentDetails = () => {
   const { id } = useParams();
@@ -33,9 +33,9 @@ export const SegmentDetails = () => {
     await deleteSegment({ variables: { id } });
   };
 
-  const handleSubmit = async (data: FormProps) => {
+  const handleSubmit = async (data: SegmentInput) => {
     await updateSegment({
-      variables: { id: id, input: { name: data.name, slug: data.slug } },
+      variables: { id: id, input: { ...data } },
     });
   };
 

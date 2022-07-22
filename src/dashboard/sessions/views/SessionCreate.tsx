@@ -4,11 +4,11 @@ import { useNavigate } from "react-router-dom";
 
 import {
   SessionCreateMutation,
+  SessionInput,
   useSessionCreateMutation,
 } from "@portal/graphql";
 
 import { SessionCreatePage } from "../components/SessionCreatePage";
-import { FormProps } from "../components/SessionForm";
 
 export const SessionCreate = () => {
   const navigate = useNavigate();
@@ -23,18 +23,9 @@ export const SessionCreate = () => {
     onCompleted: handleSuccess,
   });
 
-  const handleSubmit = async (data: FormProps) => {
+  const handleSubmit = async (data: SessionInput) => {
     await createSession({
-      variables: {
-        input: {
-          name: data.name,
-          slug: data.slug,
-          content: JSON.stringify(
-            convertToRaw(data.content.getCurrentContent())
-          ),
-          date: data.date,
-        },
-      },
+      variables: { input: { ...data } },
     });
   };
 

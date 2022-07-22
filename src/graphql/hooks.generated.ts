@@ -451,6 +451,44 @@ export function useCategoryDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOp
 export type CategoryDetailsQueryHookResult = ReturnType<typeof useCategoryDetailsQuery>;
 export type CategoryDetailsLazyQueryHookResult = ReturnType<typeof useCategoryDetailsLazyQuery>;
 export type CategoryDetailsQueryResult = Apollo.QueryResult<Types.CategoryDetailsQuery, Types.CategoryDetailsQueryVariables>;
+export const InvestmentCreateDocument = gql`
+    mutation InvestmentCreate($input: InvestmentInput!) {
+  investmentCreate(input: $input) {
+    investment {
+      id
+    }
+    errors {
+      ...Error
+    }
+  }
+}
+    ${ErrorFragmentDoc}`;
+export type InvestmentCreateMutationFn = Apollo.MutationFunction<Types.InvestmentCreateMutation, Types.InvestmentCreateMutationVariables>;
+
+/**
+ * __useInvestmentCreateMutation__
+ *
+ * To run a mutation, you first call `useInvestmentCreateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInvestmentCreateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [investmentCreateMutation, { data, loading, error }] = useInvestmentCreateMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useInvestmentCreateMutation(baseOptions?: Apollo.MutationHookOptions<Types.InvestmentCreateMutation, Types.InvestmentCreateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Types.InvestmentCreateMutation, Types.InvestmentCreateMutationVariables>(InvestmentCreateDocument, options);
+      }
+export type InvestmentCreateMutationHookResult = ReturnType<typeof useInvestmentCreateMutation>;
+export type InvestmentCreateMutationResult = Apollo.MutationResult<Types.InvestmentCreateMutation>;
+export type InvestmentCreateMutationOptions = Apollo.BaseMutationOptions<Types.InvestmentCreateMutation, Types.InvestmentCreateMutationVariables>;
 export const InvestmentBulkDeleteDocument = gql`
     mutation InvestmentBulkDelete($ids: [ID!]!) {
   investmentBulkDelete(ids: $ids) {

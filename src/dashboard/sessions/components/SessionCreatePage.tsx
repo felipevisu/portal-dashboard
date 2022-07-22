@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import { EditorState } from "draft-js";
+import { convertToRaw, EditorState } from "draft-js";
 import { useNavigate } from "react-router-dom";
 
 import { Backlink } from "@portal/components/Backlink";
 import Container from "@portal/components/Container";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
-import { ErrorFragment } from "@portal/graphql";
+import { ErrorFragment, SessionInput } from "@portal/graphql";
 
 import { FormProps, SessionForm } from "./SessionForm";
 
 interface SessionCreatePageProps {
-  onSubmit: (data: FormProps) => Promise<void>;
+  onSubmit: (data: SessionInput) => Promise<void>;
   errors: ErrorFragment[];
   loading: boolean;
 }
@@ -38,7 +38,12 @@ export const SessionCreatePage = ({
   };
 
   const handleSubmit = () => {
-    onSubmit(data);
+    onSubmit({
+      name: data.name,
+      slug: data.slug,
+      content: JSON.stringify(convertToRaw(data.content.getCurrentContent())),
+      date: data.date,
+    });
   };
 
   return (

@@ -1,5 +1,4 @@
 import React from "react";
-import { convertToRaw } from "draft-js";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { DialogContentText } from "@mui/material";
@@ -7,6 +6,7 @@ import ActionDialog from "@portal/components/ActionDialog";
 import CircularLoading from "@portal/components/Circular";
 import NotFound from "@portal/components/NotFound";
 import {
+  SessionInput,
   SessionUpdateMutation,
   useSessionDeleteMutation,
   useSessionDetailsQuery,
@@ -15,7 +15,6 @@ import {
 import { useModal } from "@portal/hooks";
 
 import { SessionDetailsPage } from "../components/SessionDetailsPage";
-import { FormProps } from "../components/SessionForm";
 
 export const SessionDetails = () => {
   const { id } = useParams();
@@ -32,19 +31,9 @@ export const SessionDetails = () => {
     onCompleted: handleSuccess,
   });
 
-  const handleSubmit = async (data: FormProps) => {
+  const handleSubmit = async (data: SessionInput) => {
     await updateSession({
-      variables: {
-        id: id,
-        input: {
-          name: data.name,
-          slug: data.slug,
-          content: JSON.stringify(
-            convertToRaw(data.content.getCurrentContent())
-          ),
-          date: data.date,
-        },
-      },
+      variables: { id: id, input: { ...data } },
     });
   };
 

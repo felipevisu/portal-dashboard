@@ -5,12 +5,12 @@ import { DEFAULT_INITIAL_SEARCH_DATA } from "@portal/config";
 import {
   useVehicleCreateMutation,
   VehicleCreateMutation,
+  VehicleInput,
 } from "@portal/graphql";
 import useCategorySearch from "@portal/searches/useCategorySearch";
 import { mapEdgesToItems } from "@portal/utils/maps";
 
 import { VehicleCreatePage } from "../components/VehicleCreatePage";
-import { FormProps } from "../components/VehicleForm";
 
 export const VehicleCreate = () => {
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ export const VehicleCreate = () => {
     onCompleted: handleSuccess,
   });
 
-  const handleSubmit = async (data: FormProps) => {
+  const handleSubmit = async (data: VehicleInput) => {
     await createVehicle({ variables: { input: { ...data } } });
   };
 
