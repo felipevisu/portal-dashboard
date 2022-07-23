@@ -10,10 +10,20 @@ import TableRowLink from "@portal/components/TableRowLink";
 import { InvestmentFragment } from "@portal/graphql";
 import { renderCollection } from "@portal/misc";
 import { ListActions } from "@portal/types";
+import { formatMoney } from "@portal/utils/money";
 
 interface InvestmentListProps extends ListActions {
   investments: InvestmentFragment[];
   disabled: boolean;
+}
+
+function toMonthName(monthNumber: number) {
+  const date = new Date();
+  date.setMonth(monthNumber - 1);
+  const month = date.toLocaleString("pt-BR", {
+    month: "long",
+  });
+  return month.charAt(0).toUpperCase() + month.slice(1);
 }
 
 export const InvestmentList = ({
@@ -25,7 +35,7 @@ export const InvestmentList = ({
   selected,
   toolbar,
 }: InvestmentListProps) => {
-  const numberOfColumns = investments?.length === 0 ? 4 : 5;
+  const numberOfColumns = investments?.length === 0 ? 3 : 4;
 
   return (
     <ResponsiveTable>
@@ -38,6 +48,7 @@ export const InvestmentList = ({
         toolbar={toolbar}
       >
         <TableCellHeader>Data</TableCellHeader>
+        <TableCellHeader>Total</TableCellHeader>
         <TableCellHeader>Status</TableCellHeader>
       </TableHead>
       <TableBody>
@@ -59,8 +70,9 @@ export const InvestmentList = ({
                 />
               </TableCell>
               <TableCell>
-                {investment.month}/{investment.year}
+                {toMonthName(investment.month)} de {investment.year}
               </TableCell>
+              <TableCell>{formatMoney(0)}</TableCell>
               <TableCellWithStatus status={investment.isPublished} />
             </TableRowLink>
           );

@@ -36,12 +36,27 @@ export const ErrorFragmentDoc = gql`
   message
 }
     `;
+export const BulkItemErrorFragmentDoc = gql`
+    fragment BulkItemError on BulkItemError {
+  code
+  field
+  message
+  index
+}
+    `;
 export const InvestmentFragmentDoc = gql`
     fragment Investment on Investment {
   id
   year
   month
   isPublished
+}
+    `;
+export const ItemFragmentDoc = gql`
+    fragment Item on Item {
+  id
+  name
+  value
 }
     `;
 export const PageInfoFragmentDoc = gql`

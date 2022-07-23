@@ -7,3 +7,12 @@ export const errorFragment = gql`
     message
   }
 `;
+
+export const bulkItemErrorFragment = gql`
+  fragment BulkItemError on BulkItemError {
+    code
+    field
+    message
+    index
+  }
+`;

@@ -70,6 +70,7 @@ export type DocumentInput = {
 
 export type InvestmentInput = {
   isPublished?: InputMaybe<Scalars['Boolean']>;
+  items?: InputMaybe<Array<ItemCreateInput>>;
   month?: InputMaybe<Scalars['Int']>;
   year?: InputMaybe<Scalars['Int']>;
 };
@@ -77,6 +78,11 @@ export type InvestmentInput = {
 export type ItemBulkInput = {
   name?: InputMaybe<Scalars['String']>;
   value?: InputMaybe<Scalars['Float']>;
+};
+
+export type ItemCreateInput = {
+  name: Scalars['String'];
+  value: Scalars['Float'];
 };
 
 export type ItemInput = {
@@ -430,7 +436,11 @@ export type CategoryFragment = { __typename: 'Category', id: string, name: strin
 
 export type ErrorFragment = { __typename: 'Error', code: string | null, field: string | null, message: string | null };
 
+export type BulkItemErrorFragment = { __typename: 'BulkItemError', code: string | null, field: string | null, message: string | null, index: number | null };
+
 export type InvestmentFragment = { __typename: 'Investment', id: string, year: number, month: number, isPublished: boolean };
+
+export type ItemFragment = { __typename: 'Item', id: string, name: string, value: any };
 
 export type PageInfoFragment = { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null };
 

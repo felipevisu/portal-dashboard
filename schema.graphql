@@ -250,6 +250,7 @@ type InvestmentEdge {
 
 input InvestmentInput {
   isPublished: Boolean
+  items: [ItemCreateInput!]
   month: Int
   year: Int
 }
@@ -282,6 +283,11 @@ type ItemCreate {
   errors: [Error!]!
   investment: Investment
   item: Item
+}
+
+input ItemCreateInput {
+  name: String!
+  value: Float!
 }
 
 type ItemDelete {
