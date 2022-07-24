@@ -21,7 +21,9 @@ export const ItemDeleteDialog = ({
       onConfirm={onConfirm}
       open={isOpen}
     >
-      <DialogContentText>Excluir item</DialogContentText>
+      <DialogContentText>
+        Esta ação é irreversível, deseja mesmo continuar?
+      </DialogContentText>
     </ActionDialog>
   );
 };

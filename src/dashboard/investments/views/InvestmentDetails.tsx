@@ -32,7 +32,7 @@ export const InvestmentDetails = () => {
   });
 
   const [updateInvestment, updateInvestmentResult] =
-    useInvestmentUpdateMutation();
+    useInvestmentUpdateMutation({ onCompleted: () => refetch() });
 
   const [deleteInvestment] = useInvestmentDeleteMutation({
     onCompleted: () => navigate("/admin/investments"),

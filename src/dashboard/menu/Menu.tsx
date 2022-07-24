@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-import { AttachMoney } from "@mui/icons-material";
+import {
+  ArrowCircleLeft,
+  ArrowCircleRight,
+  AttachMoney,
+} from "@mui/icons-material";
 import CategoryIcon from "@mui/icons-material/Category";
 import ChatIcon from "@mui/icons-material/Chat";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import DesignServicesIcon from "@mui/icons-material/DesignServices";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import SegmentIcon from "@mui/icons-material/Segment";
-import { Box, Typography } from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
 
 const ITEMS = [
   {
@@ -52,6 +56,7 @@ type ItemProps = {
   label: string;
   path: string;
   active: boolean;
+  opened: boolean;
   icon: React.ReactNode | string;
 };
 
@@ -62,7 +67,7 @@ const isActive = (path: string, location: string) => {
   return location.includes(path);
 };
 
-export const Item = ({ label, path, active, icon }: ItemProps) => {
+export const Item = ({ label, path, active, opened, icon }: ItemProps) => {
   return (
     <li>
       <Link to={path}>
@@ -80,15 +85,17 @@ export const Item = ({ label, path, active, icon }: ItemProps) => {
           }}
         >
           {icon}
-          <Typography
-            fontWeight="bold"
-            sx={{
-              color: "inherit",
-              "&:hover": { color: (theme) => theme.palette.primary.main },
-            }}
-          >
-            {label}
-          </Typography>
+          {opened && (
+            <Typography
+              fontWeight="bold"
+              sx={{
+                color: "inherit",
+                "&:hover": { color: (theme) => theme.palette.primary.main },
+              }}
+            >
+              {label}
+            </Typography>
+          )}
         </Box>
       </Link>
     </li>
@@ -96,6 +103,7 @@ export const Item = ({ label, path, active, icon }: ItemProps) => {
 };
 
 export const Menu = () => {
+  const [opened, setOpened] = useState<boolean>(false);
   const location = useLocation();
 
   return (
@@ -106,8 +114,21 @@ export const Menu = () => {
             key={item.path}
             {...item}
             active={isActive(item.path, location.pathname)}
+            opened={opened}
           />
         ))}
+        <li>
+          <IconButton
+            onClick={() => setOpened(!opened)}
+            sx={{
+              background: (theme) => theme.palette.primary.main,
+              color: "white",
+              marginLeft: "24px",
+            }}
+          >
+            {opened ? <ArrowCircleLeft /> : <ArrowCircleRight />}
+          </IconButton>
+        </li>
       </ul>
     </div>
   );

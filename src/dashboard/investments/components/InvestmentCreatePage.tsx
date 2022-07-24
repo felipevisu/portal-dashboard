@@ -5,12 +5,7 @@ import { Backlink } from "@portal/components/Backlink";
 import Container from "@portal/components/Container";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
-import {
-  ErrorFragment,
-  InvestmentInput,
-  ItemCreateInput,
-  ItemFragment,
-} from "@portal/graphql";
+import { ErrorFragment, InvestmentInput, ItemFragment } from "@portal/graphql";
 
 import InvestmentForm, { FormProps } from "./InvestmentForm";
 import InvestmentItems from "./InvestmentItems";
@@ -34,8 +29,8 @@ export const InvestmentCreatePage = ({
 }: InvestmentCreatePageProps) => {
   const navigate = useNavigate();
   const [data, setData] = useState<FormProps>({
-    year: null,
-    month: null,
+    year: undefined,
+    month: undefined,
     isPublished: false,
   });
 
@@ -49,6 +44,8 @@ export const InvestmentCreatePage = ({
   const handleSubmit = () => {
     onSubmit(data);
   };
+
+  console.log(data);
 
   return (
     <>

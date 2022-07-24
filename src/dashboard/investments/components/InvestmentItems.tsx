@@ -41,9 +41,11 @@ export const InvestmentItems = ({
       <CardContent>
         <Table size="small">
           <TableHead>
-            <TableCellHeader>Nome</TableCellHeader>
-            <TableCellHeader>Valor</TableCellHeader>
-            <TableCellHeader align="right">Excluir</TableCellHeader>
+            <TableRow>
+              <TableCellHeader>Nome</TableCellHeader>
+              <TableCellHeader>Valor</TableCellHeader>
+              <TableCellHeader align="right">Excluir</TableCellHeader>
+            </TableRow>
           </TableHead>
           <TableBody>
             {!items.length && (

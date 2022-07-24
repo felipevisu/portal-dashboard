@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 
-import {
-  DialogContentText,
-  FormControl,
-  InputAdornment,
-  TextField,
-} from "@mui/material";
+import { Box, FormControl, InputAdornment, TextField } from "@mui/material";
 import ActionDialog from "@portal/components/ActionDialog";
 import FormSpacer from "@portal/components/FormSpacer";
 import { ItemCreateInput } from "@portal/graphql";
@@ -62,7 +57,7 @@ export const ItemCreateDialog = ({
       onConfirm={handleConfirm}
       open={isOpen}
     >
-      <DialogContentText sx={{ paddingTop: (theme) => theme.spacing(2) }}>
+      <Box sx={{ paddingTop: (theme) => theme.spacing(1) }}>
         <FormControl fullWidth>
           <TextField
             error={errors.name}
@@ -90,7 +85,7 @@ export const ItemCreateDialog = ({
             }}
           />
         </FormControl>
-      </DialogContentText>
+      </Box>
     </ActionDialog>
   );
 };

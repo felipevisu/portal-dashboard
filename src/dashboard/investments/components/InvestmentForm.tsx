@@ -62,18 +62,18 @@ export const InvestmentForm = ({
                 name="month"
                 onChange={handleChange}
               >
-                <MenuItem value={1}>Janeiro</MenuItem>
-                <MenuItem value={2}>Fevereiro</MenuItem>
-                <MenuItem value={3}>Março</MenuItem>
-                <MenuItem value={4}>Abril</MenuItem>
-                <MenuItem value={5}>Maio</MenuItem>
-                <MenuItem value={6}>Junho</MenuItem>
-                <MenuItem value={7}>Julho</MenuItem>
-                <MenuItem value={8}>Agosto</MenuItem>
-                <MenuItem value={9}>Setembro</MenuItem>
-                <MenuItem value={10}>Outubro</MenuItem>
-                <MenuItem value={11}>Novembro</MenuItem>
-                <MenuItem value={12}>Dezembro</MenuItem>
+                <MenuItem value="1">Janeiro</MenuItem>
+                <MenuItem value="2">Fevereiro</MenuItem>
+                <MenuItem value="3">Março</MenuItem>
+                <MenuItem value="4">Abril</MenuItem>
+                <MenuItem value="5">Maio</MenuItem>
+                <MenuItem value="6">Junho</MenuItem>
+                <MenuItem value="7">Julho</MenuItem>
+                <MenuItem value="8">Agosto</MenuItem>
+                <MenuItem value="9">Setembro</MenuItem>
+                <MenuItem value="10">Outubro</MenuItem>
+                <MenuItem value="11">Novembro</MenuItem>
+                <MenuItem value="12">Dezembro</MenuItem>
               </Select>
               <FormHelperText>{formErrors.month?.message}</FormHelperText>
             </FormControl>
@@ -85,7 +85,6 @@ export const InvestmentForm = ({
                 fullWidth
                 name="year"
                 label="Ano"
-                type="number"
                 value={data.year}
                 onChange={handleChange}
                 helperText={formErrors.year?.message}
