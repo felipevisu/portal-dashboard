@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
+import { Button } from "@mui/material";
 import {
   InvestmentCreateMutation,
   InvestmentInput,
@@ -11,10 +12,13 @@ import { useModal } from "@portal/hooks";
 
 import InvestmentCreatePage from "../components/InvestmentCreatePage";
 import ItemCreateDialog from "../components/ItemCreateDialog";
+import ItemDeleteDialog from "../components/ItemDeleteDialog";
 
 export const InvestmentCreate = () => {
-  const [items, setItems] = useState<ItemCreateInput[]>([]);
   const navigator = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const [items, setItems] = useState<ItemCreateInput[]>([]);
 
   const handleSuccess = (data: InvestmentCreateMutation) => {
     if (!data?.investmentCreate.errors.length) {
@@ -29,19 +33,28 @@ export const InvestmentCreate = () => {
       onCompleted: handleSuccess,
     });
 
+  const createItemModal = useModal();
+  const deleteItemModal = useModal();
+
+  const handleItemCreate = (item: ItemCreateInput) => {
+    setItems([...items, item]);
+    createItemModal.closeModal();
+  };
+
+  const handleItemDelete = () => {
+    const index = searchParams.get("id");
+    if (index) {
+      setItems([
+        ...items.slice(0, parseInt(index)),
+        ...items.slice(parseInt(index) + 1),
+      ]);
+    }
+    setSearchParams({});
+    deleteItemModal.closeModal();
+  };
+
   const handleSubmit = async (data: InvestmentInput) => {
     await createInvestment({ variables: { input: { ...data, items } } });
-  };
-
-  const createModal = useModal();
-
-  const handleAddItem = (item: ItemCreateInput) => {
-    setItems([...items, item]);
-    createModal.closeModal();
-  };
-
-  const handleDeleteItem = (index: number) => {
-    setItems([...items.slice(0, index), ...items.slice(index + 1)]);
   };
 
   return (
@@ -50,14 +63,33 @@ export const InvestmentCreate = () => {
         onSubmit={handleSubmit}
         errors={createInvestmentResult.data?.investmentCreate.errors || []}
         loading={createInvestmentResult.loading}
-        onCreateItem={createModal.openModal}
-        onDeleteItem={handleDeleteItem}
-        items={items}
+        tollbar={
+          <Button
+            color="primary"
+            variant="outlined"
+            onClick={createItemModal.openModal}
+          >
+            Adicionar item
+          </Button>
+        }
+        onDeleteItem={deleteItemModal.openModal}
+        items={items.map((item, index) => {
+          return {
+            ...item,
+            id: index.toString(),
+            __typename: "Item",
+          };
+        })}
       />
       <ItemCreateDialog
-        isOpen={createModal.isOpen}
-        onClose={createModal.closeModal}
-        onConfirm={handleAddItem}
+        isOpen={createItemModal.isOpen}
+        onClose={createItemModal.closeModal}
+        onConfirm={handleItemCreate}
+      />
+      <ItemDeleteDialog
+        isOpen={deleteItemModal.isOpen}
+        onClose={deleteItemModal.closeModal}
+        onConfirm={handleItemDelete}
       />
     </>
   );

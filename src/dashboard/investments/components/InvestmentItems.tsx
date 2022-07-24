@@ -1,4 +1,5 @@
 import React from "react";
+import { useSearchParams } from "react-router-dom";
 
 import { Delete } from "@mui/icons-material";
 import {
@@ -6,40 +7,39 @@ import {
   CardContent,
   CardHeader,
   IconButton,
+  Table,
   TableBody,
   TableCell,
   TableHead,
   TableRow,
 } from "@mui/material";
-import { Button } from "@portal/components/Button";
-import ResponsiveTable from "@portal/components/ResponsiveTable";
 import TableCellHeader from "@portal/components/TableCell";
-import { ItemCreateInput } from "@portal/graphql";
+import { ItemFragment } from "@portal/graphql";
 import { formatMoney } from "@portal/utils/money";
 
 interface InvestmentItemsProps {
-  onCreateItem: () => void;
-  onDeleteItem: (item: number) => void;
-  items: ItemCreateInput[];
+  onDeleteItem: () => void;
+  tollbar: React.ReactNode;
+  items: ItemFragment[];
 }
 
 export const InvestmentItems = ({
-  onCreateItem,
   onDeleteItem,
+  tollbar,
   items,
 }: InvestmentItemsProps) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const handleItemDelete = (id: string) => {
+    setSearchParams({ id });
+    onDeleteItem();
+  };
+
   return (
     <Card>
-      <CardHeader
-        title="Investimentos"
-        action={
-          <Button color="primary" variant="outlined" onClick={onCreateItem}>
-            Adicionar item
-          </Button>
-        }
-      />
+      <CardHeader title="Investimentos" action={tollbar} />
       <CardContent>
-        <ResponsiveTable>
+        <Table size="small">
           <TableHead>
             <TableCellHeader>Nome</TableCellHeader>
             <TableCellHeader>Valor</TableCellHeader>
@@ -48,7 +48,10 @@ export const InvestmentItems = ({
           <TableBody>
             {!items.length && (
               <TableRow>
-                <TableCell colSpan={3} sx={{ textAlign: "center" }}>
+                <TableCell
+                  colSpan={3}
+                  sx={{ textAlign: "center", height: "64px" }}
+                >
                   Nenhum valor adicionado
                 </TableCell>
               </TableRow>
@@ -58,14 +61,14 @@ export const InvestmentItems = ({
                 <TableCell>{item.name}</TableCell>
                 <TableCell>{formatMoney(item.value)}</TableCell>
                 <TableCell align="right">
-                  <IconButton onClick={() => onDeleteItem(index)}>
+                  <IconButton onClick={() => handleItemDelete(item.id)}>
                     <Delete />
                   </IconButton>
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
-        </ResponsiveTable>
+        </Table>
       </CardContent>
     </Card>
   );

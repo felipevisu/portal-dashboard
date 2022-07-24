@@ -256,9 +256,16 @@ input InvestmentInput {
 }
 
 type InvestmentUpdate {
-  document: Investment
   errors: [Error!]!
   investment: Investment
+}
+
+input InvestmentUpdateInput {
+  addItems: [ItemCreateInput!]
+  isPublished: Boolean
+  month: Int
+  removeItems: [ID!]
+  year: Int
 }
 
 type Item implements Node {
@@ -334,9 +341,9 @@ type Mutation {
   ): InvestmentBulkDelete
   investmentCreate(input: InvestmentInput!): InvestmentCreate
   investmentDelete(id: ID): InvestmentDelete
-  investmentUpdate(id: ID, input: InvestmentInput!): InvestmentUpdate
+  investmentUpdate(id: ID, input: InvestmentUpdateInput!): InvestmentUpdate
   itemBulkCreate(investmentId: ID, items: [ItemBulkInput]!): ItemBulkCreate
-  itemCreate(input: ItemInput!): ItemCreate
+  itemCreate(input: ItemInput!, investmentId: ID!): ItemCreate
   itemDelete(id: ID): ItemDelete
   itemUpdate(id: ID, input: ItemInput!): ItemUpdate
 

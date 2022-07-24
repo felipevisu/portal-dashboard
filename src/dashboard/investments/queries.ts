@@ -26,3 +26,11 @@ export const investmentsQuery = gql`
     }
   }
 `;
+
+export const investmentDetailsQuery = gql`
+  query InvestmentDetails($id: ID!) {
+    investment(id: $id) {
+      ...InvestmentDetails
+    }
+  }
+`;

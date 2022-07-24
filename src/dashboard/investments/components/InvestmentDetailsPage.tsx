@@ -7,36 +7,38 @@ import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
 import {
   ErrorFragment,
+  InvestmentDetailsFragment,
   InvestmentInput,
-  ItemCreateInput,
-  ItemFragment,
 } from "@portal/graphql";
+import { toMonthName } from "@portal/utils/date";
 
 import InvestmentForm, { FormProps } from "./InvestmentForm";
 import InvestmentItems from "./InvestmentItems";
 
-interface InvestmentCreatePageProps {
+interface InvestmentDetailsPageProps {
+  investment: InvestmentDetailsFragment;
   onSubmit: (data: InvestmentInput) => Promise<void>;
+  onDelete: () => void;
   errors: ErrorFragment[];
   loading: boolean;
   tollbar: React.ReactNode;
   onDeleteItem: () => void;
-  items: ItemFragment[];
 }
 
-export const InvestmentCreatePage = ({
+export const InvestmentDetailsPage = ({
+  investment,
   onSubmit,
+  onDelete,
   errors,
   loading,
   tollbar,
   onDeleteItem,
-  items,
-}: InvestmentCreatePageProps) => {
+}: InvestmentDetailsPageProps) => {
   const navigate = useNavigate();
   const [data, setData] = useState<FormProps>({
-    year: null,
-    month: null,
-    isPublished: false,
+    year: investment.year,
+    month: investment.month,
+    isPublished: investment.isPublished,
   });
 
   const handleChange = ({ name, value }) => {
@@ -55,15 +57,18 @@ export const InvestmentCreatePage = ({
       <Container>
         <Backlink href="/admin/investments">Voltar</Backlink>
         <div style={{ height: 32 }} />
-        <PageHeader title="Criar novo investimento" />
+        <PageHeader
+          title={`${toMonthName(investment.month)} de ${investment.year}`}
+        />
         <InvestmentForm errors={errors} onChange={handleChange} data={data} />
         <InvestmentItems
           tollbar={tollbar}
-          items={items}
           onDeleteItem={onDeleteItem}
+          items={investment.items}
         />
       </Container>
       <Savebar
+        onDelete={onDelete}
         onSubmit={handleSubmit}
         onCancel={() => navigate("/admin/investments")}
         loading={loading}
@@ -72,4 +77,4 @@ export const InvestmentCreatePage = ({
   );
 };
 
-export default InvestmentCreatePage;
+export default InvestmentDetailsPage;

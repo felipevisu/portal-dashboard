@@ -29,6 +29,7 @@ export const ItemCreateDialog = ({
   isOpen,
 }: ItemCreateDialogProps) => {
   const [data, setData] = useState<ItemProps>(initialData);
+  const [errors, setErrors] = useState({ name: false, value: false });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setData({
@@ -44,6 +45,8 @@ export const ItemCreateDialog = ({
         value: parseFloat(data.value),
       });
       setData(initialData);
+    } else {
+      setErrors({ name: !data.name, value: !data.value });
     }
   };
 
@@ -62,6 +65,7 @@ export const ItemCreateDialog = ({
       <DialogContentText sx={{ paddingTop: (theme) => theme.spacing(2) }}>
         <FormControl fullWidth>
           <TextField
+            error={errors.name}
             fullWidth
             name="name"
             label="Nome"
@@ -72,6 +76,7 @@ export const ItemCreateDialog = ({
         <FormSpacer />
         <FormControl fullWidth>
           <TextField
+            error={errors.value}
             fullWidth
             name="value"
             label="Valor"

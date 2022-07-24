@@ -10,20 +10,12 @@ import TableRowLink from "@portal/components/TableRowLink";
 import { InvestmentFragment } from "@portal/graphql";
 import { renderCollection } from "@portal/misc";
 import { ListActions } from "@portal/types";
+import { toMonthName } from "@portal/utils/date";
 import { formatMoney } from "@portal/utils/money";
 
 interface InvestmentListProps extends ListActions {
   investments: InvestmentFragment[];
   disabled: boolean;
-}
-
-function toMonthName(monthNumber: number) {
-  const date = new Date();
-  date.setMonth(monthNumber - 1);
-  const month = date.toLocaleString("pt-BR", {
-    month: "long",
-  });
-  return month.charAt(0).toUpperCase() + month.slice(1);
 }
 
 export const InvestmentList = ({

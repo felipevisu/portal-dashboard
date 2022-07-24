@@ -75,6 +75,14 @@ export type InvestmentInput = {
   year?: InputMaybe<Scalars['Int']>;
 };
 
+export type InvestmentUpdateInput = {
+  addItems?: InputMaybe<Array<ItemCreateInput>>;
+  isPublished?: InputMaybe<Scalars['Boolean']>;
+  month?: InputMaybe<Scalars['Int']>;
+  removeItems?: InputMaybe<Array<Scalars['ID']>>;
+  year?: InputMaybe<Scalars['Int']>;
+};
+
 export type ItemBulkInput = {
   name?: InputMaybe<Scalars['String']>;
   value?: InputMaybe<Scalars['Float']>;
@@ -210,19 +218,57 @@ export type CategoryDetailsQueryVariables = Exact<{
 
 export type CategoryDetailsQuery = { __typename: 'Query', category: { __typename: 'Category', id: string, name: string, slug: string, vehicles: { __typename: 'VehiclesConnection', totalCount: number | null } | null } | null };
 
-export type InvestmentCreateMutationVariables = Exact<{
-  input: InvestmentInput;
-}>;
-
-
-export type InvestmentCreateMutation = { __typename: 'Mutation', investmentCreate: { __typename: 'InvestmentCreate', investment: { __typename: 'Investment', id: string } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
-
 export type InvestmentBulkDeleteMutationVariables = Exact<{
   ids: Array<Scalars['ID']> | Scalars['ID'];
 }>;
 
 
 export type InvestmentBulkDeleteMutation = { __typename: 'Mutation', investmentBulkDelete: { __typename: 'InvestmentBulkDelete', errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+
+export type InvestmentDeleteMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type InvestmentDeleteMutation = { __typename: 'Mutation', investmentDelete: { __typename: 'InvestmentDelete', errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+
+export type InvestmentUpdateMutationVariables = Exact<{
+  id: Scalars['ID'];
+  input: InvestmentUpdateInput;
+}>;
+
+
+export type InvestmentUpdateMutation = { __typename: 'Mutation', investmentUpdate: { __typename: 'InvestmentUpdate', investment: { __typename: 'Investment', id: string } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+
+export type ItemDeleteMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type ItemDeleteMutation = { __typename: 'Mutation', itemDelete: { __typename: 'ItemDelete', errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+
+export type ItemUpdateMutationVariables = Exact<{
+  id: Scalars['ID'];
+  input: ItemInput;
+}>;
+
+
+export type ItemUpdateMutation = { __typename: 'Mutation', itemUpdate: { __typename: 'ItemUpdate', item: { __typename: 'Item', id: string, name: string, value: any } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+
+export type ItemCreateMutationVariables = Exact<{
+  investmentId: Scalars['ID'];
+  input: ItemInput;
+}>;
+
+
+export type ItemCreateMutation = { __typename: 'Mutation', itemCreate: { __typename: 'ItemCreate', item: { __typename: 'Item', id: string, name: string, value: any } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+
+export type InvestmentCreateMutationVariables = Exact<{
+  input: InvestmentInput;
+}>;
+
+
+export type InvestmentCreateMutation = { __typename: 'Mutation', investmentCreate: { __typename: 'InvestmentCreate', investment: { __typename: 'Investment', id: string, year: number, month: number, isPublished: boolean } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
 
 export type InvestmentsQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']>;
@@ -234,6 +280,13 @@ export type InvestmentsQueryVariables = Exact<{
 
 
 export type InvestmentsQuery = { __typename: 'Query', investments: { __typename: 'InvestmentConnection', edges: Array<{ __typename: 'InvestmentEdge', node: { __typename: 'Investment', id: string, year: number, month: number, isPublished: boolean } | null } | null>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
+
+export type InvestmentDetailsQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type InvestmentDetailsQuery = { __typename: 'Query', investment: { __typename: 'Investment', id: string, year: number, month: number, isPublished: boolean, items: Array<{ __typename: 'Item', id: string, name: string, value: any } | null> | null } | null };
 
 export type ProviderCreateMutationVariables = Exact<{
   input: ProviderInput;
@@ -441,6 +494,8 @@ export type BulkItemErrorFragment = { __typename: 'BulkItemError', code: string 
 export type InvestmentFragment = { __typename: 'Investment', id: string, year: number, month: number, isPublished: boolean };
 
 export type ItemFragment = { __typename: 'Item', id: string, name: string, value: any };
+
+export type InvestmentDetailsFragment = { __typename: 'Investment', id: string, year: number, month: number, isPublished: boolean, items: Array<{ __typename: 'Item', id: string, name: string, value: any } | null> | null };
 
 export type PageInfoFragment = { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null };
 

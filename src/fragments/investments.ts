@@ -8,3 +8,23 @@ export const investmentFragment = gql`
     isPublished
   }
 `;
+
+export const itemFragment = gql`
+  fragment Item on Item {
+    id
+    name
+    value
+  }
+`;
+
+export const investmentDetailsFragment = gql`
+  fragment InvestmentDetails on Investment {
+    id
+    year
+    month
+    isPublished
+    items {
+      ...Item
+    }
+  }
+`;
