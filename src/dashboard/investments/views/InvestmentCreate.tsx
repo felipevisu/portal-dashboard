@@ -69,7 +69,7 @@ export const InvestmentCreate = () => {
             variant="outlined"
             onClick={createItemModal.openModal}
           >
-            Adicionar item
+            Adicionar
           </Button>
         }
         onDeleteItem={deleteItemModal.openModal}

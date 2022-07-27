@@ -1,35 +1,16 @@
-import {
-  ApolloClient,
-  ApolloLink,
-  InMemoryCache,
-  createHttpLink,
-} from "@apollo/client";
-import { setContext } from "@apollo/client/link/context";
+import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { createUploadLink } from "apollo-upload-client";
 import { getToken } from "../lib/auth";
 
-const httpLink = createHttpLink({
+export const link = createUploadLink({
   uri: process.env.REACT_APP_API_URI,
-});
-
-const authLink = setContext((_, { headers }) => {
-  let token: string | null;
-
-  if (typeof window !== "undefined") {
-    token = getToken();
-  } else {
-    token = null;
-  }
-
-  return {
-    headers: {
-      ...headers,
-      authorization: token ? `JWT ${token}` : "",
-    },
-  };
+  headers: {
+    authorization: getToken() ? `JWT ${getToken()}` : "",
+  },
 });
 
 const apolloClient = new ApolloClient({
-  link: ApolloLink.from([authLink, httpLink]),
+  link: link,
   cache: new InMemoryCache(),
 });
 

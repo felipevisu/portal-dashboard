@@ -7,43 +7,34 @@ import {
   Checkbox,
   FormControl,
   FormControlLabel,
-  FormHelperText,
   Grid,
-  InputLabel,
-  MenuItem,
-  Select,
   TextField,
 } from "@mui/material";
 import FormSpacer from "@portal/components/FormSpacer";
 import { ErrorFragment } from "@portal/graphql";
-import { SingleAutocompleteChoiceType } from "@portal/utils/data";
 import { getFormErrors } from "@portal/utils/errors";
 
 export type FormProps = {
   name: string;
   slug: string;
-  documentNumber: string;
-  segment: string;
+  expires: boolean;
   isPublished: boolean;
 };
 
-interface ProviderFormProps
-  extends Record<"segments", SingleAutocompleteChoiceType[]> {
+interface DocumentFormProps {
   data?: FormProps;
   errors: ErrorFragment[];
   onChange: ({ name, value }) => void;
+  fileUpload: React.ReactNode;
 }
 
-export const ProviderForm = ({
-  errors,
+export const DocumentForm = ({
   data,
-  segments,
+  errors,
   onChange,
-}: ProviderFormProps) => {
-  const formErrors = getFormErrors(
-    ["name", "slug", "documentNumber", "segment", "isPublished"],
-    errors
-  );
+  fileUpload,
+}: DocumentFormProps) => {
+  const formErrors = getFormErrors(["name", "slug"], errors);
 
   const handleChange = (e: React.ChangeEvent<any>) => {
     switch (e.target.type) {
@@ -57,13 +48,9 @@ export const ProviderForm = ({
   };
 
   return (
-    <Grid
-      container
-      spacing={2}
-      sx={{ marginBottom: (theme) => theme.spacing(2) }}
-    >
+    <Grid container spacing={2}>
       <Grid item xs={8}>
-        <Card>
+        <Card sx={{ marginBottom: (theme) => theme.spacing(2) }}>
           <CardHeader title="Informações gerais" />
           <CardContent>
             <FormControl fullWidth>
@@ -91,51 +78,28 @@ export const ProviderForm = ({
                 helperText={formErrors.slug?.message}
               />
             </FormControl>
-            <FormSpacer />
-            <FormControl fullWidth>
-              <TextField
-                error={formErrors.documentNumber && true}
-                fullWidth
-                type="text"
-                name="documentNumber"
-                label="CNPJ"
-                value={data.documentNumber}
-                onChange={handleChange}
-                helperText={formErrors.documentNumber?.message}
-              />
-            </FormControl>
           </CardContent>
         </Card>
+        {fileUpload}
       </Grid>
       <Grid item xs={4}>
         <Card>
-          <CardHeader title="Associação" />
+          <CardHeader title="Status e publicação" />
           <CardContent>
-            <FormControl fullWidth error={formErrors.segment && true}>
-              <InputLabel>Segmento</InputLabel>
-              <Select
-                fullWidth
-                name="segment"
-                label="Segmento"
-                value={data.segment}
-                onChange={handleChange}
-              >
-                {segments.map((segment) => (
-                  <MenuItem key={segment.value} value={segment.value}>
-                    {segment.label}
-                  </MenuItem>
-                ))}
-              </Select>
-              <FormHelperText>{formErrors.segment?.message}</FormHelperText>
-            </FormControl>
-            <FormSpacer />
-            <FormControl>
+            <FormControl sx={{ display: "block" }}>
               <FormControlLabel
                 label="Publicado"
                 onChange={handleChange}
                 control={
                   <Checkbox name="isPublished" checked={data.isPublished} />
                 }
+              />
+            </FormControl>
+            <FormControl sx={{ display: "block" }}>
+              <FormControlLabel
+                label="Expirável"
+                onChange={handleChange}
+                control={<Checkbox name="expires" checked={data.expires} />}
               />
             </FormControl>
           </CardContent>
@@ -145,4 +109,4 @@ export const ProviderForm = ({
   );
 };
 
-export default ProviderForm;
+export default DocumentForm;

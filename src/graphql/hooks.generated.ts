@@ -78,6 +78,18 @@ export const PageInfoFragmentDoc = gql`
   startCursor
 }
     `;
+export const DocumentDetailsFragmentDoc = gql`
+    fragment DocumentDetails on Document {
+  id
+  name
+  isPublished
+  file
+  publicationDate
+  beginDate
+  expirationDate
+  expires
+}
+    `;
 export const ProviderFragmentDoc = gql`
     fragment Provider on Provider {
   id
@@ -93,6 +105,13 @@ export const ProviderFragmentDoc = gql`
   isPublished
 }
     `;
+export const DocumentFragmentDoc = gql`
+    fragment Document on Document {
+  id
+  name
+  created
+}
+    `;
 export const ProviderDetailsFragmentDoc = gql`
     fragment ProviderDetails on Provider {
   id
@@ -103,9 +122,16 @@ export const ProviderDetailsFragmentDoc = gql`
     id
     name
   }
+  documents {
+    edges {
+      node {
+        ...Document
+      }
+    }
+  }
   isPublished
 }
-    `;
+    ${DocumentFragmentDoc}`;
 export const SegmentFragmentDoc = gql`
     fragment Segment on Segment {
   id
@@ -977,6 +1003,45 @@ export function useProviderBulkDeleteMutation(baseOptions?: Apollo.MutationHookO
 export type ProviderBulkDeleteMutationHookResult = ReturnType<typeof useProviderBulkDeleteMutation>;
 export type ProviderBulkDeleteMutationResult = Apollo.MutationResult<Types.ProviderBulkDeleteMutation>;
 export type ProviderBulkDeleteMutationOptions = Apollo.BaseMutationOptions<Types.ProviderBulkDeleteMutation, Types.ProviderBulkDeleteMutationVariables>;
+export const DocumentCreateDocument = gql`
+    mutation DocumentCreate($input: DocumentInput!) {
+  documentCreate(input: $input) {
+    document {
+      ...Document
+    }
+    errors {
+      ...Error
+    }
+  }
+}
+    ${DocumentFragmentDoc}
+${ErrorFragmentDoc}`;
+export type DocumentCreateMutationFn = Apollo.MutationFunction<Types.DocumentCreateMutation, Types.DocumentCreateMutationVariables>;
+
+/**
+ * __useDocumentCreateMutation__
+ *
+ * To run a mutation, you first call `useDocumentCreateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDocumentCreateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [documentCreateMutation, { data, loading, error }] = useDocumentCreateMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useDocumentCreateMutation(baseOptions?: Apollo.MutationHookOptions<Types.DocumentCreateMutation, Types.DocumentCreateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Types.DocumentCreateMutation, Types.DocumentCreateMutationVariables>(DocumentCreateDocument, options);
+      }
+export type DocumentCreateMutationHookResult = ReturnType<typeof useDocumentCreateMutation>;
+export type DocumentCreateMutationResult = Apollo.MutationResult<Types.DocumentCreateMutation>;
+export type DocumentCreateMutationOptions = Apollo.BaseMutationOptions<Types.DocumentCreateMutation, Types.DocumentCreateMutationVariables>;
 export const ProvidersDocument = gql`
     query Providers($first: Int, $last: Int, $after: String, $before: String, $search: String, $isPublished: Boolean, $segment: ID) {
   providers(

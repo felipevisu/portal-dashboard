@@ -4,7 +4,20 @@ import { CheckCircle } from "@mui/icons-material";
 import { TableCell } from "@mui/material";
 import { Box } from "@mui/system";
 
-export const TableCellWithStatus = ({ status }: { status: boolean }) => {
+type Labels = {
+  published: string;
+  unPublished: string;
+};
+
+interface TableCellWithStatusProps {
+  status: boolean;
+  labels?: Labels;
+}
+
+export const TableCellWithStatus = ({
+  status,
+  labels = { published: "Publicado", unPublished: "Despublicado" },
+}: TableCellWithStatusProps) => {
   return (
     <TableCell>
       {status ? (
@@ -17,7 +30,7 @@ export const TableCellWithStatus = ({ status }: { status: boolean }) => {
           }}
         >
           <CheckCircle color="primary" fontSize="small" />
-          Publicado
+          {labels.published}
         </Box>
       ) : (
         <Box
@@ -29,7 +42,7 @@ export const TableCellWithStatus = ({ status }: { status: boolean }) => {
           }}
         >
           <CheckCircle color="error" fontSize="small" />
-          Despublicado
+          {labels.unPublished}
         </Box>
       )}
     </TableCell>

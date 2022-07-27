@@ -1,5 +1,26 @@
 import { gql } from "@apollo/client";
 
+export const documentFragment = gql`
+  fragment Document on Document {
+    id
+    name
+    created
+  }
+`;
+
+export const documentDetailsFragment = gql`
+  fragment DocumentDetails on Document {
+    id
+    name
+    isPublished
+    file
+    publicationDate
+    beginDate
+    expirationDate
+    expires
+  }
+`;
+
 export const providerFragment = gql`
   fragment Provider on Provider {
     id
@@ -25,6 +46,13 @@ export const providerDetailsFragment = gql`
     segment {
       id
       name
+    }
+    documents {
+      edges {
+        node {
+          ...Document
+        }
+      }
     }
     isPublished
   }

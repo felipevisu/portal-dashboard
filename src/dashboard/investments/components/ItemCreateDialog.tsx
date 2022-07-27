@@ -52,7 +52,7 @@ export const ItemCreateDialog = ({
 
   return (
     <ActionDialog
-      title="Adicionar Item"
+      title="Adicionar Investimento"
       onClose={handleClose}
       onConfirm={handleConfirm}
       open={isOpen}

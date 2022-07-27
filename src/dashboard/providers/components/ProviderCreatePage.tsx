@@ -12,7 +12,7 @@ import { getChoices } from "@portal/utils/data";
 import ProviderForm, { FormProps } from "./ProviderForm";
 
 interface ProviderCreatePageProps {
-  onSubmit: any;
+  onSubmit: (data: FormProps) => Promise<void>;
   errors: ErrorFragment[];
   loading: boolean;
   segments: RelayToFlat<SearchSegmentsQuery["search"]>;

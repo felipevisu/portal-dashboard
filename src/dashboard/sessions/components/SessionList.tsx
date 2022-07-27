@@ -45,7 +45,6 @@ export const SessionList = ({
       <TableBody>
         {renderCollection(sessions, (session) => {
           const isSelected = sessions ? isChecked(session.id) : false;
-          const date = new Date(session.date);
           return (
             <TableRowLink
               key={session ? session.id : "skeleton"}
@@ -62,7 +61,7 @@ export const SessionList = ({
                 />
               </TableCell>
               <TableCell>{session.name}</TableCell>
-              <TableCell>{formatDate(date)}</TableCell>
+              <TableCell>{formatDate(session.date)}</TableCell>
               <TableCellWithStatus status={session.isPublished} />
             </TableRowLink>
           );

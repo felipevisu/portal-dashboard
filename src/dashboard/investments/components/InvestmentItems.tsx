@@ -28,7 +28,7 @@ export const InvestmentItems = ({
   tollbar,
   items,
 }: InvestmentItemsProps) => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [, setSearchParams] = useSearchParams();
 
   const handleItemDelete = (id: string) => {
     setSearchParams({ id });

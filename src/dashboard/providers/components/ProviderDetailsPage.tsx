@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { Grid } from "@mui/material";
 import { Backlink } from "@portal/components/Backlink";
 import Container from "@portal/components/Container";
 import PageHeader from "@portal/components/PageHeader";
@@ -12,7 +13,9 @@ import {
 } from "@portal/graphql";
 import { RelayToFlat } from "@portal/types";
 import { getChoices } from "@portal/utils/data";
+import { mapEdgesToItems } from "@portal/utils/maps";
 
+import DocumentList from "./DocumentList";
 import ProviderForm, { FormProps } from "./ProviderForm";
 
 const sanitizeProvider = (provider: ProviderDetailsFragment) => {
@@ -70,6 +73,11 @@ export const ProviderDetailsPage = ({
           data={data}
           segments={segments}
         />
+        <Grid container spacing={2}>
+          <Grid item xs={8}>
+            <DocumentList documents={mapEdgesToItems(provider.documents)} />
+          </Grid>
+        </Grid>
       </Container>
       <Savebar
         onSubmit={handleSubmit}

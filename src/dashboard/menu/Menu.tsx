@@ -124,6 +124,7 @@ export const Menu = () => {
               background: (theme) => theme.palette.primary.main,
               color: "white",
               marginLeft: "24px",
+              "&:hover": { background: (theme) => theme.palette.primary.dark },
             }}
           >
             {opened ? <ArrowCircleLeft /> : <ArrowCircleRight />}

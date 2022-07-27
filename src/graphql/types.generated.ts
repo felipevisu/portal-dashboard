@@ -37,7 +37,10 @@ export type Scalars = {
    * schema (one of the key benefits of GraphQL).
    */
   JSONString: any;
-  /** Variables of this type must be set to null in mutations. They will be replaced with a filename from a following multipart part containing a binary file. See: https://github.com/jaydenseric/graphql-multipart-request-spec. */
+  /**
+   * Create scalar that ignores normal serialization/deserialization, since
+   * that will be handled by the multipart request spec
+   */
   Upload: any;
 };
 
@@ -293,7 +296,7 @@ export type ProviderCreateMutationVariables = Exact<{
 }>;
 
 
-export type ProviderCreateMutation = { __typename: 'Mutation', providerCreate: { __typename: 'ProviderCreate', provider: { __typename: 'Provider', id: string, name: string, slug: string, documentNumber: string, isPublished: boolean, segment: { __typename: 'Segment', id: string, name: string } } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+export type ProviderCreateMutation = { __typename: 'Mutation', providerCreate: { __typename: 'ProviderCreate', provider: { __typename: 'Provider', id: string, name: string, slug: string, documentNumber: string, isPublished: boolean, segment: { __typename: 'Segment', id: string, name: string }, documents: { __typename: 'DocumentsConnection', edges: Array<{ __typename: 'DocumentsEdge', node: { __typename: 'Document', id: string, name: string, created: any } | null } | null> } | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
 
 export type ProviderUpdateMutationVariables = Exact<{
   id?: InputMaybe<Scalars['ID']>;
@@ -301,7 +304,7 @@ export type ProviderUpdateMutationVariables = Exact<{
 }>;
 
 
-export type ProviderUpdateMutation = { __typename: 'Mutation', providerUpdate: { __typename: 'ProviderUpdate', provider: { __typename: 'Provider', id: string, name: string, slug: string, documentNumber: string, isPublished: boolean, segment: { __typename: 'Segment', id: string, name: string } } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+export type ProviderUpdateMutation = { __typename: 'Mutation', providerUpdate: { __typename: 'ProviderUpdate', provider: { __typename: 'Provider', id: string, name: string, slug: string, documentNumber: string, isPublished: boolean, segment: { __typename: 'Segment', id: string, name: string }, documents: { __typename: 'DocumentsConnection', edges: Array<{ __typename: 'DocumentsEdge', node: { __typename: 'Document', id: string, name: string, created: any } | null } | null> } | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
 
 export type ProviderDeleteMutationVariables = Exact<{
   id: Scalars['ID'];
@@ -316,6 +319,13 @@ export type ProviderBulkDeleteMutationVariables = Exact<{
 
 
 export type ProviderBulkDeleteMutation = { __typename: 'Mutation', providerBulkDelete: { __typename: 'ProviderBulkDelete', errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+
+export type DocumentCreateMutationVariables = Exact<{
+  input: DocumentInput;
+}>;
+
+
+export type DocumentCreateMutation = { __typename: 'Mutation', documentCreate: { __typename: 'DocumentCreate', document: { __typename: 'Document', id: string, name: string, created: any } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
 
 export type ProvidersQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']>;
@@ -335,7 +345,7 @@ export type ProviderDetailsQueryVariables = Exact<{
 }>;
 
 
-export type ProviderDetailsQuery = { __typename: 'Query', provider: { __typename: 'Provider', id: string, name: string, slug: string, documentNumber: string, isPublished: boolean, segment: { __typename: 'Segment', id: string, name: string } } | null };
+export type ProviderDetailsQuery = { __typename: 'Query', provider: { __typename: 'Provider', id: string, name: string, slug: string, documentNumber: string, isPublished: boolean, segment: { __typename: 'Segment', id: string, name: string }, documents: { __typename: 'DocumentsConnection', edges: Array<{ __typename: 'DocumentsEdge', node: { __typename: 'Document', id: string, name: string, created: any } | null } | null> } | null } | null };
 
 export type SegmentCreateMutationVariables = Exact<{
   input: SegmentInput;
@@ -499,9 +509,13 @@ export type InvestmentDetailsFragment = { __typename: 'Investment', id: string, 
 
 export type PageInfoFragment = { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null };
 
+export type DocumentFragment = { __typename: 'Document', id: string, name: string, created: any };
+
+export type DocumentDetailsFragment = { __typename: 'Document', id: string, name: string, isPublished: boolean, file: string, publicationDate: any | null, beginDate: any | null, expirationDate: any | null, expires: boolean };
+
 export type ProviderFragment = { __typename: 'Provider', id: string, name: string, slug: string, isPublished: boolean, segment: { __typename: 'Segment', id: string, name: string }, documents: { __typename: 'DocumentsConnection', totalCount: number | null } | null };
 
-export type ProviderDetailsFragment = { __typename: 'Provider', id: string, name: string, slug: string, documentNumber: string, isPublished: boolean, segment: { __typename: 'Segment', id: string, name: string } };
+export type ProviderDetailsFragment = { __typename: 'Provider', id: string, name: string, slug: string, documentNumber: string, isPublished: boolean, segment: { __typename: 'Segment', id: string, name: string }, documents: { __typename: 'DocumentsConnection', edges: Array<{ __typename: 'DocumentsEdge', node: { __typename: 'Document', id: string, name: string, created: any } | null } | null> } | null };
 
 export type SegmentFragment = { __typename: 'Segment', id: string, name: string, slug: string, providers: { __typename: 'ProvidersConnection', totalCount: number | null } | null };
 

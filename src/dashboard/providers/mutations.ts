@@ -45,3 +45,16 @@ export const providerBulkDeleteMutation = gql`
     }
   }
 `;
+
+export const documentCreateMutation = gql`
+  mutation DocumentCreate($input: DocumentInput!) {
+    documentCreate(input: $input) {
+      document {
+        ...Document
+      }
+      errors {
+        ...Error
+      }
+    }
+  }
+`;
