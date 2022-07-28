@@ -30,10 +30,10 @@ export const SessionCreatePage = ({
     isPublished: false,
   });
 
-  const handleChange = ({ name, value }) => {
+  const handleChange = (e: React.ChangeEvent<any>) => {
     setData({
       ...data,
-      [name]: value,
+      [e.target.name]: e.target.value,
     });
   };
 

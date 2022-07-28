@@ -83,11 +83,11 @@ export const DocumentDetailsFragmentDoc = gql`
   id
   name
   isPublished
+  expires
   file
   publicationDate
   beginDate
   expirationDate
-  expires
 }
     `;
 export const ProviderFragmentDoc = gql`

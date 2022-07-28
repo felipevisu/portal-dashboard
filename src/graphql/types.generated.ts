@@ -511,7 +511,7 @@ export type PageInfoFragment = { __typename: 'PageInfo', endCursor: string | nul
 
 export type DocumentFragment = { __typename: 'Document', id: string, name: string, created: any };
 
-export type DocumentDetailsFragment = { __typename: 'Document', id: string, name: string, isPublished: boolean, file: string, publicationDate: any | null, beginDate: any | null, expirationDate: any | null, expires: boolean };
+export type DocumentDetailsFragment = { __typename: 'Document', id: string, name: string, isPublished: boolean, expires: boolean, file: string, publicationDate: any | null, beginDate: any | null, expirationDate: any | null };
 
 export type ProviderFragment = { __typename: 'Provider', id: string, name: string, slug: string, isPublished: boolean, segment: { __typename: 'Segment', id: string, name: string }, documents: { __typename: 'DocumentsConnection', totalCount: number | null } | null };
 

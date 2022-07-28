@@ -10,21 +10,26 @@ import {
   Grid,
   TextField,
 } from "@mui/material";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import FormSpacer from "@portal/components/FormSpacer";
 import { ErrorFragment } from "@portal/graphql";
 import { getFormErrors } from "@portal/utils/errors";
 
 export type FormProps = {
   name: string;
-  slug: string;
+  description: string;
   expires: boolean;
   isPublished: boolean;
+  expirationDate: string;
+  beginDate: string;
 };
 
 interface DocumentFormProps {
   data?: FormProps;
   errors: ErrorFragment[];
-  onChange: ({ name, value }) => void;
+  onChange: (e: any) => void;
   fileUpload: React.ReactNode;
 }
 
@@ -34,18 +39,10 @@ export const DocumentForm = ({
   onChange,
   fileUpload,
 }: DocumentFormProps) => {
-  const formErrors = getFormErrors(["name", "slug"], errors);
-
-  const handleChange = (e: React.ChangeEvent<any>) => {
-    switch (e.target.type) {
-      case "checkbox":
-        onChange({ name: e.target.name, value: e.target.checked });
-        break;
-      default:
-        onChange({ name: e.target.name, value: e.target.value });
-        break;
-    }
-  };
+  const formErrors = getFormErrors(
+    ["name", "description", "beginDate", "expirationDate"],
+    errors
+  );
 
   return (
     <Grid container spacing={2}>
@@ -55,27 +52,27 @@ export const DocumentForm = ({
           <CardContent>
             <FormControl fullWidth>
               <TextField
-                error={formErrors.name && true}
+                error={!!formErrors.name}
                 fullWidth
                 type="text"
                 name="name"
                 label="Nome"
                 value={data.name}
-                onChange={handleChange}
+                onChange={onChange}
                 helperText={formErrors.name?.message}
               />
             </FormControl>
             <FormSpacer />
             <FormControl fullWidth>
               <TextField
-                error={formErrors.slug && true}
-                fullWidth
-                type="text"
-                name="slug"
-                label="Atalho"
-                value={data.slug}
-                onChange={handleChange}
-                helperText={formErrors.slug?.message}
+                error={!!formErrors.description}
+                label="Descrição"
+                name="description"
+                multiline
+                rows={2}
+                value={data.description}
+                onChange={onChange}
+                helperText={formErrors.description?.message || "(Opcional)"}
               />
             </FormControl>
           </CardContent>
@@ -86,22 +83,74 @@ export const DocumentForm = ({
         <Card>
           <CardHeader title="Status e publicação" />
           <CardContent>
-            <FormControl sx={{ display: "block" }}>
+            <FormControl fullWidth>
               <FormControlLabel
                 label="Publicado"
-                onChange={handleChange}
+                onChange={() =>
+                  onChange({
+                    target: { name: "isPublished", value: !data.isPublished },
+                  })
+                }
                 control={
                   <Checkbox name="isPublished" checked={data.isPublished} />
                 }
               />
             </FormControl>
-            <FormControl sx={{ display: "block" }}>
+            <FormControl fullWidth>
               <FormControlLabel
                 label="Expirável"
-                onChange={handleChange}
+                onChange={() =>
+                  onChange({
+                    target: { name: "expires", value: !data.expires },
+                  })
+                }
                 control={<Checkbox name="expires" checked={data.expires} />}
               />
             </FormControl>
+            {data.expires && (
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <FormSpacer />
+                <FormControl fullWidth>
+                  <DatePicker
+                    value={new Date(data.beginDate)}
+                    label="Data de início"
+                    onChange={(value) => {
+                      onChange({
+                        target: {
+                          name: "beginDate",
+                          value: value.toISOString().split("T")[0],
+                        },
+                      });
+                    }}
+                    renderInput={(params) => (
+                      <TextField {...params} error={!!formErrors.beginDate} />
+                    )}
+                  />
+                </FormControl>
+                <FormSpacer />
+                <FormControl fullWidth>
+                  <DatePicker
+                    value={new Date(data.expirationDate)}
+                    label="Data de expiração"
+                    onChange={(value) => {
+                      onChange({
+                        target: {
+                          name: "expirationDate",
+                          value: value.toISOString().split("T")[0],
+                        },
+                      });
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        error={!!formErrors.expirationDate}
+                        helperText={formErrors.expirationDate?.message}
+                      />
+                    )}
+                  />
+                </FormControl>
+              </LocalizationProvider>
+            )}
           </CardContent>
         </Card>
       </Grid>

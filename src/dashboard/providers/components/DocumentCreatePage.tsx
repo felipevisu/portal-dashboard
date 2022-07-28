@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { Backlink } from "@portal/components/Backlink";
@@ -8,7 +8,7 @@ import { Savebar } from "@portal/components/Savebar";
 import { ErrorFragment } from "@portal/graphql";
 
 import DocumentFile from "./DocumentFile";
-import DocumentForm from "./DocumentForm";
+import DocumentForm, { FormProps } from "./DocumentForm";
 
 interface DocumentCreatePageProps {
   onSubmit: (data) => Promise<void>;
@@ -23,23 +23,40 @@ export const DocumentCreatePage = ({
 }: DocumentCreatePageProps) => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [data, setData] = useState({
+  const [data, setData] = useState<FormProps>({
     name: "",
-    slug: "",
+    description: "",
     isPublished: false,
     expires: false,
+    expirationDate: "",
+    beginDate: "",
   });
   const [file, setFile] = useState(null);
 
-  const handleChange = ({ name, value }) => {
+  useEffect(() => {
+    if (!data.expires) {
+      setData({ ...data, expirationDate: "", beginDate: "" });
+    }
+  }, [data]);
+
+  const handleChange = (e: React.ChangeEvent<any>) => {
     setData({
       ...data,
-      [name]: value,
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = () => {
-    onSubmit({ ...data, provider: id, file });
+    const formData = {
+      ...data,
+    };
+    if (!data.expirationDate) {
+      delete formData.expirationDate;
+    }
+    if (!data.beginDate) {
+      delete formData.beginDate;
+    }
+    onSubmit({ ...formData, provider: id, file: file });
   };
 
   return (

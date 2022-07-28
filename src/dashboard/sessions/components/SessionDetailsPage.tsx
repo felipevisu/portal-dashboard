@@ -40,10 +40,10 @@ export const SessionDetailsPage = ({
   const navigate = useNavigate();
   const [data, setData] = useState<FormProps>(sanitizeSession(session));
 
-  const handleChange = ({ name, value }) => {
+  const handleChange = (e: React.ChangeEvent<any>) => {
     setData({
       ...data,
-      [name]: value,
+      [e.target.name]: e.target.value,
     });
   };
 

@@ -41,10 +41,10 @@ export const InvestmentDetailsPage = ({
     isPublished: investment.isPublished,
   });
 
-  const handleChange = ({ name, value }) => {
+  const handleChange = (e: React.ChangeEvent<any>) => {
     setData({
       ...data,
-      [name]: value,
+      [e.target.name]: e.target.value,
     });
   };
 

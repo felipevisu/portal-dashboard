@@ -31,7 +31,7 @@ interface ProviderFormProps
   extends Record<"segments", SingleAutocompleteChoiceType[]> {
   data?: FormProps;
   errors: ErrorFragment[];
-  onChange: ({ name, value }) => void;
+  onChange: (e: any) => void;
 }
 
 export const ProviderForm = ({
@@ -44,17 +44,6 @@ export const ProviderForm = ({
     ["name", "slug", "documentNumber", "segment", "isPublished"],
     errors
   );
-
-  const handleChange = (e: React.ChangeEvent<any>) => {
-    switch (e.target.type) {
-      case "checkbox":
-        onChange({ name: e.target.name, value: e.target.checked });
-        break;
-      default:
-        onChange({ name: e.target.name, value: e.target.value });
-        break;
-    }
-  };
 
   return (
     <Grid
@@ -74,7 +63,7 @@ export const ProviderForm = ({
                 name="name"
                 label="Nome"
                 value={data.name}
-                onChange={handleChange}
+                onChange={onChange}
                 helperText={formErrors.name?.message}
               />
             </FormControl>
@@ -87,7 +76,7 @@ export const ProviderForm = ({
                 name="slug"
                 label="Atalho"
                 value={data.slug}
-                onChange={handleChange}
+                onChange={onChange}
                 helperText={formErrors.slug?.message}
               />
             </FormControl>
@@ -100,7 +89,7 @@ export const ProviderForm = ({
                 name="documentNumber"
                 label="CNPJ"
                 value={data.documentNumber}
-                onChange={handleChange}
+                onChange={onChange}
                 helperText={formErrors.documentNumber?.message}
               />
             </FormControl>
@@ -118,7 +107,7 @@ export const ProviderForm = ({
                 name="segment"
                 label="Segmento"
                 value={data.segment}
-                onChange={handleChange}
+                onChange={onChange}
               >
                 {segments.map((segment) => (
                   <MenuItem key={segment.value} value={segment.value}>
@@ -132,7 +121,11 @@ export const ProviderForm = ({
             <FormControl>
               <FormControlLabel
                 label="Publicado"
-                onChange={handleChange}
+                onChange={() =>
+                  onChange({
+                    target: { name: "isPublished", value: !data.isPublished },
+                  })
+                }
                 control={
                   <Checkbox name="isPublished" checked={data.isPublished} />
                 }

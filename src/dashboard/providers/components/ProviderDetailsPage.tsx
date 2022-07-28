@@ -48,10 +48,10 @@ export const ProviderDetailsPage = ({
   const navigate = useNavigate();
   const [data, setData] = useState<FormProps>(sanitizeProvider(provider));
 
-  const handleChange = ({ name, value }) => {
+  const handleChange = (e: React.ChangeEvent<any>) => {
     setData({
       ...data,
-      [name]: value,
+      [e.target.name]: e.target.value,
     });
   };
 

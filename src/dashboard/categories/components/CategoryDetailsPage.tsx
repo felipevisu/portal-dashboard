@@ -27,7 +27,7 @@ export const CategoryDetailsPage = ({
   const navigate = useNavigate();
   const [data, setData] = useState<CategoryFragment>(category);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<any>) => {
     setData({
       ...data,
       [e.target.name]: e.target.value,

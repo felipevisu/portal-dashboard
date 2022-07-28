@@ -19,7 +19,7 @@ export type FormProps = {
 interface CategoryFormProps {
   data?: FormProps;
   errors: ErrorFragment[];
-  onChange: (e: React.ChangeEvent<any>) => void;
+  onChange: (e: React.ChangeEvent) => void;
 }
 
 export const CategoryForm = ({ errors, data, onChange }: CategoryFormProps) => {

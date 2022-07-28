@@ -45,10 +45,10 @@ export const VehicleDetailsPage = ({
   const navigate = useNavigate();
   const [data, setData] = useState<FormProps>(sanitizeVehicle(vehicle));
 
-  const handleChange = ({ name, value }) => {
+  const handleChange = (e: React.ChangeEvent<any>) => {
     setData({
       ...data,
-      [name]: value,
+      [e.target.name]: e.target.value,
     });
   };
 

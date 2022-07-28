@@ -27,7 +27,7 @@ export type FormProps = {
 interface InvestmentFormProps {
   data?: FormProps;
   errors: ErrorFragment[];
-  onChange: ({ name, value }) => void;
+  onChange: (e: any) => void;
 }
 
 export const InvestmentForm = ({
@@ -36,17 +36,6 @@ export const InvestmentForm = ({
   onChange,
 }: InvestmentFormProps) => {
   const formErrors = getFormErrors(["month", "year", "isPublished"], errors);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    switch (e.target.type) {
-      case "checkbox":
-        onChange({ name: e.target.name, value: e.target.checked });
-        break;
-      default:
-        onChange({ name: e.target.name, value: e.target.value });
-        break;
-    }
-  };
 
   return (
     <Card sx={{ marginBottom: (theme) => theme.spacing(3) }}>
@@ -60,7 +49,7 @@ export const InvestmentForm = ({
                 value={data.month}
                 label="Mês"
                 name="month"
-                onChange={handleChange}
+                onChange={onChange}
               >
                 <MenuItem value="1">Janeiro</MenuItem>
                 <MenuItem value="2">Fevereiro</MenuItem>
@@ -86,7 +75,7 @@ export const InvestmentForm = ({
                 name="year"
                 label="Ano"
                 value={data.year}
-                onChange={handleChange}
+                onChange={onChange}
                 helperText={formErrors.year?.message}
               />
             </FormControl>
@@ -96,7 +85,11 @@ export const InvestmentForm = ({
         <FormControl>
           <FormControlLabel
             label="Publicado"
-            onChange={handleChange}
+            onChange={() =>
+              onChange({
+                target: { name: "isPublished", value: !data.isPublished },
+              })
+            }
             control={<Checkbox name="isPublished" checked={data.isPublished} />}
           />
         </FormControl>

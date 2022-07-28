@@ -30,22 +30,11 @@ export type FormProps = {
 interface SessionFormProps {
   data?: FormProps;
   errors: ErrorFragment[];
-  onChange: ({ name, value }) => void;
+  onChange: (e: any) => void;
 }
 
 export const SessionForm = ({ errors, data, onChange }: SessionFormProps) => {
   const formErrors = getFormErrors(["name", "slug", "content", "date"], errors);
-
-  const handleChange = (e: React.ChangeEvent<any>) => {
-    switch (e.target.type) {
-      case "checkbox":
-        onChange({ name: e.target.name, value: e.target.checked });
-        break;
-      default:
-        onChange({ name: e.target.name, value: e.target.value });
-        break;
-    }
-  };
 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -62,7 +51,7 @@ export const SessionForm = ({ errors, data, onChange }: SessionFormProps) => {
                   name="name"
                   label="Nome"
                   value={data.name}
-                  onChange={handleChange}
+                  onChange={onChange}
                   helperText={formErrors.name?.message}
                 />
               </FormControl>
@@ -75,7 +64,7 @@ export const SessionForm = ({ errors, data, onChange }: SessionFormProps) => {
                   name="slug"
                   label="Atalho"
                   value={data.slug}
-                  onChange={handleChange}
+                  onChange={onChange}
                   helperText={formErrors.slug?.message}
                 />
               </FormControl>
@@ -101,7 +90,7 @@ export const SessionForm = ({ errors, data, onChange }: SessionFormProps) => {
                   label="Data"
                   inputFormat="yyyy/MM/dd - HH:mm"
                   value={data.date}
-                  onChange={(value) => onChange({ name: "date", value: value })}
+                  onChange={onChange}
                   renderInput={(params) => (
                     <TextField
                       {...params}
@@ -115,7 +104,11 @@ export const SessionForm = ({ errors, data, onChange }: SessionFormProps) => {
               <FormControl>
                 <FormControlLabel
                   label="Publicado"
-                  onChange={handleChange}
+                  onChange={() =>
+                    onChange({
+                      target: { name: "isPublished", value: !data.isPublished },
+                    })
+                  }
                   control={
                     <Checkbox name="isPublished" checked={data.isPublished} />
                   }
