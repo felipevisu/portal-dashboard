@@ -13,6 +13,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import { Pagination } from "@portal/components/Pagination";
 import TableCellHeader from "@portal/components/TableCell";
 import { ItemFragment } from "@portal/graphql";
 import { formatMoney } from "@portal/utils/money";
@@ -38,40 +39,53 @@ export const InvestmentItems = ({
   return (
     <Card>
       <CardHeader title="Investimentos" action={tollbar} />
-      <CardContent>
-        <Table size="small">
-          <TableHead>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCellHeader sx={{ paddingLeft: 3 }}>Nome</TableCellHeader>
+            <TableCellHeader>Valor</TableCellHeader>
+            <TableCellHeader sx={{ paddingRight: 3 }} align="right">
+              Excluir
+            </TableCellHeader>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {!items.length && (
             <TableRow>
-              <TableCellHeader>Nome</TableCellHeader>
-              <TableCellHeader>Valor</TableCellHeader>
-              <TableCellHeader align="right">Excluir</TableCellHeader>
+              <TableCell
+                colSpan={3}
+                sx={{ textAlign: "center", height: "64px" }}
+              >
+                Nenhum valor adicionado
+              </TableCell>
             </TableRow>
-          </TableHead>
-          <TableBody>
-            {!items.length && (
-              <TableRow>
-                <TableCell
-                  colSpan={3}
-                  sx={{ textAlign: "center", height: "64px" }}
-                >
-                  Nenhum valor adicionado
-                </TableCell>
-              </TableRow>
-            )}
-            {items.map((item, index) => (
-              <TableRow key={index}>
-                <TableCell>{item.name}</TableCell>
-                <TableCell>{formatMoney(item.value)}</TableCell>
-                <TableCell align="right">
-                  <IconButton onClick={() => handleItemDelete(item.id)}>
-                    <Delete />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </CardContent>
+          )}
+          {items.map((item, index) => (
+            <TableRow key={index}>
+              <TableCell sx={{ paddingLeft: 3 }}>{item.name}</TableCell>
+              <TableCell>{formatMoney(item.value)}</TableCell>
+              <TableCell align="right" sx={{ paddingRight: 3 }}>
+                <IconButton onClick={() => handleItemDelete(item.id)}>
+                  <Delete />
+                </IconButton>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+      <Pagination
+        pageInfo={{
+          __typename: "PageInfo",
+          endCursor: "",
+          hasNextPage: false,
+          hasPreviousPage: false,
+          startCursor: "",
+        }}
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        onClickNextPage={() => {}}
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        onClickPreviousPage={() => {}}
+      />
     </Card>
   );
 };

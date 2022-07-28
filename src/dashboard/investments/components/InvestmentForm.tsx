@@ -4,9 +4,7 @@ import {
   Card,
   CardContent,
   CardHeader,
-  Checkbox,
   FormControl,
-  FormControlLabel,
   FormHelperText,
   Grid,
   InputLabel,
@@ -14,6 +12,7 @@ import {
   Select,
   TextField,
 } from "@mui/material";
+import ControledCheckbox from "@portal/components/ControledCheckbox";
 import FormSpacer from "@portal/components/FormSpacer";
 import { ErrorFragment } from "@portal/graphql";
 import { getFormErrors } from "@portal/utils/errors";
@@ -83,14 +82,11 @@ export const InvestmentForm = ({
         </Grid>
         <FormSpacer />
         <FormControl>
-          <FormControlLabel
+          <ControledCheckbox
             label="Publicado"
-            onChange={() =>
-              onChange({
-                target: { name: "isPublished", value: !data.isPublished },
-              })
-            }
-            control={<Checkbox name="isPublished" checked={data.isPublished} />}
+            name="isPublished"
+            checked={data.isPublished}
+            onChange={onChange}
           />
         </FormControl>
       </CardContent>

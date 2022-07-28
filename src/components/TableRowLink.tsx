@@ -27,7 +27,7 @@ const TableRowLink = ({
   }
 
   return (
-    <TableRow {...props}>
+    <TableRow hover={true} {...props}>
       <Link className={linkClassName} to={href}>
         {children}
       </Link>

@@ -4,15 +4,14 @@ import {
   Card,
   CardContent,
   CardHeader,
-  Checkbox,
   FormControl,
-  FormControlLabel,
   Grid,
   TextField,
 } from "@mui/material";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import ControledCheckbox from "@portal/components/ControledCheckbox";
 import FormSpacer from "@portal/components/FormSpacer";
 import { ErrorFragment } from "@portal/graphql";
 import { getFormErrors } from "@portal/utils/errors";
@@ -84,27 +83,19 @@ export const DocumentForm = ({
           <CardHeader title="Status e publicação" />
           <CardContent>
             <FormControl fullWidth>
-              <FormControlLabel
+              <ControledCheckbox
                 label="Publicado"
-                onChange={() =>
-                  onChange({
-                    target: { name: "isPublished", value: !data.isPublished },
-                  })
-                }
-                control={
-                  <Checkbox name="isPublished" checked={data.isPublished} />
-                }
+                name="isPublished"
+                checked={data.isPublished}
+                onChange={onChange}
               />
             </FormControl>
             <FormControl fullWidth>
-              <FormControlLabel
-                label="Expirável"
-                onChange={() =>
-                  onChange({
-                    target: { name: "expires", value: !data.expires },
-                  })
-                }
-                control={<Checkbox name="expires" checked={data.expires} />}
+              <ControledCheckbox
+                label="Expirado"
+                name="expires"
+                checked={data.expires}
+                onChange={onChange}
               />
             </FormControl>
             {data.expires && (

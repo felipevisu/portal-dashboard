@@ -45,8 +45,6 @@ export const InvestmentCreatePage = ({
     onSubmit(data);
   };
 
-  console.log(data);
-
   return (
     <>
       <Container>

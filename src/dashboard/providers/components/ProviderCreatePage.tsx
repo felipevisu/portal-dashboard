@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { Grid } from "@mui/material";
 import { Backlink } from "@portal/components/Backlink";
 import Container from "@portal/components/Container";
 import PageHeader from "@portal/components/PageHeader";
@@ -9,7 +10,11 @@ import { ErrorFragment, SearchSegmentsQuery } from "@portal/graphql";
 import { RelayToFlat } from "@portal/types";
 import { getChoices } from "@portal/utils/data";
 
-import ProviderForm, { FormProps } from "./ProviderForm";
+import {
+  FormProps,
+  ProviderFormInfos,
+  ProviderFormStatus,
+} from "./ProviderForm";
 
 interface ProviderCreatePageProps {
   onSubmit: (data: FormProps) => Promise<void>;
@@ -52,12 +57,28 @@ export const ProviderCreatePage = ({
         <Backlink href="/admin/providers">Voltar</Backlink>
         <div style={{ height: 32 }} />
         <PageHeader title="Criar novo prestador" />
-        <ProviderForm
-          errors={errors}
-          onChange={handleChange}
-          data={data}
-          segments={segments}
-        />
+        <Grid
+          container
+          spacing={2}
+          sx={{ marginBottom: (theme) => theme.spacing(2) }}
+        >
+          <Grid item xs={8}>
+            <ProviderFormInfos
+              errors={errors}
+              onChange={handleChange}
+              data={data}
+              segments={segments}
+            />
+          </Grid>
+          <Grid item xs={4}>
+            <ProviderFormStatus
+              errors={errors}
+              onChange={handleChange}
+              data={data}
+              segments={segments}
+            />
+          </Grid>
+        </Grid>
       </Container>
       <Savebar
         onSubmit={handleSubmit}

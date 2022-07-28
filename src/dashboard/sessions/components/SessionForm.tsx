@@ -5,15 +5,14 @@ import {
   Card,
   CardContent,
   CardHeader,
-  Checkbox,
   FormControl,
-  FormControlLabel,
   Grid,
   TextField,
 } from "@mui/material";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import ControledCheckbox from "@portal/components/ControledCheckbox";
 import FormSpacer from "@portal/components/FormSpacer";
 import RichTextEditor from "@portal/components/Richtext/Richtext";
 import { ErrorFragment } from "@portal/graphql";
@@ -90,7 +89,9 @@ export const SessionForm = ({ errors, data, onChange }: SessionFormProps) => {
                   label="Data"
                   inputFormat="yyyy/MM/dd - HH:mm"
                   value={data.date}
-                  onChange={onChange}
+                  onChange={(val) =>
+                    onChange({ target: { name: "date", value: val } })
+                  }
                   renderInput={(params) => (
                     <TextField
                       {...params}
@@ -102,16 +103,11 @@ export const SessionForm = ({ errors, data, onChange }: SessionFormProps) => {
               </FormControl>
               <FormSpacer />
               <FormControl>
-                <FormControlLabel
+                <ControledCheckbox
                   label="Publicado"
-                  onChange={() =>
-                    onChange({
-                      target: { name: "isPublished", value: !data.isPublished },
-                    })
-                  }
-                  control={
-                    <Checkbox name="isPublished" checked={data.isPublished} />
-                  }
+                  name="isPublished"
+                  checked={data.isPublished}
+                  onChange={onChange}
                 />
               </FormControl>
             </CardContent>

@@ -16,7 +16,11 @@ import { getChoices } from "@portal/utils/data";
 import { mapEdgesToItems } from "@portal/utils/maps";
 
 import DocumentList from "./DocumentList";
-import ProviderForm, { FormProps } from "./ProviderForm";
+import {
+  FormProps,
+  ProviderFormInfos,
+  ProviderFormStatus,
+} from "./ProviderForm";
 
 const sanitizeProvider = (provider: ProviderDetailsFragment) => {
   return {
@@ -67,15 +71,27 @@ export const ProviderDetailsPage = ({
         <Backlink href="/admin/providers">Voltar</Backlink>
         <div style={{ height: 32 }} />
         <PageHeader title={provider.name} />
-        <ProviderForm
-          errors={errors}
-          onChange={handleChange}
-          data={data}
-          segments={segments}
-        />
-        <Grid container spacing={2}>
+        <Grid
+          container
+          spacing={2}
+          sx={{ marginBottom: (theme) => theme.spacing(2) }}
+        >
           <Grid item xs={8}>
+            <ProviderFormInfos
+              errors={errors}
+              onChange={handleChange}
+              data={data}
+              segments={segments}
+            />
             <DocumentList documents={mapEdgesToItems(provider.documents)} />
+          </Grid>
+          <Grid item xs={4}>
+            <ProviderFormStatus
+              errors={errors}
+              onChange={handleChange}
+              data={data}
+              segments={segments}
+            />
           </Grid>
         </Grid>
       </Container>
