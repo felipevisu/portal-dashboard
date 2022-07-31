@@ -80,8 +80,8 @@ export const PageInfoFragmentDoc = gql`
     `;
 export const DocumentDetailsFragmentDoc = gql`
     fragment DocumentDetails on Document {
-  id
   name
+  description
   isPublished
   expires
   file
@@ -1042,6 +1042,84 @@ export function useDocumentCreateMutation(baseOptions?: Apollo.MutationHookOptio
 export type DocumentCreateMutationHookResult = ReturnType<typeof useDocumentCreateMutation>;
 export type DocumentCreateMutationResult = Apollo.MutationResult<Types.DocumentCreateMutation>;
 export type DocumentCreateMutationOptions = Apollo.BaseMutationOptions<Types.DocumentCreateMutation, Types.DocumentCreateMutationVariables>;
+export const DocumentUpdateDocument = gql`
+    mutation DocumentUpdate($id: ID!, $input: DocumentInput!) {
+  documentUpdate(id: $id, input: $input) {
+    document {
+      ...DocumentDetails
+    }
+    errors {
+      ...Error
+    }
+  }
+}
+    ${DocumentDetailsFragmentDoc}
+${ErrorFragmentDoc}`;
+export type DocumentUpdateMutationFn = Apollo.MutationFunction<Types.DocumentUpdateMutation, Types.DocumentUpdateMutationVariables>;
+
+/**
+ * __useDocumentUpdateMutation__
+ *
+ * To run a mutation, you first call `useDocumentUpdateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDocumentUpdateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [documentUpdateMutation, { data, loading, error }] = useDocumentUpdateMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useDocumentUpdateMutation(baseOptions?: Apollo.MutationHookOptions<Types.DocumentUpdateMutation, Types.DocumentUpdateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Types.DocumentUpdateMutation, Types.DocumentUpdateMutationVariables>(DocumentUpdateDocument, options);
+      }
+export type DocumentUpdateMutationHookResult = ReturnType<typeof useDocumentUpdateMutation>;
+export type DocumentUpdateMutationResult = Apollo.MutationResult<Types.DocumentUpdateMutation>;
+export type DocumentUpdateMutationOptions = Apollo.BaseMutationOptions<Types.DocumentUpdateMutation, Types.DocumentUpdateMutationVariables>;
+export const DocumentDeleteDocument = gql`
+    mutation DocumentDelete($id: ID!) {
+  documentDelete(id: $id) {
+    document {
+      id
+    }
+    errors {
+      ...Error
+    }
+  }
+}
+    ${ErrorFragmentDoc}`;
+export type DocumentDeleteMutationFn = Apollo.MutationFunction<Types.DocumentDeleteMutation, Types.DocumentDeleteMutationVariables>;
+
+/**
+ * __useDocumentDeleteMutation__
+ *
+ * To run a mutation, you first call `useDocumentDeleteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDocumentDeleteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [documentDeleteMutation, { data, loading, error }] = useDocumentDeleteMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDocumentDeleteMutation(baseOptions?: Apollo.MutationHookOptions<Types.DocumentDeleteMutation, Types.DocumentDeleteMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Types.DocumentDeleteMutation, Types.DocumentDeleteMutationVariables>(DocumentDeleteDocument, options);
+      }
+export type DocumentDeleteMutationHookResult = ReturnType<typeof useDocumentDeleteMutation>;
+export type DocumentDeleteMutationResult = Apollo.MutationResult<Types.DocumentDeleteMutation>;
+export type DocumentDeleteMutationOptions = Apollo.BaseMutationOptions<Types.DocumentDeleteMutation, Types.DocumentDeleteMutationVariables>;
 export const ProvidersDocument = gql`
     query Providers($first: Int, $last: Int, $after: String, $before: String, $search: String, $isPublished: Boolean, $segment: ID) {
   providers(
@@ -1134,6 +1212,41 @@ export function useProviderDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOp
 export type ProviderDetailsQueryHookResult = ReturnType<typeof useProviderDetailsQuery>;
 export type ProviderDetailsLazyQueryHookResult = ReturnType<typeof useProviderDetailsLazyQuery>;
 export type ProviderDetailsQueryResult = Apollo.QueryResult<Types.ProviderDetailsQuery, Types.ProviderDetailsQueryVariables>;
+export const DocumentDetailsDocument = gql`
+    query DocumentDetails($id: ID!) {
+  document(id: $id) {
+    ...DocumentDetails
+  }
+}
+    ${DocumentDetailsFragmentDoc}`;
+
+/**
+ * __useDocumentDetailsQuery__
+ *
+ * To run a query within a React component, call `useDocumentDetailsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useDocumentDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useDocumentDetailsQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDocumentDetailsQuery(baseOptions: Apollo.QueryHookOptions<Types.DocumentDetailsQuery, Types.DocumentDetailsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<Types.DocumentDetailsQuery, Types.DocumentDetailsQueryVariables>(DocumentDetailsDocument, options);
+      }
+export function useDocumentDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.DocumentDetailsQuery, Types.DocumentDetailsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<Types.DocumentDetailsQuery, Types.DocumentDetailsQueryVariables>(DocumentDetailsDocument, options);
+        }
+export type DocumentDetailsQueryHookResult = ReturnType<typeof useDocumentDetailsQuery>;
+export type DocumentDetailsLazyQueryHookResult = ReturnType<typeof useDocumentDetailsLazyQuery>;
+export type DocumentDetailsQueryResult = Apollo.QueryResult<Types.DocumentDetailsQuery, Types.DocumentDetailsQueryVariables>;
 export const SegmentCreateDocument = gql`
     mutation SegmentCreate($input: SegmentInput!) {
   segmentCreate(input: $input) {

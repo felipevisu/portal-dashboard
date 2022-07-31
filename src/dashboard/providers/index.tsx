@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 
 import DocumentCreate from "./views/DocumentCreate";
+import DocumentDetails from "./views/DocumentDetails";
 import ProviderCreate from "./views/ProviderCreate";
 import ProviderDetails from "./views/ProviderDetails";
 import ProviderList from "./views/ProviderList";
@@ -15,6 +16,10 @@ export const Providers = () => {
       <Route
         path="/details/:id/documents/create"
         element={<DocumentCreate />}
+      />
+      <Route
+        path="/details/:id/documents/:documentId/details"
+        element={<DocumentDetails />}
       />
     </Routes>
   );

@@ -10,8 +10,8 @@ export const documentFragment = gql`
 
 export const documentDetailsFragment = gql`
   fragment DocumentDetails on Document {
-    id
     name
+    description
     isPublished
     expires
     file

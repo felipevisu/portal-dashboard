@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useMemo, useRef } from "react";
 
 import { AttachFile, FileUpload } from "@mui/icons-material";
 import {
@@ -12,15 +12,21 @@ import { Box } from "@mui/system";
 
 interface DocumentFile {
   file?: File;
+  fileName?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const DocumentFile = ({ file, onChange }: DocumentFile) => {
+export const DocumentFile = ({ file, fileName, onChange }: DocumentFile) => {
   const fileRef = useRef<HTMLInputElement>();
 
   const handleClick = () => {
     fileRef.current.click();
   };
+
+  const documentName = useMemo(() => {
+    if (file) return file.name;
+    return fileName;
+  }, [fileName, file]);
 
   return (
     <Card>
@@ -30,10 +36,10 @@ export const DocumentFile = ({ file, onChange }: DocumentFile) => {
       />
       <CardContent>
         <input type="file" ref={fileRef} onChange={onChange} hidden />
-        {file ? (
+        {documentName ? (
           <Box sx={{ display: "flex" }}>
             <AttachFile />
-            <Typography>{file.name}</Typography>
+            <Typography>{documentName}</Typography>
           </Box>
         ) : (
           <Box

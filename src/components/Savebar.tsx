@@ -14,9 +14,10 @@ interface SavebarProps {
 
 const Root = styled("div")(() => ({
   position: "sticky",
+  height: "70px",
   left: 0,
   right: 0,
-  top: "calc(100% - 70px)",
+  bottom: 0,
 }));
 
 export const Savebar = ({

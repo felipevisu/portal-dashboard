@@ -38,3 +38,11 @@ export const providerDetailsQuery = gql`
     }
   }
 `;
+
+export const documentDetailsQuery = gql`
+  query DocumentDetails($id: ID!) {
+    document(id: $id) {
+      ...DocumentDetails
+    }
+  }
+`;

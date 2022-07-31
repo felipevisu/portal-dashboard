@@ -5,31 +5,35 @@ import { Backlink } from "@portal/components/Backlink";
 import Container from "@portal/components/Container";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
-import { ErrorFragment } from "@portal/graphql";
+import { DocumentDetailsFragment, ErrorFragment } from "@portal/graphql";
 
 import DocumentFile from "./DocumentFile";
 import DocumentForm, { FormProps } from "./DocumentForm";
 
-interface DocumentCreatePageProps {
+interface DocumentDetailsPageProps {
+  document: DocumentDetailsFragment;
   onSubmit: (data) => Promise<void>;
+  onDelete: () => void;
   errors: ErrorFragment[];
   loading: boolean;
 }
 
-export const DocumentCreatePage = ({
+export const DocumentDetailsPage = ({
+  document,
   onSubmit,
+  onDelete,
   errors,
   loading,
-}: DocumentCreatePageProps) => {
+}: DocumentDetailsPageProps) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [data, setData] = useState<FormProps>({
-    name: "",
-    description: "",
-    isPublished: false,
-    expires: false,
-    expirationDate: null,
-    beginDate: null,
+    name: document.name,
+    description: document.description,
+    isPublished: document.isPublished,
+    expires: document.expires,
+    expirationDate: document.expirationDate || "",
+    beginDate: document.beginDate || "",
   });
   const [file, setFile] = useState(null);
 
@@ -37,7 +41,7 @@ export const DocumentCreatePage = ({
     if (!data.expires) {
       setData({ ...data, expirationDate: "", beginDate: "" });
     }
-  }, [data]);
+  }, [data.expires]);
 
   const handleChange = (e: React.ChangeEvent<any>) => {
     setData({
@@ -47,10 +51,12 @@ export const DocumentCreatePage = ({
   };
 
   const handleSubmit = () => {
-    const formData = { ...data };
+    const formData = { ...data, file };
     if (!data.expirationDate) delete formData.expirationDate;
     if (!data.beginDate) delete formData.beginDate;
-    onSubmit({ ...formData, provider: id, file: file });
+    if (!file) delete formData.file;
+    onSubmit({ ...formData, provider: id });
+    setFile(null);
   };
 
   return (
@@ -58,7 +64,7 @@ export const DocumentCreatePage = ({
       <Container>
         <Backlink href={`/admin/providers/details/${id}`}>Voltar</Backlink>
         <div style={{ height: 32 }} />
-        <PageHeader title="Adicionar documento" />
+        <PageHeader title={document.name} />
         <DocumentForm
           errors={errors}
           onChange={handleChange}
@@ -66,6 +72,7 @@ export const DocumentCreatePage = ({
           fileUpload={
             <DocumentFile
               file={file}
+              fileName={document.file}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setFile(e.target.files[0])
               }
@@ -76,10 +83,11 @@ export const DocumentCreatePage = ({
       <Savebar
         onSubmit={handleSubmit}
         onCancel={() => navigate(`/admin/providers/details/${id}`)}
+        onDelete={onDelete}
         loading={loading}
       />
     </>
   );
 };
 
-export default DocumentCreatePage;
+export default DocumentDetailsPage;

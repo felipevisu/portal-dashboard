@@ -92,7 +92,7 @@ export const DocumentForm = ({
             </FormControl>
             <FormControl fullWidth>
               <ControledCheckbox
-                label="Expirado"
+                label="Expirável"
                 name="expires"
                 checked={data.expires}
                 onChange={onChange}
@@ -103,7 +103,7 @@ export const DocumentForm = ({
                 <FormSpacer />
                 <FormControl fullWidth>
                   <DatePicker
-                    value={new Date(data.beginDate)}
+                    value={data.beginDate ? new Date(data.beginDate) : null}
                     label="Data de início"
                     onChange={(value) => {
                       onChange({
@@ -121,7 +121,9 @@ export const DocumentForm = ({
                 <FormSpacer />
                 <FormControl fullWidth>
                   <DatePicker
-                    value={new Date(data.expirationDate)}
+                    value={
+                      data.expirationDate ? new Date(data.expirationDate) : null
+                    }
                     label="Data de expiração"
                     onChange={(value) => {
                       onChange({

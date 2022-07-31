@@ -102,6 +102,7 @@ scalar Decimal
 type Document implements Node {
   beginDate: Date
   created: DateTime!
+  description: String!
   expirationDate: Date
   expires: Boolean!
   file: String!
@@ -112,7 +113,6 @@ type Document implements Node {
   name: String!
   provider: Provider!
   publicationDate: Date
-  slug: String!
   updated: DateTime!
 }
 
@@ -146,6 +146,7 @@ type DocumentEdge {
 
 input DocumentInput {
   beginDate: Date
+  description: String
   expirationDate: Date
   expires: Boolean
   file: Upload
@@ -153,7 +154,6 @@ input DocumentInput {
   name: String
   provider: ID
   publicationDate: Date
-  slug: String
 }
 
 type DocumentUpdate {

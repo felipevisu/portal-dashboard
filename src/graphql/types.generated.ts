@@ -61,6 +61,7 @@ export type CategorySortingInput = {
 
 export type DocumentInput = {
   beginDate?: InputMaybe<Scalars['Date']>;
+  description?: InputMaybe<Scalars['String']>;
   expirationDate?: InputMaybe<Scalars['Date']>;
   expires?: InputMaybe<Scalars['Boolean']>;
   file?: InputMaybe<Scalars['Upload']>;
@@ -68,7 +69,6 @@ export type DocumentInput = {
   name?: InputMaybe<Scalars['String']>;
   provider?: InputMaybe<Scalars['ID']>;
   publicationDate?: InputMaybe<Scalars['Date']>;
-  slug?: InputMaybe<Scalars['String']>;
 };
 
 export type InvestmentInput = {
@@ -327,6 +327,21 @@ export type DocumentCreateMutationVariables = Exact<{
 
 export type DocumentCreateMutation = { __typename: 'Mutation', documentCreate: { __typename: 'DocumentCreate', document: { __typename: 'Document', id: string, name: string, created: any } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
 
+export type DocumentUpdateMutationVariables = Exact<{
+  id: Scalars['ID'];
+  input: DocumentInput;
+}>;
+
+
+export type DocumentUpdateMutation = { __typename: 'Mutation', documentUpdate: { __typename: 'DocumentUpdate', document: { __typename: 'Document', name: string, description: string, isPublished: boolean, expires: boolean, file: string, publicationDate: any | null, beginDate: any | null, expirationDate: any | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+
+export type DocumentDeleteMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type DocumentDeleteMutation = { __typename: 'Mutation', documentDelete: { __typename: 'DocumentDelete', document: { __typename: 'Document', id: string } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+
 export type ProvidersQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
@@ -346,6 +361,13 @@ export type ProviderDetailsQueryVariables = Exact<{
 
 
 export type ProviderDetailsQuery = { __typename: 'Query', provider: { __typename: 'Provider', id: string, name: string, slug: string, documentNumber: string, isPublished: boolean, segment: { __typename: 'Segment', id: string, name: string }, documents: { __typename: 'DocumentsConnection', edges: Array<{ __typename: 'DocumentsEdge', node: { __typename: 'Document', id: string, name: string, created: any } | null } | null> } | null } | null };
+
+export type DocumentDetailsQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type DocumentDetailsQuery = { __typename: 'Query', document: { __typename: 'Document', name: string, description: string, isPublished: boolean, expires: boolean, file: string, publicationDate: any | null, beginDate: any | null, expirationDate: any | null } | null };
 
 export type SegmentCreateMutationVariables = Exact<{
   input: SegmentInput;
@@ -511,7 +533,7 @@ export type PageInfoFragment = { __typename: 'PageInfo', endCursor: string | nul
 
 export type DocumentFragment = { __typename: 'Document', id: string, name: string, created: any };
 
-export type DocumentDetailsFragment = { __typename: 'Document', id: string, name: string, isPublished: boolean, expires: boolean, file: string, publicationDate: any | null, beginDate: any | null, expirationDate: any | null };
+export type DocumentDetailsFragment = { __typename: 'Document', name: string, description: string, isPublished: boolean, expires: boolean, file: string, publicationDate: any | null, beginDate: any | null, expirationDate: any | null };
 
 export type ProviderFragment = { __typename: 'Provider', id: string, name: string, slug: string, isPublished: boolean, segment: { __typename: 'Segment', id: string, name: string }, documents: { __typename: 'DocumentsConnection', totalCount: number | null } | null };
 
