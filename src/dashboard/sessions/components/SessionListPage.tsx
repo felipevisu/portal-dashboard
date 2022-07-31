@@ -2,7 +2,6 @@ import React from "react";
 
 import { Card } from "@mui/material";
 import { Button } from "@portal/components/Button";
-import Container from "@portal/components/Container";
 import FilterBar from "@portal/components/FilterBar";
 import PageHeader from "@portal/components/PageHeader";
 import { Pagination } from "@portal/components/Pagination";
@@ -44,7 +43,7 @@ export const SessionListPage = ({
   filterOpts,
 }: SessionListPageProps) => {
   return (
-    <Container>
+    <>
       <PageHeader title={"Sessões públicas"}>
         <Button
           color="primary"
@@ -77,7 +76,7 @@ export const SessionListPage = ({
           />
         )}
       </Card>
-    </Container>
+    </>
   );
 };
 

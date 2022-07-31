@@ -2,9 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { ArrowBack } from "@mui/icons-material";
+import { Portal } from "@mui/material";
 import { isExternalURL } from "@portal/utils/urls";
 
-import { LayoutButton, LayoutButtonProps } from "./LayoutButton";
+import { LayoutButton, LayoutButtonProps } from "../LayoutButton";
+
+import { useBacklink } from "./context";
 
 export type BacklinkProps<T extends React.ElementType> =
   LayoutButtonProps<T> & {
@@ -18,11 +21,19 @@ export const BacklinkComponent = <T extends React.ElementType>({
   onClick,
   ...props
 }: BacklinkProps<T>) => {
+  const anchor = useBacklink();
+
+  if (!anchor.current) {
+    return null;
+  }
+
   return (
-    <LayoutButton disabled={disabled} onClick={onClick} {...props}>
-      <ArrowBack />
-      {children}
-    </LayoutButton>
+    <Portal container={anchor.current}>
+      <LayoutButton disabled={disabled} onClick={onClick} {...props}>
+        <ArrowBack />
+        {children}
+      </LayoutButton>
+    </Portal>
   );
 };
 

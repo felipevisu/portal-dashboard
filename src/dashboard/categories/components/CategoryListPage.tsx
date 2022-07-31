@@ -2,7 +2,6 @@ import React from "react";
 
 import { Card } from "@mui/material";
 import { Button } from "@portal/components/Button";
-import Container from "@portal/components/Container";
 import PageHeader from "@portal/components/PageHeader";
 import { Pagination } from "@portal/components/Pagination";
 import { SearchBar } from "@portal/components/SearchBar";
@@ -33,7 +32,7 @@ export const CategoryListPage = ({
   disabled,
 }: CategoryListPageProps) => {
   return (
-    <Container>
+    <>
       <PageHeader title={"Categorias"}>
         <Button
           color="primary"
@@ -62,7 +61,7 @@ export const CategoryListPage = ({
           />
         )}
       </Card>
-    </Container>
+    </>
   );
 };
 

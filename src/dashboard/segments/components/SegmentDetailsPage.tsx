@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Backlink } from "@portal/components/Backlink";
-import Container from "@portal/components/Container";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
 import { ErrorFragment, SegmentFragment } from "@portal/graphql";
@@ -44,12 +43,10 @@ export const SegmentDetailsPage = ({
 
   return (
     <>
-      <Container>
-        <Backlink href="/admin/segments">Voltar</Backlink>
-        <div style={{ height: 32 }} />
-        <PageHeader title={segment?.name} />
-        <SegmentForm errors={errors} onChange={handleChange} data={data} />
-      </Container>
+      <Backlink href="/admin/segments">Voltar</Backlink>
+      <div style={{ height: 32 }} />
+      <PageHeader title={segment?.name} />
+      <SegmentForm errors={errors} onChange={handleChange} data={data} />
       <Savebar
         onSubmit={handleSubmit}
         onDelete={handleDelete}

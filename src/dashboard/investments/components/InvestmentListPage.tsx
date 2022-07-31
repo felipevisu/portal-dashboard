@@ -2,7 +2,6 @@ import React from "react";
 
 import { Card } from "@mui/material";
 import { Button } from "@portal/components/Button";
-import Container from "@portal/components/Container";
 import PageHeader from "@portal/components/PageHeader";
 import { Pagination } from "@portal/components/Pagination";
 import { InvestmentFragment } from "@portal/graphql";
@@ -28,7 +27,7 @@ export const InvestmentListPage = ({
   disabled,
 }: InvestmentListPageProps) => {
   return (
-    <Container>
+    <>
       <PageHeader title={"Investimentos"}>
         <Button
           color="primary"
@@ -56,7 +55,7 @@ export const InvestmentListPage = ({
           />
         )}
       </Card>
-    </Container>
+    </>
   );
 };
 

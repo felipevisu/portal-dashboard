@@ -1,8 +1,10 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 
+import { useBacklink } from "@portal/components/Backlink/context";
 import CircularLoading from "@portal/components/Circular";
 import { Menu } from "@portal/components/Menu";
+import { useSavebar } from "@portal/components/Savebar/context";
 
 import AuthProvider from "./auth/authProvider";
 import Auth, { useUser } from "./auth";
@@ -12,11 +14,14 @@ import Investments from "./investments";
 import Providers from "./providers";
 import Segments from "./segments";
 import Sessions from "./sessions";
-import { Lateral, Main, Wrapper } from "./styles";
+import { Content, Footer, Lateral, Main, Wrapper } from "./styles";
 import Vehicles from "./vehicles";
 
 const RoutesComponent = () => {
   const { authenticated, authenticating } = useUser();
+
+  const appHeaderAnchor = useBacklink();
+  const appFooterAnchor = useSavebar();
 
   if (authenticated) {
     return (
@@ -24,17 +29,23 @@ const RoutesComponent = () => {
         <Lateral>
           <Menu />
         </Lateral>
-        <Main>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/vehicles/*" element={<Vehicles />} />
-            <Route path="/categories/*" element={<Categories />} />
-            <Route path="/segments/*" element={<Segments />} />
-            <Route path="/providers/*" element={<Providers />} />
-            <Route path="/sessions/*" element={<Sessions />} />
-            <Route path="/investments/*" element={<Investments />} />
-          </Routes>
-        </Main>
+        <Content>
+          <div ref={appHeaderAnchor} />
+          <Main>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/vehicles/*" element={<Vehicles />} />
+              <Route path="/categories/*" element={<Categories />} />
+              <Route path="/segments/*" element={<Segments />} />
+              <Route path="/providers/*" element={<Providers />} />
+              <Route path="/sessions/*" element={<Sessions />} />
+              <Route path="/investments/*" element={<Investments />} />
+            </Routes>
+          </Main>
+          <Footer>
+            <div ref={appFooterAnchor} />
+          </Footer>
+        </Content>
       </Wrapper>
     );
   }

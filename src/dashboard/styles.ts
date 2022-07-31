@@ -1,4 +1,4 @@
-import { styled } from "@mui/material";
+import { Container, styled } from "@mui/material";
 
 export const Wrapper = styled("div")(() => ({
   display: "flex",
@@ -13,12 +13,19 @@ export const Lateral = styled("div")(() => ({
   },
 }));
 
-export const Main = styled("div")(({ theme }) => ({
+export const Content = styled(Container)(({ theme }) => ({
   flexGrow: "1",
-  "> div": {
-    "&:first-child": {
-      minHeight: "calc(100vh - 72px)",
-      paddingTop: theme.spacing(3),
-    },
-  },
+  display: "flex",
+  flexDirection: "column",
+  minHeight: "100vh",
+  paddingTop: theme.spacing(3),
+}));
+
+export const Main = styled("div")(() => ({
+  flexGrow: "1",
+}));
+
+export const Footer = styled("div")(() => ({
+  position: "sticky",
+  bottom: 0,
 }));

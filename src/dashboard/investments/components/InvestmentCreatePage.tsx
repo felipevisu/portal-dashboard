@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Backlink } from "@portal/components/Backlink";
-import Container from "@portal/components/Container";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
 import { ErrorFragment, InvestmentInput, ItemFragment } from "@portal/graphql";
@@ -47,17 +46,15 @@ export const InvestmentCreatePage = ({
 
   return (
     <>
-      <Container>
-        <Backlink href="/admin/investments">Voltar</Backlink>
-        <div style={{ height: 32 }} />
-        <PageHeader title="Criar novo investimento" />
-        <InvestmentForm errors={errors} onChange={handleChange} data={data} />
-        <InvestmentItems
-          tollbar={tollbar}
-          items={items}
-          onDeleteItem={onDeleteItem}
-        />
-      </Container>
+      <Backlink href="/admin/investments">Voltar</Backlink>
+      <div style={{ height: 32 }} />
+      <PageHeader title="Criar novo investimento" />
+      <InvestmentForm errors={errors} onChange={handleChange} data={data} />
+      <InvestmentItems
+        tollbar={tollbar}
+        items={items}
+        onDeleteItem={onDeleteItem}
+      />
       <Savebar
         onSubmit={handleSubmit}
         onCancel={() => navigate("/admin/investments")}

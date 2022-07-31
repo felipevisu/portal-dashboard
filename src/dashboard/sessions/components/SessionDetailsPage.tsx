@@ -3,7 +3,6 @@ import { convertFromRaw, convertToRaw, EditorState } from "draft-js";
 import { useNavigate } from "react-router-dom";
 
 import { Backlink } from "@portal/components/Backlink";
-import Container from "@portal/components/Container";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
 import { ErrorFragment, SessionDetailsFragment } from "@portal/graphql";
@@ -58,12 +57,10 @@ export const SessionDetailsPage = ({
 
   return (
     <>
-      <Container>
-        <Backlink href="/admin/sessions">Voltar</Backlink>
-        <div style={{ height: 32 }} />
-        <PageHeader title={session.name} />
-        <SessionForm errors={errors} onChange={handleChange} data={data} />
-      </Container>
+      <Backlink href="/admin/sessions">Voltar</Backlink>
+      <div style={{ height: 32 }} />
+      <PageHeader title={session.name} />
+      <SessionForm errors={errors} onChange={handleChange} data={data} />
       <Savebar
         onSubmit={handleSubmit}
         onCancel={() => navigate("/admin/sessions")}

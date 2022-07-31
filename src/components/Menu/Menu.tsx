@@ -12,7 +12,8 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import DesignServicesIcon from "@mui/icons-material/DesignServices";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import SegmentIcon from "@mui/icons-material/Segment";
-import { Box, IconButton, Typography } from "@mui/material";
+
+import { Label, MenuItem, OpenClose } from "./styles";
 
 const ITEMS = [
   {
@@ -71,32 +72,10 @@ export const Item = ({ label, path, active, opened, icon }: ItemProps) => {
   return (
     <li>
       <Link to={path}>
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            padding: (theme) => theme.spacing(2, 4),
-            marginBottom: 2,
-            gap: 2,
-            color: active ? "primary.main" : "text.secondary",
-            "&:hover": { color: "primary.main" },
-            background: active ? "white" : "",
-            borderRadius: "0 8px 8px 0",
-          }}
-        >
+        <MenuItem active={active}>
           {icon}
-          {opened && (
-            <Typography
-              fontWeight="bold"
-              sx={{
-                color: "inherit",
-                "&:hover": { color: (theme) => theme.palette.primary.main },
-              }}
-            >
-              {label}
-            </Typography>
-          )}
-        </Box>
+          {opened && <Label>{label}</Label>}
+        </MenuItem>
       </Link>
     </li>
   );
@@ -118,17 +97,9 @@ export const Menu = () => {
           />
         ))}
         <li>
-          <IconButton
-            onClick={() => setOpened(!opened)}
-            sx={{
-              background: (theme) => theme.palette.primary.main,
-              color: "white",
-              marginLeft: "24px",
-              "&:hover": { background: (theme) => theme.palette.primary.dark },
-            }}
-          >
+          <OpenClose onClick={() => setOpened(!opened)}>
             {opened ? <ArrowCircleLeft /> : <ArrowCircleRight />}
-          </IconButton>
+          </OpenClose>
         </li>
       </ul>
     </div>

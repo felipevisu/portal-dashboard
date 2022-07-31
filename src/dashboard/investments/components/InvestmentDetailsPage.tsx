@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Backlink } from "@portal/components/Backlink";
-import Container from "@portal/components/Container";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
 import {
@@ -54,19 +53,17 @@ export const InvestmentDetailsPage = ({
 
   return (
     <>
-      <Container>
-        <Backlink href="/admin/investments">Voltar</Backlink>
-        <div style={{ height: 32 }} />
-        <PageHeader
-          title={`${toMonthName(investment.month)} de ${investment.year}`}
-        />
-        <InvestmentForm errors={errors} onChange={handleChange} data={data} />
-        <InvestmentItems
-          tollbar={tollbar}
-          onDeleteItem={onDeleteItem}
-          items={investment.items}
-        />
-      </Container>
+      <Backlink href="/admin/investments">Voltar</Backlink>
+      <div style={{ height: 32 }} />
+      <PageHeader
+        title={`${toMonthName(investment.month)} de ${investment.year}`}
+      />
+      <InvestmentForm errors={errors} onChange={handleChange} data={data} />
+      <InvestmentItems
+        tollbar={tollbar}
+        onDeleteItem={onDeleteItem}
+        items={investment.items}
+      />
       <Savebar
         onDelete={onDelete}
         onSubmit={handleSubmit}

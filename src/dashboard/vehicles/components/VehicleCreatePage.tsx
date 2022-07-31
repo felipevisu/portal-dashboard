@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Backlink } from "@portal/components/Backlink";
-import Container from "@portal/components/Container";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
 import { ErrorFragment, SearchCategoriesQuery } from "@portal/graphql";
@@ -48,17 +47,15 @@ export const VehicleCreatePage = ({
 
   return (
     <>
-      <Container>
-        <Backlink href="/admin/vehicles">Voltar</Backlink>
-        <div style={{ height: 32 }} />
-        <PageHeader title="Criar novo veículo" />
-        <VehicleForm
-          errors={errors}
-          onChange={handleChange}
-          data={data}
-          categories={categories}
-        />
-      </Container>
+      <Backlink href="/admin/vehicles">Voltar</Backlink>
+      <div style={{ height: 32 }} />
+      <PageHeader title="Criar novo veículo" />
+      <VehicleForm
+        errors={errors}
+        onChange={handleChange}
+        data={data}
+        categories={categories}
+      />
       <Savebar
         onSubmit={handleSubmit}
         onCancel={() => navigate("/admin/vehicles")}
