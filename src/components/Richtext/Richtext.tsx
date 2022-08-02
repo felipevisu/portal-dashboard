@@ -9,7 +9,7 @@ import "./Richtext.css";
 interface RichTextEditorProps {
   name: string;
   editorState: EditorState;
-  onChange: ({ name, value }) => void;
+  onChange: (e: any) => void;
 }
 
 export const RichTextEditor = ({
@@ -18,20 +18,24 @@ export const RichTextEditor = ({
   onChange,
 }: RichTextEditorProps) => {
   const handleChange = (value: EditorState) => {
-    onChange({ name, value });
+    onChange({ target: { name, value } });
   };
 
   const toggleBlockType = (blockType: string) => {
     onChange({
-      name,
-      value: RichUtils.toggleBlockType(editorState, blockType),
+      target: {
+        name,
+        value: RichUtils.toggleBlockType(editorState, blockType),
+      },
     });
   };
 
   const toggleInlineStyle = (blockType: string) => {
     onChange({
-      name,
-      value: RichUtils.toggleInlineStyle(editorState, blockType),
+      target: {
+        name,
+        value: RichUtils.toggleInlineStyle(editorState, blockType),
+      },
     });
   };
 
