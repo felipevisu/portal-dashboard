@@ -20,7 +20,10 @@ export function useAuthProvider({ apolloClient }) {
     }
   }, [authenticating]);
 
-  const meQuery = useMeQuery({ client: apolloClient });
+  const meQuery = useMeQuery({
+    client: apolloClient,
+    fetchPolicy: "network-only",
+  });
 
   useEffect(() => {
     if (meQuery?.data?.me) {
@@ -55,12 +58,13 @@ export function useAuthProvider({ apolloClient }) {
     deleteToken();
     setUser(undefined);
     setAuthenticated(false);
+    document.location.reload();
   };
 
   return {
     login: handleLogin,
     logout: handleLogout,
-    authenticated: authenticated,
+    authenticated: !!(authenticated && user),
     authenticating: (authenticating && !error) || meQuery.loading,
     loading: tokenAuthResult.loading,
     user,

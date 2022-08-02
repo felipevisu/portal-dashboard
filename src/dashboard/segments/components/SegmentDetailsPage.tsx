@@ -44,7 +44,7 @@ export const SegmentDetailsPage = ({
   return (
     <>
       <Backlink href="/admin/segments">Voltar</Backlink>
-      <div style={{ height: 32 }} />
+
       <PageHeader title={segment?.name} />
       <SegmentForm errors={errors} onChange={handleChange} data={data} />
       <Savebar

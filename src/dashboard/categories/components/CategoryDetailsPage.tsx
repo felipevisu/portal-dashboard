@@ -44,7 +44,7 @@ export const CategoryDetailsPage = ({
   return (
     <>
       <Backlink href="/admin/categories">Voltar</Backlink>
-      <div style={{ height: 32 }} />
+
       <PageHeader title={category?.name} />
       <CategoryForm errors={errors} onChange={handleChange} data={data} />
       <Savebar

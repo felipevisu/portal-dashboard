@@ -54,7 +54,7 @@ export const InvestmentDetailsPage = ({
   return (
     <>
       <Backlink href="/admin/investments">Voltar</Backlink>
-      <div style={{ height: 32 }} />
+
       <PageHeader
         title={`${toMonthName(investment.month)} de ${investment.year}`}
       />

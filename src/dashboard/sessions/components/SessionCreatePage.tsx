@@ -48,7 +48,7 @@ export const SessionCreatePage = ({
   return (
     <>
       <Backlink href="/admin/sessions">Voltar</Backlink>
-      <div style={{ height: 32 }} />
+
       <PageHeader title="Criar nova sessão" />
       <SessionForm errors={errors} onChange={handleChange} data={data} />
       <Savebar

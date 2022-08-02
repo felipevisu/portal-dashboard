@@ -6,7 +6,7 @@ export const Wrapper = styled("div")(() => ({
 
 export const Lateral = styled("div")(() => ({
   "> div": {
-    "&:first-child": {
+    "&:first-of-type": {
       position: "sticky",
       top: 0,
     },
@@ -28,4 +28,13 @@ export const Main = styled("div")(() => ({
 export const Footer = styled("div")(() => ({
   position: "sticky",
   bottom: 0,
+}));
+
+export const Header = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  paddingBottom: theme.spacing(3),
+  "div:nth-of-type(1)": {
+    flexGrow: 1,
+  },
 }));

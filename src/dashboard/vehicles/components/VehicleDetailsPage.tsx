@@ -60,7 +60,7 @@ export const VehicleDetailsPage = ({
   return (
     <>
       <Backlink href="/admin/vehicles">Voltar</Backlink>
-      <div style={{ height: 32 }} />
+
       <PageHeader title={vehicle.name} />
       <VehicleForm
         errors={errors}

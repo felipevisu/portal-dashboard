@@ -39,7 +39,7 @@ export const SegmentCreatePage = ({
   return (
     <>
       <Backlink href="/admin/segments">Voltar</Backlink>
-      <div style={{ height: 32 }} />
+
       <PageHeader title="Criar novo segmento" />
       <SegmentForm errors={errors} onChange={handleChange} data={data} />
       <Savebar

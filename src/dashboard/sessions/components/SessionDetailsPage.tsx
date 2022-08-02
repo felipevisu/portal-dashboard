@@ -58,7 +58,7 @@ export const SessionDetailsPage = ({
   return (
     <>
       <Backlink href="/admin/sessions">Voltar</Backlink>
-      <div style={{ height: 32 }} />
+
       <PageHeader title={session.name} />
       <SessionForm errors={errors} onChange={handleChange} data={data} />
       <Savebar

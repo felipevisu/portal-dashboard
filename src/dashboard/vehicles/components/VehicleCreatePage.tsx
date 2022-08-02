@@ -48,7 +48,7 @@ export const VehicleCreatePage = ({
   return (
     <>
       <Backlink href="/admin/vehicles">Voltar</Backlink>
-      <div style={{ height: 32 }} />
+
       <PageHeader title="Criar novo veículo" />
       <VehicleForm
         errors={errors}

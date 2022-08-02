@@ -47,7 +47,7 @@ export const InvestmentCreatePage = ({
   return (
     <>
       <Backlink href="/admin/investments">Voltar</Backlink>
-      <div style={{ height: 32 }} />
+
       <PageHeader title="Criar novo investimento" />
       <InvestmentForm errors={errors} onChange={handleChange} data={data} />
       <InvestmentItems

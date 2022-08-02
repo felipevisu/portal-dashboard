@@ -55,7 +55,7 @@ export const DocumentCreatePage = ({
   return (
     <>
       <Backlink href={`/admin/providers/details/${id}`}>Voltar</Backlink>
-      <div style={{ height: 32 }} />
+
       <PageHeader title="Adicionar documento" />
       <DocumentForm
         errors={errors}

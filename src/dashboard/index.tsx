@@ -5,6 +5,7 @@ import { useBacklink } from "@portal/components/Backlink/context";
 import CircularLoading from "@portal/components/Circular";
 import { Menu } from "@portal/components/Menu";
 import { useSavebar } from "@portal/components/Savebar/context";
+import { UserMenu } from "@portal/components/UserMenu";
 
 import AuthProvider from "./auth/authProvider";
 import Auth, { useUser } from "./auth";
@@ -14,7 +15,7 @@ import Investments from "./investments";
 import Providers from "./providers";
 import Segments from "./segments";
 import Sessions from "./sessions";
-import { Content, Footer, Lateral, Main, Wrapper } from "./styles";
+import { Content, Footer, Header, Lateral, Main, Wrapper } from "./styles";
 import Vehicles from "./vehicles";
 
 const RoutesComponent = () => {
@@ -30,7 +31,10 @@ const RoutesComponent = () => {
           <Menu />
         </Lateral>
         <Content>
-          <div ref={appHeaderAnchor} />
+          <Header>
+            <div ref={appHeaderAnchor} />
+            <UserMenu />
+          </Header>
           <Main>
             <Routes>
               <Route path="/" element={<Home />} />

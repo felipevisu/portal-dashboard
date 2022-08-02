@@ -39,7 +39,7 @@ export const CategoryCreatePage = ({
   return (
     <>
       <Backlink href="/admin/categories">Voltar</Backlink>
-      <div style={{ height: 32 }} />
+
       <PageHeader title="Criar nova categoria" />
       <CategoryForm errors={errors} onChange={handleChange} data={data} />
       <Savebar

@@ -61,7 +61,7 @@ export const DocumentDetailsPage = ({
   return (
     <>
       <Backlink href={`/admin/providers/details/${id}`}>Voltar</Backlink>
-      <div style={{ height: 32 }} />
+
       <PageHeader title={document.name} />
       <DocumentForm
         errors={errors}
