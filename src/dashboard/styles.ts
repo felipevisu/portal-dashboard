@@ -4,11 +4,11 @@ export const Wrapper = styled("div")(() => ({
   display: "flex",
 }));
 
-export const Lateral = styled("div")(() => ({
+export const Lateral = styled("div")(({ theme }) => ({
   "> div": {
     "&:first-of-type": {
       position: "sticky",
-      top: 0,
+      top: theme.spacing(2),
     },
   },
 }));

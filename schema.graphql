@@ -536,13 +536,13 @@ type Query {
   investments(after: String, before: String, first: Int, isPublished: Boolean, last: Int, month: Int, offset: Int, year: Int): InvestmentConnection
   me: User
   provider(id: ID, slug: String): Provider
-  providers(after: String, before: String, first: Int, isPublished: Boolean, last: Int, offset: Int, search: String, segment: ID, sortBy: ProviderSortingInput): ProviderConnection
+  providers(after: String, before: String, first: Int, isPublished: Boolean, last: Int, offset: Int, search: String, segment: ID, segments: [String], sortBy: ProviderSortingInput): ProviderConnection
   segment(id: ID, slug: String): Segment
   segments(after: String, before: String, first: Int, last: Int, offset: Int, search: String, sortBy: SegmentSortingInput): SegmentConnection
   session(id: ID, slug: String): Session
   sessions(after: String, before: String, first: Int, isPublished: Boolean, last: Int, offset: Int, search: String): SessionConnection
   vehicle(id: ID, slug: String): Vehicle
-  vehicles(after: String, before: String, category: ID, first: Int, isPublished: Boolean, last: Int, offset: Int, search: String): VehicleConnection
+  vehicles(after: String, before: String, categories: [String], category: ID, first: Int, isPublished: Boolean, last: Int, offset: Int, search: String): VehicleConnection
 }
 
 type Refresh {

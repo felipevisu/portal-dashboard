@@ -15,14 +15,21 @@ import { Pagination } from "@portal/components/Pagination";
 import TableCellHeader from "@portal/components/TableCell";
 import TableCellWithStatus from "@portal/components/TableCellWithStatus";
 import TableRowLink from "@portal/components/TableRowLink";
-import { DocumentFragment } from "@portal/graphql";
+import { DocumentFragment, PageInfoFragment } from "@portal/graphql";
+import { Paginator } from "@portal/types";
 import { formatDate } from "@portal/utils/date";
+
+interface DocumentListProps {
+  documents: DocumentFragment[];
+  paginator: Paginator;
+  pageInfo: PageInfoFragment;
+}
 
 export const DocumentList = ({
   documents,
-}: {
-  documents: DocumentFragment[];
-}) => {
+  paginator,
+  pageInfo,
+}: DocumentListProps) => {
   return (
     <Card>
       <CardHeader
@@ -65,16 +72,9 @@ export const DocumentList = ({
         </TableBody>
       </Table>
       <Pagination
-        pageInfo={{
-          __typename: "PageInfo",
-          endCursor: "",
-          hasNextPage: false,
-          hasPreviousPage: false,
-          startCursor: "",
-        }}
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        onClickNextPage={() => {}}
-        onClickPreviousPage={() => {}}
+        pageInfo={pageInfo}
+        onClickNextPage={paginator.handleNextPage}
+        onClickPreviousPage={paginator.handlePreviousPage}
       />
     </Card>
   );

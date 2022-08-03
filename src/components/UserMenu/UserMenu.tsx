@@ -40,7 +40,6 @@ export const UserMenu = () => {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
         <MenuItem onClick={logout}>Logout</MenuItem>
       </StyledMenu>
     </Box>

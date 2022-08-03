@@ -13,11 +13,11 @@ import { mapEdgesToItems } from "@portal/utils/maps";
 import { ProviderCreatePage } from "../components/ProviderCreatePage";
 
 export const ProviderCreate = () => {
-  const navigator = useNavigate();
+  const navigate = useNavigate();
 
   const handleSuccess = (data: ProviderCreateMutation) => {
     if (!data?.providerCreate.errors.length) {
-      navigator(`/admin/providers/details/${data?.providerCreate.provider.id}`);
+      navigate(`/admin/providers/details/${data?.providerCreate.provider.id}`);
     }
   };
 

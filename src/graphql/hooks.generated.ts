@@ -78,6 +78,13 @@ export const PageInfoFragmentDoc = gql`
   startCursor
 }
     `;
+export const DocumentFragmentDoc = gql`
+    fragment Document on Document {
+  id
+  name
+  created
+}
+    `;
 export const DocumentDetailsFragmentDoc = gql`
     fragment DocumentDetails on Document {
   name
@@ -105,33 +112,19 @@ export const ProviderFragmentDoc = gql`
   isPublished
 }
     `;
-export const DocumentFragmentDoc = gql`
-    fragment Document on Document {
-  id
-  name
-  created
-}
-    `;
 export const ProviderDetailsFragmentDoc = gql`
     fragment ProviderDetails on Provider {
   id
   name
   slug
   documentNumber
+  isPublished
   segment {
     id
     name
   }
-  documents {
-    edges {
-      node {
-        ...Document
-      }
-    }
-  }
-  isPublished
 }
-    ${DocumentFragmentDoc}`;
+    `;
 export const SegmentFragmentDoc = gql`
     fragment Segment on Segment {
   id
@@ -1178,12 +1171,24 @@ export type ProvidersQueryHookResult = ReturnType<typeof useProvidersQuery>;
 export type ProvidersLazyQueryHookResult = ReturnType<typeof useProvidersLazyQuery>;
 export type ProvidersQueryResult = Apollo.QueryResult<Types.ProvidersQuery, Types.ProvidersQueryVariables>;
 export const ProviderDetailsDocument = gql`
-    query ProviderDetails($id: ID!) {
+    query ProviderDetails($id: ID!, $first: Int = 10, $after: String) {
   provider(id: $id) {
     ...ProviderDetails
+    documents(first: $first, after: $after) {
+      edges {
+        node {
+          ...Document
+        }
+      }
+      pageInfo {
+        ...PageInfo
+      }
+    }
   }
 }
-    ${ProviderDetailsFragmentDoc}`;
+    ${ProviderDetailsFragmentDoc}
+${DocumentFragmentDoc}
+${PageInfoFragmentDoc}`;
 
 /**
  * __useProviderDetailsQuery__
@@ -1198,6 +1203,8 @@ export const ProviderDetailsDocument = gql`
  * const { data, loading, error } = useProviderDetailsQuery({
  *   variables: {
  *      id: // value for 'id'
+ *      first: // value for 'first'
+ *      after: // value for 'after'
  *   },
  * });
  */

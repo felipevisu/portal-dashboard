@@ -56,3 +56,10 @@ export interface FilterOpts<T> {
   choices: SingleAutocompleteChoiceType[];
   value: T;
 }
+
+export type Paginator = {
+  handleNextPage: (value: string) => void;
+  handlePreviousPage: () => void;
+  after: string;
+  first: number;
+};

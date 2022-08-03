@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
+import { Paginator } from "@portal/types";
+
 const PAGE_SIZE = 20;
 
-export const usePaginator = () => {
+export const usePaginator = (): Paginator => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [after, setAfter] = useState<string>();
   const [first] = useState<number>(PAGE_SIZE);

@@ -43,17 +43,10 @@ export const providerDetailsFragment = gql`
     name
     slug
     documentNumber
+    isPublished
     segment {
       id
       name
     }
-    documents {
-      edges {
-        node {
-          ...Document
-        }
-      }
-    }
-    isPublished
   }
 `;

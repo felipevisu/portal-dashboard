@@ -13,6 +13,7 @@ import {
   useProviderDetailsQuery,
   useProviderUpdateMutation,
 } from "@portal/graphql";
+import { usePaginator } from "@portal/hooks";
 import useModal from "@portal/hooks/useModal";
 import useSegmentSearch from "@portal/searches/useSegmentSearch";
 import { mapEdgesToItems } from "@portal/utils/maps";
@@ -23,16 +24,9 @@ export const ProviderDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { isOpen, openModal, closeModal } = useModal();
+  const paginator = usePaginator();
 
-  const handleSuccess = (data: ProviderUpdateMutation) => {
-    if (!data?.providerUpdate.errors.length) {
-      navigate(`/admin/providers/details/${data?.providerUpdate.provider.id}`);
-    }
-  };
-
-  const [updateProvider, updateProviderResult] = useProviderUpdateMutation({
-    onCompleted: handleSuccess,
-  });
+  const [updateProvider, updateProviderResult] = useProviderUpdateMutation();
 
   const handleSubmit = async (data: ProviderInput) => {
     await updateProvider({ variables: { id: id, input: { ...data } } });
@@ -50,7 +44,9 @@ export const ProviderDetails = () => {
     variables: DEFAULT_INITIAL_SEARCH_DATA,
   });
 
-  const { data, loading } = useProviderDetailsQuery({ variables: { id: id } });
+  const { data, loading } = useProviderDetailsQuery({
+    variables: { id: id, after: paginator.after },
+  });
 
   if (loading) return <CircularLoading />;
 
@@ -65,6 +61,7 @@ export const ProviderDetails = () => {
         errors={updateProviderResult.data?.providerUpdate.errors || []}
         loading={updateProviderResult.loading}
         segments={mapEdgesToItems(searchSegmentOpts?.data?.search) || []}
+        paginator={paginator}
       />
       <ActionDialog
         onClose={closeModal}

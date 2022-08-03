@@ -8,9 +8,10 @@ import { Savebar } from "@portal/components/Savebar";
 import {
   ErrorFragment,
   ProviderDetailsFragment,
+  ProviderDetailsQuery,
   SearchSegmentsQuery,
 } from "@portal/graphql";
-import { RelayToFlat } from "@portal/types";
+import { Paginator, RelayToFlat } from "@portal/types";
 import { getChoices } from "@portal/utils/data";
 import { mapEdgesToItems } from "@portal/utils/maps";
 
@@ -32,12 +33,13 @@ const sanitizeProvider = (provider: ProviderDetailsFragment) => {
 };
 
 interface ProviderDetailsPageProps {
-  provider: ProviderDetailsFragment;
+  provider: ProviderDetailsQuery["provider"];
   onSubmit: (data: FormProps) => Promise<void>;
   onDelete: () => void;
   errors: ErrorFragment[];
   loading: boolean;
   segments: RelayToFlat<SearchSegmentsQuery["search"]>;
+  paginator: Paginator;
 }
 
 export const ProviderDetailsPage = ({
@@ -47,6 +49,7 @@ export const ProviderDetailsPage = ({
   errors,
   loading,
   segments: segmentChoiceList,
+  paginator,
 }: ProviderDetailsPageProps) => {
   const navigate = useNavigate();
   const [data, setData] = useState<FormProps>(sanitizeProvider(provider));
@@ -81,7 +84,11 @@ export const ProviderDetailsPage = ({
             data={data}
             segments={segments}
           />
-          <DocumentList documents={mapEdgesToItems(provider.documents)} />
+          <DocumentList
+            documents={mapEdgesToItems(provider.documents)}
+            paginator={paginator}
+            pageInfo={provider.documents.pageInfo}
+          />
         </Grid>
         <Grid item xs={4}>
           <ProviderFormStatus
