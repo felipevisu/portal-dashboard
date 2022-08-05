@@ -24,7 +24,10 @@ export const SegmentDetailsPage = ({
   loading,
 }: SegmentDetailsPageProps) => {
   const navigate = useNavigate();
-  const [data, setData] = useState<SegmentFragment>(segment);
+  const [data, setData] = useState<FormProps>({
+    name: segment.name,
+    slug: segment.slug,
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setData({

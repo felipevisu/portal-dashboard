@@ -20,7 +20,7 @@ export const SegmentCreatePage = ({
   loading,
 }: SegmentCreatePageProps) => {
   const navigate = useNavigate();
-  const [data, setData] = useState<{ name: string; slug: string }>({
+  const [data, setData] = useState<FormProps>({
     name: "",
     slug: "",
   });

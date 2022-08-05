@@ -6,7 +6,7 @@ import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
 import { CategoryFragment, ErrorFragment } from "@portal/graphql";
 
-import CategoryForm from "./CategoryForm";
+import CategoryForm, { FormProps } from "./CategoryForm";
 
 interface CategoryDetailsPageProps {
   category: CategoryFragment;
@@ -24,7 +24,10 @@ export const CategoryDetailsPage = ({
   loading,
 }: CategoryDetailsPageProps) => {
   const navigate = useNavigate();
-  const [data, setData] = useState<CategoryFragment>(category);
+  const [data, setData] = useState<FormProps>({
+    name: category.name,
+    slug: category.slug,
+  });
 
   const handleChange = (e: React.ChangeEvent<any>) => {
     setData({

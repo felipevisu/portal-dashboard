@@ -20,7 +20,7 @@ export const CategoryCreatePage = ({
   loading,
 }: CategoryCreatePageProps) => {
   const navigate = useNavigate();
-  const [data, setData] = useState<{ name: string; slug: string }>({
+  const [data, setData] = useState<FormProps>({
     name: "",
     slug: "",
   });

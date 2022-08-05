@@ -42,6 +42,7 @@ export const SessionCreatePage = ({
       slug: data.slug,
       content: JSON.stringify(convertToRaw(data.content.getCurrentContent())),
       date: data.date,
+      isPublished: data.isPublished,
     });
   };
 
