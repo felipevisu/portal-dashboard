@@ -333,7 +333,7 @@ export type DocumentUpdateMutationVariables = Exact<{
 }>;
 
 
-export type DocumentUpdateMutation = { __typename: 'Mutation', documentUpdate: { __typename: 'DocumentUpdate', document: { __typename: 'Document', name: string, description: string, isPublished: boolean, expires: boolean, file: string, publicationDate: any | null, beginDate: any | null, expirationDate: any | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+export type DocumentUpdateMutation = { __typename: 'Mutation', documentUpdate: { __typename: 'DocumentUpdate', document: { __typename: 'Document', name: string, description: string, isPublished: boolean, expires: boolean, file: string, fileUrl: string | null, fileName: string | null, publicationDate: any | null, beginDate: any | null, expirationDate: any | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
 
 export type DocumentDeleteMutationVariables = Exact<{
   id: Scalars['ID'];
@@ -369,7 +369,7 @@ export type DocumentDetailsQueryVariables = Exact<{
 }>;
 
 
-export type DocumentDetailsQuery = { __typename: 'Query', document: { __typename: 'Document', name: string, description: string, isPublished: boolean, expires: boolean, file: string, publicationDate: any | null, beginDate: any | null, expirationDate: any | null } | null };
+export type DocumentDetailsQuery = { __typename: 'Query', document: { __typename: 'Document', name: string, description: string, isPublished: boolean, expires: boolean, file: string, fileUrl: string | null, fileName: string | null, publicationDate: any | null, beginDate: any | null, expirationDate: any | null } | null };
 
 export type SegmentCreateMutationVariables = Exact<{
   input: SegmentInput;
@@ -535,7 +535,7 @@ export type PageInfoFragment = { __typename: 'PageInfo', endCursor: string | nul
 
 export type DocumentFragment = { __typename: 'Document', id: string, name: string, created: any };
 
-export type DocumentDetailsFragment = { __typename: 'Document', name: string, description: string, isPublished: boolean, expires: boolean, file: string, publicationDate: any | null, beginDate: any | null, expirationDate: any | null };
+export type DocumentDetailsFragment = { __typename: 'Document', name: string, description: string, isPublished: boolean, expires: boolean, file: string, fileUrl: string | null, fileName: string | null, publicationDate: any | null, beginDate: any | null, expirationDate: any | null };
 
 export type ProviderFragment = { __typename: 'Provider', id: string, name: string, slug: string, isPublished: boolean, segment: { __typename: 'Segment', id: string, name: string }, documents: { __typename: 'DocumentsConnection', totalCount: number | null } | null };
 

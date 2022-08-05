@@ -106,6 +106,8 @@ type Document implements Node {
   expirationDate: Date
   expires: Boolean!
   file: String!
+  fileName: String
+  fileUrl: String
 
   """The ID of the object."""
   id: ID!
@@ -536,7 +538,7 @@ type Query {
   investments(after: String, before: String, first: Int, isPublished: Boolean, last: Int, month: Int, offset: Int, year: Int): InvestmentConnection
   me: User
   provider(id: ID, slug: String): Provider
-  providers(after: String, before: String, first: Int, isPublished: Boolean, last: Int, offset: Int, search: String, segment: ID, segments: [String], sortBy: ProviderSortingInput): ProviderConnection
+  providers(after: String, before: String, closeToExpire: Boolean, expired: Boolean, first: Int, isPublished: Boolean, last: Int, offset: Int, search: String, segment: ID, segments: [String], sortBy: ProviderSortingInput): ProviderConnection
   segment(id: ID, slug: String): Segment
   segments(after: String, before: String, first: Int, last: Int, offset: Int, search: String, sortBy: SegmentSortingInput): SegmentConnection
   session(id: ID, slug: String): Session

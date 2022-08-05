@@ -2,7 +2,7 @@ function padTo2Digits(num: number) {
   return num.toString().padStart(2, "0");
 }
 
-export function formatDate(dateString: string) {
+export function formatDateTime(dateString: string) {
   const date = new Date(dateString);
   return (
     [
@@ -17,6 +17,15 @@ export function formatDate(dateString: string) {
       padTo2Digits(date.getSeconds()),
     ].join(":")
   );
+}
+
+export function formatDate(dateString: string) {
+  const date = new Date(dateString);
+  return [
+    padTo2Digits(date.getDate()),
+    padTo2Digits(date.getMonth() + 1),
+    date.getFullYear(),
+  ].join("/");
 }
 
 export function toMonthName(monthNumber: number) {

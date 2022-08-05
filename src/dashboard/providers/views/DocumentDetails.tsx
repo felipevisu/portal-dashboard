@@ -34,7 +34,9 @@ export const DocumentDetails = () => {
   });
 
   const handleDocumentDelete = async () => {
-    await deleteDocument({ variables: { id: documentId } });
+    await deleteDocument({
+      variables: { id: documentId },
+    });
   };
 
   if (loading) return <CircularLoading />;

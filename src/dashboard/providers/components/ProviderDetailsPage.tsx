@@ -70,7 +70,6 @@ export const ProviderDetailsPage = ({
   return (
     <>
       <Backlink href="/admin/providers">Voltar</Backlink>
-
       <PageHeader title={provider.name} />
       <Grid
         container

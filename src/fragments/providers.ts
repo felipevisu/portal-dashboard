@@ -15,6 +15,8 @@ export const documentDetailsFragment = gql`
     isPublished
     expires
     file
+    fileUrl
+    fileName
     publicationDate
     beginDate
     expirationDate

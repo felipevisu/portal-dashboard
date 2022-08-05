@@ -46,7 +46,7 @@ export const DocumentList = ({
             <TableCellHeader sx={{ paddingLeft: (theme) => theme.spacing(3) }}>
               Nome
             </TableCellHeader>
-            <TableCellHeader>Expirado</TableCellHeader>
+            <TableCellHeader>Status</TableCellHeader>
             <TableCellHeader>Data de upload</TableCellHeader>
           </TableRow>
         </TableHead>
@@ -64,7 +64,7 @@ export const DocumentList = ({
                 status={true}
                 labels={{ published: "Ativo", unPublished: "Expirado" }}
               />
-              <TableCell sx={{ width: "240px" }}>
+              <TableCell sx={{ width: "150px" }}>
                 {formatDate(document.created)}
               </TableCell>
             </TableRowLink>

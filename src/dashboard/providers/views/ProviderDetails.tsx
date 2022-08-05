@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { DialogContentText } from "@mui/material";
@@ -21,6 +21,7 @@ import { mapEdgesToItems } from "@portal/utils/maps";
 import { ProviderDetailsPage } from "../components/ProviderDetailsPage";
 
 export const ProviderDetails = () => {
+  const [provider, setProvider] = useState(null);
   const { id } = useParams();
   const navigate = useNavigate();
   const { isOpen, openModal, closeModal } = useModal();
@@ -44,18 +45,28 @@ export const ProviderDetails = () => {
     variables: DEFAULT_INITIAL_SEARCH_DATA,
   });
 
-  const { data, loading } = useProviderDetailsQuery({
+  const { data, loading, refetch } = useProviderDetailsQuery({
     variables: { id: id, after: paginator.after },
   });
 
-  if (loading) return <CircularLoading />;
+  useEffect(() => {
+    if (data?.provider) {
+      setProvider(data.provider);
+    }
+  }, [data]);
 
-  if (!data?.provider) return <NotFound />;
+  useEffect(() => {
+    refetch();
+  }, []);
+
+  if (loading && !provider) return <CircularLoading />;
+
+  if (!provider) return <NotFound />;
 
   return (
     <>
       <ProviderDetailsPage
-        provider={data.provider}
+        provider={provider}
         onSubmit={handleSubmit}
         onDelete={openModal}
         errors={updateProviderResult.data?.providerUpdate.errors || []}
