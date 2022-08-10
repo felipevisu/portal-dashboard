@@ -4,10 +4,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Backlink } from "@portal/components/Backlink";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
+import DocumentFile from "@portal/dashboard/documents/components/DocumentFile";
+import DocumentForm, {
+  FormProps,
+} from "@portal/dashboard/documents/components/DocumentForm";
 import { ErrorFragment } from "@portal/graphql";
-
-import DocumentFile from "./DocumentFile";
-import DocumentForm, { FormProps } from "./DocumentForm";
 
 interface DocumentCreatePageProps {
   onSubmit: (data) => Promise<void>;
@@ -55,7 +56,6 @@ export const DocumentCreatePage = ({
   return (
     <>
       <Backlink href={`/admin/providers/details/${id}`}>Voltar</Backlink>
-
       <PageHeader title="Adicionar documento" />
       <DocumentForm
         errors={errors}

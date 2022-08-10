@@ -43,9 +43,7 @@ export const DocumentList = ({
       <Table>
         <TableHead>
           <TableRow>
-            <TableCellHeader sx={{ paddingLeft: (theme) => theme.spacing(3) }}>
-              Nome
-            </TableCellHeader>
+            <TableCellHeader sx={{ paddingLeft: 3 }}>Nome</TableCellHeader>
             <TableCellHeader>Status</TableCellHeader>
             <TableCellHeader>Data de upload</TableCellHeader>
           </TableRow>
@@ -57,12 +55,10 @@ export const DocumentList = ({
               sx={{ cursor: "pointer" }}
               href={`documents/${document.id}/details`}
             >
-              <TableCell sx={{ paddingLeft: (theme) => theme.spacing(3) }}>
-                {document.name}
-              </TableCell>
+              <TableCell sx={{ paddingLeft: 3 }}>{document.name}</TableCell>
               <TableCellWithStatus
-                status={true}
-                labels={{ published: "Ativo", unPublished: "Expirado" }}
+                status={document.isPublished}
+                labels={{ published: "Ativo", unPublished: "Inativo" }}
               />
               <TableCell sx={{ width: "150px" }}>
                 {formatDate(document.created)}

@@ -32,9 +32,19 @@ export const vehiclesQuery = gql`
 `;
 
 export const vehicleDetailsQuery = gql`
-  query VehicleDetails($id: ID!) {
+  query VehicleDetails($id: ID!, $first: Int = 10, $after: String) {
     vehicle(id: $id) {
       ...VehicleDetails
+      documents(first: $first, after: $after) {
+        edges {
+          node {
+            ...Document
+          }
+        }
+        pageInfo {
+          ...PageInfo
+        }
+      }
     }
   }
 `;

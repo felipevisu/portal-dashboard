@@ -8,32 +8,28 @@ import DocumentFile from "@portal/dashboard/documents/components/DocumentFile";
 import DocumentForm, {
   FormProps,
 } from "@portal/dashboard/documents/components/DocumentForm";
-import { DocumentDetailsFragment, ErrorFragment } from "@portal/graphql";
+import { ErrorFragment } from "@portal/graphql";
 
-interface DocumentDetailsPageProps {
-  document: DocumentDetailsFragment;
+interface DocumentCreatePageProps {
   onSubmit: (data) => Promise<void>;
-  onDelete: () => void;
   errors: ErrorFragment[];
   loading: boolean;
 }
 
-export const DocumentDetailsPage = ({
-  document,
+export const DocumentCreatePage = ({
   onSubmit,
-  onDelete,
   errors,
   loading,
-}: DocumentDetailsPageProps) => {
+}: DocumentCreatePageProps) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [data, setData] = useState<FormProps>({
-    name: document.name,
-    description: document.description,
-    isPublished: document.isPublished,
-    expires: document.expires,
-    expirationDate: document.expirationDate || "",
-    beginDate: document.beginDate || "",
+    name: "",
+    description: "",
+    isPublished: false,
+    expires: false,
+    expirationDate: null,
+    beginDate: null,
   });
   const [file, setFile] = useState(null);
 
@@ -41,7 +37,7 @@ export const DocumentDetailsPage = ({
     if (!data.expires) {
       setData({ ...data, expirationDate: "", beginDate: "" });
     }
-  }, [data.expires]);
+  }, [data]);
 
   const handleChange = (e: React.ChangeEvent<any>) => {
     setData({
@@ -51,18 +47,16 @@ export const DocumentDetailsPage = ({
   };
 
   const handleSubmit = () => {
-    const formData = { ...data, file };
+    const formData = { ...data };
     if (!data.expirationDate) delete formData.expirationDate;
     if (!data.beginDate) delete formData.beginDate;
-    if (!file) delete formData.file;
-    onSubmit({ ...formData, provider: id });
-    setFile(null);
+    onSubmit({ ...formData, vehicle: id, file: file });
   };
 
   return (
     <>
-      <Backlink href={`/admin/providers/details/${id}`}>Voltar</Backlink>
-      <PageHeader title={document.name} />
+      <Backlink href={`/admin/vehicles/details/${id}`}>Voltar</Backlink>
+      <PageHeader title="Adicionar documento" />
       <DocumentForm
         errors={errors}
         onChange={handleChange}
@@ -70,8 +64,6 @@ export const DocumentDetailsPage = ({
         fileUpload={
           <DocumentFile
             file={file}
-            fileName={document.fileName}
-            fileUrl={document.fileUrl}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setFile(e.target.files[0])
             }
@@ -80,12 +72,11 @@ export const DocumentDetailsPage = ({
       />
       <Savebar
         onSubmit={handleSubmit}
-        onCancel={() => navigate(`/admin/providers/details/${id}`)}
-        onDelete={onDelete}
+        onCancel={() => navigate(`/admin/vehicles/details/${id}`)}
         loading={loading}
       />
     </>
   );
 };
 
-export default DocumentDetailsPage;
+export default DocumentCreatePage;

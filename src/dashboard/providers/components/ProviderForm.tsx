@@ -40,7 +40,7 @@ export const ProviderFormInfos = ({
   const formErrors = getFormErrors(["name", "slug", "documentNumber"], errors);
 
   return (
-    <Card sx={{ marginBottom: (theme) => theme.spacing(2) }}>
+    <Card sx={{ marginBottom: 2 }}>
       <CardHeader title="Informações gerais" />
       <CardContent>
         <FormControl fullWidth>

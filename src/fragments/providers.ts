@@ -1,28 +1,5 @@
 import { gql } from "@apollo/client";
 
-export const documentFragment = gql`
-  fragment Document on Document {
-    id
-    name
-    created
-  }
-`;
-
-export const documentDetailsFragment = gql`
-  fragment DocumentDetails on Document {
-    name
-    description
-    isPublished
-    expires
-    file
-    fileUrl
-    fileName
-    publicationDate
-    beginDate
-    expirationDate
-  }
-`;
-
 export const providerFragment = gql`
   fragment Provider on Provider {
     id

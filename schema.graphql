@@ -113,9 +113,10 @@ type Document implements Node {
   id: ID!
   isPublished: Boolean!
   name: String!
-  provider: Provider!
+  provider: Provider
   publicationDate: Date
   updated: DateTime!
+  vehicle: Vehicle
 }
 
 type DocumentConnection {
@@ -156,6 +157,7 @@ input DocumentInput {
   name: String
   provider: ID
   publicationDate: Date
+  vehicle: ID
 }
 
 type DocumentUpdate {
@@ -716,6 +718,7 @@ type Vehicle implements Node {
   created: DateTime!
   documentFile: String!
   documentNumber: String!
+  documents(after: String, before: String, first: Int, last: Int): DocumentsConnection
 
   """The ID of the object."""
   id: ID!

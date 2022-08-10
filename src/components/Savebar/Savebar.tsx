@@ -26,7 +26,13 @@ export const Savebar = ({
 
   return (
     <Portal container={anchor.current}>
-      <Card sx={{ borderRadius: "8px 8px 0 0", paddingBottom: "0 !important" }}>
+      <Card
+        sx={{
+          borderRadius: "8px 8px 0 0",
+          paddingBottom: "0 !important",
+          marginTop: 2,
+        }}
+      >
         <CardContent sx={{ paddingBottom: "16px !important" }}>
           <Box sx={{ display: "flex", gap: 1 }}>
             {onDelete && (

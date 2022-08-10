@@ -55,13 +55,13 @@ export const DocumentDetailsPage = ({
     if (!data.expirationDate) delete formData.expirationDate;
     if (!data.beginDate) delete formData.beginDate;
     if (!file) delete formData.file;
-    onSubmit({ ...formData, provider: id });
+    onSubmit({ ...formData, vehicle: id });
     setFile(null);
   };
 
   return (
     <>
-      <Backlink href={`/admin/providers/details/${id}`}>Voltar</Backlink>
+      <Backlink href={`/admin/vehicles/details/${id}`}>Voltar</Backlink>
       <PageHeader title={document.name} />
       <DocumentForm
         errors={errors}
@@ -80,7 +80,7 @@ export const DocumentDetailsPage = ({
       />
       <Savebar
         onSubmit={handleSubmit}
-        onCancel={() => navigate(`/admin/providers/details/${id}`)}
+        onCancel={() => navigate(`/admin/vehicles/details/${id}`)}
         onDelete={onDelete}
         loading={loading}
       />

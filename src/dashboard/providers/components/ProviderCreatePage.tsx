@@ -53,7 +53,6 @@ export const ProviderCreatePage = ({
   return (
     <>
       <Backlink href="/admin/providers">Voltar</Backlink>
-
       <PageHeader title="Criar novo prestador" />
       <Grid
         container

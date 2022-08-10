@@ -15,7 +15,8 @@ import { Paginator, RelayToFlat } from "@portal/types";
 import { getChoices } from "@portal/utils/data";
 import { mapEdgesToItems } from "@portal/utils/maps";
 
-import DocumentList from "./DocumentList";
+import DocumentList from "../../documents/components/DocumentList";
+
 import {
   FormProps,
   ProviderFormInfos,
@@ -71,11 +72,7 @@ export const ProviderDetailsPage = ({
     <>
       <Backlink href="/admin/providers">Voltar</Backlink>
       <PageHeader title={provider.name} />
-      <Grid
-        container
-        spacing={2}
-        sx={{ marginBottom: (theme) => theme.spacing(2) }}
-      >
+      <Grid container spacing={2}>
         <Grid item xs={8}>
           <ProviderFormInfos
             errors={errors}

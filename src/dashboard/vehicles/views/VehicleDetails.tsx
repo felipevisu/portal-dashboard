@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { DialogContentText } from "@mui/material";
@@ -13,6 +13,7 @@ import {
   VehicleInput,
   VehicleUpdateMutation,
 } from "@portal/graphql";
+import { usePaginator } from "@portal/hooks";
 import useModal from "@portal/hooks/useModal";
 import useCategorySearch from "@portal/searches/useCategorySearch";
 import { mapEdgesToItems } from "@portal/utils/maps";
@@ -20,9 +21,11 @@ import { mapEdgesToItems } from "@portal/utils/maps";
 import { VehicleDetailsPage } from "../components/VehicleDetailsPage";
 
 export const VehicleDetails = () => {
+  const [vehicle, setVehicle] = useState(null);
   const { id } = useParams();
   const navigate = useNavigate();
   const { isOpen, openModal, closeModal } = useModal();
+  const paginator = usePaginator();
 
   const handleSuccess = (data: VehicleUpdateMutation) => {
     if (!data?.vehicleUpdate.errors.length) {
@@ -50,21 +53,34 @@ export const VehicleDetails = () => {
     variables: DEFAULT_INITIAL_SEARCH_DATA,
   });
 
-  const { data, loading } = useVehicleDetailsQuery({ variables: { id: id } });
+  const { data, loading, refetch } = useVehicleDetailsQuery({
+    variables: { id: id, after: paginator.after },
+  });
 
-  if (loading) return <CircularLoading />;
+  useEffect(() => {
+    if (data?.vehicle) {
+      setVehicle(data.vehicle);
+    }
+  }, [data]);
 
-  if (!data?.vehicle) return <NotFound />;
+  useEffect(() => {
+    refetch();
+  }, []);
+
+  if (loading && !vehicle) return <CircularLoading />;
+
+  if (!vehicle) return <NotFound />;
 
   return (
     <>
       <VehicleDetailsPage
-        vehicle={data.vehicle}
+        vehicle={vehicle}
         onSubmit={handleSubmit}
         onDelete={openModal}
         errors={updateVehicleResult.data?.vehicleUpdate.errors || []}
         loading={updateVehicleResult.loading}
         categories={mapEdgesToItems(searchCategoryOpts?.data?.search) || []}
+        paginator={paginator}
       />
       <ActionDialog
         onClose={closeModal}

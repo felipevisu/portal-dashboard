@@ -18,8 +18,8 @@ export const MenuItem = styled(Box)<MenuItem>(({ active, theme }) => ({
 export const Label = styled(Typography)(({ theme }) => ({
   color: "inherit",
   fontWeight: "bold",
-  "&:hover": { color: theme.palette.primary.main },
   paddingLeft: theme.spacing(2),
+  "&:hover": { color: theme.palette.primary.main },
 }));
 
 export const OpenClose = styled(IconButton)(({ theme }) => ({

@@ -46,7 +46,7 @@ export const DocumentForm = ({
   return (
     <Grid container spacing={2}>
       <Grid item xs={8}>
-        <Card sx={{ marginBottom: (theme) => theme.spacing(2) }}>
+        <Card sx={{ marginBottom: 2 }}>
           <CardHeader title="Informações gerais" />
           <CardContent>
             <FormControl fullWidth>
