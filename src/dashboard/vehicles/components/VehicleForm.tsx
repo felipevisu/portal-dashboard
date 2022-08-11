@@ -96,10 +96,10 @@ export const VehicleFormStatus = ({
 
   return (
     <Card>
-      <CardHeader title="Associação" />
+      <CardHeader title="Visibilidade e categoria" />
       <CardContent>
         <FormControl fullWidth error={formErrors.category && true}>
-          <InputLabel>Segmento</InputLabel>
+          <InputLabel>Categoria</InputLabel>
           <Select
             fullWidth
             name="category"

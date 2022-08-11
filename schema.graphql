@@ -104,6 +104,7 @@ type Document implements Node {
   created: DateTime!
   description: String!
   expirationDate: Date
+  expired: Boolean
   expires: Boolean!
   file: String!
   fileName: String

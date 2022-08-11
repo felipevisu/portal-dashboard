@@ -5,6 +5,7 @@ export const documentFragment = gql`
     id
     name
     created
+    expired
     isPublished
   }
 `;

@@ -41,7 +41,7 @@ export const InvestmentList = ({
       >
         <TableCellHeader>Data</TableCellHeader>
         <TableCellHeader>Total</TableCellHeader>
-        <TableCellHeader>Status</TableCellHeader>
+        <TableCellHeader>Visibilidade</TableCellHeader>
       </TableHead>
       <TableBody>
         {renderCollection(investments, (investment) => {

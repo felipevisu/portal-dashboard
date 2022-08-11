@@ -42,7 +42,7 @@ export const ProviderList = ({
         <TableCellHeader sx={{ textAlign: "center" }}>
           Documentos
         </TableCellHeader>
-        <TableCellHeader>Status</TableCellHeader>
+        <TableCellHeader>Visibilidade</TableCellHeader>
       </TableHead>
       <TableBody>
         {renderCollection(providers, (provider) => {

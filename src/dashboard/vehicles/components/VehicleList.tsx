@@ -39,7 +39,7 @@ export const VehicleList = ({
       >
         <TableCellHeader>Nome</TableCellHeader>
         <TableCellHeader>Categoria</TableCellHeader>
-        <TableCellHeader>Status</TableCellHeader>
+        <TableCellHeader>Visibilidade</TableCellHeader>
       </TableHead>
       <TableBody>
         {renderCollection(vehicles, (vehicle) => {

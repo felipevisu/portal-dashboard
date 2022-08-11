@@ -34,6 +34,7 @@ export const DocumentFragmentDoc = gql`
   id
   name
   created
+  expired
   isPublished
 }
     `;

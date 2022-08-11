@@ -96,7 +96,7 @@ export const ProviderFormStatus = ({
 
   return (
     <Card>
-      <CardHeader title="Associação" />
+      <CardHeader title="Visibilidade e segmento" />
       <CardContent>
         <FormControl fullWidth error={formErrors.segment && true}>
           <InputLabel>Segmento</InputLabel>

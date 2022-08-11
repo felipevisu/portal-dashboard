@@ -40,7 +40,7 @@ export const SessionList = ({
       >
         <TableCellHeader>Nome</TableCellHeader>
         <TableCellHeader>Data</TableCellHeader>
-        <TableCellHeader>Status</TableCellHeader>
+        <TableCellHeader>Visibilidade</TableCellHeader>
       </TableHead>
       <TableBody>
         {renderCollection(sessions, (session) => {

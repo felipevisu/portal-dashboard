@@ -82,7 +82,7 @@ export const SessionForm = ({ errors, data, onChange }: SessionFormProps) => {
         </Grid>
         <Grid item xs={4}>
           <Card>
-            <CardHeader title="Status" />
+            <CardHeader title="Visibilidade e data" />
             <CardContent>
               <FormControl>
                 <DateTimePicker
