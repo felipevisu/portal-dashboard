@@ -7,8 +7,10 @@ export const Wrapper = styled("div")(() => ({
 export const Lateral = styled("div")(({ theme }) => ({
   "> div": {
     "&:first-of-type": {
+      height: "100vh",
+      overflowY: "auto",
       position: "sticky",
-      top: theme.spacing(2),
+      padding: theme.spacing(2, 0),
     },
   },
 }));

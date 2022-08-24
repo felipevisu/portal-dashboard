@@ -1,13 +1,14 @@
 import React from "react";
+import { Route, Routes } from "react-router-dom";
 
-import { Typography } from "@mui/material";
+import Home from "./views/Home";
 
-export const Home = () => {
+export const Homepage = () => {
   return (
-    <Typography variant="h3" fontWeight="bold">
-      Dashboard
-    </Typography>
+    <Routes>
+      <Route path="/" element={<Home />} />
+    </Routes>
   );
 };
 
-export default Home;
+export default Homepage;

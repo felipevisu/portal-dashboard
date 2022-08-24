@@ -61,8 +61,6 @@ export const VehicleDetailsPage = ({
     onSubmit(data);
   };
 
-  console.log(vehicle);
-
   const categories = getChoices(categoryChoiceList);
 
   return (

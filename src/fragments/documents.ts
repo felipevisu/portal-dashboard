@@ -23,5 +23,31 @@ export const documentDetailsFragment = gql`
     publicationDate
     beginDate
     expirationDate
+    vehicle {
+      id
+      name
+    }
+    provider {
+      id
+      name
+    }
+  }
+`;
+
+export const documentHomeFragment = gql`
+  fragment DocumentHome on Document {
+    id
+    name
+    publicationDate
+    beginDate
+    expirationDate
+    vehicle {
+      id
+      name
+    }
+    provider {
+      id
+      name
+    }
   }
 `;

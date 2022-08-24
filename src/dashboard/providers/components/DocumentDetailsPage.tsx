@@ -62,7 +62,7 @@ export const DocumentDetailsPage = ({
   return (
     <>
       <Backlink href={`/admin/providers/details/${id}`}>Voltar</Backlink>
-      <PageHeader title={document.name} />
+      <PageHeader title={document.name} limitText={document.provider.name} />
       <DocumentForm
         errors={errors}
         onChange={handleChange}

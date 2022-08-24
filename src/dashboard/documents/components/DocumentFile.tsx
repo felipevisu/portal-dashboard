@@ -1,11 +1,6 @@
 import React, { useMemo, useRef } from "react";
 
-import {
-  AttachFile,
-  FileUpload,
-  MicExternalOnOutlined,
-  OpenInNew,
-} from "@mui/icons-material";
+import { AttachFile, FileUpload, OpenInNew } from "@mui/icons-material";
 import {
   Button,
   Card,

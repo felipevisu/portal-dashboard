@@ -5,8 +5,9 @@ import { Paginator } from "@portal/types";
 
 const PAGE_SIZE = 20;
 
-export const usePaginator = (): Paginator => {
+export const usePaginator = (updateParameters = true): Paginator => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [previous, setPrevious] = useState<string[]>();
   const [after, setAfter] = useState<string>();
   const [first] = useState<number>(PAGE_SIZE);
 
@@ -15,11 +16,21 @@ export const usePaginator = (): Paginator => {
   }, [searchParams]);
 
   const handleNextPage = (value: string) => {
-    setSearchParams({ after: value });
+    if (updateParameters) {
+      setSearchParams({ after: value });
+    } else {
+      setPrevious([...previous, after]);
+      setAfter(value);
+    }
   };
 
   const handlePreviousPage = () => {
-    history.back();
+    if (updateParameters) {
+      history.back();
+    } else {
+      setAfter(previous.pop());
+      setPrevious([...previous.slice(0, -1)]);
+    }
   };
 
   return {

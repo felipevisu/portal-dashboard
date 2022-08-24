@@ -35,16 +35,10 @@ export const PageHeader = (props: PageHeaderProps) => {
               )}
             </Typography>
             {cardMenu}
+            {limitText && <Typography>{limitText}</Typography>}
           </>
         }
-      >
-        <div>
-          {limitText && (
-            <Typography color="textSecondary">{limitText}</Typography>
-          )}
-          {children}
-        </div>
-      </ExtendedPageHeader>
+      />
     </>
   );
 };

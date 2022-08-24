@@ -51,6 +51,31 @@ export const DocumentDetailsFragmentDoc = gql`
   publicationDate
   beginDate
   expirationDate
+  vehicle {
+    id
+    name
+  }
+  provider {
+    id
+    name
+  }
+}
+    `;
+export const DocumentHomeFragmentDoc = gql`
+    fragment DocumentHome on Document {
+  id
+  name
+  publicationDate
+  beginDate
+  expirationDate
+  vehicle {
+    id
+    name
+  }
+  provider {
+    id
+    name
+  }
 }
     `;
 export const ErrorFragmentDoc = gql`
@@ -650,6 +675,118 @@ export function useDocumentDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOp
 export type DocumentDetailsQueryHookResult = ReturnType<typeof useDocumentDetailsQuery>;
 export type DocumentDetailsLazyQueryHookResult = ReturnType<typeof useDocumentDetailsLazyQuery>;
 export type DocumentDetailsQueryResult = Apollo.QueryResult<Types.DocumentDetailsQuery, Types.DocumentDetailsQueryVariables>;
+export const ExpiredDocumentsDocument = gql`
+    query ExpiredDocuments($first: Int, $last: Int, $after: String, $before: String, $today: Date) {
+  documents(
+    first: $first
+    last: $last
+    after: $after
+    before: $before
+    expires: true
+    isPublished: true
+    expirationDate_Lte: $today
+  ) {
+    edges {
+      node {
+        ...DocumentHome
+      }
+    }
+    pageInfo {
+      ...PageInfo
+    }
+  }
+}
+    ${DocumentHomeFragmentDoc}
+${PageInfoFragmentDoc}`;
+
+/**
+ * __useExpiredDocumentsQuery__
+ *
+ * To run a query within a React component, call `useExpiredDocumentsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useExpiredDocumentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useExpiredDocumentsQuery({
+ *   variables: {
+ *      first: // value for 'first'
+ *      last: // value for 'last'
+ *      after: // value for 'after'
+ *      before: // value for 'before'
+ *      today: // value for 'today'
+ *   },
+ * });
+ */
+export function useExpiredDocumentsQuery(baseOptions?: Apollo.QueryHookOptions<Types.ExpiredDocumentsQuery, Types.ExpiredDocumentsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<Types.ExpiredDocumentsQuery, Types.ExpiredDocumentsQueryVariables>(ExpiredDocumentsDocument, options);
+      }
+export function useExpiredDocumentsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.ExpiredDocumentsQuery, Types.ExpiredDocumentsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<Types.ExpiredDocumentsQuery, Types.ExpiredDocumentsQueryVariables>(ExpiredDocumentsDocument, options);
+        }
+export type ExpiredDocumentsQueryHookResult = ReturnType<typeof useExpiredDocumentsQuery>;
+export type ExpiredDocumentsLazyQueryHookResult = ReturnType<typeof useExpiredDocumentsLazyQuery>;
+export type ExpiredDocumentsQueryResult = Apollo.QueryResult<Types.ExpiredDocumentsQuery, Types.ExpiredDocumentsQueryVariables>;
+export const CloseToExpireDocumentsDocument = gql`
+    query CloseToExpireDocuments($first: Int, $last: Int, $after: String, $before: String, $tomorrow: Date, $nextWeek: Date) {
+  documents(
+    first: $first
+    last: $last
+    after: $after
+    before: $before
+    expires: true
+    isPublished: true
+    expirationDate_Gte: $tomorrow
+    expirationDate_Lte: $nextWeek
+  ) {
+    edges {
+      node {
+        ...DocumentHome
+      }
+    }
+    pageInfo {
+      ...PageInfo
+    }
+  }
+}
+    ${DocumentHomeFragmentDoc}
+${PageInfoFragmentDoc}`;
+
+/**
+ * __useCloseToExpireDocumentsQuery__
+ *
+ * To run a query within a React component, call `useCloseToExpireDocumentsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCloseToExpireDocumentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCloseToExpireDocumentsQuery({
+ *   variables: {
+ *      first: // value for 'first'
+ *      last: // value for 'last'
+ *      after: // value for 'after'
+ *      before: // value for 'before'
+ *      tomorrow: // value for 'tomorrow'
+ *      nextWeek: // value for 'nextWeek'
+ *   },
+ * });
+ */
+export function useCloseToExpireDocumentsQuery(baseOptions?: Apollo.QueryHookOptions<Types.CloseToExpireDocumentsQuery, Types.CloseToExpireDocumentsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<Types.CloseToExpireDocumentsQuery, Types.CloseToExpireDocumentsQueryVariables>(CloseToExpireDocumentsDocument, options);
+      }
+export function useCloseToExpireDocumentsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.CloseToExpireDocumentsQuery, Types.CloseToExpireDocumentsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<Types.CloseToExpireDocumentsQuery, Types.CloseToExpireDocumentsQueryVariables>(CloseToExpireDocumentsDocument, options);
+        }
+export type CloseToExpireDocumentsQueryHookResult = ReturnType<typeof useCloseToExpireDocumentsQuery>;
+export type CloseToExpireDocumentsLazyQueryHookResult = ReturnType<typeof useCloseToExpireDocumentsLazyQuery>;
+export type CloseToExpireDocumentsQueryResult = Apollo.QueryResult<Types.CloseToExpireDocumentsQuery, Types.CloseToExpireDocumentsQueryVariables>;
 export const InvestmentBulkDeleteDocument = gql`
     mutation InvestmentBulkDelete($ids: [ID!]!) {
   investmentBulkDelete(ids: $ids) {

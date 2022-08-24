@@ -45,7 +45,7 @@ export const VehicleListPage = ({
 }: VehicleListPageProps) => {
   return (
     <>
-      <PageHeader title={"Veículos"}>
+      <PageHeader title={"Veículos de comunicação"}>
         <Button
           color="primary"
           variant="contained"

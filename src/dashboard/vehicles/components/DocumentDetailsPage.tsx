@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
+import { Typography } from "@mui/material";
 import { Backlink } from "@portal/components/Backlink";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
@@ -62,7 +63,7 @@ export const DocumentDetailsPage = ({
   return (
     <>
       <Backlink href={`/admin/vehicles/details/${id}`}>Voltar</Backlink>
-      <PageHeader title={document.name} />
+      <PageHeader title={document.name} limitText={document.vehicle.name} />
       <DocumentForm
         errors={errors}
         onChange={handleChange}
