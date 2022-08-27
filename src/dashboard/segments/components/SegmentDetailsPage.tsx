@@ -5,6 +5,7 @@ import { Backlink } from "@portal/components/Backlink";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
 import { ErrorFragment, SegmentFragment } from "@portal/graphql";
+import { ChangeEvent } from "@portal/types";
 
 import SegmentForm, { FormProps } from "./SegmentForm";
 
@@ -29,7 +30,7 @@ export const SegmentDetailsPage = ({
     slug: segment.slug,
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent) => {
     setData({
       ...data,
       [e.target.name]: e.target.value,

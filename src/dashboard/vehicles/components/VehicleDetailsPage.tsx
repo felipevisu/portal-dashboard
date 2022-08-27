@@ -5,17 +5,17 @@ import { Grid } from "@mui/material";
 import { Backlink } from "@portal/components/Backlink";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
-import DocumentList from "@portal/dashboard/documents/components/DocumentList";
 import {
   ErrorFragment,
   SearchCategoriesQuery,
   VehicleDetailsFragment,
   VehicleDetailsQuery,
 } from "@portal/graphql";
-import { Paginator, RelayToFlat } from "@portal/types";
+import { ChangeEvent, Paginator, RelayToFlat } from "@portal/types";
 import { getChoices } from "@portal/utils/data";
 import { mapEdgesToItems } from "@portal/utils/maps";
 
+import DocumentList from "./DocumentList";
 import { FormProps, VehicleFormInfos, VehicleFormStatus } from "./VehicleForm";
 
 const sanitizeVehicle = (vehicle: VehicleDetailsFragment) => {
@@ -50,7 +50,7 @@ export const VehicleDetailsPage = ({
   const navigate = useNavigate();
   const [data, setData] = useState<FormProps>(sanitizeVehicle(vehicle));
 
-  const handleChange = (e: React.ChangeEvent<any>) => {
+  const handleChange = (e: ChangeEvent) => {
     setData({
       ...data,
       [e.target.name]: e.target.value,

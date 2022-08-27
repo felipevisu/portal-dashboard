@@ -5,8 +5,19 @@ export const documentFragment = gql`
     id
     name
     created
-    expired
+    beginDate
+    expirationDate
     isPublished
+    expired
+    expires
+    vehicle {
+      id
+      name
+    }
+    provider {
+      id
+      name
+    }
   }
 `;
 
@@ -20,25 +31,8 @@ export const documentDetailsFragment = gql`
     file
     fileUrl
     fileName
-    publicationDate
-    beginDate
-    expirationDate
-    vehicle {
-      id
-      name
-    }
-    provider {
-      id
-      name
-    }
-  }
-`;
-
-export const documentHomeFragment = gql`
-  fragment DocumentHome on Document {
-    id
-    name
-    publicationDate
+    created
+    updated
     beginDate
     expirationDate
     vehicle {

@@ -14,6 +14,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import ControledCheckbox from "@portal/components/ControledCheckbox";
 import FormSpacer from "@portal/components/FormSpacer";
 import { ErrorFragment } from "@portal/graphql";
+import { ChangeEvent } from "@portal/types";
 import { getFormErrors } from "@portal/utils/errors";
 
 export type FormProps = {
@@ -28,7 +29,7 @@ export type FormProps = {
 interface DocumentFormProps {
   data?: FormProps;
   errors: ErrorFragment[];
-  onChange: (e: any) => void;
+  onChange: (e: ChangeEvent) => void;
   fileUpload: React.ReactNode;
 }
 
@@ -103,6 +104,7 @@ export const DocumentForm = ({
                 <FormSpacer />
                 <FormControl fullWidth>
                   <DatePicker
+                    inputFormat="dd/MM/Y"
                     value={data.beginDate ? new Date(data.beginDate) : null}
                     label="Data de início"
                     onChange={(value) => {
@@ -121,6 +123,7 @@ export const DocumentForm = ({
                 <FormSpacer />
                 <FormControl fullWidth>
                   <DatePicker
+                    inputFormat="dd/MM/Y"
                     value={
                       data.expirationDate ? new Date(data.expirationDate) : null
                     }

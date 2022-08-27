@@ -1,28 +1,29 @@
 import { useSearchParams } from "react-router-dom";
 
+import { FilterOpts } from "@portal/types";
 import { SingleAutocompleteChoiceType } from "@portal/utils/data";
-
-import { VehicleListFilterOpts } from "../components/VehicleListPage";
 
 export function getFilterOpts(
   categories: SingleAutocompleteChoiceType[]
-): VehicleListFilterOpts {
+): FilterOpts[] {
   const [searchParams] = useSearchParams();
-  return {
-    category: {
+  return [
+    {
       name: "Categoria",
+      slug: "category",
       active: searchParams.get("category") !== null,
       choices: categories,
-      value: searchParams.get("category"),
+      type: "radio",
     },
-    isPublished: {
+    {
       name: "Status",
+      slug: "isPublished",
       active: searchParams.get("isPublished") !== null,
       choices: [
         { value: "false", label: "Não publicado" },
         { value: "true", label: "Publicado" },
       ],
-      value: searchParams.get("isPublished"),
+      type: "radio",
     },
-  };
+  ];
 }

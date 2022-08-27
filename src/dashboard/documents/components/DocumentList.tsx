@@ -1,83 +1,81 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import React from "react";
 
-import {
-  Card,
-  CardHeader,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-} from "@mui/material";
-import { Button } from "@portal/components/Button";
-import { Pagination } from "@portal/components/Pagination";
+import { TableBody, TableCell } from "@mui/material";
+import Checkbox from "@portal/components/Checkbox";
+import ResponsiveTable from "@portal/components/ResponsiveTable";
 import TableCellHeader from "@portal/components/TableCell";
 import TableCellWithStatus from "@portal/components/TableCellWithStatus";
+import TableHead from "@portal/components/TableHead";
 import TableRowLink from "@portal/components/TableRowLink";
-import { DocumentFragment, PageInfoFragment } from "@portal/graphql";
-import { Paginator } from "@portal/types";
+import { DocumentFragment } from "@portal/graphql";
+import { renderCollection } from "@portal/misc";
+import { ListActions } from "@portal/types";
 import { formatDate } from "@portal/utils/date";
 
-interface DocumentListProps {
+interface DocumentListProps extends ListActions {
   documents: DocumentFragment[];
-  paginator: Paginator;
-  pageInfo: PageInfoFragment;
+  disabled: boolean;
 }
 
 export const DocumentList = ({
   documents,
-  paginator,
-  pageInfo,
+  isChecked,
+  toggle,
+  disabled,
+  toggleAll,
+  selected,
+  toolbar,
 }: DocumentListProps) => {
+  const numberOfColumns = documents?.length === 0 ? 5 : 6;
+
   return (
-    <Card>
-      <CardHeader
-        title="Documentos"
-        action={
-          <Button variant="outlined" href="documents/create">
-            Adicionar
-          </Button>
-        }
-      />
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCellHeader sx={{ paddingLeft: 3 }}>Nome</TableCellHeader>
-            <TableCellHeader>Visibilidade</TableCellHeader>
-            <TableCellHeader>Status</TableCellHeader>
-            <TableCellHeader>Data de upload</TableCellHeader>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {documents.map((document) => (
+    <ResponsiveTable>
+      <TableHead
+        colSpan={numberOfColumns}
+        selected={selected}
+        disabled={disabled}
+        items={documents}
+        toggleAll={toggleAll}
+        toolbar={toolbar}
+      >
+        <TableCellHeader>Nome</TableCellHeader>
+        <TableCellHeader>Veículo/Prestador</TableCellHeader>
+        <TableCellHeader>Visibilidade</TableCellHeader>
+        <TableCellHeader>Expira em</TableCellHeader>
+      </TableHead>
+      <TableBody>
+        {renderCollection(documents, (document) => {
+          const isSelected = document ? isChecked(document.id) : false;
+          return (
             <TableRowLink
-              key={document.id}
+              key={document ? document.id : "skeleton"}
               sx={{ cursor: "pointer" }}
-              href={`documents/${document.id}/details`}
+              selected={isSelected}
+              href={`details/${document.id}/`}
             >
-              <TableCell sx={{ paddingLeft: 3 }}>{document.name}</TableCell>
-              <TableCellWithStatus
-                status={document.isPublished}
-                labels={{ published: "Publicado", unPublished: "Despublicado" }}
-              />
-              <TableCellWithStatus
-                status={!document.expired}
-                labels={{ published: "Ativo", unPublished: "Expirado" }}
-              />
-              <TableCell sx={{ width: "150px" }}>
-                {formatDate(document.created)}
+              <TableCell padding="checkbox">
+                <Checkbox
+                  checked={isSelected}
+                  disabled={disabled}
+                  disableClickPropagation
+                  onChange={() => toggle(document.id)}
+                />
+              </TableCell>
+              <TableCell>{document.name}</TableCell>
+              <TableCell>
+                {document.vehicle?.name || document.provider?.name}
+              </TableCell>
+              <TableCellWithStatus status={document.isPublished} />
+              <TableCell sx={{ color: document.expired ? "error.main" : "" }}>
+                {document.expirationDate
+                  ? formatDate(document.expirationDate)
+                  : "-"}
               </TableCell>
             </TableRowLink>
-          ))}
-        </TableBody>
-      </Table>
-      <Pagination
-        pageInfo={pageInfo}
-        onClickNextPage={paginator.handleNextPage}
-        onClickPreviousPage={paginator.handlePreviousPage}
-      />
-    </Card>
+          );
+        })}
+      </TableBody>
+    </ResponsiveTable>
   );
 };
 

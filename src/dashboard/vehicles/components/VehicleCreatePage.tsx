@@ -6,13 +6,13 @@ import { Backlink } from "@portal/components/Backlink";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
 import { ErrorFragment, SearchCategoriesQuery } from "@portal/graphql";
-import { RelayToFlat } from "@portal/types";
+import { ChangeEvent, RelayToFlat } from "@portal/types";
 import { getChoices } from "@portal/utils/data";
 
 import { FormProps, VehicleFormInfos, VehicleFormStatus } from "./VehicleForm";
 
 interface VehicleCreatePageProps {
-  onSubmit: any;
+  onSubmit: (data: FormProps) => Promise<void>;
   errors: ErrorFragment[];
   loading: boolean;
   categories: RelayToFlat<SearchCategoriesQuery["search"]>;
@@ -33,7 +33,7 @@ export const VehicleCreatePage = ({
     isPublished: false,
   });
 
-  const handleChange = (e: React.ChangeEvent<any>) => {
+  const handleChange = (e: ChangeEvent) => {
     setData({
       ...data,
       [e.target.name]: e.target.value,

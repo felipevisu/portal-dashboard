@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import FormSpacer from "@portal/components/FormSpacer";
 import { ErrorFragment } from "@portal/graphql";
+import { ChangeEvent } from "@portal/types";
 import { getFormErrors } from "@portal/utils/errors";
 
 export type FormProps = {
@@ -19,7 +20,7 @@ export type FormProps = {
 interface SegmentFormProps {
   data?: FormProps;
   errors: ErrorFragment[];
-  onChange: (e: React.ChangeEvent<any>) => void;
+  onChange: (e: ChangeEvent) => void;
 }
 
 export const SegmentForm = ({ errors, data, onChange }: SegmentFormProps) => {

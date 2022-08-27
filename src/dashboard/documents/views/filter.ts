@@ -15,5 +15,22 @@ export function getFilterOpts(): FilterOpts[] {
       ],
       type: "radio",
     },
+    {
+      name: "Expirável",
+      slug: "expires",
+      active: searchParams.get("expires") !== null,
+      choices: [
+        { value: "true", label: "Sim" },
+        { value: "false", label: "Não" },
+      ],
+      type: "radio",
+    },
+    {
+      name: "Data de expiração",
+      slug: "expirationDate",
+      active: searchParams.get("expirationDate") !== null,
+      type: "daterange",
+      choices: [],
+    },
   ];
 }

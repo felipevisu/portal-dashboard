@@ -9,6 +9,7 @@ import {
   InvestmentDetailsFragment,
   InvestmentInput,
 } from "@portal/graphql";
+import { ChangeEvent } from "@portal/types";
 import { toMonthName } from "@portal/utils/date";
 
 import InvestmentForm, { FormProps } from "./InvestmentForm";
@@ -40,7 +41,7 @@ export const InvestmentDetailsPage = ({
     isPublished: investment.isPublished,
   });
 
-  const handleChange = (e: React.ChangeEvent<any>) => {
+  const handleChange = (e: ChangeEvent) => {
     setData({
       ...data,
       [e.target.name]: e.target.value,

@@ -4,11 +4,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Backlink } from "@portal/components/Backlink";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
-import DocumentFile from "@portal/dashboard/documents/components/DocumentFile";
-import DocumentForm, {
-  FormProps,
-} from "@portal/dashboard/documents/components/DocumentForm";
 import { ErrorFragment } from "@portal/graphql";
+import { ChangeEvent } from "@portal/types";
+
+import DocumentFile from "./DocumentFile";
+import DocumentForm, { FormProps } from "./DocumentForm";
 
 interface DocumentCreatePageProps {
   onSubmit: (data) => Promise<void>;
@@ -39,7 +39,7 @@ export const DocumentCreatePage = ({
     }
   }, [data]);
 
-  const handleChange = (e: React.ChangeEvent<any>) => {
+  const handleChange = (e: ChangeEvent) => {
     setData({
       ...data,
       [e.target.name]: e.target.value,

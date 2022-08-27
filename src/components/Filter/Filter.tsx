@@ -7,10 +7,15 @@ import {
   Popper,
   PopperPlacementType,
 } from "@mui/material";
+import { FilterOpts } from "@portal/types";
 
 import FilterContent from "./FilterContent";
 
-export const Filter = <F,>(filterOpts: F) => {
+interface FilterProps {
+  filterOpts: FilterOpts[];
+}
+
+export const Filter = ({ filterOpts }: FilterProps) => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const [open, setOpen] = useState(false);
   const [placement, setPlacement] = useState<PopperPlacementType>();
@@ -30,7 +35,7 @@ export const Filter = <F,>(filterOpts: F) => {
           Filtros
         </Button>
         <Popper open={open} anchorEl={anchorEl} placement={placement}>
-          <FilterContent<F> {...filterOpts} />
+          <FilterContent filterOpts={filterOpts} />
         </Popper>
       </Box>
     </ClickAwayListener>

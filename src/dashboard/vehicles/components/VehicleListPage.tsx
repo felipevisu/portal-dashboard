@@ -15,18 +15,13 @@ import {
 
 import VehicleList from "./VehicleList";
 
-export type VehicleListFilterOpts = {
-  isPublished: FilterOpts<string>;
-  category: FilterOpts<string>;
-};
-
 interface VehicleListPageProps
   extends ListActions,
     SearchPageProps,
     PaginateListProps {
   vehicles: VehicleFragment[];
   disabled: boolean;
-  filterOpts: VehicleListFilterOpts;
+  filterOpts: FilterOpts[];
 }
 
 export const VehicleListPage = ({
@@ -55,7 +50,7 @@ export const VehicleListPage = ({
         </Button>
       </PageHeader>
       <Card>
-        <FilterBar<VehicleListFilterOpts>
+        <FilterBar
           placeholder="Pesquisar"
           onSearchChange={onSearchChange}
           filterOpts={filterOpts}

@@ -1,14 +1,19 @@
 import { boolean, isBooleanable } from "boolean";
 
-export const getQuery = <F>(filterOpts: F, searchParams: URLSearchParams) => {
+import { FilterOpts } from "@portal/types";
+
+export const getQuery = (
+  filterOpts: FilterOpts[],
+  searchParams: URLSearchParams
+) => {
   let query = {};
-  Object.keys(filterOpts).forEach((name) => {
-    let value: string | boolean = searchParams.get(name);
+  filterOpts.forEach((filter) => {
+    let value: string | boolean = searchParams.get(filter.slug);
     if (value) {
       if (isBooleanable(value)) {
         value = boolean(value);
       }
-      query = { ...query, [name]: value };
+      query = { ...query, [filter.slug]: value };
     }
   });
   return query;

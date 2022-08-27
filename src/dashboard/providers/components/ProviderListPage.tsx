@@ -15,18 +15,13 @@ import {
 
 import ProviderList from "./ProviderList";
 
-export type ProviderListFilterOpts = {
-  isPublished: FilterOpts<string>;
-  segment: FilterOpts<string>;
-};
-
 interface ProviderListPageProps
   extends ListActions,
     SearchPageProps,
     PaginateListProps {
   providers: ProviderFragment[];
   disabled: boolean;
-  filterOpts: ProviderListFilterOpts;
+  filterOpts: FilterOpts[];
 }
 
 export const ProviderListPage = ({
@@ -55,7 +50,7 @@ export const ProviderListPage = ({
         </Button>
       </PageHeader>
       <Card>
-        <FilterBar<ProviderListFilterOpts>
+        <FilterBar
           placeholder="Pesquisar"
           onSearchChange={onSearchChange}
           filterOpts={filterOpts}

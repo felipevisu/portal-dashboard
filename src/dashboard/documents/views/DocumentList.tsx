@@ -5,9 +5,9 @@ import { Delete } from "@mui/icons-material";
 import { DialogContentText, IconButton } from "@mui/material";
 import ActionDialog from "@portal/components/ActionDialog";
 import {
-  SessionBulkDeleteMutation,
-  useSessionBulkDeleteMutation,
-  useSessionsQuery,
+  DocumentBulkDeleteMutation,
+  useDocumentBulkDeleteMutation,
+  useDocumentsQuery,
 } from "@portal/graphql";
 import {
   useBulkActions,
@@ -18,15 +18,14 @@ import {
 import { getQuery } from "@portal/utils/filters";
 import { mapEdgesToItems } from "@portal/utils/maps";
 
-import SessionListPage from "../components/SessionListPage";
+import { DocumentListPage } from "../components/DocumentListPage";
 
 import { getFilterOpts } from "./filter";
 
-export const SessionList = () => {
+export const DocumentList = () => {
   const [searchParams] = useSearchParams();
   const { search, handleSearch } = useSearch();
   const { after, first, handleNextPage, handlePreviousPage } = usePaginator();
-
   const { isSelected, listElements, toggle, toggleAll, reset } = useBulkActions(
     []
   );
@@ -40,55 +39,54 @@ export const SessionList = () => {
     [searchParams]
   );
 
-  const { data, loading, refetch } = useSessionsQuery({
-    fetchPolicy: "cache-and-network",
+  const { data, loading, refetch } = useDocumentsQuery({
     variables: { search, after, first, ...queryParameters },
   });
 
-  const handleSessionBulkDelete = (data: SessionBulkDeleteMutation) => {
-    if (data.sessionBulkDelete.errors.length === 0) {
+  const handleDocumentBulkDelete = (data: DocumentBulkDeleteMutation) => {
+    if (data.documentBulkDelete.errors.length === 0) {
       refetch();
       reset();
       closeModal();
     }
   };
 
-  const [sessionBulkDelete] = useSessionBulkDeleteMutation({
-    onCompleted: handleSessionBulkDelete,
+  const [documentBulkDelete] = useDocumentBulkDeleteMutation({
+    onCompleted: handleDocumentBulkDelete,
   });
 
   return (
     <>
-      <SessionListPage
+      <DocumentListPage
         disabled={loading}
-        toggle={toggle}
-        toggleAll={toggleAll}
-        sessions={mapEdgesToItems(data?.sessions)}
+        documents={mapEdgesToItems(data?.documents)}
+        pageInfo={data?.documents?.pageInfo}
+        onNextPage={handleNextPage}
+        onPreviousPage={handlePreviousPage}
+        onSearchChange={handleSearch}
+        initialSearch={search}
         selected={listElements.length}
         isChecked={isSelected}
+        toggle={toggle}
+        toggleAll={toggleAll}
+        filterOpts={filterOpts}
         toolbar={
           <IconButton color="primary" onClick={openModal}>
             <Delete />
           </IconButton>
         }
-        onSearchChange={handleSearch}
-        initialSearch={search}
-        filterOpts={filterOpts}
-        onNextPage={handleNextPage}
-        onPreviousPage={handlePreviousPage}
-        pageInfo={data?.sessions?.pageInfo}
       />
       <ActionDialog
         onClose={closeModal}
         onConfirm={() =>
-          sessionBulkDelete({ variables: { ids: listElements } })
+          documentBulkDelete({ variables: { ids: listElements } })
         }
         open={isOpen}
-        title={"Excluir sessões"}
+        title={"Excluir documentos"}
         variant="delete"
       >
         <DialogContentText>
-          Tem certeza que deseja excluir {listElements.length} sessões?
+          Tem certeza que deseja excluir {listElements.length} documentos?
           <br />
           Lembre-se esta ação não é reversível
         </DialogContentText>
@@ -97,4 +95,4 @@ export const SessionList = () => {
   );
 };
 
-export default SessionList;
+export default DocumentList;

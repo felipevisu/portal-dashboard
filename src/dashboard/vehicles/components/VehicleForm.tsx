@@ -14,6 +14,7 @@ import {
 import ControledCheckbox from "@portal/components/ControledCheckbox";
 import FormSpacer from "@portal/components/FormSpacer";
 import { ErrorFragment } from "@portal/graphql";
+import { ChangeEvent } from "@portal/types";
 import { SingleAutocompleteChoiceType } from "@portal/utils/data";
 import { getFormErrors } from "@portal/utils/errors";
 
@@ -29,7 +30,7 @@ interface VehicleFormProps
   extends Record<"categories", SingleAutocompleteChoiceType[]> {
   data?: FormProps;
   errors: ErrorFragment[];
-  onChange: (e: any) => void;
+  onChange: (e: ChangeEvent) => void;
 }
 
 export const VehicleFormInfos = ({

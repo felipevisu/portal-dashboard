@@ -19,7 +19,7 @@ export const expiredDocumentsQuery = gql`
     ) {
       edges {
         node {
-          ...DocumentHome
+          ...Document
         }
       }
       pageInfo {
@@ -50,7 +50,7 @@ export const closeToExpiredDocumentsQuery = gql`
     ) {
       edges {
         node {
-          ...DocumentHome
+          ...Document
         }
       }
       pageInfo {

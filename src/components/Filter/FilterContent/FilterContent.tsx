@@ -2,30 +2,31 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import { Paper } from "@mui/material";
+import { FilterOpts } from "@portal/types";
 
 import FilterContentHeader from "./FiltercontentHeader";
 import FilterItem from "./FilterItem";
 
-export const FilterContent = <F,>(filterOpts: F) => {
+interface FilterContentProps {
+  filterOpts: FilterOpts[];
+}
+
+export const FilterContent = ({ filterOpts }: FilterContentProps) => {
   const [applyedFilters, setApplyedFilters] = useState({});
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const filters = Object.keys(filterOpts);
-
   useEffect(() => {
-    const filters = Object.keys(filterOpts);
-    filters.forEach((filter) => {
-      const value = searchParams.get(filter);
+    const filters = {};
+    for (const filter of filterOpts) {
+      const value = searchParams.get(filter.slug);
       if (value) {
-        setApplyedFilters({
-          ...applyedFilters,
-          [filter]: value,
-        });
+        filters[filter.slug] = value;
       }
-    });
+    }
+    setApplyedFilters(filters);
   }, [filterOpts]);
 
-  const handleClick = (name: string, value: string) => {
+  const handleClick = ({ name, value }) => {
     setApplyedFilters({
       ...applyedFilters,
       [name]: value,
@@ -50,13 +51,12 @@ export const FilterContent = <F,>(filterOpts: F) => {
         onClickApply={handleApplyFilters}
         onClickClear={handleClearFilters}
       />
-      {filters.map((filter, key) => (
+      {filterOpts.map((filter) => (
         <FilterItem
-          key={key}
-          name={filter}
-          filter={filterOpts[filter]}
+          key={filter.slug}
+          filter={filter}
           onClick={handleClick}
-          selected={applyedFilters[filter]}
+          value={applyedFilters[filter.slug]}
         />
       ))}
     </Paper>

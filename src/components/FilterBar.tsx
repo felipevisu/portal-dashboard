@@ -1,6 +1,7 @@
 import React from "react";
 
 import { styled, TextField } from "@mui/material";
+import { FilterOpts } from "@portal/types";
 
 import Filter from "./Filter";
 
@@ -12,20 +13,20 @@ const Root = styled("div")(({ theme }) => ({
   gap: theme.spacing(2),
 }));
 
-interface FilterBarProps<F> {
+interface FilterBarProps {
   placeholder?: string;
   onSearchChange: (e: React.ChangeEvent<any>) => void;
-  filterOpts: F;
+  filterOpts: FilterOpts[];
 }
 
-export const FilterBar = <F,>({
+export const FilterBar = ({
   placeholder,
   onSearchChange,
   filterOpts,
-}: FilterBarProps<F>) => {
+}: FilterBarProps) => {
   return (
     <Root>
-      <Filter<F> {...filterOpts} />
+      <Filter filterOpts={filterOpts} />
       <TextField
         fullWidth
         onChange={onSearchChange}

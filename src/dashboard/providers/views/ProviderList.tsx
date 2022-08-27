@@ -17,9 +17,7 @@ import { getChoices } from "@portal/utils/data";
 import { getQuery } from "@portal/utils/filters";
 import { mapEdgesToItems } from "@portal/utils/maps";
 
-import ProviderListPage, {
-  ProviderListFilterOpts,
-} from "../components/ProviderListPage";
+import ProviderListPage from "../components/ProviderListPage";
 
 import { getFilterOpts } from "./filter";
 
@@ -45,7 +43,7 @@ export const ProviderList = () => {
   const filterOpts = getFilterOpts(segments);
 
   const queryParameters = useMemo(
-    () => getQuery<ProviderListFilterOpts>(filterOpts, searchParams),
+    () => getQuery(filterOpts, searchParams),
     [searchParams]
   );
 

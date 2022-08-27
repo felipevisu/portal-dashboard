@@ -15,6 +15,7 @@ import {
 import ControledCheckbox from "@portal/components/ControledCheckbox";
 import FormSpacer from "@portal/components/FormSpacer";
 import { ErrorFragment } from "@portal/graphql";
+import { ChangeEvent } from "@portal/types";
 import { getFormErrors } from "@portal/utils/errors";
 
 export type FormProps = {
@@ -26,7 +27,7 @@ export type FormProps = {
 interface InvestmentFormProps {
   data?: FormProps;
   errors: ErrorFragment[];
-  onChange: (e: any) => void;
+  onChange: (e: ChangeEvent) => void;
 }
 
 export const InvestmentForm = ({

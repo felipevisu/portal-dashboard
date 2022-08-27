@@ -1,11 +1,10 @@
 import React from "react";
 
 import { Card } from "@mui/material";
-import { Button } from "@portal/components/Button";
 import FilterBar from "@portal/components/FilterBar";
 import PageHeader from "@portal/components/PageHeader";
 import { Pagination } from "@portal/components/Pagination";
-import { SessionFragment } from "@portal/graphql";
+import { DocumentFragment } from "@portal/graphql";
 import {
   FilterOpts,
   ListActions,
@@ -13,51 +12,43 @@ import {
   SearchPageProps,
 } from "@portal/types";
 
-import SessionList from "./SessionList";
+import DocumentList from "./DocumentList";
 
-interface SessionListPageProps
+interface DocumentListPageProps
   extends ListActions,
     SearchPageProps,
     PaginateListProps {
-  sessions: SessionFragment[];
+  documents: DocumentFragment[];
   disabled: boolean;
   filterOpts: FilterOpts[];
 }
 
-export const SessionListPage = ({
-  sessions,
-  onSearchChange,
+export const DocumentListPage = ({
+  documents,
   pageInfo,
   selected,
+  disabled,
   toolbar,
+  filterOpts,
   toggle,
   toggleAll,
   isChecked,
   onNextPage,
   onPreviousPage,
-  disabled,
-  filterOpts,
-}: SessionListPageProps) => {
+  onSearchChange,
+}: DocumentListPageProps) => {
   return (
     <>
-      <PageHeader title={"Sessões públicas"}>
-        <Button
-          color="primary"
-          variant="contained"
-          href={"/admin/sessions/create"}
-        >
-          Criar sessão
-        </Button>
-      </PageHeader>
+      <PageHeader title="Documentos" />
       <Card>
         <FilterBar
           placeholder="Pesquisar"
           onSearchChange={onSearchChange}
           filterOpts={filterOpts}
         />
-        <SessionList
+        <DocumentList
           selected={selected}
-          sessions={sessions}
+          documents={documents}
           isChecked={isChecked}
           toggle={toggle}
           toggleAll={toggleAll}
@@ -75,5 +66,3 @@ export const SessionListPage = ({
     </>
   );
 };
-
-export default SessionListPage;

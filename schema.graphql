@@ -120,6 +120,13 @@ type Document implements Node {
   vehicle: Vehicle
 }
 
+"""Deletes segments."""
+type DocumentBulkDelete {
+  """Returns how many objects were affected."""
+  count: Int!
+  errors: [Error!]!
+}
+
 type DocumentConnection {
   """Contains the nodes in this connection."""
   edges: [DocumentEdge]!
@@ -335,6 +342,12 @@ type Mutation {
   categoryCreate(input: CategoryInput!): CategoryCreate
   categoryDelete(id: ID): CategoryDelete
   categoryUpdate(id: ID, input: CategoryInput!): CategoryUpdate
+
+  """Deletes segments."""
+  documentBulkDelete(
+    """List of documents IDs to delete."""
+    ids: [ID!]!
+  ): DocumentBulkDelete
   documentCreate(input: DocumentInput!): DocumentCreate
   documentDelete(id: ID): DocumentDelete
   documentUpdate(id: ID, input: DocumentInput!): DocumentUpdate

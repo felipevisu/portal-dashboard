@@ -34,8 +34,19 @@ export const DocumentFragmentDoc = gql`
   id
   name
   created
-  expired
+  beginDate
+  expirationDate
   isPublished
+  expired
+  expires
+  vehicle {
+    id
+    name
+  }
+  provider {
+    id
+    name
+  }
 }
     `;
 export const DocumentDetailsFragmentDoc = gql`
@@ -48,24 +59,8 @@ export const DocumentDetailsFragmentDoc = gql`
   file
   fileUrl
   fileName
-  publicationDate
-  beginDate
-  expirationDate
-  vehicle {
-    id
-    name
-  }
-  provider {
-    id
-    name
-  }
-}
-    `;
-export const DocumentHomeFragmentDoc = gql`
-    fragment DocumentHome on Document {
-  id
-  name
-  publicationDate
+  created
+  updated
   beginDate
   expirationDate
   vehicle {
@@ -640,6 +635,41 @@ export function useDocumentDeleteMutation(baseOptions?: Apollo.MutationHookOptio
 export type DocumentDeleteMutationHookResult = ReturnType<typeof useDocumentDeleteMutation>;
 export type DocumentDeleteMutationResult = Apollo.MutationResult<Types.DocumentDeleteMutation>;
 export type DocumentDeleteMutationOptions = Apollo.BaseMutationOptions<Types.DocumentDeleteMutation, Types.DocumentDeleteMutationVariables>;
+export const DocumentBulkDeleteDocument = gql`
+    mutation DocumentBulkDelete($ids: [ID!]!) {
+  documentBulkDelete(ids: $ids) {
+    errors {
+      ...Error
+    }
+  }
+}
+    ${ErrorFragmentDoc}`;
+export type DocumentBulkDeleteMutationFn = Apollo.MutationFunction<Types.DocumentBulkDeleteMutation, Types.DocumentBulkDeleteMutationVariables>;
+
+/**
+ * __useDocumentBulkDeleteMutation__
+ *
+ * To run a mutation, you first call `useDocumentBulkDeleteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDocumentBulkDeleteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [documentBulkDeleteMutation, { data, loading, error }] = useDocumentBulkDeleteMutation({
+ *   variables: {
+ *      ids: // value for 'ids'
+ *   },
+ * });
+ */
+export function useDocumentBulkDeleteMutation(baseOptions?: Apollo.MutationHookOptions<Types.DocumentBulkDeleteMutation, Types.DocumentBulkDeleteMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Types.DocumentBulkDeleteMutation, Types.DocumentBulkDeleteMutationVariables>(DocumentBulkDeleteDocument, options);
+      }
+export type DocumentBulkDeleteMutationHookResult = ReturnType<typeof useDocumentBulkDeleteMutation>;
+export type DocumentBulkDeleteMutationResult = Apollo.MutationResult<Types.DocumentBulkDeleteMutation>;
+export type DocumentBulkDeleteMutationOptions = Apollo.BaseMutationOptions<Types.DocumentBulkDeleteMutation, Types.DocumentBulkDeleteMutationVariables>;
 export const DocumentDetailsDocument = gql`
     query DocumentDetails($id: ID!) {
   document(id: $id) {
@@ -675,6 +705,67 @@ export function useDocumentDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOp
 export type DocumentDetailsQueryHookResult = ReturnType<typeof useDocumentDetailsQuery>;
 export type DocumentDetailsLazyQueryHookResult = ReturnType<typeof useDocumentDetailsLazyQuery>;
 export type DocumentDetailsQueryResult = Apollo.QueryResult<Types.DocumentDetailsQuery, Types.DocumentDetailsQueryVariables>;
+export const DocumentsDocument = gql`
+    query Documents($first: Int, $last: Int, $after: String, $before: String, $search: String, $expires: Boolean, $isPublished: Boolean, $expirationDate_Lte: Date, $expirationDate_Gte: Date) {
+  documents(
+    first: $first
+    last: $last
+    after: $after
+    before: $before
+    search: $search
+    expires: $expires
+    isPublished: $isPublished
+    expirationDate_Lte: $expirationDate_Lte
+    expirationDate_Gte: $expirationDate_Gte
+  ) {
+    edges {
+      node {
+        ...Document
+      }
+    }
+    pageInfo {
+      ...PageInfo
+    }
+  }
+}
+    ${DocumentFragmentDoc}
+${PageInfoFragmentDoc}`;
+
+/**
+ * __useDocumentsQuery__
+ *
+ * To run a query within a React component, call `useDocumentsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useDocumentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useDocumentsQuery({
+ *   variables: {
+ *      first: // value for 'first'
+ *      last: // value for 'last'
+ *      after: // value for 'after'
+ *      before: // value for 'before'
+ *      search: // value for 'search'
+ *      expires: // value for 'expires'
+ *      isPublished: // value for 'isPublished'
+ *      expirationDate_Lte: // value for 'expirationDate_Lte'
+ *      expirationDate_Gte: // value for 'expirationDate_Gte'
+ *   },
+ * });
+ */
+export function useDocumentsQuery(baseOptions?: Apollo.QueryHookOptions<Types.DocumentsQuery, Types.DocumentsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<Types.DocumentsQuery, Types.DocumentsQueryVariables>(DocumentsDocument, options);
+      }
+export function useDocumentsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.DocumentsQuery, Types.DocumentsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<Types.DocumentsQuery, Types.DocumentsQueryVariables>(DocumentsDocument, options);
+        }
+export type DocumentsQueryHookResult = ReturnType<typeof useDocumentsQuery>;
+export type DocumentsLazyQueryHookResult = ReturnType<typeof useDocumentsLazyQuery>;
+export type DocumentsQueryResult = Apollo.QueryResult<Types.DocumentsQuery, Types.DocumentsQueryVariables>;
 export const ExpiredDocumentsDocument = gql`
     query ExpiredDocuments($first: Int, $last: Int, $after: String, $before: String, $today: Date) {
   documents(
@@ -688,7 +779,7 @@ export const ExpiredDocumentsDocument = gql`
   ) {
     edges {
       node {
-        ...DocumentHome
+        ...Document
       }
     }
     pageInfo {
@@ -696,7 +787,7 @@ export const ExpiredDocumentsDocument = gql`
     }
   }
 }
-    ${DocumentHomeFragmentDoc}
+    ${DocumentFragmentDoc}
 ${PageInfoFragmentDoc}`;
 
 /**
@@ -744,7 +835,7 @@ export const CloseToExpireDocumentsDocument = gql`
   ) {
     edges {
       node {
-        ...DocumentHome
+        ...Document
       }
     }
     pageInfo {
@@ -752,7 +843,7 @@ export const CloseToExpireDocumentsDocument = gql`
     }
   }
 }
-    ${DocumentHomeFragmentDoc}
+    ${DocumentFragmentDoc}
 ${PageInfoFragmentDoc}`;
 
 /**

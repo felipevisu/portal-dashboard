@@ -4,11 +4,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Backlink } from "@portal/components/Backlink";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
-import DocumentFile from "@portal/dashboard/documents/components/DocumentFile";
-import DocumentForm, {
-  FormProps,
-} from "@portal/dashboard/documents/components/DocumentForm";
 import { DocumentDetailsFragment, ErrorFragment } from "@portal/graphql";
+import { ChangeEvent } from "@portal/types";
+
+import DocumentFile from "./DocumentFile";
+import DocumentForm, { FormProps } from "./DocumentForm";
 
 interface DocumentDetailsPageProps {
   document: DocumentDetailsFragment;
@@ -43,7 +43,7 @@ export const DocumentDetailsPage = ({
     }
   }, [data.expires]);
 
-  const handleChange = (e: React.ChangeEvent<any>) => {
+  const handleChange = (e: ChangeEvent) => {
     setData({
       ...data,
       [e.target.name]: e.target.value,

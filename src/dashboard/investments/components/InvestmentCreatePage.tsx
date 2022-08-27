@@ -5,6 +5,7 @@ import { Backlink } from "@portal/components/Backlink";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
 import { ErrorFragment, InvestmentInput, ItemFragment } from "@portal/graphql";
+import { ChangeEvent } from "@portal/types";
 
 import InvestmentForm, { FormProps } from "./InvestmentForm";
 import InvestmentItems from "./InvestmentItems";
@@ -33,7 +34,7 @@ export const InvestmentCreatePage = ({
     isPublished: false,
   });
 
-  const handleChange = (e: React.ChangeEvent<any>) => {
+  const handleChange = (e: ChangeEvent) => {
     setData({
       ...data,
       [e.target.name]: e.target.value,

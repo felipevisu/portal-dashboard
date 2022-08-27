@@ -6,7 +6,7 @@ import { Backlink } from "@portal/components/Backlink";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
 import { ErrorFragment, SearchSegmentsQuery } from "@portal/graphql";
-import { RelayToFlat } from "@portal/types";
+import { ChangeEvent, RelayToFlat } from "@portal/types";
 import { getChoices } from "@portal/utils/data";
 
 import {
@@ -37,7 +37,7 @@ export const ProviderCreatePage = ({
     isPublished: false,
   });
 
-  const handleChange = (e: React.ChangeEvent<any>) => {
+  const handleChange = (e: ChangeEvent) => {
     setData({
       ...data,
       [e.target.name]: e.target.value,

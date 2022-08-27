@@ -11,12 +11,11 @@ import {
   ProviderDetailsQuery,
   SearchSegmentsQuery,
 } from "@portal/graphql";
-import { Paginator, RelayToFlat } from "@portal/types";
+import { ChangeEvent, Paginator, RelayToFlat } from "@portal/types";
 import { getChoices } from "@portal/utils/data";
 import { mapEdgesToItems } from "@portal/utils/maps";
 
-import DocumentList from "../../documents/components/DocumentList";
-
+import DocumentList from "./DocumentList";
 import {
   FormProps,
   ProviderFormInfos,
@@ -55,7 +54,7 @@ export const ProviderDetailsPage = ({
   const navigate = useNavigate();
   const [data, setData] = useState<FormProps>(sanitizeProvider(provider));
 
-  const handleChange = (e: React.ChangeEvent<any>) => {
+  const handleChange = (e: ChangeEvent) => {
     setData({
       ...data,
       [e.target.name]: e.target.value,

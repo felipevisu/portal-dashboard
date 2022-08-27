@@ -6,6 +6,7 @@ import { Backlink } from "@portal/components/Backlink";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
 import { ErrorFragment, SessionInput } from "@portal/graphql";
+import { ChangeEvent } from "@portal/types";
 
 import { FormProps, SessionForm } from "./SessionForm";
 
@@ -29,7 +30,7 @@ export const SessionCreatePage = ({
     isPublished: false,
   });
 
-  const handleChange = (e: React.ChangeEvent<any>) => {
+  const handleChange = (e: ChangeEvent) => {
     setData({
       ...data,
       [e.target.name]: e.target.value,

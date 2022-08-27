@@ -10,6 +10,7 @@ import { UserMenu } from "@portal/components/UserMenu";
 import AuthProvider from "./auth/authProvider";
 import Auth, { useUser } from "./auth";
 import Categories from "./categories";
+import Documents from "./documents";
 import Home from "./home";
 import Investments from "./investments";
 import Providers from "./providers";
@@ -42,6 +43,7 @@ const RoutesComponent = () => {
               <Route path="/categories/*" element={<Categories />} />
               <Route path="/segments/*" element={<Segments />} />
               <Route path="/providers/*" element={<Providers />} />
+              <Route path="/documents/*" element={<Documents />} />
               <Route path="/sessions/*" element={<Sessions />} />
               <Route path="/investments/*" element={<Investments />} />
             </Routes>

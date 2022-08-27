@@ -17,9 +17,7 @@ import { getChoices } from "@portal/utils/data";
 import { getQuery } from "@portal/utils/filters";
 import { mapEdgesToItems } from "@portal/utils/maps";
 
-import VehicleListPage, {
-  VehicleListFilterOpts,
-} from "../components/VehicleListPage";
+import VehicleListPage from "../components/VehicleListPage";
 
 import { getFilterOpts } from "./filter";
 
@@ -45,12 +43,11 @@ export const VehicleList = () => {
   const filterOpts = getFilterOpts(categories);
 
   const queryParameters = useMemo(
-    () => getQuery<VehicleListFilterOpts>(filterOpts, searchParams),
+    () => getQuery(filterOpts, searchParams),
     [searchParams]
   );
 
   const { data, loading, refetch } = useVehiclesQuery({
-    fetchPolicy: "cache-and-network",
     variables: { search, after, first, ...queryParameters },
   });
 

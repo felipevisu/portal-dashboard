@@ -5,13 +5,14 @@ import { Backlink } from "@portal/components/Backlink";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
 import { CategoryFragment, ErrorFragment } from "@portal/graphql";
+import { ChangeEvent } from "@portal/types";
 
 import CategoryForm, { FormProps } from "./CategoryForm";
 
 interface CategoryDetailsPageProps {
   category: CategoryFragment;
-  onSubmit: any;
-  onDelete: any;
+  onSubmit: (data: FormProps) => Promise<void>;
+  onDelete: () => void;
   errors: ErrorFragment[];
   loading: boolean;
 }
@@ -29,7 +30,7 @@ export const CategoryDetailsPage = ({
     slug: category.slug,
   });
 
-  const handleChange = (e: React.ChangeEvent<any>) => {
+  const handleChange = (e: ChangeEvent) => {
     setData({
       ...data,
       [e.target.name]: e.target.value,

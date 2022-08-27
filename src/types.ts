@@ -5,6 +5,13 @@ export type RelayToFlat<T extends { edges: Array<{ node: any }> }> = Array<
   T["edges"][0]["node"]
 >;
 
+export interface ChangeEvent<TData = any> {
+  target: {
+    name: string;
+    value: TData;
+  };
+}
+
 export interface Node {
   id: string;
 }
@@ -50,11 +57,12 @@ export type SingleAction = Partial<{
   id: string;
 }>;
 
-export interface FilterOpts<T> {
+export interface FilterOpts {
   name: string;
+  slug: string;
   active: boolean;
   choices: SingleAutocompleteChoiceType[];
-  value: T;
+  type: "radio" | "multiple" | "date" | "daterange";
 }
 
 export type Paginator = {

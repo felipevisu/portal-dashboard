@@ -11,6 +11,7 @@ import ChatIcon from "@mui/icons-material/Chat";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import DesignServicesIcon from "@mui/icons-material/DesignServices";
 import EventNoteIcon from "@mui/icons-material/EventNote";
+import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import SegmentIcon from "@mui/icons-material/Segment";
 
 import { Label, MenuItem, OpenClose } from "./styles";
@@ -40,6 +41,11 @@ const ITEMS = [
     label: "Prestadores de serviço",
     path: "/admin/providers",
     icon: <DesignServicesIcon />,
+  },
+  {
+    label: "Documentos",
+    path: "/admin/documents",
+    icon: <InsertDriveFileIcon />,
   },
   {
     label: "Investimentos",

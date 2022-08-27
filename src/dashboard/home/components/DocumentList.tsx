@@ -1,6 +1,7 @@
 import React from "react";
 
 import {
+  Button,
   Card,
   CardHeader,
   Table,
@@ -8,33 +9,25 @@ import {
   TableCell,
   TableHead,
   TableRow,
+  Toolbar,
 } from "@mui/material";
-import { Pagination } from "@portal/components/Pagination";
 import TableCellHeader from "@portal/components/TableCell";
 import TableRowLink from "@portal/components/TableRowLink";
-import { DocumentHomeFragment, PageInfoFragment } from "@portal/graphql";
-import { Paginator } from "@portal/types";
+import { DocumentFragment } from "@portal/graphql";
 import { formatDate } from "@portal/utils/date";
 
 interface DocumentListProps {
   title: string;
-  documents: DocumentHomeFragment[];
-  paginator: Paginator;
-  pageInfo: PageInfoFragment;
+  documents: DocumentFragment[];
 }
 
-const buildLink = (document: DocumentHomeFragment): string => {
+const buildLink = (document: DocumentFragment): string => {
   const id = document.vehicle?.id || document.provider?.id;
   const path = document.vehicle ? "vehicles" : "providers";
   return [path, "details", id, "documents", document.id, "details"].join("/");
 };
 
-export const DocumentList = ({
-  title,
-  documents,
-  paginator,
-  pageInfo,
-}: DocumentListProps) => {
+export const DocumentList = ({ title, documents }: DocumentListProps) => {
   return (
     <Card>
       <CardHeader title={title} />
@@ -62,11 +55,9 @@ export const DocumentList = ({
           ))}
         </TableBody>
       </Table>
-      <Pagination
-        pageInfo={pageInfo}
-        onClickNextPage={paginator.handleNextPage}
-        onClickPreviousPage={paginator.handlePreviousPage}
-      />
+      <Toolbar>
+        <Button disabled={documents.length === 0}>Ver todos</Button>
+      </Toolbar>
     </Card>
   );
 };

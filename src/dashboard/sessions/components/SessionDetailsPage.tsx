@@ -6,6 +6,7 @@ import { Backlink } from "@portal/components/Backlink";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
 import { ErrorFragment, SessionDetailsFragment } from "@portal/graphql";
+import { ChangeEvent } from "@portal/types";
 
 import SessionForm, { FormProps } from "./SessionForm";
 
@@ -23,7 +24,7 @@ const sanitizeSession = (session: SessionDetailsFragment) => {
 
 interface SessionDetailsPageProps {
   session: SessionDetailsFragment;
-  onSubmit: any;
+  onSubmit: (data) => Promise<void>;
   onDelete: () => void;
   errors: ErrorFragment[];
   loading: boolean;
@@ -39,7 +40,7 @@ export const SessionDetailsPage = ({
   const navigate = useNavigate();
   const [data, setData] = useState<FormProps>(sanitizeSession(session));
 
-  const handleChange = (e: React.ChangeEvent<any>) => {
+  const handleChange = (e: ChangeEvent) => {
     setData({
       ...data,
       [e.target.name]: e.target.value,

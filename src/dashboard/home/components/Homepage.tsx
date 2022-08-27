@@ -6,7 +6,6 @@ import {
   CloseToExpireDocumentsQuery,
   ExpiredDocumentsQuery,
 } from "@portal/graphql";
-import { Paginator } from "@portal/types";
 import { mapEdgesToItems } from "@portal/utils/maps";
 
 import { DocumentList } from "./DocumentList";
@@ -14,16 +13,9 @@ import { DocumentList } from "./DocumentList";
 interface HomepageProps {
   expired: ExpiredDocumentsQuery["documents"];
   closeToExpire: CloseToExpireDocumentsQuery["documents"];
-  expiredPaginator: Paginator;
-  closeToExpirePaginator: Paginator;
 }
 
-export const Homepage = ({
-  expired,
-  closeToExpire,
-  expiredPaginator,
-  closeToExpirePaginator,
-}: HomepageProps) => {
+export const Homepage = ({ expired, closeToExpire }: HomepageProps) => {
   if (!expired || !closeToExpire) return null;
 
   return (
@@ -37,15 +29,11 @@ export const Homepage = ({
       <DocumentList
         documents={mapEdgesToItems(expired)}
         title="Documentos Expirados"
-        pageInfo={expired.pageInfo}
-        paginator={expiredPaginator}
       />
       <FormSpacer />
       <DocumentList
         documents={mapEdgesToItems(closeToExpire)}
         title="Documentos Expirando"
-        pageInfo={expired.pageInfo}
-        paginator={closeToExpirePaginator}
       />
     </Box>
   );
