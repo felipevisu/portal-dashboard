@@ -18,9 +18,18 @@ export const FilterContent = ({ filterOpts }: FilterContentProps) => {
   useEffect(() => {
     const filters = {};
     for (const filter of filterOpts) {
-      const value = searchParams.get(filter.slug);
-      if (value) {
-        filters[filter.slug] = value;
+      if (filter.type === "radio") {
+        const value = searchParams.get(filter.slug);
+        if (value) {
+          filters[filter.slug] = value;
+        }
+      }
+      if (filter.type === "daterange") {
+        const gte = searchParams.get(filter.slug + "_Gte");
+        const lte = searchParams.get(filter.slug + "_Lte");
+        if (gte || lte) {
+          filters[filter.slug] = { Gte: gte, Lte: lte };
+        }
       }
     }
     setApplyedFilters(filters);
@@ -34,7 +43,23 @@ export const FilterContent = ({ filterOpts }: FilterContentProps) => {
   };
 
   const handleApplyFilters = () => {
-    setSearchParams({ ...applyedFilters });
+    const params = {};
+    for (const filter of filterOpts) {
+      const value = applyedFilters[filter.slug];
+      const slug = filter.slug;
+      if (value) {
+        if (filter.type === "radio") {
+          params[slug] = value;
+        }
+        if (filter.type === "daterange") {
+          const gte = value.Gte;
+          const lte = value.Lte;
+          if (gte) params[slug + "_Gte"] = gte;
+          if (lte) params[slug + "_Lte"] = lte;
+        }
+      }
+    }
+    setSearchParams({ ...params });
   };
 
   const handleClearFilters = () => {

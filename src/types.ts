@@ -60,7 +60,6 @@ export type SingleAction = Partial<{
 export interface FilterOpts {
   name: string;
   slug: string;
-  active: boolean;
   choices: SingleAutocompleteChoiceType[];
   type: "radio" | "multiple" | "date" | "daterange";
 }

@@ -25,7 +25,7 @@ interface FilterItemProps {
 
 const FilterItem = ({ filter, onClick, value }: FilterItemProps) => {
   return (
-    <Accordion disableGutters defaultExpanded={filter.active}>
+    <Accordion disableGutters>
       <AccordionSummary
         expandIcon={<ExpandMore />}
         aria-controls={filter.name}
@@ -60,10 +60,13 @@ const FilterItem = ({ filter, onClick, value }: FilterItemProps) => {
                 inputFormat="dd/MM/Y"
                 value={value?.Gte || ""}
                 label="De"
-                onChange={(value: Date) => {
+                onChange={(val: Date) => {
                   onClick({
                     name: filter.slug,
-                    value: { Gte: value.toISOString().split("T")[0] },
+                    value: {
+                      ...value,
+                      Gte: val.toISOString().split("T")[0],
+                    },
                   });
                 }}
                 renderInput={(params) => (
@@ -77,10 +80,10 @@ const FilterItem = ({ filter, onClick, value }: FilterItemProps) => {
                 inputFormat="dd/MM/Y"
                 value={value?.Lte || ""}
                 label="Até"
-                onChange={(value: Date) => {
+                onChange={(val: Date) => {
                   onClick({
                     name: filter.slug,
-                    value: { Lte: value.toISOString().split("T")[0] },
+                    value: { ...value, Lte: val.toISOString().split("T")[0] },
                   });
                 }}
                 renderInput={(params) => (
