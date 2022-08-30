@@ -33,12 +33,16 @@ export const PageHeader = (props: PageHeaderProps) => {
               ) : (
                 <Skeleton sx={{ width: "10em" }} />
               )}
+              {limitText && (
+                <Typography color="textSecondary">{limitText}</Typography>
+              )}
             </Typography>
             {cardMenu}
-            {limitText && <Typography>{limitText}</Typography>}
           </>
         }
-      />
+      >
+        <div>{children}</div>
+      </ExtendedPageHeader>
     </>
   );
 };
