@@ -549,7 +549,7 @@ type Query {
   categories(after: String, before: String, first: Int, last: Int, offset: Int, search: String, sortBy: CategorySortingInput): CategoryConnection
   category(id: ID, slug: String): Category
   document(id: ID): Document
-  documents(after: String, before: String, beginDate: Date, beginDate_Gte: Date, beginDate_Lte: Date, expirationDate: Date, expirationDate_Gte: Date, expirationDate_Lte: Date, expires: Boolean, first: Int, isPublished: Boolean, last: Int, offset: Int, search: String): DocumentConnection
+  documents(after: String, before: String, beginDate: Date, beginDate_Gte: Date, beginDate_Lte: Date, expirationDate: Date, expirationDate_Gte: Date, expirationDate_Lte: Date, expires: Boolean, first: Int, isPublished: Boolean, last: Int, offset: Int, owner: String, search: String): DocumentConnection
   investment(id: ID, month: Int, year: Int): Investment
   investments(after: String, before: String, first: Int, isPublished: Boolean, last: Int, month: Int, offset: Int, year: Int): InvestmentConnection
   me: User

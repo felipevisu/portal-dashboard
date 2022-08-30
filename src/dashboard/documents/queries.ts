@@ -19,6 +19,7 @@ export const documentsQuery = gql`
     $isPublished: Boolean
     $expirationDate_Lte: Date
     $expirationDate_Gte: Date
+    $owner: String
   ) {
     documents(
       first: $first
@@ -30,6 +31,7 @@ export const documentsQuery = gql`
       isPublished: $isPublished
       expirationDate_Lte: $expirationDate_Lte
       expirationDate_Gte: $expirationDate_Gte
+      owner: $owner
     ) {
       edges {
         node {

@@ -17,6 +17,15 @@ interface DocumentListProps extends ListActions {
   disabled: boolean;
 }
 
+export const buildLink = (document: DocumentFragment): string => {
+  const id = document.vehicle?.id || document.provider?.id;
+  const path = document.vehicle ? "vehicles" : "providers";
+  return (
+    "/admin/" +
+    [path, "details", id, "documents", document.id, "details"].join("/")
+  );
+};
+
 export const DocumentList = ({
   documents,
   isChecked,
@@ -51,7 +60,7 @@ export const DocumentList = ({
               key={document ? document.id : "skeleton"}
               sx={{ cursor: "pointer" }}
               selected={isSelected}
-              href={`details/${document.id}/`}
+              href={buildLink(document)}
             >
               <TableCell padding="checkbox">
                 <Checkbox

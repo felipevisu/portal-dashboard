@@ -26,5 +26,14 @@ export function getFilterOpts(): FilterOpts[] {
       type: "daterange",
       choices: [],
     },
+    {
+      name: "Tipo",
+      slug: "owner",
+      choices: [
+        { value: "vehicle", label: "Veículos de comunicação" },
+        { value: "provider", label: "Prestadores de serviço" },
+      ],
+      type: "radio",
+    },
   ];
 }

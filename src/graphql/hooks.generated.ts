@@ -706,7 +706,7 @@ export type DocumentDetailsQueryHookResult = ReturnType<typeof useDocumentDetail
 export type DocumentDetailsLazyQueryHookResult = ReturnType<typeof useDocumentDetailsLazyQuery>;
 export type DocumentDetailsQueryResult = Apollo.QueryResult<Types.DocumentDetailsQuery, Types.DocumentDetailsQueryVariables>;
 export const DocumentsDocument = gql`
-    query Documents($first: Int, $last: Int, $after: String, $before: String, $search: String, $expires: Boolean, $isPublished: Boolean, $expirationDate_Lte: Date, $expirationDate_Gte: Date) {
+    query Documents($first: Int, $last: Int, $after: String, $before: String, $search: String, $expires: Boolean, $isPublished: Boolean, $expirationDate_Lte: Date, $expirationDate_Gte: Date, $owner: String) {
   documents(
     first: $first
     last: $last
@@ -717,6 +717,7 @@ export const DocumentsDocument = gql`
     isPublished: $isPublished
     expirationDate_Lte: $expirationDate_Lte
     expirationDate_Gte: $expirationDate_Gte
+    owner: $owner
   ) {
     edges {
       node {
@@ -752,6 +753,7 @@ ${PageInfoFragmentDoc}`;
  *      isPublished: // value for 'isPublished'
  *      expirationDate_Lte: // value for 'expirationDate_Lte'
  *      expirationDate_Gte: // value for 'expirationDate_Gte'
+ *      owner: // value for 'owner'
  *   },
  * });
  */

@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import TableCellHeader from "@portal/components/TableCell";
 import TableRowLink from "@portal/components/TableRowLink";
+import { buildLink } from "@portal/dashboard/documents/components/DocumentList";
 import { DocumentFragment } from "@portal/graphql";
 import { formatDate } from "@portal/utils/date";
 
@@ -20,12 +21,6 @@ interface DocumentListProps {
   title: string;
   documents: DocumentFragment[];
 }
-
-const buildLink = (document: DocumentFragment): string => {
-  const id = document.vehicle?.id || document.provider?.id;
-  const path = document.vehicle ? "vehicles" : "providers";
-  return [path, "details", id, "documents", document.id, "details"].join("/");
-};
 
 export const DocumentList = ({ title, documents }: DocumentListProps) => {
   return (

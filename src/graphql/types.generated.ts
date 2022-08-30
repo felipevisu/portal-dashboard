@@ -268,6 +268,7 @@ export type DocumentsQueryVariables = Exact<{
   isPublished?: InputMaybe<Scalars['Boolean']>;
   expirationDate_Lte?: InputMaybe<Scalars['Date']>;
   expirationDate_Gte?: InputMaybe<Scalars['Date']>;
+  owner?: InputMaybe<Scalars['String']>;
 }>;
 
 
