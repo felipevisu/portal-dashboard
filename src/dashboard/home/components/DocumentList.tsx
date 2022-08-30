@@ -1,7 +1,6 @@
 import React from "react";
 
 import {
-  Button,
   Card,
   CardHeader,
   Table,
@@ -11,6 +10,7 @@ import {
   TableRow,
   Toolbar,
 } from "@mui/material";
+import { Button } from "@portal/components/Button";
 import TableCellHeader from "@portal/components/TableCell";
 import TableRowLink from "@portal/components/TableRowLink";
 import { buildLink } from "@portal/dashboard/documents/components/DocumentList";
@@ -20,9 +20,10 @@ import { formatDate } from "@portal/utils/date";
 interface DocumentListProps {
   title: string;
   documents: DocumentFragment[];
+  href: string;
 }
 
-export const DocumentList = ({ title, documents }: DocumentListProps) => {
+export const DocumentList = ({ title, documents, href }: DocumentListProps) => {
   return (
     <Card>
       <CardHeader title={title} />
@@ -51,7 +52,9 @@ export const DocumentList = ({ title, documents }: DocumentListProps) => {
         </TableBody>
       </Table>
       <Toolbar>
-        <Button disabled={documents.length === 0}>Ver todos</Button>
+        <Button href={href} disabled={documents.length === 0}>
+          Ver todos
+        </Button>
       </Toolbar>
     </Card>
   );

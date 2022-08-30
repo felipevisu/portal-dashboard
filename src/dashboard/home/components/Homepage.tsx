@@ -13,9 +13,16 @@ import { DocumentList } from "./DocumentList";
 interface HomepageProps {
   expired: ExpiredDocumentsQuery["documents"];
   closeToExpire: CloseToExpireDocumentsQuery["documents"];
+  expiredFilter: string;
+  closeToExpireFilter: string;
 }
 
-export const Homepage = ({ expired, closeToExpire }: HomepageProps) => {
+export const Homepage = ({
+  expired,
+  closeToExpire,
+  expiredFilter,
+  closeToExpireFilter,
+}: HomepageProps) => {
   if (!expired || !closeToExpire) return null;
 
   return (
@@ -29,11 +36,13 @@ export const Homepage = ({ expired, closeToExpire }: HomepageProps) => {
       <DocumentList
         documents={mapEdgesToItems(expired)}
         title="Documentos Expirados"
+        href={expiredFilter}
       />
       <FormSpacer />
       <DocumentList
         documents={mapEdgesToItems(closeToExpire)}
         title="Documentos Expirando"
+        href={closeToExpireFilter}
       />
     </Box>
   );

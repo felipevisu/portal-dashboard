@@ -17,6 +17,9 @@ export const Home = () => {
     variables: { today },
   });
 
+  const expiredFilter = `/admin/documents?expirationDate_Lte=${today}`;
+  const closeToExpireFilter = `/admin/documents?expirationDate_Gte=${tomorrow}&expirationDate_Lte=${nextWeek}`;
+
   const { data: closeToExpire, loading: loading2 } =
     useCloseToExpireDocumentsQuery({
       variables: { tomorrow, nextWeek },
@@ -28,6 +31,8 @@ export const Home = () => {
     <Homepage
       expired={expired.documents}
       closeToExpire={closeToExpire.documents}
+      expiredFilter={expiredFilter}
+      closeToExpireFilter={closeToExpireFilter}
     />
   );
 };
