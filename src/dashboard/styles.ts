@@ -4,16 +4,7 @@ export const Wrapper = styled("div")(() => ({
   display: "flex",
 }));
 
-export const Lateral = styled("div")(({ theme }) => ({
-  "> div": {
-    "&:first-of-type": {
-      height: "100vh",
-      overflowY: "auto",
-      position: "sticky",
-      padding: theme.spacing(2, 0),
-    },
-  },
-}));
+export const Lateral = styled("div")(() => ({}));
 
 export const Content = styled(Container)(({ theme }) => ({
   flexGrow: "1",

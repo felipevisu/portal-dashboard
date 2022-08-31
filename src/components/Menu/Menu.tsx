@@ -14,7 +14,7 @@ import EventNoteIcon from "@mui/icons-material/EventNote";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import SegmentIcon from "@mui/icons-material/Segment";
 
-import { Label, MenuItem, OpenClose } from "./styles";
+import { Label, MenuContent, MenuItem, OpenClose } from "./styles";
 
 const ITEMS = [
   {
@@ -92,7 +92,7 @@ export const Menu = () => {
   const location = useLocation();
 
   return (
-    <div>
+    <MenuContent opened={opened}>
       <ul>
         {ITEMS.map((item) => (
           <Item
@@ -102,13 +102,11 @@ export const Menu = () => {
             opened={opened}
           />
         ))}
-        <li>
-          <OpenClose onClick={() => setOpened(!opened)}>
-            {opened ? <ArrowCircleLeft /> : <ArrowCircleRight />}
-          </OpenClose>
-        </li>
       </ul>
-    </div>
+      <OpenClose onClick={() => setOpened(!opened)}>
+        {opened ? <ArrowCircleLeft /> : <ArrowCircleRight />}
+      </OpenClose>
+    </MenuContent>
   );
 };
 
