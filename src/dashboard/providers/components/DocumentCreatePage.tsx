@@ -8,7 +8,7 @@ import { ErrorFragment } from "@portal/graphql";
 import { ChangeEvent } from "@portal/types";
 
 import DocumentFile from "./DocumentFile";
-import DocumentForm, { FormProps } from "./DocumentForm";
+import DocumentForm, { FormProps, generateSubmitData } from "./DocumentForm";
 
 interface DocumentCreatePageProps {
   onSubmit: (data) => Promise<void>;
@@ -35,7 +35,7 @@ export const DocumentCreatePage = ({
 
   useEffect(() => {
     if (!data.expires) {
-      setData({ ...data, expirationDate: "", beginDate: "" });
+      setData({ ...data });
     }
   }, [data]);
 
@@ -47,10 +47,8 @@ export const DocumentCreatePage = ({
   };
 
   const handleSubmit = () => {
-    const formData = { ...data };
-    if (!data.expirationDate) delete formData.expirationDate;
-    if (!data.beginDate) delete formData.beginDate;
-    onSubmit({ ...formData, provider: id, file: file });
+    const submitDate = generateSubmitData(data);
+    onSubmit({ ...submitDate, provider: id, file: file });
   };
 
   return (

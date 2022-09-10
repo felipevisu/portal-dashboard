@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { Backlink } from "@portal/components/Backlink";
@@ -8,7 +8,7 @@ import { DocumentDetailsFragment, ErrorFragment } from "@portal/graphql";
 import { ChangeEvent } from "@portal/types";
 
 import DocumentFile from "./DocumentFile";
-import DocumentForm, { FormProps } from "./DocumentForm";
+import DocumentForm, { FormProps, generateSubmitData } from "./DocumentForm";
 
 interface DocumentDetailsPageProps {
   document: DocumentDetailsFragment;
@@ -32,16 +32,10 @@ export const DocumentDetailsPage = ({
     description: document.description,
     isPublished: document.isPublished,
     expires: document.expires,
-    expirationDate: document.expirationDate || "",
-    beginDate: document.beginDate || "",
+    expirationDate: document.expirationDate,
+    beginDate: document.beginDate,
   });
   const [file, setFile] = useState(null);
-
-  useEffect(() => {
-    if (!data.expires) {
-      setData({ ...data, expirationDate: "", beginDate: "" });
-    }
-  }, [data.expires]);
 
   const handleChange = (e: ChangeEvent) => {
     setData({
@@ -51,11 +45,9 @@ export const DocumentDetailsPage = ({
   };
 
   const handleSubmit = () => {
-    const formData = { ...data, file };
-    if (!data.expirationDate) delete formData.expirationDate;
-    if (!data.beginDate) delete formData.beginDate;
-    if (!file) delete formData.file;
-    onSubmit({ ...formData, vehicle: id });
+    const submitData = generateSubmitData(data);
+    if (file) submitData.file = file;
+    onSubmit({ ...submitData, vehicle: id });
     setFile(null);
   };
 

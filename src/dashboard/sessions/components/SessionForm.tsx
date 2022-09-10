@@ -88,7 +88,7 @@ export const SessionForm = ({ errors, data, onChange }: SessionFormProps) => {
               <FormControl>
                 <DateTimePicker
                   label="Data"
-                  inputFormat="yyyy/MM/dd - HH:mm"
+                  inputFormat="dd/MM/yyyy - HH:mm"
                   value={data.date}
                   onChange={(val) =>
                     onChange({ target: { name: "date", value: val } })

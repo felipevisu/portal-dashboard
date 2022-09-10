@@ -51,13 +51,12 @@ const FilterItem = ({ filter, onClick, value }: FilterItemProps) => {
             ))}
           </RadioGroup>
         )}
-
         {filter.type === "daterange" && (
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <FormSpacer />
             <FormControl fullWidth>
               <DatePicker
-                inputFormat="dd/MM/Y"
+                inputFormat="dd/MM/yyyy"
                 value={value?.Gte || ""}
                 label="De"
                 onChange={(val: Date) => {
@@ -65,7 +64,7 @@ const FilterItem = ({ filter, onClick, value }: FilterItemProps) => {
                     name: filter.slug,
                     value: {
                       ...value,
-                      Gte: val.toISOString().split("T")[0],
+                      Gte: val,
                     },
                   });
                 }}
@@ -77,13 +76,13 @@ const FilterItem = ({ filter, onClick, value }: FilterItemProps) => {
             <FormSpacer />
             <FormControl fullWidth>
               <DatePicker
-                inputFormat="dd/MM/Y"
+                inputFormat="dd/MM/yyyy"
                 value={value?.Lte || ""}
                 label="Até"
                 onChange={(val: Date) => {
                   onClick({
                     name: filter.slug,
-                    value: { ...value, Lte: val.toISOString().split("T")[0] },
+                    value: { ...value, Lte: val },
                   });
                 }}
                 renderInput={(params) => (

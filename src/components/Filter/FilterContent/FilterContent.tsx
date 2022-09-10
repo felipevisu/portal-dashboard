@@ -54,8 +54,8 @@ export const FilterContent = ({ filterOpts }: FilterContentProps) => {
         if (filter.type === "daterange") {
           const gte = value.Gte;
           const lte = value.Lte;
-          if (gte) params[slug + "_Gte"] = gte;
-          if (lte) params[slug + "_Lte"] = lte;
+          if (gte) params[slug + "_Gte"] = gte.toISOString().split("T")[0];
+          if (lte) params[slug + "_Lte"] = lte.toISOString().split("T")[0];
         }
       }
     }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { Backlink } from "@portal/components/Backlink";
@@ -8,7 +8,7 @@ import { ErrorFragment } from "@portal/graphql";
 import { ChangeEvent } from "@portal/types";
 
 import DocumentFile from "./DocumentFile";
-import DocumentForm, { FormProps } from "./DocumentForm";
+import DocumentForm, { FormProps, generateSubmitData } from "./DocumentForm";
 
 interface DocumentCreatePageProps {
   onSubmit: (data) => Promise<void>;
@@ -33,12 +33,6 @@ export const DocumentCreatePage = ({
   });
   const [file, setFile] = useState(null);
 
-  useEffect(() => {
-    if (!data.expires) {
-      setData({ ...data, expirationDate: "", beginDate: "" });
-    }
-  }, [data]);
-
   const handleChange = (e: ChangeEvent) => {
     setData({
       ...data,
@@ -47,10 +41,8 @@ export const DocumentCreatePage = ({
   };
 
   const handleSubmit = () => {
-    const formData = { ...data };
-    if (!data.expirationDate) delete formData.expirationDate;
-    if (!data.beginDate) delete formData.beginDate;
-    onSubmit({ ...formData, vehicle: id, file: file });
+    const submitData = generateSubmitData(data);
+    onSubmit({ ...submitData, vehicle: id, file: file });
   };
 
   return (

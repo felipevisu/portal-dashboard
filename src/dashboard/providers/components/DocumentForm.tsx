@@ -22,8 +22,24 @@ export type FormProps = {
   description: string;
   expires: boolean;
   isPublished: boolean;
-  expirationDate: string;
-  beginDate: string;
+  expirationDate: Date;
+  beginDate: Date;
+};
+
+export const generateSubmitData = (data: FormProps) => {
+  const submitData: Record<string, any> = {
+    name: data.name,
+    description: data.description,
+    expires: data.expires,
+    isPublished: data.isPublished,
+  };
+  if (data.expirationDate) {
+    submitData.expirationDate = data.expirationDate.toISOString().split("T")[0];
+  }
+  if (data.beginDate) {
+    submitData.beginDate = data.beginDate.toISOString().split("T")[0];
+  }
+  return submitData;
 };
 
 interface DocumentFormProps {
@@ -104,14 +120,14 @@ export const DocumentForm = ({
                 <FormSpacer />
                 <FormControl fullWidth>
                   <DatePicker
-                    inputFormat="dd/MM/Y"
-                    value={data.beginDate ? new Date(data.beginDate) : null}
+                    inputFormat="dd/MM/yyyy"
+                    value={data.beginDate}
                     label="Data de início"
                     onChange={(value) => {
                       onChange({
                         target: {
                           name: "beginDate",
-                          value: value.toISOString().split("T")[0],
+                          value: value,
                         },
                       });
                     }}
@@ -123,16 +139,14 @@ export const DocumentForm = ({
                 <FormSpacer />
                 <FormControl fullWidth>
                   <DatePicker
-                    inputFormat="dd/MM/Y"
-                    value={
-                      data.expirationDate ? new Date(data.expirationDate) : null
-                    }
+                    inputFormat="dd/MM/yyyy"
+                    value={data.expirationDate}
                     label="Data de expiração"
                     onChange={(value) => {
                       onChange({
                         target: {
                           name: "expirationDate",
-                          value: value.toISOString().split("T")[0],
+                          value: value,
                         },
                       });
                     }}
