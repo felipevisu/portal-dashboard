@@ -449,14 +449,17 @@ type Permission {
 }
 
 type Provider implements Node {
+  address: String
   created: DateTime!
   documentNumber: String!
   documents(after: String, before: String, first: Int, last: Int): DocumentsConnection
+  email: String
 
   """The ID of the object."""
   id: ID!
   isPublished: Boolean!
   name: String!
+  phone: String
   publicationDate: Date
   segment: Segment!
   slug: String!
@@ -499,9 +502,12 @@ type ProviderEdge {
 }
 
 input ProviderInput {
+  address: String
   documentNumber: String
+  email: String
   isPublished: Boolean
   name: String
+  phone: String
   publicationDate: Date
   segment: ID
   slug: String
@@ -728,16 +734,19 @@ type User implements Node {
 }
 
 type Vehicle implements Node {
+  address: String
   category: Category!
   created: DateTime!
   documentFile: String!
   documentNumber: String!
   documents(after: String, before: String, first: Int, last: Int): DocumentsConnection
+  email: String
 
   """The ID of the object."""
   id: ID!
   isPublished: Boolean!
   name: String!
+  phone: String
   publicationDate: Date
   slug: String!
   updated: DateTime!
@@ -779,10 +788,13 @@ type VehicleEdge {
 }
 
 input VehicleInput {
+  address: String
   category: ID
   documentNumber: String
+  email: String
   isPublished: Boolean
   name: String
+  phone: String
   publicationDate: Date
   slug: String
 }

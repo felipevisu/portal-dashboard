@@ -31,7 +31,7 @@ export const DocumentList = ({
   pageInfo,
 }: DocumentListProps) => {
   return (
-    <Card>
+    <Card sx={{ marginBottom: 2 }}>
       <CardHeader
         title="Documentos"
         action={

@@ -27,5 +27,8 @@ export const providerDetailsFragment = gql`
       id
       name
     }
+    email
+    phone
+    address
   }
 `;

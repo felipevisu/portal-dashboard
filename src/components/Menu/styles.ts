@@ -12,6 +12,7 @@ export const MenuContent = styled("div")<MenuContent>(({ opened, theme }) => ({
   zIndex: "1000",
   height: "100vh",
   position: "fixed",
+  top: 0,
   left: opened ? "0px" : "-70px",
   padding: theme.spacing(2, 0),
   background: "white",

@@ -24,6 +24,9 @@ export type FormProps = {
   documentNumber: string;
   category: string;
   isPublished: boolean;
+  email?: string;
+  phone?: string;
+  address?: string;
 };
 
 interface VehicleFormProps

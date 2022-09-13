@@ -24,5 +24,8 @@ export const vehicleDetailsFragment = gql`
       name
     }
     isPublished
+    email
+    phone
+    address
   }
 `;

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { Grid } from "@mui/material";
 import { Backlink } from "@portal/components/Backlink";
+import ContactInfosForm from "@portal/components/ContactInfosForm";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
 import {
@@ -29,6 +30,9 @@ const sanitizeProvider = (provider: ProviderDetailsFragment) => {
     documentNumber: provider.documentNumber,
     segment: provider.segment.id,
     isPublished: provider.isPublished,
+    email: provider.email,
+    phone: provider.phone,
+    address: provider.address,
   };
 };
 
@@ -83,6 +87,11 @@ export const ProviderDetailsPage = ({
             documents={mapEdgesToItems(provider.documents)}
             paginator={paginator}
             pageInfo={provider.documents.pageInfo}
+          />
+          <ContactInfosForm<FormProps>
+            errors={errors}
+            onChange={handleChange}
+            data={data}
           />
         </Grid>
         <Grid item xs={4}>

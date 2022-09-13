@@ -24,6 +24,9 @@ export type FormProps = {
   documentNumber: string;
   segment: string;
   isPublished: boolean;
+  email?: string;
+  phone?: string;
+  address?: string;
 };
 
 interface ProviderFormProps

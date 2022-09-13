@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { Grid } from "@mui/material";
 import { Backlink } from "@portal/components/Backlink";
+import ContactInfosForm from "@portal/components/ContactInfosForm";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
 import {
@@ -25,6 +26,9 @@ const sanitizeVehicle = (vehicle: VehicleDetailsFragment) => {
     documentNumber: vehicle.documentNumber,
     category: vehicle.category.id,
     isPublished: vehicle.isPublished,
+    email: vehicle.email,
+    phone: vehicle.phone,
+    address: vehicle.address,
   };
 };
 
@@ -79,6 +83,11 @@ export const VehicleDetailsPage = ({
             documents={mapEdgesToItems(vehicle.documents)}
             paginator={paginator}
             pageInfo={vehicle.documents.pageInfo}
+          />
+          <ContactInfosForm<FormProps>
+            errors={errors}
+            onChange={handleChange}
+            data={data}
           />
         </Grid>
         <Grid item xs={4}>

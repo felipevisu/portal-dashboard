@@ -148,6 +148,9 @@ export const ProviderDetailsFragmentDoc = gql`
     id
     name
   }
+  email
+  phone
+  address
 }
     `;
 export const SegmentFragmentDoc = gql`
@@ -202,6 +205,9 @@ export const VehicleDetailsFragmentDoc = gql`
     name
   }
   isPublished
+  email
+  phone
+  address
 }
     `;
 export const TokenAuthDocument = gql`

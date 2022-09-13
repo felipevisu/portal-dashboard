@@ -109,9 +109,12 @@ export enum OrderDirection {
 }
 
 export type ProviderInput = {
+  address?: InputMaybe<Scalars['String']>;
   documentNumber?: InputMaybe<Scalars['String']>;
+  email?: InputMaybe<Scalars['String']>;
   isPublished?: InputMaybe<Scalars['Boolean']>;
   name?: InputMaybe<Scalars['String']>;
+  phone?: InputMaybe<Scalars['String']>;
   publicationDate?: InputMaybe<Scalars['Date']>;
   segment?: InputMaybe<Scalars['ID']>;
   slug?: InputMaybe<Scalars['String']>;
@@ -154,10 +157,13 @@ export type SessionInput = {
 };
 
 export type VehicleInput = {
+  address?: InputMaybe<Scalars['String']>;
   category?: InputMaybe<Scalars['ID']>;
   documentNumber?: InputMaybe<Scalars['String']>;
+  email?: InputMaybe<Scalars['String']>;
   isPublished?: InputMaybe<Scalars['Boolean']>;
   name?: InputMaybe<Scalars['String']>;
+  phone?: InputMaybe<Scalars['String']>;
   publicationDate?: InputMaybe<Scalars['Date']>;
   slug?: InputMaybe<Scalars['String']>;
 };
@@ -372,7 +378,7 @@ export type ProviderCreateMutationVariables = Exact<{
 }>;
 
 
-export type ProviderCreateMutation = { __typename: 'Mutation', providerCreate: { __typename: 'ProviderCreate', provider: { __typename: 'Provider', id: string, name: string, slug: string, documentNumber: string, isPublished: boolean, segment: { __typename: 'Segment', id: string, name: string } } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+export type ProviderCreateMutation = { __typename: 'Mutation', providerCreate: { __typename: 'ProviderCreate', provider: { __typename: 'Provider', id: string, name: string, slug: string, documentNumber: string, isPublished: boolean, email: string | null, phone: string | null, address: string | null, segment: { __typename: 'Segment', id: string, name: string } } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
 
 export type ProviderUpdateMutationVariables = Exact<{
   id?: InputMaybe<Scalars['ID']>;
@@ -380,7 +386,7 @@ export type ProviderUpdateMutationVariables = Exact<{
 }>;
 
 
-export type ProviderUpdateMutation = { __typename: 'Mutation', providerUpdate: { __typename: 'ProviderUpdate', provider: { __typename: 'Provider', id: string, name: string, slug: string, documentNumber: string, isPublished: boolean, segment: { __typename: 'Segment', id: string, name: string } } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+export type ProviderUpdateMutation = { __typename: 'Mutation', providerUpdate: { __typename: 'ProviderUpdate', provider: { __typename: 'Provider', id: string, name: string, slug: string, documentNumber: string, isPublished: boolean, email: string | null, phone: string | null, address: string | null, segment: { __typename: 'Segment', id: string, name: string } } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
 
 export type ProviderDeleteMutationVariables = Exact<{
   id: Scalars['ID'];
@@ -416,7 +422,7 @@ export type ProviderDetailsQueryVariables = Exact<{
 }>;
 
 
-export type ProviderDetailsQuery = { __typename: 'Query', provider: { __typename: 'Provider', id: string, name: string, slug: string, documentNumber: string, isPublished: boolean, documents: { __typename: 'DocumentsConnection', edges: Array<{ __typename: 'DocumentsEdge', node: { __typename: 'Document', id: string, name: string, created: any, beginDate: any | null, expirationDate: any | null, isPublished: boolean, expired: boolean | null, expires: boolean, vehicle: { __typename: 'Vehicle', id: string, name: string } | null, provider: { __typename: 'Provider', id: string, name: string } | null } | null } | null>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null, segment: { __typename: 'Segment', id: string, name: string } } | null };
+export type ProviderDetailsQuery = { __typename: 'Query', provider: { __typename: 'Provider', id: string, name: string, slug: string, documentNumber: string, isPublished: boolean, email: string | null, phone: string | null, address: string | null, documents: { __typename: 'DocumentsConnection', edges: Array<{ __typename: 'DocumentsEdge', node: { __typename: 'Document', id: string, name: string, created: any, beginDate: any | null, expirationDate: any | null, isPublished: boolean, expired: boolean | null, expires: boolean, vehicle: { __typename: 'Vehicle', id: string, name: string } | null, provider: { __typename: 'Provider', id: string, name: string } | null } | null } | null>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null, segment: { __typename: 'Segment', id: string, name: string } } | null };
 
 export type SegmentCreateMutationVariables = Exact<{
   input: SegmentInput;
@@ -518,7 +524,7 @@ export type VehicleCreateMutationVariables = Exact<{
 }>;
 
 
-export type VehicleCreateMutation = { __typename: 'Mutation', vehicleCreate: { __typename: 'VehicleCreate', vehicle: { __typename: 'Vehicle', id: string, name: string, slug: string, documentNumber: string, isPublished: boolean, category: { __typename: 'Category', id: string, name: string } } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+export type VehicleCreateMutation = { __typename: 'Mutation', vehicleCreate: { __typename: 'VehicleCreate', vehicle: { __typename: 'Vehicle', id: string, name: string, slug: string, documentNumber: string, isPublished: boolean, email: string | null, phone: string | null, address: string | null, category: { __typename: 'Category', id: string, name: string } } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
 
 export type VehicleUpdateMutationVariables = Exact<{
   id?: InputMaybe<Scalars['ID']>;
@@ -526,7 +532,7 @@ export type VehicleUpdateMutationVariables = Exact<{
 }>;
 
 
-export type VehicleUpdateMutation = { __typename: 'Mutation', vehicleUpdate: { __typename: 'VehicleUpdate', vehicle: { __typename: 'Vehicle', id: string, name: string, slug: string, documentNumber: string, isPublished: boolean, category: { __typename: 'Category', id: string, name: string } } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+export type VehicleUpdateMutation = { __typename: 'Mutation', vehicleUpdate: { __typename: 'VehicleUpdate', vehicle: { __typename: 'Vehicle', id: string, name: string, slug: string, documentNumber: string, isPublished: boolean, email: string | null, phone: string | null, address: string | null, category: { __typename: 'Category', id: string, name: string } } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
 
 export type VehicleDeleteMutationVariables = Exact<{
   id: Scalars['ID'];
@@ -562,7 +568,7 @@ export type VehicleDetailsQueryVariables = Exact<{
 }>;
 
 
-export type VehicleDetailsQuery = { __typename: 'Query', vehicle: { __typename: 'Vehicle', id: string, name: string, slug: string, documentNumber: string, isPublished: boolean, documents: { __typename: 'DocumentsConnection', edges: Array<{ __typename: 'DocumentsEdge', node: { __typename: 'Document', id: string, name: string, created: any, beginDate: any | null, expirationDate: any | null, isPublished: boolean, expired: boolean | null, expires: boolean, vehicle: { __typename: 'Vehicle', id: string, name: string } | null, provider: { __typename: 'Provider', id: string, name: string } | null } | null } | null>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null, category: { __typename: 'Category', id: string, name: string } } | null };
+export type VehicleDetailsQuery = { __typename: 'Query', vehicle: { __typename: 'Vehicle', id: string, name: string, slug: string, documentNumber: string, isPublished: boolean, email: string | null, phone: string | null, address: string | null, documents: { __typename: 'DocumentsConnection', edges: Array<{ __typename: 'DocumentsEdge', node: { __typename: 'Document', id: string, name: string, created: any, beginDate: any | null, expirationDate: any | null, isPublished: boolean, expired: boolean | null, expires: boolean, vehicle: { __typename: 'Vehicle', id: string, name: string } | null, provider: { __typename: 'Provider', id: string, name: string } | null } | null } | null>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null, category: { __typename: 'Category', id: string, name: string } } | null };
 
 export type UserFragment = { __typename: 'User', id: string, email: string, firstName: string, lastName: string, isStaff: boolean };
 
@@ -588,7 +594,7 @@ export type PageInfoFragment = { __typename: 'PageInfo', endCursor: string | nul
 
 export type ProviderFragment = { __typename: 'Provider', id: string, name: string, slug: string, isPublished: boolean, segment: { __typename: 'Segment', id: string, name: string }, documents: { __typename: 'DocumentsConnection', totalCount: number | null } | null };
 
-export type ProviderDetailsFragment = { __typename: 'Provider', id: string, name: string, slug: string, documentNumber: string, isPublished: boolean, segment: { __typename: 'Segment', id: string, name: string } };
+export type ProviderDetailsFragment = { __typename: 'Provider', id: string, name: string, slug: string, documentNumber: string, isPublished: boolean, email: string | null, phone: string | null, address: string | null, segment: { __typename: 'Segment', id: string, name: string } };
 
 export type SegmentFragment = { __typename: 'Segment', id: string, name: string, slug: string, providers: { __typename: 'ProvidersConnection', totalCount: number | null } | null };
 
@@ -598,7 +604,7 @@ export type SessionDetailsFragment = { __typename: 'Session', id: string, name: 
 
 export type VehicleFragment = { __typename: 'Vehicle', id: string, name: string, slug: string, isPublished: boolean, category: { __typename: 'Category', id: string, name: string } };
 
-export type VehicleDetailsFragment = { __typename: 'Vehicle', id: string, name: string, slug: string, documentNumber: string, isPublished: boolean, category: { __typename: 'Category', id: string, name: string } };
+export type VehicleDetailsFragment = { __typename: 'Vehicle', id: string, name: string, slug: string, documentNumber: string, isPublished: boolean, email: string | null, phone: string | null, address: string | null, category: { __typename: 'Category', id: string, name: string } };
 
 export type SearchCategoriesQueryVariables = Exact<{
   after?: InputMaybe<Scalars['String']>;

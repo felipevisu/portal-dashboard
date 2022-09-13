@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { Grid } from "@mui/material";
 import { Backlink } from "@portal/components/Backlink";
+import ContactInfosForm from "@portal/components/ContactInfosForm";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
 import { ErrorFragment, SearchSegmentsQuery } from "@portal/graphql";
@@ -35,6 +36,9 @@ export const ProviderCreatePage = ({
     documentNumber: "",
     segment: "",
     isPublished: false,
+    email: "",
+    phone: "",
+    address: "",
   });
 
   const handleChange = (e: ChangeEvent) => {
@@ -65,6 +69,11 @@ export const ProviderCreatePage = ({
             onChange={handleChange}
             data={data}
             segments={segments}
+          />
+          <ContactInfosForm<FormProps>
+            data={data}
+            onChange={handleChange}
+            errors={errors}
           />
         </Grid>
         <Grid item xs={4}>

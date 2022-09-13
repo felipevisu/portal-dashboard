@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { Grid } from "@mui/material";
 import { Backlink } from "@portal/components/Backlink";
+import ContactInfosForm from "@portal/components/ContactInfosForm";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
 import { ErrorFragment, SearchCategoriesQuery } from "@portal/graphql";
@@ -31,6 +32,9 @@ export const VehicleCreatePage = ({
     documentNumber: "",
     category: "",
     isPublished: false,
+    email: "",
+    phone: "",
+    address: "",
   });
 
   const handleChange = (e: ChangeEvent) => {
@@ -57,6 +61,11 @@ export const VehicleCreatePage = ({
             onChange={handleChange}
             data={data}
             categories={categories}
+          />
+          <ContactInfosForm<FormProps>
+            errors={errors}
+            onChange={handleChange}
+            data={data}
           />
         </Grid>
         <Grid item xs={4}>
