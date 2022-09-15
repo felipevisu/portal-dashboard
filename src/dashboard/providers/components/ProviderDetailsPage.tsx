@@ -1,18 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Grid } from "@mui/material";
 import { Backlink } from "@portal/components/Backlink";
 import ContactInfosForm from "@portal/components/ContactInfosForm";
+import { Form } from "@portal/components/Form";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
 import {
   ErrorFragment,
-  ProviderDetailsFragment,
   ProviderDetailsQuery,
+  ProviderInput,
   SearchSegmentsQuery,
 } from "@portal/graphql";
-import { ChangeEvent, Paginator, RelayToFlat } from "@portal/types";
+import { SubmitPromise } from "@portal/hooks/useForm";
+import { Paginator, RelayToFlat } from "@portal/types";
 import { getChoices } from "@portal/utils/data";
 import { mapEdgesToItems } from "@portal/utils/maps";
 
@@ -23,22 +25,9 @@ import {
   ProviderFormStatus,
 } from "./ProviderForm";
 
-const sanitizeProvider = (provider: ProviderDetailsFragment) => {
-  return {
-    name: provider.name,
-    slug: provider.slug,
-    documentNumber: provider.documentNumber,
-    segment: provider.segment.id,
-    isPublished: provider.isPublished,
-    email: provider.email,
-    phone: provider.phone,
-    address: provider.address,
-  };
-};
-
 interface ProviderDetailsPageProps {
   provider: ProviderDetailsQuery["provider"];
-  onSubmit: (data: FormProps) => Promise<void>;
+  onSubmit: (data: ProviderInput) => SubmitPromise;
   onDelete: () => void;
   errors: ErrorFragment[];
   loading: boolean;
@@ -56,59 +45,63 @@ export const ProviderDetailsPage = ({
   paginator,
 }: ProviderDetailsPageProps) => {
   const navigate = useNavigate();
-  const [data, setData] = useState<FormProps>(sanitizeProvider(provider));
-
-  const handleChange = (e: ChangeEvent) => {
-    setData({
-      ...data,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = () => {
-    onSubmit(data);
+  const initialData: FormProps = {
+    name: provider.name,
+    slug: provider.slug,
+    documentNumber: provider.documentNumber,
+    segment: provider.segment.id,
+    isPublished: provider.isPublished,
+    email: provider.email,
+    phone: provider.phone,
+    address: provider.address,
   };
 
   const segments = getChoices(segmentChoiceList);
 
   return (
-    <>
-      <Backlink href="/admin/providers">Voltar</Backlink>
-      <PageHeader title={provider.name} />
-      <Grid container spacing={2}>
-        <Grid item xs={8}>
-          <ProviderFormInfos
-            errors={errors}
-            onChange={handleChange}
-            data={data}
-            segments={segments}
-          />
-          <DocumentList
-            documents={mapEdgesToItems(provider.documents)}
-            paginator={paginator}
-            pageInfo={provider.documents.pageInfo}
-          />
-          <ContactInfosForm<FormProps>
-            errors={errors}
-            onChange={handleChange}
-            data={data}
-          />
-        </Grid>
-        <Grid item xs={4}>
-          <ProviderFormStatus
-            errors={errors}
-            onChange={handleChange}
-            data={data}
-            segments={segments}
-          />
-        </Grid>
-      </Grid>
-      <Savebar
-        onSubmit={handleSubmit}
-        onCancel={() => navigate("/admin/providers")}
-        onDelete={onDelete}
-        loading={loading}
-      />
-    </>
+    <Form initial={initialData} onSubmit={onSubmit}>
+      {({ change, submit, data }) => {
+        return (
+          <>
+            <Backlink href="/admin/providers">Voltar</Backlink>
+            <PageHeader title={provider.name} />
+            <Grid container spacing={2}>
+              <Grid item xs={8}>
+                <ProviderFormInfos
+                  errors={errors}
+                  onChange={change}
+                  data={data}
+                  segments={segments}
+                />
+                <DocumentList
+                  documents={mapEdgesToItems(provider.documents)}
+                  paginator={paginator}
+                  pageInfo={provider.documents.pageInfo}
+                />
+                <ContactInfosForm<FormProps>
+                  errors={errors}
+                  onChange={change}
+                  data={data}
+                />
+              </Grid>
+              <Grid item xs={4}>
+                <ProviderFormStatus
+                  errors={errors}
+                  onChange={change}
+                  data={data}
+                  segments={segments}
+                />
+              </Grid>
+            </Grid>
+            <Savebar
+              onSubmit={submit}
+              onCancel={() => navigate("/admin/providers")}
+              onDelete={onDelete}
+              loading={loading}
+            />
+          </>
+        );
+      }}
+    </Form>
   );
 };

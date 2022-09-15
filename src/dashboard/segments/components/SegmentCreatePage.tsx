@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Backlink } from "@portal/components/Backlink";
+import { Form } from "@portal/components/Form";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
-import { ErrorFragment } from "@portal/graphql";
-import { ChangeEvent } from "@portal/types";
+import { ErrorFragment, SegmentInput } from "@portal/graphql";
+import { SubmitPromise } from "@portal/hooks/useForm";
 
 import SegmentForm, { FormProps } from "./SegmentForm";
 
 interface SegmentCreatePageProps {
-  onSubmit: (data: FormProps) => Promise<void>;
+  onSubmit: (data: SegmentInput) => SubmitPromise;
   errors: ErrorFragment[];
   loading: boolean;
 }
@@ -21,33 +22,28 @@ export const SegmentCreatePage = ({
   loading,
 }: SegmentCreatePageProps) => {
   const navigate = useNavigate();
-  const [data, setData] = useState<FormProps>({
+
+  const initialData: FormProps = {
     name: "",
     slug: "",
-  });
-
-  const handleChange = (e: ChangeEvent) => {
-    setData({
-      ...data,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = () => {
-    onSubmit(data);
   };
 
   return (
-    <>
-      <Backlink href="/admin/segments">Voltar</Backlink>
-
-      <PageHeader title="Criar novo segmento" />
-      <SegmentForm errors={errors} onChange={handleChange} data={data} />
-      <Savebar
-        onSubmit={handleSubmit}
-        onCancel={() => navigate("/admin/segments")}
-        loading={loading}
-      />
-    </>
+    <Form initial={initialData} onSubmit={onSubmit}>
+      {({ change, submit, data }) => {
+        return (
+          <>
+            <Backlink href="/admin/segments">Voltar</Backlink>
+            <PageHeader title="Criar novo segmento" />
+            <SegmentForm errors={errors} onChange={change} data={data} />
+            <Savebar
+              onSubmit={submit}
+              onCancel={() => navigate("/admin/segments")}
+              loading={loading}
+            />
+          </>
+        );
+      }}
+    </Form>
   );
 };

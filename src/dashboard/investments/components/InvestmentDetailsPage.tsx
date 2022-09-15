@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Backlink } from "@portal/components/Backlink";
+import { Form } from "@portal/components/Form";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
 import {
@@ -9,7 +10,7 @@ import {
   InvestmentDetailsFragment,
   InvestmentInput,
 } from "@portal/graphql";
-import { ChangeEvent } from "@portal/types";
+import { SubmitPromise } from "@portal/hooks/useForm";
 import { toMonthName } from "@portal/utils/date";
 
 import InvestmentForm, { FormProps } from "./InvestmentForm";
@@ -17,7 +18,7 @@ import InvestmentItems from "./InvestmentItems";
 
 interface InvestmentDetailsPageProps {
   investment: InvestmentDetailsFragment;
-  onSubmit: (data: InvestmentInput) => Promise<void>;
+  onSubmit: (data: InvestmentInput) => SubmitPromise;
   onDelete: () => void;
   errors: ErrorFragment[];
   loading: boolean;
@@ -35,43 +36,38 @@ export const InvestmentDetailsPage = ({
   onDeleteItem,
 }: InvestmentDetailsPageProps) => {
   const navigate = useNavigate();
-  const [data, setData] = useState<FormProps>({
+
+  const initialData: FormProps = {
     year: investment.year,
     month: investment.month,
     isPublished: investment.isPublished,
-  });
-
-  const handleChange = (e: ChangeEvent) => {
-    setData({
-      ...data,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = () => {
-    onSubmit(data);
   };
 
   return (
-    <>
-      <Backlink href="/admin/investments">Voltar</Backlink>
-
-      <PageHeader
-        title={`${toMonthName(investment.month)} de ${investment.year}`}
-      />
-      <InvestmentForm errors={errors} onChange={handleChange} data={data} />
-      <InvestmentItems
-        tollbar={tollbar}
-        onDeleteItem={onDeleteItem}
-        items={investment.items}
-      />
-      <Savebar
-        onDelete={onDelete}
-        onSubmit={handleSubmit}
-        onCancel={() => navigate("/admin/investments")}
-        loading={loading}
-      />
-    </>
+    <Form initial={initialData} onSubmit={onSubmit}>
+      {({ change, submit, data }) => {
+        return (
+          <>
+            <Backlink href="/admin/investments">Voltar</Backlink>
+            <PageHeader
+              title={`${toMonthName(investment.month)} de ${investment.year}`}
+            />
+            <InvestmentForm errors={errors} onChange={change} data={data} />
+            <InvestmentItems
+              tollbar={tollbar}
+              onDeleteItem={onDeleteItem}
+              items={investment.items}
+            />
+            <Savebar
+              onDelete={onDelete}
+              onSubmit={submit}
+              onCancel={() => navigate("/admin/investments")}
+              loading={loading}
+            />
+          </>
+        );
+      }}
+    </Form>
   );
 };
 

@@ -1,17 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Backlink } from "@portal/components/Backlink";
+import { Form } from "@portal/components/Form";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
 import { ErrorFragment, InvestmentInput, ItemFragment } from "@portal/graphql";
-import { ChangeEvent } from "@portal/types";
+import { SubmitPromise } from "@portal/hooks/useForm";
 
 import InvestmentForm, { FormProps } from "./InvestmentForm";
 import InvestmentItems from "./InvestmentItems";
 
 interface InvestmentCreatePageProps {
-  onSubmit: (data: InvestmentInput) => Promise<void>;
+  onSubmit: (data: InvestmentInput) => SubmitPromise;
   errors: ErrorFragment[];
   loading: boolean;
   tollbar: React.ReactNode;
@@ -28,40 +29,35 @@ export const InvestmentCreatePage = ({
   items,
 }: InvestmentCreatePageProps) => {
   const navigate = useNavigate();
-  const [data, setData] = useState<FormProps>({
+
+  const initialData: FormProps = {
     year: undefined,
     month: undefined,
     isPublished: false,
-  });
-
-  const handleChange = (e: ChangeEvent) => {
-    setData({
-      ...data,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = () => {
-    onSubmit(data);
   };
 
   return (
-    <>
-      <Backlink href="/admin/investments">Voltar</Backlink>
-
-      <PageHeader title="Criar novo investimento" />
-      <InvestmentForm errors={errors} onChange={handleChange} data={data} />
-      <InvestmentItems
-        tollbar={tollbar}
-        items={items}
-        onDeleteItem={onDeleteItem}
-      />
-      <Savebar
-        onSubmit={handleSubmit}
-        onCancel={() => navigate("/admin/investments")}
-        loading={loading}
-      />
-    </>
+    <Form initial={initialData} onSubmit={onSubmit}>
+      {({ change, submit, data }) => {
+        return (
+          <>
+            <Backlink href="/admin/investments">Voltar</Backlink>
+            <PageHeader title="Criar novo investimento" />
+            <InvestmentForm errors={errors} onChange={change} data={data} />
+            <InvestmentItems
+              tollbar={tollbar}
+              items={items}
+              onDeleteItem={onDeleteItem}
+            />
+            <Savebar
+              onSubmit={submit}
+              onCancel={() => navigate("/admin/investments")}
+              loading={loading}
+            />
+          </>
+        );
+      }}
+    </Form>
   );
 };
 

@@ -1,40 +1,28 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Grid } from "@mui/material";
 import { Backlink } from "@portal/components/Backlink";
 import ContactInfosForm from "@portal/components/ContactInfosForm";
+import { Form } from "@portal/components/Form";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
 import {
   ErrorFragment,
   SearchCategoriesQuery,
-  VehicleDetailsFragment,
   VehicleDetailsQuery,
 } from "@portal/graphql";
-import { ChangeEvent, Paginator, RelayToFlat } from "@portal/types";
+import { SubmitPromise } from "@portal/hooks/useForm";
+import { Paginator, RelayToFlat } from "@portal/types";
 import { getChoices } from "@portal/utils/data";
 import { mapEdgesToItems } from "@portal/utils/maps";
 
 import DocumentList from "./DocumentList";
 import { FormProps, VehicleFormInfos, VehicleFormStatus } from "./VehicleForm";
 
-const sanitizeVehicle = (vehicle: VehicleDetailsFragment) => {
-  return {
-    name: vehicle.name,
-    slug: vehicle.slug,
-    documentNumber: vehicle.documentNumber,
-    category: vehicle.category.id,
-    isPublished: vehicle.isPublished,
-    email: vehicle.email,
-    phone: vehicle.phone,
-    address: vehicle.address,
-  };
-};
-
 interface VehicleDetailsPageProps {
   vehicle: VehicleDetailsQuery["vehicle"];
-  onSubmit: (data: FormProps) => Promise<void>;
+  onSubmit: (data: FormProps) => SubmitPromise;
   onDelete: () => void;
   errors: ErrorFragment[];
   loading: boolean;
@@ -52,59 +40,63 @@ export const VehicleDetailsPage = ({
   paginator,
 }: VehicleDetailsPageProps) => {
   const navigate = useNavigate();
-  const [data, setData] = useState<FormProps>(sanitizeVehicle(vehicle));
-
-  const handleChange = (e: ChangeEvent) => {
-    setData({
-      ...data,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = () => {
-    onSubmit(data);
+  const initialData: FormProps = {
+    name: vehicle.name,
+    slug: vehicle.slug,
+    documentNumber: vehicle.documentNumber,
+    category: vehicle.category.id,
+    isPublished: vehicle.isPublished,
+    email: vehicle.email,
+    phone: vehicle.phone,
+    address: vehicle.address,
   };
 
   const categories = getChoices(categoryChoiceList);
 
   return (
-    <>
-      <Backlink href="/admin/vehicles">Voltar</Backlink>
-      <PageHeader title={vehicle.name} />
-      <Grid container spacing={2}>
-        <Grid item xs={8}>
-          <VehicleFormInfos
-            errors={errors}
-            onChange={handleChange}
-            data={data}
-            categories={categories}
-          />
-          <DocumentList
-            documents={mapEdgesToItems(vehicle.documents)}
-            paginator={paginator}
-            pageInfo={vehicle.documents.pageInfo}
-          />
-          <ContactInfosForm<FormProps>
-            errors={errors}
-            onChange={handleChange}
-            data={data}
-          />
-        </Grid>
-        <Grid item xs={4}>
-          <VehicleFormStatus
-            errors={errors}
-            onChange={handleChange}
-            data={data}
-            categories={categories}
-          />
-        </Grid>
-      </Grid>
-      <Savebar
-        onSubmit={handleSubmit}
-        onCancel={() => navigate("/admin/vehicles")}
-        onDelete={onDelete}
-        loading={loading}
-      />
-    </>
+    <Form initial={initialData} onSubmit={onSubmit}>
+      {({ change, submit, data }) => {
+        return (
+          <>
+            <Backlink href="/admin/vehicles">Voltar</Backlink>
+            <PageHeader title={vehicle.name} />
+            <Grid container spacing={2}>
+              <Grid item xs={8}>
+                <VehicleFormInfos
+                  errors={errors}
+                  onChange={change}
+                  data={data}
+                  categories={categories}
+                />
+                <DocumentList
+                  documents={mapEdgesToItems(vehicle.documents)}
+                  paginator={paginator}
+                  pageInfo={vehicle.documents.pageInfo}
+                />
+                <ContactInfosForm<FormProps>
+                  errors={errors}
+                  onChange={change}
+                  data={data}
+                />
+              </Grid>
+              <Grid item xs={4}>
+                <VehicleFormStatus
+                  errors={errors}
+                  onChange={change}
+                  data={data}
+                  categories={categories}
+                />
+              </Grid>
+            </Grid>
+            <Savebar
+              onSubmit={submit}
+              onCancel={() => navigate("/admin/vehicles")}
+              onDelete={onDelete}
+              loading={loading}
+            />
+          </>
+        );
+      }}
+    </Form>
   );
 };

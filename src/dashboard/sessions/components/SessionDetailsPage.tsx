@@ -1,30 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 import { convertFromRaw, convertToRaw, EditorState } from "draft-js";
 import { useNavigate } from "react-router-dom";
 
 import { Backlink } from "@portal/components/Backlink";
+import { Form } from "@portal/components/Form";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
-import { ErrorFragment, SessionDetailsFragment } from "@portal/graphql";
-import { ChangeEvent } from "@portal/types";
+import {
+  ErrorFragment,
+  SessionDetailsFragment,
+  SessionInput,
+} from "@portal/graphql";
+import { SubmitPromise } from "@portal/hooks/useForm";
 
-import SessionForm, { FormProps } from "./SessionForm";
-
-const sanitizeSession = (session: SessionDetailsFragment) => {
-  return {
-    name: session.name,
-    slug: session.slug,
-    content: EditorState.createWithContent(
-      convertFromRaw(JSON.parse(session.content))
-    ),
-    date: session.date,
-    isPublished: session.isPublished,
-  };
-};
+import SessionForm from "./SessionForm";
 
 interface SessionDetailsPageProps {
   session: SessionDetailsFragment;
-  onSubmit: (data) => Promise<void>;
+  onSubmit: (data: SessionInput) => SubmitPromise;
   onDelete: () => void;
   errors: ErrorFragment[];
   loading: boolean;
@@ -38,16 +31,18 @@ export const SessionDetailsPage = ({
   loading,
 }: SessionDetailsPageProps) => {
   const navigate = useNavigate();
-  const [data, setData] = useState<FormProps>(sanitizeSession(session));
 
-  const handleChange = (e: ChangeEvent) => {
-    setData({
-      ...data,
-      [e.target.name]: e.target.value,
-    });
+  const initialData = {
+    name: session.name,
+    slug: session.slug,
+    content: EditorState.createWithContent(
+      convertFromRaw(JSON.parse(session.content))
+    ),
+    date: session.date,
+    isPublished: session.isPublished,
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (data) => {
     onSubmit({
       name: data.name,
       slug: data.slug,
@@ -58,17 +53,22 @@ export const SessionDetailsPage = ({
   };
 
   return (
-    <>
-      <Backlink href="/admin/sessions">Voltar</Backlink>
-
-      <PageHeader title={session.name} />
-      <SessionForm errors={errors} onChange={handleChange} data={data} />
-      <Savebar
-        onSubmit={handleSubmit}
-        onCancel={() => navigate("/admin/sessions")}
-        onDelete={onDelete}
-        loading={loading}
-      />
-    </>
+    <Form initial={initialData} onSubmit={handleSubmit}>
+      {({ change, submit, data }) => {
+        return (
+          <>
+            <Backlink href="/admin/sessions">Voltar</Backlink>
+            <PageHeader title={session.name} />
+            <SessionForm errors={errors} onChange={change} data={data} />
+            <Savebar
+              onSubmit={submit}
+              onCancel={() => navigate("/admin/sessions")}
+              onDelete={onDelete}
+              loading={loading}
+            />
+          </>
+        );
+      }}
+    </Form>
   );
 };

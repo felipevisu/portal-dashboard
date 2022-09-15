@@ -1,17 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Backlink } from "@portal/components/Backlink";
+import { Form } from "@portal/components/Form";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
-import { CategoryFragment, ErrorFragment } from "@portal/graphql";
-import { ChangeEvent } from "@portal/types";
+import {
+  CategoryFragment,
+  CategoryInput,
+  ErrorFragment,
+} from "@portal/graphql";
+import { SubmitPromise } from "@portal/hooks/useForm";
 
 import CategoryForm, { FormProps } from "./CategoryForm";
 
 interface CategoryDetailsPageProps {
   category: CategoryFragment;
-  onSubmit: (data: FormProps) => Promise<void>;
+  onSubmit: (data: CategoryInput) => SubmitPromise;
   onDelete: () => void;
   errors: ErrorFragment[];
   loading: boolean;
@@ -25,38 +30,33 @@ export const CategoryDetailsPage = ({
   loading,
 }: CategoryDetailsPageProps) => {
   const navigate = useNavigate();
-  const [data, setData] = useState<FormProps>({
-    name: category.name,
-    slug: category.slug,
-  });
-
-  const handleChange = (e: ChangeEvent) => {
-    setData({
-      ...data,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = () => {
-    onSubmit(data);
-  };
 
   const handleDelete = () => {
     onDelete();
   };
 
-  return (
-    <>
-      <Backlink href="/admin/categories">Voltar</Backlink>
+  const initialData: FormProps = {
+    name: category.name,
+    slug: category.slug,
+  };
 
-      <PageHeader title={category?.name} />
-      <CategoryForm errors={errors} onChange={handleChange} data={data} />
-      <Savebar
-        onSubmit={handleSubmit}
-        onDelete={handleDelete}
-        onCancel={() => navigate("/admin/categories")}
-        loading={loading}
-      />
-    </>
+  return (
+    <Form initial={initialData} onSubmit={onSubmit}>
+      {({ change, data, submit }) => {
+        return (
+          <>
+            <Backlink href="/admin/categories">Voltar</Backlink>
+            <PageHeader title={category?.name} />
+            <CategoryForm errors={errors} onChange={change} data={data} />
+            <Savebar
+              onSubmit={submit}
+              onDelete={handleDelete}
+              onCancel={() => navigate("/admin/categories")}
+              loading={loading}
+            />
+          </>
+        );
+      }}
+    </Form>
   );
 };
