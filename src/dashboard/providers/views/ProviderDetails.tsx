@@ -8,7 +8,6 @@ import NotFound from "@portal/components/NotFound";
 import { DEFAULT_INITIAL_SEARCH_DATA } from "@portal/config";
 import {
   ProviderInput,
-  ProviderUpdateMutation,
   useProviderDeleteMutation,
   useProviderDetailsQuery,
   useProviderUpdateMutation,
@@ -46,7 +45,7 @@ export const ProviderDetails = () => {
   });
 
   const { data, loading, refetch } = useProviderDetailsQuery({
-    variables: { id: id, after: paginator.after },
+    variables: { id: id, ...paginator.pagination },
   });
 
   useEffect(() => {

@@ -24,7 +24,7 @@ import { getFilterOpts } from "./filter";
 export const VehicleList = () => {
   const [searchParams] = useSearchParams();
   const { search, handleSearch } = useSearch();
-  const { after, first, handleNextPage, handlePreviousPage } = usePaginator();
+  const { pagination, handleNextPage, handlePreviousPage } = usePaginator();
 
   const { isSelected, listElements, toggle, toggleAll, reset } = useBulkActions(
     []
@@ -48,7 +48,7 @@ export const VehicleList = () => {
   );
 
   const { data, loading, refetch } = useVehiclesQuery({
-    variables: { search, after, first, ...queryParameters },
+    variables: { ...pagination, filter: { search, ...queryParameters } },
   });
 
   const handleVehicleBulkDelete = (data: VehicleBulkDeleteMutation) => {

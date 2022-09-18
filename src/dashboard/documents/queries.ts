@@ -14,24 +14,14 @@ export const documentsQuery = gql`
     $last: Int
     $after: String
     $before: String
-    $search: String
-    $expires: Boolean
-    $isPublished: Boolean
-    $expirationDate_Lte: Date
-    $expirationDate_Gte: Date
-    $owner: String
+    $filter: DocumentFilterInput
   ) {
     documents(
       first: $first
       last: $last
       after: $after
       before: $before
-      search: $search
-      expires: $expires
-      isPublished: $isPublished
-      expirationDate_Lte: $expirationDate_Lte
-      expirationDate_Gte: $expirationDate_Gte
-      owner: $owner
+      filter: $filter
     ) {
       edges {
         node {

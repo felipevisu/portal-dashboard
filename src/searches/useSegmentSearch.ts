@@ -8,7 +8,7 @@ import { makeTopLevelSearch } from "@portal/hooks";
 
 export const searchSegments = gql`
   query SearchSegments($after: String, $first: Int!, $query: String!) {
-    search: segments(after: $after, first: $first, search: $query) {
+    search: segments(after: $after, first: $first, filter: { search: $query }) {
       edges {
         node {
           id

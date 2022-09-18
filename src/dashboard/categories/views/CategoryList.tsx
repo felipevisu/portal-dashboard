@@ -16,7 +16,7 @@ import CategoryListPage from "../components/CategoryListPage";
 
 export const CategoryList = () => {
   const { search, handleSearch } = useSearch();
-  const { after, first, handleNextPage, handlePreviousPage } = usePaginator();
+  const { pagination, handleNextPage, handlePreviousPage } = usePaginator();
 
   const { isSelected, listElements, toggle, toggleAll, reset } = useBulkActions(
     []
@@ -26,7 +26,7 @@ export const CategoryList = () => {
 
   const { data, loading, refetch } = useCategoriesQuery({
     fetchPolicy: "cache-and-network",
-    variables: { search, after, first },
+    variables: { ...pagination, filter: { search } },
   });
 
   const handleCategoryBulkDelete = (data: CategoryBulkDeleteMutation) => {

@@ -83,36 +83,8 @@
         "description": null,
         "fields": [
           {
-            "name": "created",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "DateTime",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "customId",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "ID",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "id",
-            "description": "The ID of the object.",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -147,29 +119,9 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "updated",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "DateTime",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -229,7 +181,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "VehiclesConnection",
+              "name": "VehicleCountableConnection",
               "ofType": null
             },
             "isDeprecated": false,
@@ -300,12 +252,12 @@
       },
       {
         "kind": "OBJECT",
-        "name": "CategoryConnection",
+        "name": "CategoryCountableConnection",
         "description": null,
         "fields": [
           {
             "name": "edges",
-            "description": "Contains the nodes in this connection.",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -314,9 +266,13 @@
                 "kind": "LIST",
                 "name": null,
                 "ofType": {
-                  "kind": "OBJECT",
-                  "name": "CategoryEdge",
-                  "ofType": null
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "CategoryCountableEdge",
+                    "ofType": null
+                  }
                 }
               }
             },
@@ -341,12 +297,55 @@
           },
           {
             "name": "totalCount",
-            "description": null,
+            "description": "A total count of items in the collection.",
             "args": [],
             "type": {
               "kind": "SCALAR",
               "name": "Int",
               "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "CategoryCountableEdge",
+        "description": null,
+        "fields": [
+          {
+            "name": "cursor",
+            "description": "A cursor for use in pagination.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "node",
+            "description": "The item at the end of the edge.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Category",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -452,41 +451,25 @@
         "possibleTypes": null
       },
       {
-        "kind": "OBJECT",
-        "name": "CategoryEdge",
-        "description": "A Relay edge containing a `Category` and its cursor.",
-        "fields": [
+        "kind": "INPUT_OBJECT",
+        "name": "CategoryFilterInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
           {
-            "name": "cursor",
-            "description": "A cursor for use in pagination",
-            "args": [],
+            "name": "search",
+            "description": null,
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "node",
-            "description": "The item at the end of the edge",
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "Category",
+              "kind": "SCALAR",
+              "name": "String",
               "ofType": null
             },
+            "defaultValue": null,
             "isDeprecated": false,
             "deprecationReason": null
           }
         ],
-        "inputFields": null,
-        "interfaces": [],
+        "interfaces": null,
         "enumValues": null,
         "possibleTypes": null
       },
@@ -550,7 +533,7 @@
         "inputFields": [
           {
             "name": "direction",
-            "description": null,
+            "description": "Specifies the direction in which to sort products.",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -643,6 +626,41 @@
         "possibleTypes": null
       },
       {
+        "kind": "INPUT_OBJECT",
+        "name": "DateRangeInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "gte",
+            "description": "Start date.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Date",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "lte",
+            "description": "End date.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Date",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "SCALAR",
         "name": "DateTime",
         "description": "The `DateTime` scalar type represents a DateTime\nvalue as specified by\n[iso8601](https://en.wikipedia.org/wiki/ISO_8601).",
@@ -684,13 +702,9 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "DateTime",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "DateTime",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -700,13 +714,9 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -740,13 +750,9 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -756,36 +762,8 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "fileName",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "fileUrl",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
+              "kind": "OBJECT",
+              "name": "File",
               "ofType": null
             },
             "isDeprecated": false,
@@ -793,7 +771,7 @@
           },
           {
             "name": "id",
-            "description": "The ID of the object.",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -812,13 +790,9 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -868,13 +842,9 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "DateTime",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "DateTime",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -956,12 +926,12 @@
       },
       {
         "kind": "OBJECT",
-        "name": "DocumentConnection",
+        "name": "DocumentCountableConnection",
         "description": null,
         "fields": [
           {
             "name": "edges",
-            "description": "Contains the nodes in this connection.",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -970,9 +940,13 @@
                 "kind": "LIST",
                 "name": null,
                 "ofType": {
-                  "kind": "OBJECT",
-                  "name": "DocumentEdge",
-                  "ofType": null
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "DocumentCountableEdge",
+                    "ofType": null
+                  }
                 }
               }
             },
@@ -997,12 +971,55 @@
           },
           {
             "name": "totalCount",
-            "description": null,
+            "description": "A total count of items in the collection.",
             "args": [],
             "type": {
               "kind": "SCALAR",
               "name": "Int",
               "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "DocumentCountableEdge",
+        "description": null,
+        "fields": [
+          {
+            "name": "cursor",
+            "description": "A cursor for use in pagination.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "node",
+            "description": "The item at the end of the edge.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Document",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -1108,41 +1125,93 @@
         "possibleTypes": null
       },
       {
-        "kind": "OBJECT",
-        "name": "DocumentEdge",
-        "description": "A Relay edge containing a `Document` and its cursor.",
-        "fields": [
+        "kind": "INPUT_OBJECT",
+        "name": "DocumentFilterInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
           {
-            "name": "cursor",
-            "description": "A cursor for use in pagination",
-            "args": [],
+            "name": "beginDate",
+            "description": null,
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
+              "kind": "INPUT_OBJECT",
+              "name": "DateRangeInput",
+              "ofType": null
             },
+            "defaultValue": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "node",
-            "description": "The item at the end of the edge",
-            "args": [],
+            "name": "expirationDate",
+            "description": null,
             "type": {
-              "kind": "OBJECT",
-              "name": "Document",
+              "kind": "INPUT_OBJECT",
+              "name": "DateRangeInput",
               "ofType": null
             },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "expires",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "isPublished",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "owner",
+            "description": null,
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "OwnerType",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "search",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
             "isDeprecated": false,
             "deprecationReason": null
           }
         ],
-        "inputFields": null,
-        "interfaces": [],
+        "interfaces": null,
         "enumValues": null,
         "possibleTypes": null
       },
@@ -1278,6 +1347,66 @@
         "possibleTypes": null
       },
       {
+        "kind": "ENUM",
+        "name": "DocumentSortField",
+        "description": null,
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "CREATED",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "DocumentSortingInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "direction",
+            "description": "Specifies the direction in which to sort products.",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "OrderDirection",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "field",
+            "description": "Sort documents by the selected field.",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "DocumentSortField",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "OBJECT",
         "name": "DocumentUpdate",
         "description": null,
@@ -1314,104 +1443,6 @@
                   }
                 }
               }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
-        "name": "DocumentsConnection",
-        "description": null,
-        "fields": [
-          {
-            "name": "edges",
-            "description": "Contains the nodes in this connection.",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "DocumentsEdge",
-                  "ofType": null
-                }
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "pageInfo",
-            "description": "Pagination data for this connection.",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "PageInfo",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "totalCount",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Int",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
-        "name": "DocumentsEdge",
-        "description": "A Relay edge containing a `Documents` and its cursor.",
-        "fields": [
-          {
-            "name": "cursor",
-            "description": "A cursor for use in pagination",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "node",
-            "description": "The item at the end of the edge",
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "Document",
-              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -1470,6 +1501,33 @@
         "possibleTypes": null
       },
       {
+        "kind": "OBJECT",
+        "name": "File",
+        "description": null,
+        "fields": [
+          {
+            "name": "url",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "SCALAR",
         "name": "Float",
         "description": "The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point).",
@@ -1515,24 +1573,8 @@
         "description": null,
         "fields": [
           {
-            "name": "created",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "DateTime",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "id",
-            "description": "The ID of the object.",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -1551,13 +1593,9 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -1570,9 +1608,13 @@
               "kind": "LIST",
               "name": null,
               "ofType": {
-                "kind": "OBJECT",
-                "name": "Item",
-                "ofType": null
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "Item",
+                  "ofType": null
+                }
               }
             },
             "isDeprecated": false,
@@ -1588,34 +1630,6 @@
               "ofType": {
                 "kind": "SCALAR",
                 "name": "Int",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "publicationDate",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Date",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "updated",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "DateTime",
                 "ofType": null
               }
             },
@@ -1703,12 +1717,12 @@
       },
       {
         "kind": "OBJECT",
-        "name": "InvestmentConnection",
+        "name": "InvestmentCountableConnection",
         "description": null,
         "fields": [
           {
             "name": "edges",
-            "description": "Contains the nodes in this connection.",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -1717,9 +1731,13 @@
                 "kind": "LIST",
                 "name": null,
                 "ofType": {
-                  "kind": "OBJECT",
-                  "name": "InvestmentEdge",
-                  "ofType": null
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "InvestmentCountableEdge",
+                    "ofType": null
+                  }
                 }
               }
             },
@@ -1744,12 +1762,55 @@
           },
           {
             "name": "totalCount",
-            "description": null,
+            "description": "A total count of items in the collection.",
             "args": [],
             "type": {
               "kind": "SCALAR",
               "name": "Int",
               "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "InvestmentCountableEdge",
+        "description": null,
+        "fields": [
+          {
+            "name": "cursor",
+            "description": "A cursor for use in pagination.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "node",
+            "description": "The item at the end of the edge.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Investment",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -1855,41 +1916,49 @@
         "possibleTypes": null
       },
       {
-        "kind": "OBJECT",
-        "name": "InvestmentEdge",
-        "description": "A Relay edge containing a `Investment` and its cursor.",
-        "fields": [
+        "kind": "INPUT_OBJECT",
+        "name": "InvestmentFilterInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
           {
-            "name": "cursor",
-            "description": "A cursor for use in pagination",
-            "args": [],
+            "name": "isPublished",
+            "description": null,
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
             },
+            "defaultValue": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "node",
-            "description": "The item at the end of the edge",
-            "args": [],
+            "name": "month",
+            "description": null,
             "type": {
-              "kind": "OBJECT",
-              "name": "Investment",
+              "kind": "SCALAR",
+              "name": "Float",
               "ofType": null
             },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "year",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "defaultValue": null,
             "isDeprecated": false,
             "deprecationReason": null
           }
         ],
-        "inputFields": null,
-        "interfaces": [],
+        "interfaces": null,
         "enumValues": null,
         "possibleTypes": null
       },
@@ -1950,6 +2019,66 @@
               "kind": "SCALAR",
               "name": "Int",
               "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "InvestmentSortField",
+        "description": null,
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "CREATED",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "InvestmentSortingInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "direction",
+            "description": "Specifies the direction in which to sort products.",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "OrderDirection",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "field",
+            "description": "Sort investments by the selected field.",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "InvestmentSortField",
+                "ofType": null
+              }
             },
             "defaultValue": null,
             "isDeprecated": false,
@@ -2101,7 +2230,7 @@
         "fields": [
           {
             "name": "id",
-            "description": "The ID of the object.",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -2120,13 +2249,9 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "Investment",
-                "ofType": null
-              }
+              "kind": "OBJECT",
+              "name": "Investment",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -2152,13 +2277,9 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Decimal",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "Decimal",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -2296,7 +2417,7 @@
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "Investment",
+              "name": "Item",
               "ofType": null
             },
             "isDeprecated": false,
@@ -3834,12 +3955,35 @@
         "enumValues": [
           {
             "name": "ASC",
-            "description": null,
+            "description": "Specifies an ascending sort order.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "DESC",
+            "description": "Specifies a descending sort order.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "OwnerType",
+        "description": null,
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "PROVIDER",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "VEHICLE",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -3975,33 +4119,13 @@
             "deprecationReason": null
           },
           {
-            "name": "created",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "DateTime",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "documentNumber",
             "description": null,
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -4061,7 +4185,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "DocumentsConnection",
+              "name": "DocumentCountableConnection",
               "ofType": null
             },
             "isDeprecated": false,
@@ -4081,7 +4205,7 @@
           },
           {
             "name": "id",
-            "description": "The ID of the object.",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -4100,13 +4224,9 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -4140,29 +4260,13 @@
             "deprecationReason": null
           },
           {
-            "name": "publicationDate",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Date",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "segment",
             "description": null,
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "Segment",
-                "ofType": null
-              }
+              "kind": "OBJECT",
+              "name": "Segment",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -4172,29 +4276,9 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "updated",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "DateTime",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -4264,12 +4348,12 @@
       },
       {
         "kind": "OBJECT",
-        "name": "ProviderConnection",
+        "name": "ProviderCountableConnection",
         "description": null,
         "fields": [
           {
             "name": "edges",
-            "description": "Contains the nodes in this connection.",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -4278,9 +4362,13 @@
                 "kind": "LIST",
                 "name": null,
                 "ofType": {
-                  "kind": "OBJECT",
-                  "name": "ProviderEdge",
-                  "ofType": null
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "ProviderCountableEdge",
+                    "ofType": null
+                  }
                 }
               }
             },
@@ -4305,12 +4393,55 @@
           },
           {
             "name": "totalCount",
-            "description": null,
+            "description": "A total count of items in the collection.",
             "args": [],
             "type": {
               "kind": "SCALAR",
               "name": "Int",
               "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ProviderCountableEdge",
+        "description": null,
+        "fields": [
+          {
+            "name": "cursor",
+            "description": "A cursor for use in pagination.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "node",
+            "description": "The item at the end of the edge.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Provider",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -4416,41 +4547,93 @@
         "possibleTypes": null
       },
       {
-        "kind": "OBJECT",
-        "name": "ProviderEdge",
-        "description": "A Relay edge containing a `Provider` and its cursor.",
-        "fields": [
+        "kind": "INPUT_OBJECT",
+        "name": "ProviderFilterInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
           {
-            "name": "cursor",
-            "description": "A cursor for use in pagination",
-            "args": [],
+            "name": "closeToExpire",
+            "description": null,
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
             },
+            "defaultValue": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "node",
-            "description": "The item at the end of the edge",
-            "args": [],
+            "name": "expired",
+            "description": null,
             "type": {
-              "kind": "OBJECT",
-              "name": "Provider",
+              "kind": "SCALAR",
+              "name": "Boolean",
               "ofType": null
             },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "isPublished",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "search",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "segment",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "segments",
+            "description": null,
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null,
             "isDeprecated": false,
             "deprecationReason": null
           }
         ],
-        "inputFields": null,
-        "interfaces": [],
+        "interfaces": null,
         "enumValues": null,
         "possibleTypes": null
       },
@@ -4616,7 +4799,7 @@
         "inputFields": [
           {
             "name": "direction",
-            "description": null,
+            "description": "Specifies the direction in which to sort products.",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -4712,104 +4895,6 @@
       },
       {
         "kind": "OBJECT",
-        "name": "ProvidersConnection",
-        "description": null,
-        "fields": [
-          {
-            "name": "edges",
-            "description": "Contains the nodes in this connection.",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "ProvidersEdge",
-                  "ofType": null
-                }
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "pageInfo",
-            "description": "Pagination data for this connection.",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "PageInfo",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "totalCount",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Int",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
-        "name": "ProvidersEdge",
-        "description": "A Relay edge containing a `Providers` and its cursor.",
-        "fields": [
-          {
-            "name": "cursor",
-            "description": "A cursor for use in pagination",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "node",
-            "description": "The item at the end of the edge",
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "Provider",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
         "name": "Query",
         "description": null,
         "fields": [
@@ -4842,6 +4927,18 @@
                 "deprecationReason": null
               },
               {
+                "name": "filter",
+                "description": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "CategoryFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
                 "name": "first",
                 "description": null,
                 "type": {
@@ -4866,30 +4963,6 @@
                 "deprecationReason": null
               },
               {
-                "name": "offset",
-                "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "search",
-                "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
                 "name": "sortBy",
                 "description": null,
                 "type": {
@@ -4904,7 +4977,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "CategoryConnection",
+              "name": "CategoryCountableConnection",
               "ofType": null
             },
             "isDeprecated": false,
@@ -5001,83 +5074,11 @@
                 "deprecationReason": null
               },
               {
-                "name": "beginDate",
+                "name": "filter",
                 "description": null,
                 "type": {
-                  "kind": "SCALAR",
-                  "name": "Date",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "beginDate_Gte",
-                "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Date",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "beginDate_Lte",
-                "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Date",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "expirationDate",
-                "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Date",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "expirationDate_Gte",
-                "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Date",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "expirationDate_Lte",
-                "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Date",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "expires",
-                "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Boolean",
+                  "kind": "INPUT_OBJECT",
+                  "name": "DocumentFilterInput",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -5097,18 +5098,6 @@
                 "deprecationReason": null
               },
               {
-                "name": "isPublished",
-                "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Boolean",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
                 "name": "last",
                 "description": null,
                 "type": {
@@ -5121,35 +5110,11 @@
                 "deprecationReason": null
               },
               {
-                "name": "offset",
+                "name": "sortBy",
                 "description": null,
                 "type": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "owner",
-                "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "search",
-                "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "String",
+                  "kind": "INPUT_OBJECT",
+                  "name": "DocumentSortingInput",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -5159,7 +5124,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "DocumentConnection",
+              "name": "DocumentCountableConnection",
               "ofType": null
             },
             "isDeprecated": false,
@@ -5243,11 +5208,11 @@
                 "deprecationReason": null
               },
               {
-                "name": "first",
+                "name": "filter",
                 "description": null,
                 "type": {
-                  "kind": "SCALAR",
-                  "name": "Int",
+                  "kind": "INPUT_OBJECT",
+                  "name": "InvestmentFilterInput",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -5255,11 +5220,11 @@
                 "deprecationReason": null
               },
               {
-                "name": "isPublished",
+                "name": "first",
                 "description": null,
                 "type": {
                   "kind": "SCALAR",
-                  "name": "Boolean",
+                  "name": "Int",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -5279,35 +5244,11 @@
                 "deprecationReason": null
               },
               {
-                "name": "month",
+                "name": "sortBy",
                 "description": null,
                 "type": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "offset",
-                "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "year",
-                "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Int",
+                  "kind": "INPUT_OBJECT",
+                  "name": "InvestmentSortingInput",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -5317,7 +5258,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "InvestmentConnection",
+              "name": "InvestmentCountableConnection",
               "ofType": null
             },
             "isDeprecated": false,
@@ -5401,23 +5342,11 @@
                 "deprecationReason": null
               },
               {
-                "name": "closeToExpire",
+                "name": "filter",
                 "description": null,
                 "type": {
-                  "kind": "SCALAR",
-                  "name": "Boolean",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "expired",
-                "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Boolean",
+                  "kind": "INPUT_OBJECT",
+                  "name": "ProviderFilterInput",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -5437,76 +5366,12 @@
                 "deprecationReason": null
               },
               {
-                "name": "isPublished",
-                "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Boolean",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
                 "name": "last",
                 "description": null,
                 "type": {
                   "kind": "SCALAR",
                   "name": "Int",
                   "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "offset",
-                "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "search",
-                "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "segment",
-                "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "ID",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "segments",
-                "description": null,
-                "type": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  }
                 },
                 "defaultValue": null,
                 "isDeprecated": false,
@@ -5527,7 +5392,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "ProviderConnection",
+              "name": "ProviderCountableConnection",
               "ofType": null
             },
             "isDeprecated": false,
@@ -5599,6 +5464,18 @@
                 "deprecationReason": null
               },
               {
+                "name": "filter",
+                "description": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "SegmentFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
                 "name": "first",
                 "description": null,
                 "type": {
@@ -5623,30 +5500,6 @@
                 "deprecationReason": null
               },
               {
-                "name": "offset",
-                "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "search",
-                "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
                 "name": "sortBy",
                 "description": null,
                 "type": {
@@ -5661,7 +5514,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "SegmentConnection",
+              "name": "SegmentCountableConnection",
               "ofType": null
             },
             "isDeprecated": false,
@@ -5733,11 +5586,11 @@
                 "deprecationReason": null
               },
               {
-                "name": "first",
+                "name": "filter",
                 "description": null,
                 "type": {
-                  "kind": "SCALAR",
-                  "name": "Int",
+                  "kind": "INPUT_OBJECT",
+                  "name": "SessionFilterInput",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -5745,11 +5598,11 @@
                 "deprecationReason": null
               },
               {
-                "name": "isPublished",
+                "name": "first",
                 "description": null,
                 "type": {
                   "kind": "SCALAR",
-                  "name": "Boolean",
+                  "name": "Int",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -5769,23 +5622,11 @@
                 "deprecationReason": null
               },
               {
-                "name": "offset",
+                "name": "sortBy",
                 "description": null,
                 "type": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "search",
-                "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "String",
+                  "kind": "INPUT_OBJECT",
+                  "name": "SessionSortingInput",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -5795,7 +5636,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "SessionConnection",
+              "name": "SessionCountableConnection",
               "ofType": null
             },
             "isDeprecated": false,
@@ -5867,27 +5708,11 @@
                 "deprecationReason": null
               },
               {
-                "name": "categories",
+                "name": "filter",
                 "description": null,
                 "type": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "category",
-                "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "ID",
+                  "kind": "INPUT_OBJECT",
+                  "name": "VehicleFilterInput",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -5907,18 +5732,6 @@
                 "deprecationReason": null
               },
               {
-                "name": "isPublished",
-                "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Boolean",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
                 "name": "last",
                 "description": null,
                 "type": {
@@ -5931,23 +5744,11 @@
                 "deprecationReason": null
               },
               {
-                "name": "offset",
+                "name": "sortBy",
                 "description": null,
                 "type": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
-              {
-                "name": "search",
-                "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "String",
+                  "kind": "INPUT_OBJECT",
+                  "name": "VehicleSortingInput",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -5957,7 +5758,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "VehicleConnection",
+              "name": "VehicleCountableConnection",
               "ofType": null
             },
             "isDeprecated": false,
@@ -6034,24 +5835,8 @@
         "description": null,
         "fields": [
           {
-            "name": "created",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "DateTime",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "id",
-            "description": "The ID of the object.",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -6136,7 +5921,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "ProvidersConnection",
+              "name": "ProviderCountableConnection",
               "ofType": null
             },
             "isDeprecated": false,
@@ -6147,29 +5932,9 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "updated",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "DateTime",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -6239,12 +6004,12 @@
       },
       {
         "kind": "OBJECT",
-        "name": "SegmentConnection",
+        "name": "SegmentCountableConnection",
         "description": null,
         "fields": [
           {
             "name": "edges",
-            "description": "Contains the nodes in this connection.",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -6253,9 +6018,13 @@
                 "kind": "LIST",
                 "name": null,
                 "ofType": {
-                  "kind": "OBJECT",
-                  "name": "SegmentEdge",
-                  "ofType": null
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "SegmentCountableEdge",
+                    "ofType": null
+                  }
                 }
               }
             },
@@ -6280,12 +6049,55 @@
           },
           {
             "name": "totalCount",
-            "description": null,
+            "description": "A total count of items in the collection.",
             "args": [],
             "type": {
               "kind": "SCALAR",
               "name": "Int",
               "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "SegmentCountableEdge",
+        "description": null,
+        "fields": [
+          {
+            "name": "cursor",
+            "description": "A cursor for use in pagination.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "node",
+            "description": "The item at the end of the edge.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Segment",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -6391,41 +6203,25 @@
         "possibleTypes": null
       },
       {
-        "kind": "OBJECT",
-        "name": "SegmentEdge",
-        "description": "A Relay edge containing a `Segment` and its cursor.",
-        "fields": [
+        "kind": "INPUT_OBJECT",
+        "name": "SegmentFilterInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
           {
-            "name": "cursor",
-            "description": "A cursor for use in pagination",
-            "args": [],
+            "name": "search",
+            "description": null,
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "node",
-            "description": "The item at the end of the edge",
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "Segment",
+              "kind": "SCALAR",
+              "name": "String",
               "ofType": null
             },
+            "defaultValue": null,
             "isDeprecated": false,
             "deprecationReason": null
           }
         ],
-        "inputFields": null,
-        "interfaces": [],
+        "interfaces": null,
         "enumValues": null,
         "possibleTypes": null
       },
@@ -6489,7 +6285,7 @@
         "inputFields": [
           {
             "name": "direction",
-            "description": null,
+            "description": "Specifies the direction in which to sort products.",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -6589,40 +6385,20 @@
             "deprecationReason": null
           },
           {
-            "name": "created",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "DateTime",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "date",
             "description": null,
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "DateTime",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "DateTime",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "id",
-            "description": "The ID of the object.",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -6641,13 +6417,9 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -6669,45 +6441,13 @@
             "deprecationReason": null
           },
           {
-            "name": "publicationDate",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Date",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "slug",
             "description": null,
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "updated",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "DateTime",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -6777,12 +6517,12 @@
       },
       {
         "kind": "OBJECT",
-        "name": "SessionConnection",
+        "name": "SessionCountableConnection",
         "description": null,
         "fields": [
           {
             "name": "edges",
-            "description": "Contains the nodes in this connection.",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -6791,9 +6531,13 @@
                 "kind": "LIST",
                 "name": null,
                 "ofType": {
-                  "kind": "OBJECT",
-                  "name": "SessionEdge",
-                  "ofType": null
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "SessionCountableEdge",
+                    "ofType": null
+                  }
                 }
               }
             },
@@ -6818,12 +6562,55 @@
           },
           {
             "name": "totalCount",
-            "description": null,
+            "description": "A total count of items in the collection.",
             "args": [],
             "type": {
               "kind": "SCALAR",
               "name": "Int",
               "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "SessionCountableEdge",
+        "description": null,
+        "fields": [
+          {
+            "name": "cursor",
+            "description": "A cursor for use in pagination.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "node",
+            "description": "The item at the end of the edge.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Session",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -6929,41 +6716,37 @@
         "possibleTypes": null
       },
       {
-        "kind": "OBJECT",
-        "name": "SessionEdge",
-        "description": "A Relay edge containing a `Session` and its cursor.",
-        "fields": [
+        "kind": "INPUT_OBJECT",
+        "name": "SessionFilterInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
           {
-            "name": "cursor",
-            "description": "A cursor for use in pagination",
-            "args": [],
+            "name": "isPublished",
+            "description": null,
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
             },
+            "defaultValue": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "node",
-            "description": "The item at the end of the edge",
-            "args": [],
+            "name": "search",
+            "description": null,
             "type": {
-              "kind": "OBJECT",
-              "name": "Session",
+              "kind": "SCALAR",
+              "name": "String",
               "ofType": null
             },
+            "defaultValue": null,
             "isDeprecated": false,
             "deprecationReason": null
           }
         ],
-        "inputFields": null,
-        "interfaces": [],
+        "interfaces": null,
         "enumValues": null,
         "possibleTypes": null
       },
@@ -7028,6 +6811,66 @@
               "kind": "SCALAR",
               "name": "String",
               "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "SessionSortField",
+        "description": null,
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "NAME",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "SessionSortingInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "direction",
+            "description": "Specifies the direction in which to sort products.",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "OrderDirection",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "field",
+            "description": "Sort sessions by the selected field.",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "SessionSortField",
+                "ofType": null
+              }
             },
             "defaultValue": null,
             "isDeprecated": false,
@@ -7123,22 +6966,6 @@
         "description": null,
         "fields": [
           {
-            "name": "dateJoined",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "DateTime",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "email",
             "description": null,
             "args": [],
@@ -7159,20 +6986,16 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "id",
-            "description": "The ID of the object.",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -7187,76 +7010,12 @@
             "deprecationReason": null
           },
           {
-            "name": "isActive",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "isStaff",
             "description": null,
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "isSuperuser",
-            "description": "Indica que este usuário tem todas as permissões sem atribuí-las explicitamente.",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "jwtTokenKey",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "lastLogin",
-            "description": null,
-            "args": [],
-            "type": {
               "kind": "SCALAR",
-              "name": "DateTime",
+              "name": "Boolean",
               "ofType": null
             },
             "isDeprecated": false,
@@ -7267,29 +7026,9 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "password",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -7304,22 +7043,6 @@
               "ofType": {
                 "kind": "OBJECT",
                 "name": "Permission",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "updatedAt",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "DateTime",
                 "ofType": null
               }
             },
@@ -7360,45 +7083,9 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "Category",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "created",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "DateTime",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "documentFile",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
+              "kind": "OBJECT",
+              "name": "Category",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -7408,13 +7095,9 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -7474,7 +7157,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "DocumentsConnection",
+              "name": "DocumentCountableConnection",
               "ofType": null
             },
             "isDeprecated": false,
@@ -7494,7 +7177,7 @@
           },
           {
             "name": "id",
-            "description": "The ID of the object.",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -7513,13 +7196,9 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -7553,45 +7232,13 @@
             "deprecationReason": null
           },
           {
-            "name": "publicationDate",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Date",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "slug",
             "description": null,
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "updated",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "DateTime",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -7661,12 +7308,12 @@
       },
       {
         "kind": "OBJECT",
-        "name": "VehicleConnection",
+        "name": "VehicleCountableConnection",
         "description": null,
         "fields": [
           {
             "name": "edges",
-            "description": "Contains the nodes in this connection.",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -7675,9 +7322,13 @@
                 "kind": "LIST",
                 "name": null,
                 "ofType": {
-                  "kind": "OBJECT",
-                  "name": "VehicleEdge",
-                  "ofType": null
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "VehicleCountableEdge",
+                    "ofType": null
+                  }
                 }
               }
             },
@@ -7702,12 +7353,55 @@
           },
           {
             "name": "totalCount",
-            "description": null,
+            "description": "A total count of items in the collection.",
             "args": [],
             "type": {
               "kind": "SCALAR",
               "name": "Int",
               "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "VehicleCountableEdge",
+        "description": null,
+        "fields": [
+          {
+            "name": "cursor",
+            "description": "A cursor for use in pagination.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "node",
+            "description": "The item at the end of the edge.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Vehicle",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -7813,41 +7507,69 @@
         "possibleTypes": null
       },
       {
-        "kind": "OBJECT",
-        "name": "VehicleEdge",
-        "description": "A Relay edge containing a `Vehicle` and its cursor.",
-        "fields": [
+        "kind": "INPUT_OBJECT",
+        "name": "VehicleFilterInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
           {
-            "name": "cursor",
-            "description": "A cursor for use in pagination",
-            "args": [],
+            "name": "categories",
+            "description": null,
             "type": {
-              "kind": "NON_NULL",
+              "kind": "LIST",
               "name": null,
               "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
               }
             },
+            "defaultValue": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "node",
-            "description": "The item at the end of the edge",
-            "args": [],
+            "name": "category",
+            "description": null,
             "type": {
-              "kind": "OBJECT",
-              "name": "Vehicle",
+              "kind": "SCALAR",
+              "name": "ID",
               "ofType": null
             },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "isPublished",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "search",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
             "isDeprecated": false,
             "deprecationReason": null
           }
         ],
-        "inputFields": null,
-        "interfaces": [],
+        "interfaces": null,
         "enumValues": null,
         "possibleTypes": null
       },
@@ -7971,6 +7693,84 @@
         "possibleTypes": null
       },
       {
+        "kind": "ENUM",
+        "name": "VehicleSortField",
+        "description": null,
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "CREATED",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "NAME",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "PUBLISHED",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "UPDATED",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "VehicleSortingInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "direction",
+            "description": "Specifies the direction in which to sort products.",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "OrderDirection",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "field",
+            "description": "Sort vehicles by the selected field.",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "VehicleSortField",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "OBJECT",
         "name": "VehicleUpdate",
         "description": null,
@@ -8002,104 +7802,6 @@
           {
             "name": "vehicle",
             "description": null,
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "Vehicle",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
-        "name": "VehiclesConnection",
-        "description": null,
-        "fields": [
-          {
-            "name": "edges",
-            "description": "Contains the nodes in this connection.",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "VehiclesEdge",
-                  "ofType": null
-                }
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "pageInfo",
-            "description": "Pagination data for this connection.",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "PageInfo",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "totalCount",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Int",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
-        "name": "VehiclesEdge",
-        "description": "A Relay edge containing a `Vehicles` and its cursor.",
-        "fields": [
-          {
-            "name": "cursor",
-            "description": "A cursor for use in pagination",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "node",
-            "description": "The item at the end of the edge",
             "args": [],
             "type": {
               "kind": "OBJECT",

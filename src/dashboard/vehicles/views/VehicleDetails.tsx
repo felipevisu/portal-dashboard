@@ -54,7 +54,7 @@ export const VehicleDetails = () => {
   });
 
   const { data, loading, refetch } = useVehicleDetailsQuery({
-    variables: { id: id, after: paginator.after },
+    variables: { id: id, ...paginator.pagination },
   });
 
   useEffect(() => {

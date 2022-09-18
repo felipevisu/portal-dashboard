@@ -56,9 +56,9 @@ export const DocumentDetailsFragmentDoc = gql`
   description
   isPublished
   expires
-  file
-  fileUrl
-  fileName
+  file {
+    url
+  }
   created
   updated
   beginDate
@@ -440,13 +440,13 @@ export type CategoryBulkDeleteMutationHookResult = ReturnType<typeof useCategory
 export type CategoryBulkDeleteMutationResult = Apollo.MutationResult<Types.CategoryBulkDeleteMutation>;
 export type CategoryBulkDeleteMutationOptions = Apollo.BaseMutationOptions<Types.CategoryBulkDeleteMutation, Types.CategoryBulkDeleteMutationVariables>;
 export const CategoriesDocument = gql`
-    query Categories($first: Int, $last: Int, $after: String, $before: String, $search: String) {
+    query Categories($first: Int, $last: Int, $after: String, $before: String, $filter: CategoryFilterInput) {
   categories(
     first: $first
     last: $last
     after: $after
     before: $before
-    search: $search
+    filter: $filter
   ) {
     edges {
       node {
@@ -477,7 +477,7 @@ ${PageInfoFragmentDoc}`;
  *      last: // value for 'last'
  *      after: // value for 'after'
  *      before: // value for 'before'
- *      search: // value for 'search'
+ *      filter: // value for 'filter'
  *   },
  * });
  */
@@ -712,18 +712,13 @@ export type DocumentDetailsQueryHookResult = ReturnType<typeof useDocumentDetail
 export type DocumentDetailsLazyQueryHookResult = ReturnType<typeof useDocumentDetailsLazyQuery>;
 export type DocumentDetailsQueryResult = Apollo.QueryResult<Types.DocumentDetailsQuery, Types.DocumentDetailsQueryVariables>;
 export const DocumentsDocument = gql`
-    query Documents($first: Int, $last: Int, $after: String, $before: String, $search: String, $expires: Boolean, $isPublished: Boolean, $expirationDate_Lte: Date, $expirationDate_Gte: Date, $owner: String) {
+    query Documents($first: Int, $last: Int, $after: String, $before: String, $filter: DocumentFilterInput) {
   documents(
     first: $first
     last: $last
     after: $after
     before: $before
-    search: $search
-    expires: $expires
-    isPublished: $isPublished
-    expirationDate_Lte: $expirationDate_Lte
-    expirationDate_Gte: $expirationDate_Gte
-    owner: $owner
+    filter: $filter
   ) {
     edges {
       node {
@@ -754,12 +749,7 @@ ${PageInfoFragmentDoc}`;
  *      last: // value for 'last'
  *      after: // value for 'after'
  *      before: // value for 'before'
- *      search: // value for 'search'
- *      expires: // value for 'expires'
- *      isPublished: // value for 'isPublished'
- *      expirationDate_Lte: // value for 'expirationDate_Lte'
- *      expirationDate_Gte: // value for 'expirationDate_Gte'
- *      owner: // value for 'owner'
+ *      filter: // value for 'filter'
  *   },
  * });
  */
@@ -774,118 +764,6 @@ export function useDocumentsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<
 export type DocumentsQueryHookResult = ReturnType<typeof useDocumentsQuery>;
 export type DocumentsLazyQueryHookResult = ReturnType<typeof useDocumentsLazyQuery>;
 export type DocumentsQueryResult = Apollo.QueryResult<Types.DocumentsQuery, Types.DocumentsQueryVariables>;
-export const ExpiredDocumentsDocument = gql`
-    query ExpiredDocuments($first: Int, $last: Int, $after: String, $before: String, $today: Date) {
-  documents(
-    first: $first
-    last: $last
-    after: $after
-    before: $before
-    expires: true
-    isPublished: true
-    expirationDate_Lte: $today
-  ) {
-    edges {
-      node {
-        ...Document
-      }
-    }
-    pageInfo {
-      ...PageInfo
-    }
-  }
-}
-    ${DocumentFragmentDoc}
-${PageInfoFragmentDoc}`;
-
-/**
- * __useExpiredDocumentsQuery__
- *
- * To run a query within a React component, call `useExpiredDocumentsQuery` and pass it any options that fit your needs.
- * When your component renders, `useExpiredDocumentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useExpiredDocumentsQuery({
- *   variables: {
- *      first: // value for 'first'
- *      last: // value for 'last'
- *      after: // value for 'after'
- *      before: // value for 'before'
- *      today: // value for 'today'
- *   },
- * });
- */
-export function useExpiredDocumentsQuery(baseOptions?: Apollo.QueryHookOptions<Types.ExpiredDocumentsQuery, Types.ExpiredDocumentsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<Types.ExpiredDocumentsQuery, Types.ExpiredDocumentsQueryVariables>(ExpiredDocumentsDocument, options);
-      }
-export function useExpiredDocumentsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.ExpiredDocumentsQuery, Types.ExpiredDocumentsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<Types.ExpiredDocumentsQuery, Types.ExpiredDocumentsQueryVariables>(ExpiredDocumentsDocument, options);
-        }
-export type ExpiredDocumentsQueryHookResult = ReturnType<typeof useExpiredDocumentsQuery>;
-export type ExpiredDocumentsLazyQueryHookResult = ReturnType<typeof useExpiredDocumentsLazyQuery>;
-export type ExpiredDocumentsQueryResult = Apollo.QueryResult<Types.ExpiredDocumentsQuery, Types.ExpiredDocumentsQueryVariables>;
-export const CloseToExpireDocumentsDocument = gql`
-    query CloseToExpireDocuments($first: Int, $last: Int, $after: String, $before: String, $tomorrow: Date, $nextWeek: Date) {
-  documents(
-    first: $first
-    last: $last
-    after: $after
-    before: $before
-    expires: true
-    isPublished: true
-    expirationDate_Gte: $tomorrow
-    expirationDate_Lte: $nextWeek
-  ) {
-    edges {
-      node {
-        ...Document
-      }
-    }
-    pageInfo {
-      ...PageInfo
-    }
-  }
-}
-    ${DocumentFragmentDoc}
-${PageInfoFragmentDoc}`;
-
-/**
- * __useCloseToExpireDocumentsQuery__
- *
- * To run a query within a React component, call `useCloseToExpireDocumentsQuery` and pass it any options that fit your needs.
- * When your component renders, `useCloseToExpireDocumentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useCloseToExpireDocumentsQuery({
- *   variables: {
- *      first: // value for 'first'
- *      last: // value for 'last'
- *      after: // value for 'after'
- *      before: // value for 'before'
- *      tomorrow: // value for 'tomorrow'
- *      nextWeek: // value for 'nextWeek'
- *   },
- * });
- */
-export function useCloseToExpireDocumentsQuery(baseOptions?: Apollo.QueryHookOptions<Types.CloseToExpireDocumentsQuery, Types.CloseToExpireDocumentsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<Types.CloseToExpireDocumentsQuery, Types.CloseToExpireDocumentsQueryVariables>(CloseToExpireDocumentsDocument, options);
-      }
-export function useCloseToExpireDocumentsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.CloseToExpireDocumentsQuery, Types.CloseToExpireDocumentsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<Types.CloseToExpireDocumentsQuery, Types.CloseToExpireDocumentsQueryVariables>(CloseToExpireDocumentsDocument, options);
-        }
-export type CloseToExpireDocumentsQueryHookResult = ReturnType<typeof useCloseToExpireDocumentsQuery>;
-export type CloseToExpireDocumentsLazyQueryHookResult = ReturnType<typeof useCloseToExpireDocumentsLazyQuery>;
-export type CloseToExpireDocumentsQueryResult = Apollo.QueryResult<Types.CloseToExpireDocumentsQuery, Types.CloseToExpireDocumentsQueryVariables>;
 export const InvestmentBulkDeleteDocument = gql`
     mutation InvestmentBulkDelete($ids: [ID!]!) {
   investmentBulkDelete(ids: $ids) {
@@ -1150,13 +1028,13 @@ export type InvestmentCreateMutationHookResult = ReturnType<typeof useInvestment
 export type InvestmentCreateMutationResult = Apollo.MutationResult<Types.InvestmentCreateMutation>;
 export type InvestmentCreateMutationOptions = Apollo.BaseMutationOptions<Types.InvestmentCreateMutation, Types.InvestmentCreateMutationVariables>;
 export const InvestmentsDocument = gql`
-    query Investments($first: Int, $last: Int, $after: String, $before: String, $isPublished: Boolean) {
+    query Investments($first: Int, $last: Int, $after: String, $before: String, $filter: InvestmentFilterInput) {
   investments(
     first: $first
     last: $last
     after: $after
     before: $before
-    isPublished: $isPublished
+    filter: $filter
   ) {
     edges {
       node {
@@ -1187,7 +1065,7 @@ ${PageInfoFragmentDoc}`;
  *      last: // value for 'last'
  *      after: // value for 'after'
  *      before: // value for 'before'
- *      isPublished: // value for 'isPublished'
+ *      filter: // value for 'filter'
  *   },
  * });
  */
@@ -1387,15 +1265,13 @@ export type ProviderBulkDeleteMutationHookResult = ReturnType<typeof useProvider
 export type ProviderBulkDeleteMutationResult = Apollo.MutationResult<Types.ProviderBulkDeleteMutation>;
 export type ProviderBulkDeleteMutationOptions = Apollo.BaseMutationOptions<Types.ProviderBulkDeleteMutation, Types.ProviderBulkDeleteMutationVariables>;
 export const ProvidersDocument = gql`
-    query Providers($first: Int, $last: Int, $after: String, $before: String, $search: String, $isPublished: Boolean, $segment: ID) {
+    query Providers($first: Int, $last: Int, $after: String, $before: String, $filter: ProviderFilterInput) {
   providers(
     first: $first
     last: $last
     after: $after
     before: $before
-    search: $search
-    segment: $segment
-    isPublished: $isPublished
+    filter: $filter
   ) {
     edges {
       node {
@@ -1426,9 +1302,7 @@ ${PageInfoFragmentDoc}`;
  *      last: // value for 'last'
  *      after: // value for 'after'
  *      before: // value for 'before'
- *      search: // value for 'search'
- *      isPublished: // value for 'isPublished'
- *      segment: // value for 'segment'
+ *      filter: // value for 'filter'
  *   },
  * });
  */
@@ -1642,13 +1516,13 @@ export type SegmentBulkDeleteMutationHookResult = ReturnType<typeof useSegmentBu
 export type SegmentBulkDeleteMutationResult = Apollo.MutationResult<Types.SegmentBulkDeleteMutation>;
 export type SegmentBulkDeleteMutationOptions = Apollo.BaseMutationOptions<Types.SegmentBulkDeleteMutation, Types.SegmentBulkDeleteMutationVariables>;
 export const SegmentsDocument = gql`
-    query Segments($first: Int, $last: Int, $after: String, $before: String, $search: String) {
+    query Segments($first: Int, $last: Int, $after: String, $before: String, $filter: SegmentFilterInput) {
   segments(
     first: $first
     last: $last
     after: $after
     before: $before
-    search: $search
+    filter: $filter
   ) {
     edges {
       node {
@@ -1679,7 +1553,7 @@ ${PageInfoFragmentDoc}`;
  *      last: // value for 'last'
  *      after: // value for 'after'
  *      before: // value for 'before'
- *      search: // value for 'search'
+ *      filter: // value for 'filter'
  *   },
  * });
  */
@@ -1879,14 +1753,13 @@ export type SessionBulkDeleteMutationHookResult = ReturnType<typeof useSessionBu
 export type SessionBulkDeleteMutationResult = Apollo.MutationResult<Types.SessionBulkDeleteMutation>;
 export type SessionBulkDeleteMutationOptions = Apollo.BaseMutationOptions<Types.SessionBulkDeleteMutation, Types.SessionBulkDeleteMutationVariables>;
 export const SessionsDocument = gql`
-    query Sessions($first: Int, $last: Int, $after: String, $before: String, $search: String, $isPublished: Boolean) {
+    query Sessions($first: Int, $last: Int, $after: String, $before: String, $filter: SessionFilterInput) {
   sessions(
     first: $first
     last: $last
     after: $after
     before: $before
-    search: $search
-    isPublished: $isPublished
+    filter: $filter
   ) {
     edges {
       node {
@@ -1917,8 +1790,7 @@ ${PageInfoFragmentDoc}`;
  *      last: // value for 'last'
  *      after: // value for 'after'
  *      before: // value for 'before'
- *      search: // value for 'search'
- *      isPublished: // value for 'isPublished'
+ *      filter: // value for 'filter'
  *   },
  * });
  */
@@ -2118,15 +1990,13 @@ export type VehicleBulkDeleteMutationHookResult = ReturnType<typeof useVehicleBu
 export type VehicleBulkDeleteMutationResult = Apollo.MutationResult<Types.VehicleBulkDeleteMutation>;
 export type VehicleBulkDeleteMutationOptions = Apollo.BaseMutationOptions<Types.VehicleBulkDeleteMutation, Types.VehicleBulkDeleteMutationVariables>;
 export const VehiclesDocument = gql`
-    query Vehicles($first: Int, $last: Int, $after: String, $before: String, $search: String, $isPublished: Boolean, $category: ID) {
+    query Vehicles($first: Int, $last: Int, $after: String, $before: String, $filter: VehicleFilterInput) {
   vehicles(
     first: $first
     last: $last
     after: $after
     before: $before
-    search: $search
-    category: $category
-    isPublished: $isPublished
+    filter: $filter
   ) {
     edges {
       node {
@@ -2157,9 +2027,7 @@ ${PageInfoFragmentDoc}`;
  *      last: // value for 'last'
  *      after: // value for 'after'
  *      before: // value for 'before'
- *      search: // value for 'search'
- *      isPublished: // value for 'isPublished'
- *      category: // value for 'category'
+ *      filter: // value for 'filter'
  *   },
  * });
  */
@@ -2225,7 +2093,7 @@ export type VehicleDetailsLazyQueryHookResult = ReturnType<typeof useVehicleDeta
 export type VehicleDetailsQueryResult = Apollo.QueryResult<Types.VehicleDetailsQuery, Types.VehicleDetailsQueryVariables>;
 export const SearchCategoriesDocument = gql`
     query SearchCategories($after: String, $first: Int!, $query: String!) {
-  search: categories(after: $after, first: $first, search: $query) {
+  search: categories(after: $after, first: $first, filter: {search: $query}) {
     edges {
       node {
         id
@@ -2270,7 +2138,7 @@ export type SearchCategoriesLazyQueryHookResult = ReturnType<typeof useSearchCat
 export type SearchCategoriesQueryResult = Apollo.QueryResult<Types.SearchCategoriesQuery, Types.SearchCategoriesQueryVariables>;
 export const SearchSegmentsDocument = gql`
     query SearchSegments($after: String, $first: Int!, $query: String!) {
-  search: segments(after: $after, first: $first, search: $query) {
+  search: segments(after: $after, first: $first, filter: {search: $query}) {
     edges {
       node {
         id

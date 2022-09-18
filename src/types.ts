@@ -1,4 +1,5 @@
 import { PageInfoFragment } from "./graphql";
+import { PaginationState } from "./hooks/usePaginator";
 import { SingleAutocompleteChoiceType } from "./utils/data";
 
 export type RelayToFlat<T extends { edges: Array<{ node: any }> }> = Array<
@@ -42,7 +43,7 @@ export interface ListActions extends ListActionsWithoutToolbar {
 export interface PaginateListProps {
   pageInfo?: PageInfoFragment;
   onNextPage: (value: string) => void;
-  onPreviousPage: () => void;
+  onPreviousPage: (value: string) => void;
 }
 
 export type BulkAction = Partial<{
@@ -66,7 +67,6 @@ export interface FilterOpts {
 
 export type Paginator = {
   handleNextPage: (value: string) => void;
-  handlePreviousPage: () => void;
-  after: string;
-  first: number;
+  handlePreviousPage: (value: string) => void;
+  pagination: PaginationState;
 };

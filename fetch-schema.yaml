@@ -1,4 +1,4 @@
-schema: https://portaldatransparencia.herokuapp.com/graphql/
+schema: http://localhost:8000/graphql/
 generates:
   ./introspection.json:
     plugins:

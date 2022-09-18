@@ -62,8 +62,8 @@ export const DocumentDetailsPage = ({
         fileUpload={
           <DocumentFile
             file={file}
-            fileName={document.fileName}
-            fileUrl={document.fileUrl}
+            fileName={document.file.url}
+            fileUrl={document.file.url}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setFile(e.target.files[0])
             }

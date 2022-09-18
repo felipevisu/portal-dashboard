@@ -6,18 +6,14 @@ export const vehiclesQuery = gql`
     $last: Int
     $after: String
     $before: String
-    $search: String
-    $isPublished: Boolean
-    $category: ID
+    $filter: VehicleFilterInput
   ) {
     vehicles(
       first: $first
       last: $last
       after: $after
       before: $before
-      search: $search
-      category: $category
-      isPublished: $isPublished
+      filter: $filter
     ) {
       edges {
         node {

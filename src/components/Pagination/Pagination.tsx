@@ -1,5 +1,4 @@
 import React from "react";
-import { useSearchParams } from "react-router-dom";
 
 import { styled } from "@mui/material/styles";
 import { PageInfoFragment } from "@portal/graphql";
@@ -9,7 +8,7 @@ import { PaginationToolbar } from "./PaginationToolbar";
 interface PaginationProps {
   pageInfo: PageInfoFragment;
   onClickNextPage: (value: string) => void;
-  onClickPreviousPage: () => void;
+  onClickPreviousPage: (value: string) => void;
 }
 
 const Root = styled("div")(({ theme }) => ({
@@ -23,17 +22,13 @@ export const Pagination = ({
   onClickNextPage,
   onClickPreviousPage,
 }: PaginationProps) => {
-  const [searchParams] = useSearchParams();
-  const previousDisabled = !searchParams.get("after");
-  const nextDisabled = !pageInfo.hasNextPage;
-
   return (
     <Root>
       <PaginationToolbar
-        hasNextPage={!nextDisabled}
-        hasPreviousPage={!previousDisabled}
+        hasNextPage={pageInfo.hasNextPage}
+        hasPreviousPage={pageInfo.hasPreviousPage}
         onNextPage={() => onClickNextPage(pageInfo.endCursor)}
-        onPreviousPage={() => onClickPreviousPage()}
+        onPreviousPage={() => onClickPreviousPage(pageInfo.startCursor)}
       />
     </Root>
   );

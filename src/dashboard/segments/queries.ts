@@ -6,14 +6,14 @@ export const segmentsQuery = gql`
     $last: Int
     $after: String
     $before: String
-    $search: String
+    $filter: SegmentFilterInput
   ) {
     segments(
       first: $first
       last: $last
       after: $after
       before: $before
-      search: $search
+      filter: $filter
     ) {
       edges {
         node {

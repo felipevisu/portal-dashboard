@@ -6,18 +6,14 @@ export const providersQuery = gql`
     $last: Int
     $after: String
     $before: String
-    $search: String
-    $isPublished: Boolean
-    $segment: ID
+    $filter: ProviderFilterInput
   ) {
     providers(
       first: $first
       last: $last
       after: $after
       before: $before
-      search: $search
-      segment: $segment
-      isPublished: $isPublished
+      filter: $filter
     ) {
       edges {
         node {

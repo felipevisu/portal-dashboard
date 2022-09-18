@@ -6,16 +6,14 @@ export const sessionsQuery = gql`
     $last: Int
     $after: String
     $before: String
-    $search: String
-    $isPublished: Boolean
+    $filter: SessionFilterInput
   ) {
     sessions(
       first: $first
       last: $last
       after: $after
       before: $before
-      search: $search
-      isPublished: $isPublished
+      filter: $filter
     ) {
       edges {
         node {

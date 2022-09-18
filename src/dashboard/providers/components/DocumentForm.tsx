@@ -13,7 +13,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import ControledCheckbox from "@portal/components/ControledCheckbox";
 import FormSpacer from "@portal/components/FormSpacer";
-import { ErrorFragment } from "@portal/graphql";
+import { DocumentInput, ErrorFragment } from "@portal/graphql";
 import { ChangeEvent } from "@portal/types";
 import { getFormErrors } from "@portal/utils/errors";
 
@@ -27,7 +27,7 @@ export type FormProps = {
 };
 
 export const generateSubmitData = (data: FormProps) => {
-  const submitData: Record<string, any> = {
+  const submitData: DocumentInput = {
     name: data.name,
     description: data.description,
     expires: data.expires,

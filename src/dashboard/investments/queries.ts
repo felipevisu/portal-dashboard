@@ -6,14 +6,14 @@ export const investmentsQuery = gql`
     $last: Int
     $after: String
     $before: String
-    $isPublished: Boolean
+    $filter: InvestmentFilterInput
   ) {
     investments(
       first: $first
       last: $last
       after: $after
       before: $before
-      isPublished: $isPublished
+      filter: $filter
     ) {
       edges {
         node {

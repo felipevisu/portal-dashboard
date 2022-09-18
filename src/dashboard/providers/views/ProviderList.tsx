@@ -24,7 +24,7 @@ import { getFilterOpts } from "./filter";
 export const ProviderList = () => {
   const [searchParams] = useSearchParams();
   const { search, handleSearch } = useSearch();
-  const { after, first, handleNextPage, handlePreviousPage } = usePaginator();
+  const { pagination, handleNextPage, handlePreviousPage } = usePaginator();
 
   const { isSelected, listElements, toggle, toggleAll, reset } = useBulkActions(
     []
@@ -49,7 +49,7 @@ export const ProviderList = () => {
 
   const { data, loading, refetch } = useProvidersQuery({
     fetchPolicy: "cache-and-network",
-    variables: { search, after, first, ...queryParameters },
+    variables: { ...pagination, filter: { search, ...queryParameters } },
   });
 
   const handleProviderBulkDelete = (data: ProviderBulkDeleteMutation) => {

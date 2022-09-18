@@ -15,15 +15,10 @@ type BulkItemError {
 }
 
 type Category implements Node {
-  created: DateTime!
-  customId: ID
-
-  """The ID of the object."""
   id: ID!
   name: String!
-  slug: String!
-  updated: DateTime!
-  vehicles(after: String, before: String, first: Int, last: Int): VehiclesConnection
+  slug: String
+  vehicles(after: String, before: String, first: Int, last: Int): VehicleCountableConnection
 }
 
 """Deletes categories."""
@@ -33,13 +28,22 @@ type CategoryBulkDelete {
   errors: [Error!]!
 }
 
-type CategoryConnection {
-  """Contains the nodes in this connection."""
-  edges: [CategoryEdge]!
+type CategoryCountableConnection {
+  edges: [CategoryCountableEdge!]!
 
   """Pagination data for this connection."""
   pageInfo: PageInfo!
+
+  """A total count of items in the collection."""
   totalCount: Int
+}
+
+type CategoryCountableEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: Category!
 }
 
 type CategoryCreate {
@@ -52,13 +56,8 @@ type CategoryDelete {
   errors: [Error!]!
 }
 
-"""A Relay edge containing a `Category` and its cursor."""
-type CategoryEdge {
-  """A cursor for use in pagination"""
-  cursor: String!
-
-  """The item at the end of the edge"""
-  node: Category
+input CategoryFilterInput {
+  search: String
 }
 
 input CategoryInput {
@@ -71,6 +70,7 @@ enum CategorySortField {
 }
 
 input CategorySortingInput {
+  """Specifies the direction in which to sort products."""
   direction: OrderDirection!
 
   """Sort categories by the selected field."""
@@ -89,6 +89,14 @@ value as specified by
 """
 scalar Date
 
+input DateRangeInput {
+  """Start date."""
+  gte: Date
+
+  """End date."""
+  lte: Date
+}
+
 """
 The `DateTime` scalar type represents a DateTime
 value as specified by
@@ -101,22 +109,18 @@ scalar Decimal
 
 type Document implements Node {
   beginDate: Date
-  created: DateTime!
-  description: String!
+  created: DateTime
+  description: String
   expirationDate: Date
   expired: Boolean
-  expires: Boolean!
-  file: String!
-  fileName: String
-  fileUrl: String
-
-  """The ID of the object."""
+  expires: Boolean
+  file: File
   id: ID!
-  isPublished: Boolean!
+  isPublished: Boolean
   name: String!
   provider: Provider
   publicationDate: Date
-  updated: DateTime!
+  updated: DateTime
   vehicle: Vehicle
 }
 
@@ -127,13 +131,22 @@ type DocumentBulkDelete {
   errors: [Error!]!
 }
 
-type DocumentConnection {
-  """Contains the nodes in this connection."""
-  edges: [DocumentEdge]!
+type DocumentCountableConnection {
+  edges: [DocumentCountableEdge!]!
 
   """Pagination data for this connection."""
   pageInfo: PageInfo!
+
+  """A total count of items in the collection."""
   totalCount: Int
+}
+
+type DocumentCountableEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: Document!
 }
 
 type DocumentCreate {
@@ -146,13 +159,13 @@ type DocumentDelete {
   errors: [Error!]!
 }
 
-"""A Relay edge containing a `Document` and its cursor."""
-type DocumentEdge {
-  """A cursor for use in pagination"""
-  cursor: String!
-
-  """The item at the end of the edge"""
-  node: Document
+input DocumentFilterInput {
+  beginDate: DateRangeInput
+  expirationDate: DateRangeInput
+  expires: Boolean
+  isPublished: Boolean
+  owner: [OwnerType!]
+  search: String
 }
 
 input DocumentInput {
@@ -168,27 +181,21 @@ input DocumentInput {
   vehicle: ID
 }
 
+enum DocumentSortField {
+  CREATED
+}
+
+input DocumentSortingInput {
+  """Specifies the direction in which to sort products."""
+  direction: OrderDirection!
+
+  """Sort documents by the selected field."""
+  field: DocumentSortField!
+}
+
 type DocumentUpdate {
   document: Document
   errors: [Error!]!
-}
-
-type DocumentsConnection {
-  """Contains the nodes in this connection."""
-  edges: [DocumentsEdge]!
-
-  """Pagination data for this connection."""
-  pageInfo: PageInfo!
-  totalCount: Int
-}
-
-"""A Relay edge containing a `Documents` and its cursor."""
-type DocumentsEdge {
-  """A cursor for use in pagination"""
-  cursor: String!
-
-  """The item at the end of the edge"""
-  node: Document
 }
 
 """Represents an error in the input of a mutation."""
@@ -205,6 +212,10 @@ type Error {
   message: String
 }
 
+type File {
+  url: String!
+}
+
 """
 The `GenericScalar` scalar type represents a generic
 GraphQL scalar value that could be:
@@ -213,15 +224,10 @@ String, Boolean, Int, Float, List or Object.
 scalar GenericScalar
 
 type Investment implements Node {
-  created: DateTime!
-
-  """The ID of the object."""
   id: ID!
-  isPublished: Boolean!
-  items: [Item]
+  isPublished: Boolean
+  items: [Item!]
   month: Int!
-  publicationDate: Date
-  updated: DateTime!
   year: Int!
 }
 
@@ -232,13 +238,22 @@ type InvestmentBulkDelete {
   errors: [Error!]!
 }
 
-type InvestmentConnection {
-  """Contains the nodes in this connection."""
-  edges: [InvestmentEdge]!
+type InvestmentCountableConnection {
+  edges: [InvestmentCountableEdge!]!
 
   """Pagination data for this connection."""
   pageInfo: PageInfo!
+
+  """A total count of items in the collection."""
   totalCount: Int
+}
+
+type InvestmentCountableEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: Investment!
 }
 
 type InvestmentCreate {
@@ -251,13 +266,10 @@ type InvestmentDelete {
   investment: Investment
 }
 
-"""A Relay edge containing a `Investment` and its cursor."""
-type InvestmentEdge {
-  """A cursor for use in pagination"""
-  cursor: String!
-
-  """The item at the end of the edge"""
-  node: Investment
+input InvestmentFilterInput {
+  isPublished: Boolean
+  month: Float
+  year: Float
 }
 
 input InvestmentInput {
@@ -265,6 +277,18 @@ input InvestmentInput {
   items: [ItemCreateInput!]
   month: Int
   year: Int
+}
+
+enum InvestmentSortField {
+  CREATED
+}
+
+input InvestmentSortingInput {
+  """Specifies the direction in which to sort products."""
+  direction: OrderDirection!
+
+  """Sort investments by the selected field."""
+  field: InvestmentSortField!
 }
 
 type InvestmentUpdate {
@@ -281,11 +305,10 @@ input InvestmentUpdateInput {
 }
 
 type Item implements Node {
-  """The ID of the object."""
   id: ID!
-  investment: Investment!
+  investment: Investment
   name: String!
-  value: Decimal!
+  value: Decimal
 }
 
 type ItemBulkCreate {
@@ -300,7 +323,7 @@ input ItemBulkInput {
 
 type ItemCreate {
   errors: [Error!]!
-  investment: Investment
+  investment: Item
   item: Item
 }
 
@@ -418,8 +441,16 @@ type ObtainJSONWebToken {
 }
 
 enum OrderDirection {
+  """Specifies an ascending sort order."""
   ASC
+
+  """Specifies a descending sort order."""
   DESC
+}
+
+enum OwnerType {
+  PROVIDER
+  VEHICLE
 }
 
 """
@@ -450,20 +481,15 @@ type Permission {
 
 type Provider implements Node {
   address: String
-  created: DateTime!
-  documentNumber: String!
-  documents(after: String, before: String, first: Int, last: Int): DocumentsConnection
+  documentNumber: String
+  documents(after: String, before: String, first: Int, last: Int): DocumentCountableConnection
   email: String
-
-  """The ID of the object."""
   id: ID!
-  isPublished: Boolean!
+  isPublished: Boolean
   name: String!
   phone: String
-  publicationDate: Date
-  segment: Segment!
-  slug: String!
-  updated: DateTime!
+  segment: Segment
+  slug: String
 }
 
 """Deletes providers."""
@@ -473,13 +499,22 @@ type ProviderBulkDelete {
   errors: [Error!]!
 }
 
-type ProviderConnection {
-  """Contains the nodes in this connection."""
-  edges: [ProviderEdge]!
+type ProviderCountableConnection {
+  edges: [ProviderCountableEdge!]!
 
   """Pagination data for this connection."""
   pageInfo: PageInfo!
+
+  """A total count of items in the collection."""
   totalCount: Int
+}
+
+type ProviderCountableEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: Provider!
 }
 
 type ProviderCreate {
@@ -492,13 +527,13 @@ type ProviderDelete {
   provider: Provider
 }
 
-"""A Relay edge containing a `Provider` and its cursor."""
-type ProviderEdge {
-  """A cursor for use in pagination"""
-  cursor: String!
-
-  """The item at the end of the edge"""
-  node: Provider
+input ProviderFilterInput {
+  closeToExpire: Boolean
+  expired: Boolean
+  isPublished: Boolean
+  search: String
+  segment: ID
+  segments: [ID!]
 }
 
 input ProviderInput {
@@ -521,6 +556,7 @@ enum ProviderSortField {
 }
 
 input ProviderSortingInput {
+  """Specifies the direction in which to sort products."""
   direction: OrderDirection!
 
   """Sort providers by the selected field."""
@@ -533,40 +569,22 @@ type ProviderUpdate {
   vehicle: Provider
 }
 
-type ProvidersConnection {
-  """Contains the nodes in this connection."""
-  edges: [ProvidersEdge]!
-
-  """Pagination data for this connection."""
-  pageInfo: PageInfo!
-  totalCount: Int
-}
-
-"""A Relay edge containing a `Providers` and its cursor."""
-type ProvidersEdge {
-  """A cursor for use in pagination"""
-  cursor: String!
-
-  """The item at the end of the edge"""
-  node: Provider
-}
-
 type Query {
-  categories(after: String, before: String, first: Int, last: Int, offset: Int, search: String, sortBy: CategorySortingInput): CategoryConnection
+  categories(after: String, before: String, filter: CategoryFilterInput, first: Int, last: Int, sortBy: CategorySortingInput): CategoryCountableConnection
   category(id: ID, slug: String): Category
   document(id: ID): Document
-  documents(after: String, before: String, beginDate: Date, beginDate_Gte: Date, beginDate_Lte: Date, expirationDate: Date, expirationDate_Gte: Date, expirationDate_Lte: Date, expires: Boolean, first: Int, isPublished: Boolean, last: Int, offset: Int, owner: String, search: String): DocumentConnection
+  documents(after: String, before: String, filter: DocumentFilterInput, first: Int, last: Int, sortBy: DocumentSortingInput): DocumentCountableConnection
   investment(id: ID, month: Int, year: Int): Investment
-  investments(after: String, before: String, first: Int, isPublished: Boolean, last: Int, month: Int, offset: Int, year: Int): InvestmentConnection
+  investments(after: String, before: String, filter: InvestmentFilterInput, first: Int, last: Int, sortBy: InvestmentSortingInput): InvestmentCountableConnection
   me: User
   provider(id: ID, slug: String): Provider
-  providers(after: String, before: String, closeToExpire: Boolean, expired: Boolean, first: Int, isPublished: Boolean, last: Int, offset: Int, search: String, segment: ID, segments: [String], sortBy: ProviderSortingInput): ProviderConnection
+  providers(after: String, before: String, filter: ProviderFilterInput, first: Int, last: Int, sortBy: ProviderSortingInput): ProviderCountableConnection
   segment(id: ID, slug: String): Segment
-  segments(after: String, before: String, first: Int, last: Int, offset: Int, search: String, sortBy: SegmentSortingInput): SegmentConnection
+  segments(after: String, before: String, filter: SegmentFilterInput, first: Int, last: Int, sortBy: SegmentSortingInput): SegmentCountableConnection
   session(id: ID, slug: String): Session
-  sessions(after: String, before: String, first: Int, isPublished: Boolean, last: Int, offset: Int, search: String): SessionConnection
+  sessions(after: String, before: String, filter: SessionFilterInput, first: Int, last: Int, sortBy: SessionSortingInput): SessionCountableConnection
   vehicle(id: ID, slug: String): Vehicle
-  vehicles(after: String, before: String, categories: [String], category: ID, first: Int, isPublished: Boolean, last: Int, offset: Int, search: String): VehicleConnection
+  vehicles(after: String, before: String, filter: VehicleFilterInput, first: Int, last: Int, sortBy: VehicleSortingInput): VehicleCountableConnection
 }
 
 type Refresh {
@@ -576,14 +594,10 @@ type Refresh {
 }
 
 type Segment implements Node {
-  created: DateTime!
-
-  """The ID of the object."""
   id: ID!
   name: String!
-  providers(after: String, before: String, first: Int, last: Int): ProvidersConnection
-  slug: String!
-  updated: DateTime!
+  providers(after: String, before: String, first: Int, last: Int): ProviderCountableConnection
+  slug: String
 }
 
 """Deletes segments."""
@@ -593,13 +607,22 @@ type SegmentBulkDelete {
   errors: [Error!]!
 }
 
-type SegmentConnection {
-  """Contains the nodes in this connection."""
-  edges: [SegmentEdge]!
+type SegmentCountableConnection {
+  edges: [SegmentCountableEdge!]!
 
   """Pagination data for this connection."""
   pageInfo: PageInfo!
+
+  """A total count of items in the collection."""
   totalCount: Int
+}
+
+type SegmentCountableEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: Segment!
 }
 
 type SegmentCreate {
@@ -612,13 +635,8 @@ type SegmentDelete {
   segment: Segment
 }
 
-"""A Relay edge containing a `Segment` and its cursor."""
-type SegmentEdge {
-  """A cursor for use in pagination"""
-  cursor: String!
-
-  """The item at the end of the edge"""
-  node: Segment
+input SegmentFilterInput {
+  search: String
 }
 
 input SegmentInput {
@@ -631,6 +649,7 @@ enum SegmentSortField {
 }
 
 input SegmentSortingInput {
+  """Specifies the direction in which to sort products."""
   direction: OrderDirection!
 
   """Sort segments by the selected field."""
@@ -644,16 +663,11 @@ type SegmentUpdate {
 
 type Session implements Node {
   content: JSONString
-  created: DateTime!
-  date: DateTime!
-
-  """The ID of the object."""
+  date: DateTime
   id: ID!
-  isPublished: Boolean!
+  isPublished: Boolean
   name: String!
-  publicationDate: Date
-  slug: String!
-  updated: DateTime!
+  slug: String
 }
 
 """Deletes sessions."""
@@ -663,13 +677,22 @@ type SessionBulkDelete {
   errors: [Error!]!
 }
 
-type SessionConnection {
-  """Contains the nodes in this connection."""
-  edges: [SessionEdge]!
+type SessionCountableConnection {
+  edges: [SessionCountableEdge!]!
 
   """Pagination data for this connection."""
   pageInfo: PageInfo!
+
+  """A total count of items in the collection."""
   totalCount: Int
+}
+
+type SessionCountableEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: Session!
 }
 
 type SessionCreate {
@@ -682,13 +705,9 @@ type SessionDelete {
   session: Session
 }
 
-"""A Relay edge containing a `Session` and its cursor."""
-type SessionEdge {
-  """A cursor for use in pagination"""
-  cursor: String!
-
-  """The item at the end of the edge"""
-  node: Session
+input SessionFilterInput {
+  isPublished: Boolean
+  search: String
 }
 
 input SessionInput {
@@ -697,6 +716,18 @@ input SessionInput {
   isPublished: Boolean
   name: String
   slug: String
+}
+
+enum SessionSortField {
+  NAME
+}
+
+input SessionSortingInput {
+  """Specifies the direction in which to sort products."""
+  direction: OrderDirection!
+
+  """Sort sessions by the selected field."""
+  field: SessionSortField!
 }
 
 type SessionUpdate {
@@ -712,44 +743,25 @@ that will be handled by the multipart request spec
 scalar Upload
 
 type User implements Node {
-  dateJoined: DateTime!
   email: String!
-  firstName: String!
-
-  """The ID of the object."""
+  firstName: String
   id: ID!
-  isActive: Boolean!
-  isStaff: Boolean!
-
-  """
-  Indica que este usuário tem todas as permissões sem atribuí-las explicitamente.
-  """
-  isSuperuser: Boolean!
-  jwtTokenKey: String!
-  lastLogin: DateTime
-  lastName: String!
-  password: String!
+  isStaff: Boolean
+  lastName: String
   permissions: [Permission]
-  updatedAt: DateTime!
 }
 
 type Vehicle implements Node {
   address: String
-  category: Category!
-  created: DateTime!
-  documentFile: String!
-  documentNumber: String!
-  documents(after: String, before: String, first: Int, last: Int): DocumentsConnection
+  category: Category
+  documentNumber: String
+  documents(after: String, before: String, first: Int, last: Int): DocumentCountableConnection
   email: String
-
-  """The ID of the object."""
   id: ID!
-  isPublished: Boolean!
+  isPublished: Boolean
   name: String!
   phone: String
-  publicationDate: Date
-  slug: String!
-  updated: DateTime!
+  slug: String
 }
 
 """Deletes vehicles."""
@@ -759,13 +771,22 @@ type VehicleBulkDelete {
   errors: [Error!]!
 }
 
-type VehicleConnection {
-  """Contains the nodes in this connection."""
-  edges: [VehicleEdge]!
+type VehicleCountableConnection {
+  edges: [VehicleCountableEdge!]!
 
   """Pagination data for this connection."""
   pageInfo: PageInfo!
+
+  """A total count of items in the collection."""
   totalCount: Int
+}
+
+type VehicleCountableEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: Vehicle!
 }
 
 type VehicleCreate {
@@ -778,13 +799,11 @@ type VehicleDelete {
   vehicle: Vehicle
 }
 
-"""A Relay edge containing a `Vehicle` and its cursor."""
-type VehicleEdge {
-  """A cursor for use in pagination"""
-  cursor: String!
-
-  """The item at the end of the edge"""
-  node: Vehicle
+input VehicleFilterInput {
+  categories: [ID!]
+  category: ID
+  isPublished: Boolean
+  search: String
 }
 
 input VehicleInput {
@@ -799,27 +818,24 @@ input VehicleInput {
   slug: String
 }
 
+enum VehicleSortField {
+  CREATED
+  NAME
+  PUBLISHED
+  UPDATED
+}
+
+input VehicleSortingInput {
+  """Specifies the direction in which to sort products."""
+  direction: OrderDirection!
+
+  """Sort vehicles by the selected field."""
+  field: VehicleSortField!
+}
+
 type VehicleUpdate {
   errors: [Error!]!
   vehicle: Vehicle
-}
-
-type VehiclesConnection {
-  """Contains the nodes in this connection."""
-  edges: [VehiclesEdge]!
-
-  """Pagination data for this connection."""
-  pageInfo: PageInfo!
-  totalCount: Int
-}
-
-"""A Relay edge containing a `Vehicles` and its cursor."""
-type VehiclesEdge {
-  """A cursor for use in pagination"""
-  cursor: String!
-
-  """The item at the end of the edge"""
-  node: Vehicle
 }
 
 type Verify {

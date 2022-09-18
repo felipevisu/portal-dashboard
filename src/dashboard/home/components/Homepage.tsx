@@ -2,17 +2,14 @@ import React from "react";
 
 import { Box, Typography } from "@mui/material";
 import FormSpacer from "@portal/components/FormSpacer";
-import {
-  CloseToExpireDocumentsQuery,
-  ExpiredDocumentsQuery,
-} from "@portal/graphql";
+import { DocumentsQuery } from "@portal/graphql";
 import { mapEdgesToItems } from "@portal/utils/maps";
 
 import { DocumentList } from "./DocumentList";
 
 interface HomepageProps {
-  expired: ExpiredDocumentsQuery["documents"];
-  closeToExpire: CloseToExpireDocumentsQuery["documents"];
+  expired: DocumentsQuery["documents"];
+  closeToExpire: DocumentsQuery["documents"];
   expiredFilter: string;
   closeToExpireFilter: string;
 }

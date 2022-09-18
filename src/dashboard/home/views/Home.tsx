@@ -1,10 +1,7 @@
 import React from "react";
 
 import CircularLoading from "@portal/components/Circular";
-import {
-  useCloseToExpireDocumentsQuery,
-  useExpiredDocumentsQuery,
-} from "@portal/graphql";
+import { useDocumentsQuery } from "@portal/graphql";
 
 import Homepage from "../components/Homepage";
 
@@ -13,17 +10,30 @@ import { getDates } from "./utils";
 export const Home = () => {
   const { today, tomorrow, nextWeek } = getDates();
 
-  const { data: expired, loading: loading1 } = useExpiredDocumentsQuery({
-    variables: { today },
+  const { data: expired, loading: loading1 } = useDocumentsQuery({
+    variables: {
+      first: 10,
+      filter: {
+        expires: true,
+        isPublished: true,
+        expirationDate: { lte: today },
+      },
+    },
+  });
+
+  const { data: closeToExpire, loading: loading2 } = useDocumentsQuery({
+    variables: {
+      first: 10,
+      filter: {
+        expires: true,
+        isPublished: true,
+        expirationDate: { gte: tomorrow, lte: nextWeek },
+      },
+    },
   });
 
   const expiredFilter = `/admin/documents?expirationDate_Lte=${today}`;
   const closeToExpireFilter = `/admin/documents?expirationDate_Gte=${tomorrow}&expirationDate_Lte=${nextWeek}`;
-
-  const { data: closeToExpire, loading: loading2 } =
-    useCloseToExpireDocumentsQuery({
-      variables: { tomorrow, nextWeek },
-    });
 
   if (loading1 || loading2) return <CircularLoading />;
 

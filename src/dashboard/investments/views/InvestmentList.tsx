@@ -14,7 +14,7 @@ import { mapEdgesToItems } from "@portal/utils/maps";
 import InvestmentListPage from "../components/InvestmentListPage";
 
 export const InvestmentList = () => {
-  const { after, first, handleNextPage, handlePreviousPage } = usePaginator();
+  const { pagination, handleNextPage, handlePreviousPage } = usePaginator();
   const { isSelected, listElements, toggle, toggleAll, reset } = useBulkActions(
     []
   );
@@ -22,7 +22,7 @@ export const InvestmentList = () => {
 
   const { data, loading, refetch } = useInvestmentsQuery({
     fetchPolicy: "cache-and-network",
-    variables: { after, first },
+    variables: { ...pagination },
   });
 
   const handleInvestmentBulkDelete = (data: InvestmentBulkDeleteMutation) => {
