@@ -42,12 +42,16 @@ export const DocumentCreatePage = ({
 
   const handleSubmit = () => {
     const submitData = generateSubmitData(data);
-    onSubmit({ ...submitData, vehicle: id, file: file });
+    onSubmit({ ...submitData, entry: id, file: file });
   };
+
+  const link = window.location.pathname.includes("vehicle")
+    ? "vehicles"
+    : "providers";
 
   return (
     <>
-      <Backlink href={`/admin/vehicles/details/${id}`}>Voltar</Backlink>
+      <Backlink href={`/admin/${link}/details/${id}`}>Voltar</Backlink>
       <PageHeader title="Adicionar documento" />
       <DocumentForm
         errors={errors}
@@ -64,7 +68,7 @@ export const DocumentCreatePage = ({
       />
       <Savebar
         onSubmit={handleSubmit}
-        onCancel={() => navigate(`/admin/vehicles/details/${id}`)}
+        onCancel={() => navigate(`/admin/entries/details/${id}`)}
         loading={loading}
       />
     </>

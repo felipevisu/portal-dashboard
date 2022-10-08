@@ -25,7 +25,9 @@ export const CategoryCreate = () => {
   });
 
   const handleSubmit = async (data: CategoryInput) => {
-    await createCategory({ variables: { input: { ...data } } });
+    await createCategory({
+      variables: { input: { ...data } },
+    });
   };
 
   return (

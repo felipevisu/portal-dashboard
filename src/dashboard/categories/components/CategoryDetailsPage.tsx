@@ -38,6 +38,7 @@ export const CategoryDetailsPage = ({
   const initialData: FormProps = {
     name: category.name,
     slug: category.slug,
+    type: category.type,
   };
 
   return (

@@ -14,7 +14,6 @@ import Documents from "./documents";
 import Home from "./home";
 import Investments from "./investments";
 import Providers from "./providers";
-import Segments from "./segments";
 import Sessions from "./sessions";
 import { Content, Footer, Header, Lateral, Main, Wrapper } from "./styles";
 import Vehicles from "./vehicles";
@@ -40,9 +39,8 @@ const RoutesComponent = () => {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/vehicles/*" element={<Vehicles />} />
-              <Route path="/categories/*" element={<Categories />} />
-              <Route path="/segments/*" element={<Segments />} />
               <Route path="/providers/*" element={<Providers />} />
+              <Route path="/categories/*" element={<Categories />} />
               <Route path="/documents/*" element={<Documents />} />
               <Route path="/sessions/*" element={<Sessions />} />
               <Route path="/investments/*" element={<Investments />} />

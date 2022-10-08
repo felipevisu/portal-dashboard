@@ -6,7 +6,7 @@ import ResponsiveTable from "@portal/components/ResponsiveTable";
 import TableCellHeader from "@portal/components/TableCell";
 import TableHead from "@portal/components/TableHead";
 import TableRowLink from "@portal/components/TableRowLink";
-import { CategoryFragment } from "@portal/graphql";
+import { CategoryFragment, EntryTypeEnum } from "@portal/graphql";
 import { renderCollection } from "@portal/misc";
 import { ListActions } from "@portal/types";
 
@@ -14,6 +14,11 @@ interface CategoryListProps extends ListActions {
   categories: CategoryFragment[];
   disabled: boolean;
 }
+
+const typeMap = {
+  [EntryTypeEnum.VEHICLE]: "Veículo de comunicação",
+  [EntryTypeEnum.PROVIDER]: "Prestador de serviço",
+};
 
 export const CategoryList = ({
   categories,
@@ -37,6 +42,7 @@ export const CategoryList = ({
         toolbar={toolbar}
       >
         <TableCellHeader sx={{ width: "auto" }}>Nome</TableCellHeader>
+        <TableCellHeader sx={{ width: "auto" }}>Tipo</TableCellHeader>
         <TableCellHeader sx={{ width: 160, textAlign: "center" }}>
           Veículos
         </TableCellHeader>
@@ -60,8 +66,11 @@ export const CategoryList = ({
                 />
               </TableCell>
               <TableCell sx={{ width: "auto" }}>{category.name}</TableCell>
+              <TableCell sx={{ width: "auto" }}>
+                {typeMap[category.type]}
+              </TableCell>
               <TableCell sx={{ width: 160, textAlign: "center" }}>
-                {category.vehicles.totalCount}
+                {category.entries.totalCount}
               </TableCell>
             </TableRowLink>
           );

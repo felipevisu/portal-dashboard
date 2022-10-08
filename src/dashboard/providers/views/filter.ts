@@ -2,13 +2,13 @@ import { FilterOpts } from "@portal/types";
 import { SingleAutocompleteChoiceType } from "@portal/utils/data";
 
 export function getFilterOpts(
-  segments: SingleAutocompleteChoiceType[]
+  categories: SingleAutocompleteChoiceType[]
 ): FilterOpts[] {
   return [
     {
-      name: "Segmento",
-      slug: "segment",
-      choices: segments,
+      name: "Categoria",
+      slug: "category",
+      choices: categories,
       type: "radio",
     },
     {

@@ -10,11 +10,7 @@ export const documentFragment = gql`
     isPublished
     expired
     expires
-    vehicle {
-      id
-      name
-    }
-    provider {
+    entry {
       id
       name
     }
@@ -35,11 +31,7 @@ export const documentDetailsFragment = gql`
     updated
     beginDate
     expirationDate
-    vehicle {
-      id
-      name
-    }
-    provider {
+    entry {
       id
       name
     }

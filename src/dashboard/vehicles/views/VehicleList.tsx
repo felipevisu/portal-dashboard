@@ -5,10 +5,12 @@ import { Delete } from "@mui/icons-material";
 import { DialogContentText, IconButton } from "@mui/material";
 import ActionDialog from "@portal/components/ActionDialog";
 import { DEFAULT_INITIAL_SEARCH_DATA } from "@portal/config";
+import EntryListPage from "@portal/dashboard/entries/components/EntryListPage";
 import {
-  useVehicleBulkDeleteMutation,
-  useVehiclesQuery,
-  VehicleBulkDeleteMutation,
+  EntryBulkDeleteMutation,
+  EntryTypeEnum,
+  useEntriesQuery,
+  useEntryBulkDeleteMutation,
 } from "@portal/graphql";
 import { useBulkActions, usePaginator, useSearch } from "@portal/hooks";
 import useModal from "@portal/hooks/useModal";
@@ -16,8 +18,6 @@ import useCategorySearch from "@portal/searches/useCategorySearch";
 import { getChoices } from "@portal/utils/data";
 import { getQuery } from "@portal/utils/filters";
 import { mapEdgesToItems } from "@portal/utils/maps";
-
-import VehicleListPage from "../components/VehicleListPage";
 
 import { getFilterOpts } from "./filter";
 
@@ -47,29 +47,32 @@ export const VehicleList = () => {
     [searchParams]
   );
 
-  const { data, loading, refetch } = useVehiclesQuery({
-    variables: { ...pagination, filter: { search, ...queryParameters } },
+  const { data, loading, refetch } = useEntriesQuery({
+    variables: {
+      ...pagination,
+      filter: { type: EntryTypeEnum.VEHICLE, search, ...queryParameters },
+    },
   });
 
-  const handleVehicleBulkDelete = (data: VehicleBulkDeleteMutation) => {
-    if (data.vehicleBulkDelete.errors.length === 0) {
+  const handleVehicleBulkDelete = (data: EntryBulkDeleteMutation) => {
+    if (data.entryBulkDelete.errors.length === 0) {
       refetch();
       reset();
       closeModal();
     }
   };
 
-  const [vehicleBulkDelete] = useVehicleBulkDeleteMutation({
+  const [vehicleBulkDelete] = useEntryBulkDeleteMutation({
     onCompleted: handleVehicleBulkDelete,
   });
 
   return (
     <>
-      <VehicleListPage
+      <EntryListPage
         disabled={loading}
         toggle={toggle}
         toggleAll={toggleAll}
-        vehicles={mapEdgesToItems(data?.vehicles)}
+        entries={mapEdgesToItems(data?.entries)}
         selected={listElements.length}
         isChecked={isSelected}
         toolbar={
@@ -82,7 +85,7 @@ export const VehicleList = () => {
         filterOpts={filterOpts}
         onNextPage={handleNextPage}
         onPreviousPage={handlePreviousPage}
-        pageInfo={data?.vehicles?.pageInfo}
+        pageInfo={data?.entries?.pageInfo}
       />
       <ActionDialog
         onClose={closeModal}

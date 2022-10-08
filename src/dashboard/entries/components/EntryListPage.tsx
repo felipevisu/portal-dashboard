@@ -5,7 +5,7 @@ import { Button } from "@portal/components/Button";
 import { FilterBar } from "@portal/components/FilterBar";
 import PageHeader from "@portal/components/PageHeader";
 import { Pagination } from "@portal/components/Pagination";
-import { ProviderFragment } from "@portal/graphql";
+import { EntryFragment } from "@portal/graphql";
 import {
   FilterOpts,
   ListActions,
@@ -13,19 +13,35 @@ import {
   SearchPageProps,
 } from "@portal/types";
 
-import ProviderList from "./ProviderList";
+import EntryList from "./EntryList";
 
-interface ProviderListPageProps
+interface EntryListPageProps
   extends ListActions,
     SearchPageProps,
     PaginateListProps {
-  providers: ProviderFragment[];
+  entries: EntryFragment[];
   disabled: boolean;
   filterOpts: FilterOpts[];
 }
 
-export const ProviderListPage = ({
-  providers,
+const content = {
+  vehicle: {
+    title: "Veículos de comunicação",
+    link: "vehicles",
+    new: "Novo veículo",
+  },
+  provider: {
+    title: "Prestadores de serviço",
+    link: "providers",
+    new: "Novo prestador",
+  },
+};
+
+const getContent = (pathname: string) =>
+  pathname.includes("vehicle") ? content.vehicle : content.provider;
+
+export const EntryListPage = ({
+  entries,
   onSearchChange,
   pageInfo,
   selected,
@@ -37,16 +53,18 @@ export const ProviderListPage = ({
   onPreviousPage,
   disabled,
   filterOpts,
-}: ProviderListPageProps) => {
+}: EntryListPageProps) => {
+  const content = getContent(window.location.pathname);
+
   return (
     <>
-      <PageHeader title={"Prestadores de serviço"}>
+      <PageHeader title={content.title}>
         <Button
           color="primary"
           variant="contained"
-          href={"/admin/providers/create"}
+          href={`/admin/${content.link}/create`}
         >
-          Criar prestador
+          {content.new}
         </Button>
       </PageHeader>
       <Card>
@@ -55,9 +73,9 @@ export const ProviderListPage = ({
           onSearchChange={onSearchChange}
           filterOpts={filterOpts}
         />
-        <ProviderList
+        <EntryList
           selected={selected}
-          providers={providers}
+          entries={entries}
           isChecked={isChecked}
           toggle={toggle}
           toggleAll={toggleAll}
@@ -76,4 +94,4 @@ export const ProviderListPage = ({
   );
 };
 
-export default ProviderListPage;
+export default EntryListPage;

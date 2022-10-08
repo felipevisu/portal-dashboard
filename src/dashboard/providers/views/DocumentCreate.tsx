@@ -1,13 +1,12 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
+import DocumentCreatePage from "@portal/dashboard/documents/components/DocumentCreatePage";
 import {
   DocumentCreateMutation,
   DocumentInput,
   useDocumentCreateMutation,
 } from "@portal/graphql";
-
-import DocumentCreatePage from "../components/DocumentCreatePage";
 
 export const DocumentCreate = () => {
   const { id } = useParams();
@@ -16,7 +15,7 @@ export const DocumentCreate = () => {
   const handleSuccess = (data: DocumentCreateMutation) => {
     if (!data?.documentCreate.errors.length) {
       navigate(
-        `/admin/providers/details/${id}/documents/${data?.documentCreate.document.id}/details`
+        `/admin/vehicles/details/${id}/documents/${data?.documentCreate.document.id}/details`
       );
     }
   };

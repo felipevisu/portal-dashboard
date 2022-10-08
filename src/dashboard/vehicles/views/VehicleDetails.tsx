@@ -5,20 +5,19 @@ import { DialogContentText } from "@mui/material";
 import ActionDialog from "@portal/components/ActionDialog";
 import CircularLoading from "@portal/components/Circular";
 import NotFound from "@portal/components/NotFound";
-import { DEFAULT_INITIAL_SEARCH_DATA } from "@portal/config";
+import { EntryDetailsPage } from "@portal/dashboard/entries/components/EntryDetailsPage";
 import {
-  useVehicleDeleteMutation,
-  useVehicleDetailsQuery,
-  useVehicleUpdateMutation,
-  VehicleInput,
-  VehicleUpdateMutation,
+  EntryInput,
+  EntryTypeEnum,
+  EntryUpdateMutation,
+  useEntryDeleteMutation,
+  useEntryDetailsQuery,
+  useEntryUpdateMutation,
 } from "@portal/graphql";
 import { usePaginator } from "@portal/hooks";
 import useModal from "@portal/hooks/useModal";
 import useCategorySearch from "@portal/searches/useCategorySearch";
 import { mapEdgesToItems } from "@portal/utils/maps";
-
-import { VehicleDetailsPage } from "../components/VehicleDetailsPage";
 
 export const VehicleDetails = () => {
   const [vehicle, setVehicle] = useState(null);
@@ -27,21 +26,21 @@ export const VehicleDetails = () => {
   const { isOpen, openModal, closeModal } = useModal();
   const paginator = usePaginator();
 
-  const handleSuccess = (data: VehicleUpdateMutation) => {
-    if (!data?.vehicleUpdate.errors.length) {
-      navigate(`/admin/vehicles/details/${data?.vehicleUpdate.vehicle.id}`);
+  const handleSuccess = (data: EntryUpdateMutation) => {
+    if (!data?.entryUpdate.errors.length) {
+      navigate(`/admin/vehicles/details/${data?.entryUpdate.entry.id}`);
     }
   };
 
-  const [updateVehicle, updateVehicleResult] = useVehicleUpdateMutation({
+  const [updateVehicle, updateVehicleResult] = useEntryUpdateMutation({
     onCompleted: handleSuccess,
   });
 
-  const handleSubmit = async (data: VehicleInput) => {
+  const handleSubmit = async (data: EntryInput) => {
     await updateVehicle({ variables: { id: id, input: { ...data } } });
   };
 
-  const [deleteVehicle] = useVehicleDeleteMutation({
+  const [deleteVehicle] = useEntryDeleteMutation({
     onCompleted: () => navigate("/admin/vehicles"),
   });
 
@@ -50,16 +49,16 @@ export const VehicleDetails = () => {
   };
 
   const { result: searchCategoryOpts } = useCategorySearch({
-    variables: DEFAULT_INITIAL_SEARCH_DATA,
+    variables: { first: 20, query: "", type: EntryTypeEnum.VEHICLE },
   });
 
-  const { data, loading, refetch } = useVehicleDetailsQuery({
+  const { data, loading, refetch } = useEntryDetailsQuery({
     variables: { id: id, ...paginator.pagination },
   });
 
   useEffect(() => {
-    if (data?.vehicle) {
-      setVehicle(data.vehicle);
+    if (data?.entry) {
+      setVehicle(data.entry);
     }
   }, [data]);
 
@@ -73,11 +72,11 @@ export const VehicleDetails = () => {
 
   return (
     <>
-      <VehicleDetailsPage
-        vehicle={vehicle}
+      <EntryDetailsPage
+        entry={vehicle}
         onSubmit={handleSubmit}
         onDelete={openModal}
-        errors={updateVehicleResult.data?.vehicleUpdate.errors || []}
+        errors={updateVehicleResult.data?.entryUpdate.errors || []}
         loading={updateVehicleResult.loading}
         categories={mapEdgesToItems(searchCategoryOpts?.data?.search) || []}
         paginator={paginator}
@@ -90,7 +89,7 @@ export const VehicleDetails = () => {
         variant="delete"
       >
         <DialogContentText>
-          Tem certeza que deseja excluir o veículo <b>{data?.vehicle?.name}</b>
+          Tem certeza que deseja excluir o veículo <b>{data?.entry?.name}</b>
           <br />
           Lembre-se esta ação não é reversível
         </DialogContentText>

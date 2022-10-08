@@ -1,29 +1,32 @@
 import { gql } from "@apollo/client";
 
-export const vehicleFragment = gql`
-  fragment Vehicle on Vehicle {
+export const entryFragment = gql`
+  fragment Entry on Entry {
     id
     name
     slug
     category {
       id
       name
+    }
+    documents {
+      totalCount
     }
     isPublished
   }
 `;
 
-export const vehicleDetailsFragment = gql`
-  fragment VehicleDetails on Vehicle {
+export const entryDetailsFragment = gql`
+  fragment EntryDetails on Entry {
     id
     name
     slug
     documentNumber
+    isPublished
     category {
       id
       name
     }
-    isPublished
     email
     phone
     address

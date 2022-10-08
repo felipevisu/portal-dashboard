@@ -5,6 +5,7 @@ import { DialogContentText } from "@mui/material";
 import ActionDialog from "@portal/components/ActionDialog";
 import CircularLoading from "@portal/components/Circular";
 import NotFound from "@portal/components/NotFound";
+import DocumentDetailsPage from "@portal/dashboard/documents/components/DocumentDetailsPage";
 import {
   DocumentInput,
   useDocumentDeleteMutation,
@@ -12,8 +13,6 @@ import {
   useDocumentUpdateMutation,
 } from "@portal/graphql";
 import { useModal } from "@portal/hooks";
-
-import DocumentDetailsPage from "../components/DocumentDetailsPage";
 
 export const DocumentDetails = () => {
   const { id, documentId } = useParams();
@@ -30,7 +29,7 @@ export const DocumentDetails = () => {
   };
 
   const [deleteDocument] = useDocumentDeleteMutation({
-    onCompleted: () => navigate(`/admin/providers/details/${id}`),
+    onCompleted: () => navigate(`/admin/vehicles/details/${id}`),
   });
 
   const handleDocumentDelete = async () => {
@@ -56,7 +55,7 @@ export const DocumentDetails = () => {
         onClose={closeModal}
         onConfirm={handleDocumentDelete}
         open={isOpen}
-        title="Excluir veículo"
+        title="Excluir documento"
         variant="delete"
       >
         <DialogContentText>

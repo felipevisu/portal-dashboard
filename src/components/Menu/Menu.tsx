@@ -33,11 +33,6 @@ const ITEMS = [
     icon: <ChatIcon />,
   },
   {
-    label: "Segmentos",
-    path: "/admin/segments",
-    icon: <SegmentIcon />,
-  },
-  {
     label: "Prestadores de serviço",
     path: "/admin/providers",
     icon: <DesignServicesIcon />,

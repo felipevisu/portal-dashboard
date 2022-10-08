@@ -46,11 +46,13 @@ export type Scalars = {
 
 export type CategoryFilterInput = {
   search?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<EntryTypeEnum>;
 };
 
 export type CategoryInput = {
   name?: InputMaybe<Scalars['String']>;
   slug?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<EntryTypeEnum>;
 };
 
 export enum CategorySortField {
@@ -76,13 +78,14 @@ export type DocumentFilterInput = {
   expirationDate?: InputMaybe<DateRangeInput>;
   expires?: InputMaybe<Scalars['Boolean']>;
   isPublished?: InputMaybe<Scalars['Boolean']>;
-  owner?: InputMaybe<Array<OwnerType>>;
   search?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<EntryTypeEnum>;
 };
 
 export type DocumentInput = {
   beginDate?: InputMaybe<Scalars['Date']>;
   description?: InputMaybe<Scalars['String']>;
+  entry?: InputMaybe<Scalars['ID']>;
   expirationDate?: InputMaybe<Scalars['Date']>;
   expires?: InputMaybe<Scalars['Boolean']>;
   file?: InputMaybe<Scalars['Upload']>;
@@ -90,7 +93,6 @@ export type DocumentInput = {
   name?: InputMaybe<Scalars['String']>;
   provider?: InputMaybe<Scalars['ID']>;
   publicationDate?: InputMaybe<Scalars['Date']>;
-  vehicle?: InputMaybe<Scalars['ID']>;
 };
 
 export enum DocumentSortField {
@@ -103,6 +105,46 @@ export type DocumentSortingInput = {
   /** Sort documents by the selected field. */
   field: DocumentSortField;
 };
+
+export type EntryFilterInput = {
+  categories?: InputMaybe<Array<Scalars['ID']>>;
+  category?: InputMaybe<Scalars['ID']>;
+  isPublished?: InputMaybe<Scalars['Boolean']>;
+  search?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<EntryTypeEnum>;
+};
+
+export type EntryInput = {
+  address?: InputMaybe<Scalars['String']>;
+  category?: InputMaybe<Scalars['ID']>;
+  documentNumber?: InputMaybe<Scalars['String']>;
+  email?: InputMaybe<Scalars['String']>;
+  isPublished?: InputMaybe<Scalars['Boolean']>;
+  name?: InputMaybe<Scalars['String']>;
+  phone?: InputMaybe<Scalars['String']>;
+  publicationDate?: InputMaybe<Scalars['Date']>;
+  slug?: InputMaybe<Scalars['String']>;
+};
+
+export enum EntrySortField {
+  CREATED = 'CREATED',
+  NAME = 'NAME',
+  PUBLISHED = 'PUBLISHED',
+  UPDATED = 'UPDATED'
+}
+
+export type EntrySortingInput = {
+  /** Specifies the direction in which to sort products. */
+  direction: OrderDirection;
+  /** Sort entries by the selected field. */
+  field: EntrySortField;
+};
+
+/** An enumeration. */
+export enum EntryTypeEnum {
+  PROVIDER = 'PROVIDER',
+  VEHICLE = 'VEHICLE'
+}
 
 export type InvestmentFilterInput = {
   isPublished?: InputMaybe<Scalars['Boolean']>;
@@ -159,66 +201,6 @@ export enum OrderDirection {
   DESC = 'DESC'
 }
 
-export enum OwnerType {
-  PROVIDER = 'PROVIDER',
-  VEHICLE = 'VEHICLE'
-}
-
-export type ProviderFilterInput = {
-  closeToExpire?: InputMaybe<Scalars['Boolean']>;
-  expired?: InputMaybe<Scalars['Boolean']>;
-  isPublished?: InputMaybe<Scalars['Boolean']>;
-  search?: InputMaybe<Scalars['String']>;
-  segment?: InputMaybe<Scalars['ID']>;
-  segments?: InputMaybe<Array<Scalars['ID']>>;
-};
-
-export type ProviderInput = {
-  address?: InputMaybe<Scalars['String']>;
-  documentNumber?: InputMaybe<Scalars['String']>;
-  email?: InputMaybe<Scalars['String']>;
-  isPublished?: InputMaybe<Scalars['Boolean']>;
-  name?: InputMaybe<Scalars['String']>;
-  phone?: InputMaybe<Scalars['String']>;
-  publicationDate?: InputMaybe<Scalars['Date']>;
-  segment?: InputMaybe<Scalars['ID']>;
-  slug?: InputMaybe<Scalars['String']>;
-};
-
-export enum ProviderSortField {
-  CREATED = 'CREATED',
-  NAME = 'NAME',
-  PUBLISHED = 'PUBLISHED',
-  UPDATED = 'UPDATED'
-}
-
-export type ProviderSortingInput = {
-  /** Specifies the direction in which to sort products. */
-  direction: OrderDirection;
-  /** Sort providers by the selected field. */
-  field: ProviderSortField;
-};
-
-export type SegmentFilterInput = {
-  search?: InputMaybe<Scalars['String']>;
-};
-
-export type SegmentInput = {
-  name?: InputMaybe<Scalars['String']>;
-  slug?: InputMaybe<Scalars['String']>;
-};
-
-export enum SegmentSortField {
-  NAME = 'NAME'
-}
-
-export type SegmentSortingInput = {
-  /** Specifies the direction in which to sort products. */
-  direction: OrderDirection;
-  /** Sort segments by the selected field. */
-  field: SegmentSortField;
-};
-
 export type SessionFilterInput = {
   isPublished?: InputMaybe<Scalars['Boolean']>;
   search?: InputMaybe<Scalars['String']>;
@@ -243,39 +225,6 @@ export type SessionSortingInput = {
   field: SessionSortField;
 };
 
-export type VehicleFilterInput = {
-  categories?: InputMaybe<Array<Scalars['ID']>>;
-  category?: InputMaybe<Scalars['ID']>;
-  isPublished?: InputMaybe<Scalars['Boolean']>;
-  search?: InputMaybe<Scalars['String']>;
-};
-
-export type VehicleInput = {
-  address?: InputMaybe<Scalars['String']>;
-  category?: InputMaybe<Scalars['ID']>;
-  documentNumber?: InputMaybe<Scalars['String']>;
-  email?: InputMaybe<Scalars['String']>;
-  isPublished?: InputMaybe<Scalars['Boolean']>;
-  name?: InputMaybe<Scalars['String']>;
-  phone?: InputMaybe<Scalars['String']>;
-  publicationDate?: InputMaybe<Scalars['Date']>;
-  slug?: InputMaybe<Scalars['String']>;
-};
-
-export enum VehicleSortField {
-  CREATED = 'CREATED',
-  NAME = 'NAME',
-  PUBLISHED = 'PUBLISHED',
-  UPDATED = 'UPDATED'
-}
-
-export type VehicleSortingInput = {
-  /** Specifies the direction in which to sort products. */
-  direction: OrderDirection;
-  /** Sort vehicles by the selected field. */
-  field: VehicleSortField;
-};
-
 export type TokenAuthMutationVariables = Exact<{
   email: Scalars['String'];
   password: Scalars['String'];
@@ -294,7 +243,7 @@ export type CategoryCreateMutationVariables = Exact<{
 }>;
 
 
-export type CategoryCreateMutation = { __typename: 'Mutation', categoryCreate: { __typename: 'CategoryCreate', category: { __typename: 'Category', id: string, name: string, slug: string | null, vehicles: { __typename: 'VehicleCountableConnection', totalCount: number | null } | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+export type CategoryCreateMutation = { __typename: 'Mutation', categoryCreate: { __typename: 'CategoryCreate', category: { __typename: 'Category', id: string, name: string, slug: string | null, type: EntryTypeEnum | null, entries: { __typename: 'EntryCountableConnection', totalCount: number | null } | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
 
 export type CategoryUpdateMutationVariables = Exact<{
   id?: InputMaybe<Scalars['ID']>;
@@ -302,7 +251,7 @@ export type CategoryUpdateMutationVariables = Exact<{
 }>;
 
 
-export type CategoryUpdateMutation = { __typename: 'Mutation', categoryUpdate: { __typename: 'CategoryUpdate', category: { __typename: 'Category', id: string, name: string, slug: string | null, vehicles: { __typename: 'VehicleCountableConnection', totalCount: number | null } | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+export type CategoryUpdateMutation = { __typename: 'Mutation', categoryUpdate: { __typename: 'CategoryUpdate', category: { __typename: 'Category', id: string, name: string, slug: string | null, type: EntryTypeEnum | null, entries: { __typename: 'EntryCountableConnection', totalCount: number | null } | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
 
 export type CategoryDeleteMutationVariables = Exact<{
   id: Scalars['ID'];
@@ -327,21 +276,21 @@ export type CategoriesQueryVariables = Exact<{
 }>;
 
 
-export type CategoriesQuery = { __typename: 'Query', categories: { __typename: 'CategoryCountableConnection', edges: Array<{ __typename: 'CategoryCountableEdge', node: { __typename: 'Category', id: string, name: string, slug: string | null, vehicles: { __typename: 'VehicleCountableConnection', totalCount: number | null } | null } }>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
+export type CategoriesQuery = { __typename: 'Query', categories: { __typename: 'CategoryCountableConnection', edges: Array<{ __typename: 'CategoryCountableEdge', node: { __typename: 'Category', id: string, name: string, slug: string | null, type: EntryTypeEnum | null, entries: { __typename: 'EntryCountableConnection', totalCount: number | null } | null } }>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
 
 export type CategoryDetailsQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type CategoryDetailsQuery = { __typename: 'Query', category: { __typename: 'Category', id: string, name: string, slug: string | null, vehicles: { __typename: 'VehicleCountableConnection', totalCount: number | null } | null } | null };
+export type CategoryDetailsQuery = { __typename: 'Query', category: { __typename: 'Category', id: string, name: string, slug: string | null, type: EntryTypeEnum | null, entries: { __typename: 'EntryCountableConnection', totalCount: number | null } | null } | null };
 
 export type DocumentCreateMutationVariables = Exact<{
   input: DocumentInput;
 }>;
 
 
-export type DocumentCreateMutation = { __typename: 'Mutation', documentCreate: { __typename: 'DocumentCreate', document: { __typename: 'Document', id: string, name: string, created: any | null, beginDate: any | null, expirationDate: any | null, isPublished: boolean | null, expired: boolean | null, expires: boolean | null, vehicle: { __typename: 'Vehicle', id: string, name: string } | null, provider: { __typename: 'Provider', id: string, name: string } | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+export type DocumentCreateMutation = { __typename: 'Mutation', documentCreate: { __typename: 'DocumentCreate', document: { __typename: 'Document', id: string, name: string, created: any | null, beginDate: any | null, expirationDate: any | null, isPublished: boolean | null, expired: boolean | null, expires: boolean | null, entry: { __typename: 'Entry', id: string, name: string } | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
 
 export type DocumentUpdateMutationVariables = Exact<{
   id: Scalars['ID'];
@@ -349,7 +298,7 @@ export type DocumentUpdateMutationVariables = Exact<{
 }>;
 
 
-export type DocumentUpdateMutation = { __typename: 'Mutation', documentUpdate: { __typename: 'DocumentUpdate', document: { __typename: 'Document', id: string, name: string, description: string | null, isPublished: boolean | null, expires: boolean | null, created: any | null, updated: any | null, beginDate: any | null, expirationDate: any | null, file: { __typename: 'File', url: string } | null, vehicle: { __typename: 'Vehicle', id: string, name: string } | null, provider: { __typename: 'Provider', id: string, name: string } | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+export type DocumentUpdateMutation = { __typename: 'Mutation', documentUpdate: { __typename: 'DocumentUpdate', document: { __typename: 'Document', id: string, name: string, description: string | null, isPublished: boolean | null, expires: boolean | null, created: any | null, updated: any | null, beginDate: any | null, expirationDate: any | null, file: { __typename: 'File', url: string } | null, entry: { __typename: 'Entry', id: string, name: string } | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
 
 export type DocumentDeleteMutationVariables = Exact<{
   id: Scalars['ID'];
@@ -370,7 +319,7 @@ export type DocumentDetailsQueryVariables = Exact<{
 }>;
 
 
-export type DocumentDetailsQuery = { __typename: 'Query', document: { __typename: 'Document', id: string, name: string, description: string | null, isPublished: boolean | null, expires: boolean | null, created: any | null, updated: any | null, beginDate: any | null, expirationDate: any | null, file: { __typename: 'File', url: string } | null, vehicle: { __typename: 'Vehicle', id: string, name: string } | null, provider: { __typename: 'Provider', id: string, name: string } | null } | null };
+export type DocumentDetailsQuery = { __typename: 'Query', document: { __typename: 'Document', id: string, name: string, description: string | null, isPublished: boolean | null, expires: boolean | null, created: any | null, updated: any | null, beginDate: any | null, expirationDate: any | null, file: { __typename: 'File', url: string } | null, entry: { __typename: 'Entry', id: string, name: string } | null } | null };
 
 export type DocumentsQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']>;
@@ -381,7 +330,57 @@ export type DocumentsQueryVariables = Exact<{
 }>;
 
 
-export type DocumentsQuery = { __typename: 'Query', documents: { __typename: 'DocumentCountableConnection', edges: Array<{ __typename: 'DocumentCountableEdge', node: { __typename: 'Document', id: string, name: string, created: any | null, beginDate: any | null, expirationDate: any | null, isPublished: boolean | null, expired: boolean | null, expires: boolean | null, vehicle: { __typename: 'Vehicle', id: string, name: string } | null, provider: { __typename: 'Provider', id: string, name: string } | null } }>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
+export type DocumentsQuery = { __typename: 'Query', documents: { __typename: 'DocumentCountableConnection', edges: Array<{ __typename: 'DocumentCountableEdge', node: { __typename: 'Document', id: string, name: string, created: any | null, beginDate: any | null, expirationDate: any | null, isPublished: boolean | null, expired: boolean | null, expires: boolean | null, entry: { __typename: 'Entry', id: string, name: string } | null } }>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
+
+export type EntryCreateMutationVariables = Exact<{
+  type: EntryTypeEnum;
+  input: EntryInput;
+}>;
+
+
+export type EntryCreateMutation = { __typename: 'Mutation', entryCreate: { __typename: 'EntryCreate', entry: { __typename: 'Entry', id: string, name: string, slug: string | null, documentNumber: string | null, isPublished: boolean | null, email: string | null, phone: string | null, address: string | null, category: { __typename: 'Category', id: string, name: string } | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+
+export type EntryUpdateMutationVariables = Exact<{
+  id?: InputMaybe<Scalars['ID']>;
+  input: EntryInput;
+}>;
+
+
+export type EntryUpdateMutation = { __typename: 'Mutation', entryUpdate: { __typename: 'EntryUpdate', entry: { __typename: 'Entry', id: string, name: string, slug: string | null, documentNumber: string | null, isPublished: boolean | null, email: string | null, phone: string | null, address: string | null, category: { __typename: 'Category', id: string, name: string } | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+
+export type EntryDeleteMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type EntryDeleteMutation = { __typename: 'Mutation', entryDelete: { __typename: 'EntryDelete', errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+
+export type EntryBulkDeleteMutationVariables = Exact<{
+  ids: Array<Scalars['ID']> | Scalars['ID'];
+}>;
+
+
+export type EntryBulkDeleteMutation = { __typename: 'Mutation', entryBulkDelete: { __typename: 'EntryBulkDelete', errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+
+export type EntriesQueryVariables = Exact<{
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<EntryFilterInput>;
+}>;
+
+
+export type EntriesQuery = { __typename: 'Query', entries: { __typename: 'EntryCountableConnection', edges: Array<{ __typename: 'EntryCountableEdge', node: { __typename: 'Entry', id: string, name: string, slug: string | null, isPublished: boolean | null, category: { __typename: 'Category', id: string, name: string } | null, documents: { __typename: 'DocumentCountableConnection', totalCount: number | null } | null } }>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
+
+export type EntryDetailsQueryVariables = Exact<{
+  id: Scalars['ID'];
+  first?: InputMaybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type EntryDetailsQuery = { __typename: 'Query', entry: { __typename: 'Entry', id: string, name: string, slug: string | null, documentNumber: string | null, isPublished: boolean | null, email: string | null, phone: string | null, address: string | null, documents: { __typename: 'DocumentCountableConnection', edges: Array<{ __typename: 'DocumentCountableEdge', node: { __typename: 'Document', id: string, name: string, created: any | null, beginDate: any | null, expirationDate: any | null, isPublished: boolean | null, expired: boolean | null, expires: boolean | null, entry: { __typename: 'Entry', id: string, name: string } | null } }>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null, category: { __typename: 'Category', id: string, name: string } | null } | null };
 
 export type InvestmentBulkDeleteMutationVariables = Exact<{
   ids: Array<Scalars['ID']> | Scalars['ID'];
@@ -453,102 +452,6 @@ export type InvestmentDetailsQueryVariables = Exact<{
 
 export type InvestmentDetailsQuery = { __typename: 'Query', investment: { __typename: 'Investment', id: string, year: number, month: number, isPublished: boolean | null, items: Array<{ __typename: 'Item', id: string, name: string, value: any | null }> | null } | null };
 
-export type ProviderCreateMutationVariables = Exact<{
-  input: ProviderInput;
-}>;
-
-
-export type ProviderCreateMutation = { __typename: 'Mutation', providerCreate: { __typename: 'ProviderCreate', provider: { __typename: 'Provider', id: string, name: string, slug: string | null, documentNumber: string | null, isPublished: boolean | null, email: string | null, phone: string | null, address: string | null, segment: { __typename: 'Segment', id: string, name: string } | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
-
-export type ProviderUpdateMutationVariables = Exact<{
-  id?: InputMaybe<Scalars['ID']>;
-  input: ProviderInput;
-}>;
-
-
-export type ProviderUpdateMutation = { __typename: 'Mutation', providerUpdate: { __typename: 'ProviderUpdate', provider: { __typename: 'Provider', id: string, name: string, slug: string | null, documentNumber: string | null, isPublished: boolean | null, email: string | null, phone: string | null, address: string | null, segment: { __typename: 'Segment', id: string, name: string } | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
-
-export type ProviderDeleteMutationVariables = Exact<{
-  id: Scalars['ID'];
-}>;
-
-
-export type ProviderDeleteMutation = { __typename: 'Mutation', providerDelete: { __typename: 'ProviderDelete', errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
-
-export type ProviderBulkDeleteMutationVariables = Exact<{
-  ids: Array<Scalars['ID']> | Scalars['ID'];
-}>;
-
-
-export type ProviderBulkDeleteMutation = { __typename: 'Mutation', providerBulkDelete: { __typename: 'ProviderBulkDelete', errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
-
-export type ProvidersQueryVariables = Exact<{
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<ProviderFilterInput>;
-}>;
-
-
-export type ProvidersQuery = { __typename: 'Query', providers: { __typename: 'ProviderCountableConnection', edges: Array<{ __typename: 'ProviderCountableEdge', node: { __typename: 'Provider', id: string, name: string, slug: string | null, isPublished: boolean | null, segment: { __typename: 'Segment', id: string, name: string } | null, documents: { __typename: 'DocumentCountableConnection', totalCount: number | null } | null } }>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
-
-export type ProviderDetailsQueryVariables = Exact<{
-  id: Scalars['ID'];
-  first?: InputMaybe<Scalars['Int']>;
-  after?: InputMaybe<Scalars['String']>;
-}>;
-
-
-export type ProviderDetailsQuery = { __typename: 'Query', provider: { __typename: 'Provider', id: string, name: string, slug: string | null, documentNumber: string | null, isPublished: boolean | null, email: string | null, phone: string | null, address: string | null, documents: { __typename: 'DocumentCountableConnection', edges: Array<{ __typename: 'DocumentCountableEdge', node: { __typename: 'Document', id: string, name: string, created: any | null, beginDate: any | null, expirationDate: any | null, isPublished: boolean | null, expired: boolean | null, expires: boolean | null, vehicle: { __typename: 'Vehicle', id: string, name: string } | null, provider: { __typename: 'Provider', id: string, name: string } | null } }>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null, segment: { __typename: 'Segment', id: string, name: string } | null } | null };
-
-export type SegmentCreateMutationVariables = Exact<{
-  input: SegmentInput;
-}>;
-
-
-export type SegmentCreateMutation = { __typename: 'Mutation', segmentCreate: { __typename: 'SegmentCreate', segment: { __typename: 'Segment', id: string, name: string, slug: string | null, providers: { __typename: 'ProviderCountableConnection', totalCount: number | null } | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
-
-export type SegmentUpdateMutationVariables = Exact<{
-  id?: InputMaybe<Scalars['ID']>;
-  input: SegmentInput;
-}>;
-
-
-export type SegmentUpdateMutation = { __typename: 'Mutation', segmentUpdate: { __typename: 'SegmentUpdate', segment: { __typename: 'Segment', id: string, name: string, slug: string | null, providers: { __typename: 'ProviderCountableConnection', totalCount: number | null } | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
-
-export type SegmentDeleteMutationVariables = Exact<{
-  id: Scalars['ID'];
-}>;
-
-
-export type SegmentDeleteMutation = { __typename: 'Mutation', segmentDelete: { __typename: 'SegmentDelete', errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
-
-export type SegmentBulkDeleteMutationVariables = Exact<{
-  ids: Array<Scalars['ID']> | Scalars['ID'];
-}>;
-
-
-export type SegmentBulkDeleteMutation = { __typename: 'Mutation', segmentBulkDelete: { __typename: 'SegmentBulkDelete', errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
-
-export type SegmentsQueryVariables = Exact<{
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<SegmentFilterInput>;
-}>;
-
-
-export type SegmentsQuery = { __typename: 'Query', segments: { __typename: 'SegmentCountableConnection', edges: Array<{ __typename: 'SegmentCountableEdge', node: { __typename: 'Segment', id: string, name: string, slug: string | null, providers: { __typename: 'ProviderCountableConnection', totalCount: number | null } | null } }>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
-
-export type SegmentDetailsQueryVariables = Exact<{
-  id: Scalars['ID'];
-}>;
-
-
-export type SegmentDetailsQuery = { __typename: 'Query', segment: { __typename: 'Segment', id: string, name: string, slug: string | null, providers: { __typename: 'ProviderCountableConnection', totalCount: number | null } | null } | null };
-
 export type SessionCreateMutationVariables = Exact<{
   input: SessionInput;
 }>;
@@ -596,64 +499,19 @@ export type SessionDetailsQueryVariables = Exact<{
 
 export type SessionDetailsQuery = { __typename: 'Query', session: { __typename: 'Session', id: string, name: string, slug: string | null, content: any | null, date: any | null, isPublished: boolean | null } | null };
 
-export type VehicleCreateMutationVariables = Exact<{
-  input: VehicleInput;
-}>;
-
-
-export type VehicleCreateMutation = { __typename: 'Mutation', vehicleCreate: { __typename: 'VehicleCreate', vehicle: { __typename: 'Vehicle', id: string, name: string, slug: string | null, documentNumber: string | null, isPublished: boolean | null, email: string | null, phone: string | null, address: string | null, category: { __typename: 'Category', id: string, name: string } | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
-
-export type VehicleUpdateMutationVariables = Exact<{
-  id?: InputMaybe<Scalars['ID']>;
-  input: VehicleInput;
-}>;
-
-
-export type VehicleUpdateMutation = { __typename: 'Mutation', vehicleUpdate: { __typename: 'VehicleUpdate', vehicle: { __typename: 'Vehicle', id: string, name: string, slug: string | null, documentNumber: string | null, isPublished: boolean | null, email: string | null, phone: string | null, address: string | null, category: { __typename: 'Category', id: string, name: string } | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
-
-export type VehicleDeleteMutationVariables = Exact<{
-  id: Scalars['ID'];
-}>;
-
-
-export type VehicleDeleteMutation = { __typename: 'Mutation', vehicleDelete: { __typename: 'VehicleDelete', errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
-
-export type VehicleBulkDeleteMutationVariables = Exact<{
-  ids: Array<Scalars['ID']> | Scalars['ID'];
-}>;
-
-
-export type VehicleBulkDeleteMutation = { __typename: 'Mutation', vehicleBulkDelete: { __typename: 'VehicleBulkDelete', errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
-
-export type VehiclesQueryVariables = Exact<{
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<VehicleFilterInput>;
-}>;
-
-
-export type VehiclesQuery = { __typename: 'Query', vehicles: { __typename: 'VehicleCountableConnection', edges: Array<{ __typename: 'VehicleCountableEdge', node: { __typename: 'Vehicle', id: string, name: string, slug: string | null, isPublished: boolean | null, category: { __typename: 'Category', id: string, name: string } | null } }>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
-
-export type VehicleDetailsQueryVariables = Exact<{
-  id: Scalars['ID'];
-  first?: InputMaybe<Scalars['Int']>;
-  after?: InputMaybe<Scalars['String']>;
-}>;
-
-
-export type VehicleDetailsQuery = { __typename: 'Query', vehicle: { __typename: 'Vehicle', id: string, name: string, slug: string | null, documentNumber: string | null, isPublished: boolean | null, email: string | null, phone: string | null, address: string | null, documents: { __typename: 'DocumentCountableConnection', edges: Array<{ __typename: 'DocumentCountableEdge', node: { __typename: 'Document', id: string, name: string, created: any | null, beginDate: any | null, expirationDate: any | null, isPublished: boolean | null, expired: boolean | null, expires: boolean | null, vehicle: { __typename: 'Vehicle', id: string, name: string } | null, provider: { __typename: 'Provider', id: string, name: string } | null } }>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null, category: { __typename: 'Category', id: string, name: string } | null } | null };
-
 export type UserFragment = { __typename: 'User', id: string, email: string, firstName: string | null, lastName: string | null, isStaff: boolean | null };
 
 export type UserBaseFragment = { __typename: 'User', id: string, firstName: string | null, lastName: string | null };
 
-export type CategoryFragment = { __typename: 'Category', id: string, name: string, slug: string | null, vehicles: { __typename: 'VehicleCountableConnection', totalCount: number | null } | null };
+export type CategoryFragment = { __typename: 'Category', id: string, name: string, slug: string | null, type: EntryTypeEnum | null, entries: { __typename: 'EntryCountableConnection', totalCount: number | null } | null };
 
-export type DocumentFragment = { __typename: 'Document', id: string, name: string, created: any | null, beginDate: any | null, expirationDate: any | null, isPublished: boolean | null, expired: boolean | null, expires: boolean | null, vehicle: { __typename: 'Vehicle', id: string, name: string } | null, provider: { __typename: 'Provider', id: string, name: string } | null };
+export type DocumentFragment = { __typename: 'Document', id: string, name: string, created: any | null, beginDate: any | null, expirationDate: any | null, isPublished: boolean | null, expired: boolean | null, expires: boolean | null, entry: { __typename: 'Entry', id: string, name: string } | null };
 
-export type DocumentDetailsFragment = { __typename: 'Document', id: string, name: string, description: string | null, isPublished: boolean | null, expires: boolean | null, created: any | null, updated: any | null, beginDate: any | null, expirationDate: any | null, file: { __typename: 'File', url: string } | null, vehicle: { __typename: 'Vehicle', id: string, name: string } | null, provider: { __typename: 'Provider', id: string, name: string } | null };
+export type DocumentDetailsFragment = { __typename: 'Document', id: string, name: string, description: string | null, isPublished: boolean | null, expires: boolean | null, created: any | null, updated: any | null, beginDate: any | null, expirationDate: any | null, file: { __typename: 'File', url: string } | null, entry: { __typename: 'Entry', id: string, name: string } | null };
+
+export type EntryFragment = { __typename: 'Entry', id: string, name: string, slug: string | null, isPublished: boolean | null, category: { __typename: 'Category', id: string, name: string } | null, documents: { __typename: 'DocumentCountableConnection', totalCount: number | null } | null };
+
+export type EntryDetailsFragment = { __typename: 'Entry', id: string, name: string, slug: string | null, documentNumber: string | null, isPublished: boolean | null, email: string | null, phone: string | null, address: string | null, category: { __typename: 'Category', id: string, name: string } | null };
 
 export type ErrorFragment = { __typename: 'Error', code: string | null, field: string | null, message: string | null };
 
@@ -667,34 +525,16 @@ export type InvestmentDetailsFragment = { __typename: 'Investment', id: string, 
 
 export type PageInfoFragment = { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null };
 
-export type ProviderFragment = { __typename: 'Provider', id: string, name: string, slug: string | null, isPublished: boolean | null, segment: { __typename: 'Segment', id: string, name: string } | null, documents: { __typename: 'DocumentCountableConnection', totalCount: number | null } | null };
-
-export type ProviderDetailsFragment = { __typename: 'Provider', id: string, name: string, slug: string | null, documentNumber: string | null, isPublished: boolean | null, email: string | null, phone: string | null, address: string | null, segment: { __typename: 'Segment', id: string, name: string } | null };
-
-export type SegmentFragment = { __typename: 'Segment', id: string, name: string, slug: string | null, providers: { __typename: 'ProviderCountableConnection', totalCount: number | null } | null };
-
 export type SessionFragment = { __typename: 'Session', id: string, name: string, slug: string | null, date: any | null, isPublished: boolean | null };
 
 export type SessionDetailsFragment = { __typename: 'Session', id: string, name: string, slug: string | null, content: any | null, date: any | null, isPublished: boolean | null };
-
-export type VehicleFragment = { __typename: 'Vehicle', id: string, name: string, slug: string | null, isPublished: boolean | null, category: { __typename: 'Category', id: string, name: string } | null };
-
-export type VehicleDetailsFragment = { __typename: 'Vehicle', id: string, name: string, slug: string | null, documentNumber: string | null, isPublished: boolean | null, email: string | null, phone: string | null, address: string | null, category: { __typename: 'Category', id: string, name: string } | null };
 
 export type SearchCategoriesQueryVariables = Exact<{
   after?: InputMaybe<Scalars['String']>;
   first: Scalars['Int'];
   query: Scalars['String'];
+  type?: InputMaybe<EntryTypeEnum>;
 }>;
 
 
 export type SearchCategoriesQuery = { __typename: 'Query', search: { __typename: 'CategoryCountableConnection', edges: Array<{ __typename: 'CategoryCountableEdge', node: { __typename: 'Category', id: string, name: string } }>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
-
-export type SearchSegmentsQueryVariables = Exact<{
-  after?: InputMaybe<Scalars['String']>;
-  first: Scalars['Int'];
-  query: Scalars['String'];
-}>;
-
-
-export type SearchSegmentsQuery = { __typename: 'Query', search: { __typename: 'SegmentCountableConnection', edges: Array<{ __typename: 'SegmentCountableEdge', node: { __typename: 'Segment', id: string, name: string } }>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };

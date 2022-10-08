@@ -15,10 +15,12 @@ type BulkItemError {
 }
 
 type Category implements Node {
+  entries(after: String, before: String, first: Int, last: Int): EntryCountableConnection
   id: ID!
   name: String!
   slug: String
-  vehicles(after: String, before: String, first: Int, last: Int): VehicleCountableConnection
+  totalEntries: Int
+  type: EntryTypeEnum
 }
 
 """Deletes categories."""
@@ -58,11 +60,13 @@ type CategoryDelete {
 
 input CategoryFilterInput {
   search: String
+  type: EntryTypeEnum
 }
 
 input CategoryInput {
   name: String
   slug: String
+  type: EntryTypeEnum
 }
 
 enum CategorySortField {
@@ -111,6 +115,7 @@ type Document implements Node {
   beginDate: Date
   created: DateTime
   description: String
+  entry: Entry
   expirationDate: Date
   expired: Boolean
   expires: Boolean
@@ -118,10 +123,8 @@ type Document implements Node {
   id: ID!
   isPublished: Boolean
   name: String!
-  provider: Provider
   publicationDate: Date
   updated: DateTime
-  vehicle: Vehicle
 }
 
 """Deletes segments."""
@@ -164,13 +167,14 @@ input DocumentFilterInput {
   expirationDate: DateRangeInput
   expires: Boolean
   isPublished: Boolean
-  owner: [OwnerType!]
   search: String
+  type: EntryTypeEnum
 }
 
 input DocumentInput {
   beginDate: Date
   description: String
+  entry: ID
   expirationDate: Date
   expires: Boolean
   file: Upload
@@ -178,7 +182,6 @@ input DocumentInput {
   name: String
   provider: ID
   publicationDate: Date
-  vehicle: ID
 }
 
 enum DocumentSortField {
@@ -195,6 +198,101 @@ input DocumentSortingInput {
 
 type DocumentUpdate {
   document: Document
+  errors: [Error!]!
+}
+
+type Entry implements Node {
+  address: String
+  category: Category
+  documentNumber: String
+  documents(after: String, before: String, first: Int, last: Int): DocumentCountableConnection
+  email: String
+  id: ID!
+  isPublished: Boolean
+  name: String!
+  phone: String
+  slug: String
+  type: EntryTypeEnum
+}
+
+"""Deletes entries."""
+type EntryBulkDelete {
+  """Returns how many objects were affected."""
+  count: Int!
+  errors: [Error!]!
+}
+
+type EntryCountableConnection {
+  edges: [EntryCountableEdge!]!
+
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """A total count of items in the collection."""
+  totalCount: Int
+}
+
+type EntryCountableEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: Entry!
+}
+
+type EntryCreate {
+  entry: Entry
+  errors: [Error!]!
+}
+
+type EntryDelete {
+  entry: Entry
+  errors: [Error!]!
+}
+
+input EntryFilterInput {
+  categories: [ID!]
+  category: ID
+  isPublished: Boolean
+  search: String
+  type: EntryTypeEnum
+}
+
+input EntryInput {
+  address: String
+  category: ID
+  documentNumber: String
+  email: String
+  isPublished: Boolean
+  name: String
+  phone: String
+  publicationDate: Date
+  slug: String
+}
+
+enum EntrySortField {
+  CREATED
+  NAME
+  PUBLISHED
+  UPDATED
+}
+
+input EntrySortingInput {
+  """Specifies the direction in which to sort products."""
+  direction: OrderDirection!
+
+  """Sort entries by the selected field."""
+  field: EntrySortField!
+}
+
+"""An enumeration."""
+enum EntryTypeEnum {
+  PROVIDER
+  VEHICLE
+}
+
+type EntryUpdate {
+  entry: Entry
   errors: [Error!]!
 }
 
@@ -375,6 +473,15 @@ type Mutation {
   documentDelete(id: ID): DocumentDelete
   documentUpdate(id: ID, input: DocumentInput!): DocumentUpdate
 
+  """Deletes entries."""
+  entryBulkDelete(
+    """List of entries IDs to delete."""
+    ids: [ID!]!
+  ): EntryBulkDelete
+  entryCreate(input: EntryInput!, type: EntryTypeEnum): EntryCreate
+  entryDelete(id: ID): EntryDelete
+  entryUpdate(id: ID, input: EntryInput!): EntryUpdate
+
   """Deletes segments."""
   investmentBulkDelete(
     """List of segments IDs to delete."""
@@ -387,25 +494,7 @@ type Mutation {
   itemCreate(input: ItemInput!, investmentId: ID!): ItemCreate
   itemDelete(id: ID): ItemDelete
   itemUpdate(id: ID, input: ItemInput!): ItemUpdate
-
-  """Deletes providers."""
-  providerBulkDelete(
-    """List of providers IDs to delete."""
-    ids: [ID!]!
-  ): ProviderBulkDelete
-  providerCreate(input: ProviderInput!): ProviderCreate
-  providerDelete(id: ID): ProviderDelete
-  providerUpdate(id: ID, input: ProviderInput!): ProviderUpdate
   refreshToken(token: String): Refresh
-
-  """Deletes segments."""
-  segmentBulkDelete(
-    """List of segments IDs to delete."""
-    ids: [ID!]!
-  ): SegmentBulkDelete
-  segmentCreate(input: SegmentInput!): SegmentCreate
-  segmentDelete(id: ID): SegmentDelete
-  segmentUpdate(id: ID, input: SegmentInput!): SegmentUpdate
 
   """Deletes sessions."""
   sessionBulkDelete(
@@ -416,15 +505,6 @@ type Mutation {
   sessionDelete(id: ID): SessionDelete
   sessionUpdate(id: ID, input: SessionInput!): SessionUpdate
   tokenAuth(email: String, password: String): ObtainJSONWebToken
-
-  """Deletes vehicles."""
-  vehicleBulkDelete(
-    """List of vehicles IDs to delete."""
-    ids: [ID!]!
-  ): VehicleBulkDelete
-  vehicleCreate(input: VehicleInput!): VehicleCreate
-  vehicleDelete(id: ID): VehicleDelete
-  vehicleUpdate(id: ID, input: VehicleInput!): VehicleUpdate
   verifyToken(token: String): Verify
 }
 
@@ -446,11 +526,6 @@ enum OrderDirection {
 
   """Specifies a descending sort order."""
   DESC
-}
-
-enum OwnerType {
-  PROVIDER
-  VEHICLE
 }
 
 """
@@ -479,186 +554,24 @@ type Permission {
   name: String!
 }
 
-type Provider implements Node {
-  address: String
-  documentNumber: String
-  documents(after: String, before: String, first: Int, last: Int): DocumentCountableConnection
-  email: String
-  id: ID!
-  isPublished: Boolean
-  name: String!
-  phone: String
-  segment: Segment
-  slug: String
-}
-
-"""Deletes providers."""
-type ProviderBulkDelete {
-  """Returns how many objects were affected."""
-  count: Int!
-  errors: [Error!]!
-}
-
-type ProviderCountableConnection {
-  edges: [ProviderCountableEdge!]!
-
-  """Pagination data for this connection."""
-  pageInfo: PageInfo!
-
-  """A total count of items in the collection."""
-  totalCount: Int
-}
-
-type ProviderCountableEdge {
-  """A cursor for use in pagination."""
-  cursor: String!
-
-  """The item at the end of the edge."""
-  node: Provider!
-}
-
-type ProviderCreate {
-  errors: [Error!]!
-  provider: Provider
-}
-
-type ProviderDelete {
-  errors: [Error!]!
-  provider: Provider
-}
-
-input ProviderFilterInput {
-  closeToExpire: Boolean
-  expired: Boolean
-  isPublished: Boolean
-  search: String
-  segment: ID
-  segments: [ID!]
-}
-
-input ProviderInput {
-  address: String
-  documentNumber: String
-  email: String
-  isPublished: Boolean
-  name: String
-  phone: String
-  publicationDate: Date
-  segment: ID
-  slug: String
-}
-
-enum ProviderSortField {
-  CREATED
-  NAME
-  PUBLISHED
-  UPDATED
-}
-
-input ProviderSortingInput {
-  """Specifies the direction in which to sort products."""
-  direction: OrderDirection!
-
-  """Sort providers by the selected field."""
-  field: ProviderSortField!
-}
-
-type ProviderUpdate {
-  errors: [Error!]!
-  provider: Provider
-  vehicle: Provider
-}
-
 type Query {
   categories(after: String, before: String, filter: CategoryFilterInput, first: Int, last: Int, sortBy: CategorySortingInput): CategoryCountableConnection
   category(id: ID, slug: String): Category
   document(id: ID): Document
   documents(after: String, before: String, filter: DocumentFilterInput, first: Int, last: Int, sortBy: DocumentSortingInput): DocumentCountableConnection
+  entries(after: String, before: String, filter: EntryFilterInput, first: Int, last: Int, sortBy: EntrySortingInput): EntryCountableConnection
+  entry(id: ID, slug: String): Entry
   investment(id: ID, month: Int, year: Int): Investment
   investments(after: String, before: String, filter: InvestmentFilterInput, first: Int, last: Int, sortBy: InvestmentSortingInput): InvestmentCountableConnection
   me: User
-  provider(id: ID, slug: String): Provider
-  providers(after: String, before: String, filter: ProviderFilterInput, first: Int, last: Int, sortBy: ProviderSortingInput): ProviderCountableConnection
-  segment(id: ID, slug: String): Segment
-  segments(after: String, before: String, filter: SegmentFilterInput, first: Int, last: Int, sortBy: SegmentSortingInput): SegmentCountableConnection
   session(id: ID, slug: String): Session
   sessions(after: String, before: String, filter: SessionFilterInput, first: Int, last: Int, sortBy: SessionSortingInput): SessionCountableConnection
-  vehicle(id: ID, slug: String): Vehicle
-  vehicles(after: String, before: String, filter: VehicleFilterInput, first: Int, last: Int, sortBy: VehicleSortingInput): VehicleCountableConnection
 }
 
 type Refresh {
   payload: GenericScalar!
   refreshExpiresIn: Int!
   token: String!
-}
-
-type Segment implements Node {
-  id: ID!
-  name: String!
-  providers(after: String, before: String, first: Int, last: Int): ProviderCountableConnection
-  slug: String
-}
-
-"""Deletes segments."""
-type SegmentBulkDelete {
-  """Returns how many objects were affected."""
-  count: Int!
-  errors: [Error!]!
-}
-
-type SegmentCountableConnection {
-  edges: [SegmentCountableEdge!]!
-
-  """Pagination data for this connection."""
-  pageInfo: PageInfo!
-
-  """A total count of items in the collection."""
-  totalCount: Int
-}
-
-type SegmentCountableEdge {
-  """A cursor for use in pagination."""
-  cursor: String!
-
-  """The item at the end of the edge."""
-  node: Segment!
-}
-
-type SegmentCreate {
-  errors: [Error!]!
-  segment: Segment
-}
-
-type SegmentDelete {
-  errors: [Error!]!
-  segment: Segment
-}
-
-input SegmentFilterInput {
-  search: String
-}
-
-input SegmentInput {
-  name: String
-  slug: String
-}
-
-enum SegmentSortField {
-  NAME
-}
-
-input SegmentSortingInput {
-  """Specifies the direction in which to sort products."""
-  direction: OrderDirection!
-
-  """Sort segments by the selected field."""
-  field: SegmentSortField!
-}
-
-type SegmentUpdate {
-  errors: [Error!]!
-  segment: Segment
 }
 
 type Session implements Node {
@@ -731,9 +644,9 @@ input SessionSortingInput {
 }
 
 type SessionUpdate {
+  entry: Session
   errors: [Error!]!
   session: Session
-  vehicle: Session
 }
 
 """
@@ -749,93 +662,6 @@ type User implements Node {
   isStaff: Boolean
   lastName: String
   permissions: [Permission]
-}
-
-type Vehicle implements Node {
-  address: String
-  category: Category
-  documentNumber: String
-  documents(after: String, before: String, first: Int, last: Int): DocumentCountableConnection
-  email: String
-  id: ID!
-  isPublished: Boolean
-  name: String!
-  phone: String
-  slug: String
-}
-
-"""Deletes vehicles."""
-type VehicleBulkDelete {
-  """Returns how many objects were affected."""
-  count: Int!
-  errors: [Error!]!
-}
-
-type VehicleCountableConnection {
-  edges: [VehicleCountableEdge!]!
-
-  """Pagination data for this connection."""
-  pageInfo: PageInfo!
-
-  """A total count of items in the collection."""
-  totalCount: Int
-}
-
-type VehicleCountableEdge {
-  """A cursor for use in pagination."""
-  cursor: String!
-
-  """The item at the end of the edge."""
-  node: Vehicle!
-}
-
-type VehicleCreate {
-  errors: [Error!]!
-  vehicle: Vehicle
-}
-
-type VehicleDelete {
-  errors: [Error!]!
-  vehicle: Vehicle
-}
-
-input VehicleFilterInput {
-  categories: [ID!]
-  category: ID
-  isPublished: Boolean
-  search: String
-}
-
-input VehicleInput {
-  address: String
-  category: ID
-  documentNumber: String
-  email: String
-  isPublished: Boolean
-  name: String
-  phone: String
-  publicationDate: Date
-  slug: String
-}
-
-enum VehicleSortField {
-  CREATED
-  NAME
-  PUBLISHED
-  UPDATED
-}
-
-input VehicleSortingInput {
-  """Specifies the direction in which to sort products."""
-  direction: OrderDirection!
-
-  """Sort vehicles by the selected field."""
-  field: VehicleSortField!
-}
-
-type VehicleUpdate {
-  errors: [Error!]!
-  vehicle: Vehicle
 }
 
 type Verify {

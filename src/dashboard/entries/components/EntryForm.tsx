@@ -22,25 +22,21 @@ export type FormProps = {
   name: string;
   slug: string;
   documentNumber: string;
-  segment: string;
+  category: string;
   isPublished: boolean;
   email?: string;
   phone?: string;
   address?: string;
 };
 
-interface ProviderFormProps
-  extends Record<"segments", SingleAutocompleteChoiceType[]> {
+interface EntryFormProps
+  extends Record<"categories", SingleAutocompleteChoiceType[]> {
   data?: FormProps;
   errors: ErrorFragment[];
   onChange: (e: ChangeEvent) => void;
 }
 
-export const ProviderFormInfos = ({
-  errors,
-  data,
-  onChange,
-}: ProviderFormProps) => {
+export const EntryFormInfos = ({ errors, data, onChange }: EntryFormProps) => {
   const formErrors = getFormErrors(["name", "slug", "documentNumber"], errors);
 
   return (
@@ -90,34 +86,34 @@ export const ProviderFormInfos = ({
   );
 };
 
-export const ProviderFormStatus = ({
+export const EntryFormStatus = ({
   errors,
   data,
-  segments,
+  categories,
   onChange,
-}: ProviderFormProps) => {
-  const formErrors = getFormErrors(["segment", "isPublished"], errors);
+}: EntryFormProps) => {
+  const formErrors = getFormErrors(["category", "isPublished"], errors);
 
   return (
     <Card>
-      <CardHeader title="Visibilidade e segmento" />
+      <CardHeader title="Visibilidade e categoria" />
       <CardContent>
-        <FormControl fullWidth error={formErrors.segment && true}>
-          <InputLabel>Segmento</InputLabel>
+        <FormControl fullWidth error={formErrors.category && true}>
+          <InputLabel>Categoria</InputLabel>
           <Select
             fullWidth
-            name="segment"
-            label="Segmento"
-            value={data.segment}
+            name="category"
+            label="Categoria"
+            value={data.category}
             onChange={onChange}
           >
-            {segments.map((segment) => (
-              <MenuItem key={segment.value} value={segment.value}>
-                {segment.label}
+            {categories.map((category) => (
+              <MenuItem key={category.value} value={category.value}>
+                {category.label}
               </MenuItem>
             ))}
           </Select>
-          <FormHelperText>{formErrors.segment?.message}</FormHelperText>
+          <FormHelperText>{formErrors.category?.message}</FormHelperText>
         </FormControl>
         <FormSpacer />
         <FormControl>

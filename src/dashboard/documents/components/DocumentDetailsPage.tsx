@@ -47,14 +47,18 @@ export const DocumentDetailsPage = ({
   const handleSubmit = () => {
     const submitData = generateSubmitData(data);
     if (file) submitData.file = file;
-    onSubmit({ ...submitData, vehicle: id });
+    onSubmit({ ...submitData, entry: id });
     setFile(null);
   };
 
+  const link = window.location.pathname.includes("vehicle")
+    ? "vehicles"
+    : "providers";
+
   return (
     <>
-      <Backlink href={`/admin/vehicles/details/${id}`}>Voltar</Backlink>
-      <PageHeader title={document.name} limitText={document.vehicle.name} />
+      <Backlink href={`/admin/${link}/details/${id}`}>Voltar</Backlink>
+      <PageHeader title={document.name} limitText={document.entry.name} />
       <DocumentForm
         errors={errors}
         onChange={handleChange}
@@ -72,7 +76,7 @@ export const DocumentDetailsPage = ({
       />
       <Savebar
         onSubmit={handleSubmit}
-        onCancel={() => navigate(`/admin/vehicles/details/${id}`)}
+        onCancel={() => navigate(`/admin/entries/details/${id}`)}
         onDelete={onDelete}
         loading={loading}
       />

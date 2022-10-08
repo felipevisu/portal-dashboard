@@ -5,16 +5,20 @@ import {
   CardContent,
   CardHeader,
   FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
   TextField,
 } from "@mui/material";
 import FormSpacer from "@portal/components/FormSpacer";
-import { ErrorFragment } from "@portal/graphql";
+import { EntryTypeEnum, ErrorFragment } from "@portal/graphql";
 import { ChangeEvent } from "@portal/types";
 import { getFormErrors } from "@portal/utils/errors";
 
 export type FormProps = {
   name: string;
   slug: string;
+  type: EntryTypeEnum;
 };
 
 interface CategoryFormProps {
@@ -24,7 +28,7 @@ interface CategoryFormProps {
 }
 
 export const CategoryForm = ({ errors, data, onChange }: CategoryFormProps) => {
-  const formErrors = getFormErrors(["name", "slug"], errors);
+  const formErrors = getFormErrors(["name", "slug", "type"], errors);
 
   return (
     <Card>
@@ -54,6 +58,24 @@ export const CategoryForm = ({ errors, data, onChange }: CategoryFormProps) => {
             onChange={onChange}
             helperText={formErrors.slug?.message}
           />
+        </FormControl>
+        <FormSpacer />
+        <FormControl fullWidth>
+          <InputLabel id="category-type">Tipo</InputLabel>
+          <Select
+            labelId="category-type"
+            value={data.type}
+            label="Tipo"
+            name="type"
+            onChange={onChange}
+          >
+            <MenuItem value={EntryTypeEnum.VEHICLE}>
+              Veículo de comunicação
+            </MenuItem>
+            <MenuItem value={EntryTypeEnum.PROVIDER}>
+              Prestador de serviço
+            </MenuItem>
+          </Select>
         </FormControl>
       </CardContent>
     </Card>

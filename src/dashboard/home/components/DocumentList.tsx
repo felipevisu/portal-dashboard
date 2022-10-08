@@ -43,9 +43,7 @@ export const DocumentList = ({ title, documents, href }: DocumentListProps) => {
               href={buildLink(document)}
             >
               <TableCell sx={{ paddingLeft: 3 }}>{document.name}</TableCell>
-              <TableCell>
-                {document.vehicle?.name || document.provider?.name}
-              </TableCell>
+              <TableCell>{document.entry.name}</TableCell>
               <TableCell>{formatDate(document.expirationDate)}</TableCell>
             </TableRowLink>
           ))}

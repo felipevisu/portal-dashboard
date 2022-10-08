@@ -5,19 +5,19 @@ import { Delete } from "@mui/icons-material";
 import { DialogContentText, IconButton } from "@mui/material";
 import ActionDialog from "@portal/components/ActionDialog";
 import { DEFAULT_INITIAL_SEARCH_DATA } from "@portal/config";
+import EntryListPage from "@portal/dashboard/entries/components/EntryListPage";
 import {
-  ProviderBulkDeleteMutation,
-  useProviderBulkDeleteMutation,
-  useProvidersQuery,
+  EntryBulkDeleteMutation,
+  EntryTypeEnum,
+  useEntriesQuery,
+  useEntryBulkDeleteMutation,
 } from "@portal/graphql";
 import { useBulkActions, usePaginator, useSearch } from "@portal/hooks";
 import useModal from "@portal/hooks/useModal";
-import useSegmentSearch from "@portal/searches/useSegmentSearch";
+import useCategorySearch from "@portal/searches/useCategorySearch";
 import { getChoices } from "@portal/utils/data";
 import { getQuery } from "@portal/utils/filters";
 import { mapEdgesToItems } from "@portal/utils/maps";
-
-import ProviderListPage from "../components/ProviderListPage";
 
 import { getFilterOpts } from "./filter";
 
@@ -32,45 +32,47 @@ export const ProviderList = () => {
 
   const { isOpen, openModal, closeModal } = useModal();
 
-  const { result: searchSegmentOpts } = useSegmentSearch({
+  const { result: searchCategoryOpts } = useCategorySearch({
     variables: DEFAULT_INITIAL_SEARCH_DATA,
   });
 
-  const segments = getChoices(
-    mapEdgesToItems(searchSegmentOpts?.data?.search) || []
+  const categories = getChoices(
+    mapEdgesToItems(searchCategoryOpts?.data?.search) || []
   );
 
-  const filterOpts = getFilterOpts(segments);
+  const filterOpts = getFilterOpts(categories);
 
   const queryParameters = useMemo(
     () => getQuery(filterOpts, searchParams),
     [searchParams]
   );
 
-  const { data, loading, refetch } = useProvidersQuery({
-    fetchPolicy: "cache-and-network",
-    variables: { ...pagination, filter: { search, ...queryParameters } },
+  const { data, loading, refetch } = useEntriesQuery({
+    variables: {
+      ...pagination,
+      filter: { type: EntryTypeEnum.PROVIDER, search, ...queryParameters },
+    },
   });
 
-  const handleProviderBulkDelete = (data: ProviderBulkDeleteMutation) => {
-    if (data.providerBulkDelete.errors.length === 0) {
+  const handleProviderBulkDelete = (data: EntryBulkDeleteMutation) => {
+    if (data.entryBulkDelete.errors.length === 0) {
       refetch();
       reset();
       closeModal();
     }
   };
 
-  const [providerBulkDelete] = useProviderBulkDeleteMutation({
+  const [vehicleBulkDelete] = useEntryBulkDeleteMutation({
     onCompleted: handleProviderBulkDelete,
   });
 
   return (
     <>
-      <ProviderListPage
+      <EntryListPage
         disabled={loading}
         toggle={toggle}
         toggleAll={toggleAll}
-        providers={mapEdgesToItems(data?.providers)}
+        entries={mapEdgesToItems(data?.entries)}
         selected={listElements.length}
         isChecked={isSelected}
         toolbar={
@@ -80,15 +82,15 @@ export const ProviderList = () => {
         }
         onSearchChange={handleSearch}
         initialSearch={search}
+        filterOpts={filterOpts}
         onNextPage={handleNextPage}
         onPreviousPage={handlePreviousPage}
-        pageInfo={data?.providers?.pageInfo}
-        filterOpts={filterOpts}
+        pageInfo={data?.entries?.pageInfo}
       />
       <ActionDialog
         onClose={closeModal}
         onConfirm={() =>
-          providerBulkDelete({ variables: { ids: listElements } })
+          vehicleBulkDelete({ variables: { ids: listElements } })
         }
         open={isOpen}
         title={"Excluir veículos"}

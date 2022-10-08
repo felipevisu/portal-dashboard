@@ -18,8 +18,8 @@ interface DocumentListProps extends ListActions {
 }
 
 export const buildLink = (document: DocumentFragment): string => {
-  const id = document.vehicle?.id || document.provider?.id;
-  const path = document.vehicle ? "vehicles" : "providers";
+  const id = document.entry.id;
+  const path = document.entry ? "vehicles" : "providers";
   return (
     "/admin/" +
     [path, "details", id, "documents", document.id, "details"].join("/")
@@ -71,9 +71,7 @@ export const DocumentList = ({
                 />
               </TableCell>
               <TableCell>{document.name}</TableCell>
-              <TableCell>
-                {document.vehicle?.name || document.provider?.name}
-              </TableCell>
+              <TableCell>{document.entry.name}</TableCell>
               <TableCellWithStatus status={document.isPublished} />
               <TableCell sx={{ color: document.expired ? "error.main" : "" }}>
                 {document.expirationDate

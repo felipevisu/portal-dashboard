@@ -8,57 +8,85 @@ import { Form } from "@portal/components/Form";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
 import {
+  EntryDetailsQuery,
   ErrorFragment,
   SearchCategoriesQuery,
-  VehicleInput,
 } from "@portal/graphql";
 import { SubmitPromise } from "@portal/hooks/useForm";
-import { RelayToFlat } from "@portal/types";
+import { Paginator, RelayToFlat } from "@portal/types";
 import { getChoices } from "@portal/utils/data";
+import { mapEdgesToItems } from "@portal/utils/maps";
 
-import { FormProps, VehicleFormInfos, VehicleFormStatus } from "./VehicleForm";
+import DocumentList from "./DocumentList";
+import { EntryFormInfos, EntryFormStatus, FormProps } from "./EntryForm";
 
-interface VehicleCreatePageProps {
-  onSubmit: (data: VehicleInput) => SubmitPromise;
+interface EntryDetailsPageProps {
+  entry: EntryDetailsQuery["entry"];
+  onSubmit: (data: FormProps) => SubmitPromise;
+  onDelete: () => void;
   errors: ErrorFragment[];
   loading: boolean;
   categories: RelayToFlat<SearchCategoriesQuery["search"]>;
+  paginator: Paginator;
 }
 
-export const VehicleCreatePage = ({
+const content = {
+  vehicle: {
+    title: "Criar novo veículo",
+    link: "vehicles",
+  },
+  provider: {
+    title: "Criar novo prestador",
+    link: "providers",
+  },
+};
+
+const getContent = (pathname: string) =>
+  pathname.includes("vehicle") ? content.vehicle : content.provider;
+
+export const EntryDetailsPage = ({
+  entry,
   onSubmit,
+  onDelete,
   errors,
   loading,
   categories: categoryChoiceList,
-}: VehicleCreatePageProps) => {
+  paginator,
+}: EntryDetailsPageProps) => {
   const navigate = useNavigate();
   const initialData: FormProps = {
-    name: "",
-    slug: "",
-    documentNumber: "",
-    category: "",
-    isPublished: false,
-    email: "",
-    phone: "",
-    address: "",
+    name: entry.name,
+    slug: entry.slug,
+    documentNumber: entry.documentNumber,
+    category: entry.category.id,
+    isPublished: entry.isPublished,
+    email: entry.email,
+    phone: entry.phone,
+    address: entry.address,
   };
 
   const categories = getChoices(categoryChoiceList);
+  const content = getContent(window.location.pathname);
 
   return (
     <Form initial={initialData} onSubmit={onSubmit}>
       {({ change, submit, data }) => {
         return (
           <>
-            <Backlink href="/admin/vehicles">Voltar</Backlink>
-            <PageHeader title="Criar novo veículo" />
+            <Backlink href={`/admin/${content.link}`}>Voltar</Backlink>
+            <PageHeader title={data.name} />
             <Grid container spacing={2}>
               <Grid item xs={8}>
-                <VehicleFormInfos
+                <EntryFormInfos
                   errors={errors}
                   onChange={change}
                   data={data}
                   categories={categories}
+                />
+                <DocumentList
+                  documents={mapEdgesToItems(entry.documents)}
+                  paginator={paginator}
+                  pageInfo={entry.documents.pageInfo}
                 />
                 <ContactInfosForm<FormProps>
                   errors={errors}
@@ -67,7 +95,7 @@ export const VehicleCreatePage = ({
                 />
               </Grid>
               <Grid item xs={4}>
-                <VehicleFormStatus
+                <EntryFormStatus
                   errors={errors}
                   onChange={change}
                   data={data}
@@ -77,7 +105,8 @@ export const VehicleCreatePage = ({
             </Grid>
             <Savebar
               onSubmit={submit}
-              onCancel={() => navigate("/admin/vehicles")}
+              onCancel={() => navigate("/admin/entries")}
+              onDelete={onDelete}
               loading={loading}
             />
           </>

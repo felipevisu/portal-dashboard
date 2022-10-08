@@ -39,7 +39,7 @@ export const DocumentList = () => {
     [searchParams]
   );
 
-  const { data, loading, refetch } = useDocumentsQuery({
+  const { data, loading, error, refetch } = useDocumentsQuery({
     variables: { ...pagination, filter: { search, ...queryParameters } },
   });
 
@@ -54,6 +54,8 @@ export const DocumentList = () => {
   const [documentBulkDelete] = useDocumentBulkDeleteMutation({
     onCompleted: handleDocumentBulkDelete,
   });
+
+  console.log(data, loading, error);
 
   return (
     <>

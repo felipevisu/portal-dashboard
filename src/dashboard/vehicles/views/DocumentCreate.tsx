@@ -1,13 +1,12 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
+import DocumentCreatePage from "@portal/dashboard/documents/components/DocumentCreatePage";
 import {
   DocumentCreateMutation,
   DocumentInput,
   useDocumentCreateMutation,
 } from "@portal/graphql";
-
-import DocumentCreatePage from "../components/DocumentCreatePage";
 
 export const DocumentCreate = () => {
   const { id } = useParams();

@@ -1,46 +1,49 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import { DEFAULT_INITIAL_SEARCH_DATA } from "@portal/config";
+import { EntryCreatePage } from "@portal/dashboard/entries/components/EntryCreatePage";
 import {
-  ProviderCreateMutation,
-  ProviderInput,
-  useProviderCreateMutation,
+  EntryCreateMutation,
+  EntryInput,
+  EntryTypeEnum,
+  useEntryCreateMutation,
 } from "@portal/graphql";
-import useSegmentSearch from "@portal/searches/useSegmentSearch";
+import useCategorySearch from "@portal/searches/useCategorySearch";
 import { mapEdgesToItems } from "@portal/utils/maps";
-
-import { ProviderCreatePage } from "../components/ProviderCreatePage";
 
 export const ProviderCreate = () => {
   const navigate = useNavigate();
 
-  const handleSuccess = (data: ProviderCreateMutation) => {
-    if (!data?.providerCreate.errors.length) {
-      navigate(`/admin/providers/details/${data?.providerCreate.provider.id}`);
+  const handleSuccess = (data: EntryCreateMutation) => {
+    if (!data?.entryCreate.errors.length) {
+      navigate(`/admin/providers/details/${data?.entryCreate.entry.id}`);
     }
   };
 
-  const [createProvider, createProviderResult] = useProviderCreateMutation({
+  const [createProvider, createProviderResult] = useEntryCreateMutation({
     onCompleted: handleSuccess,
   });
 
-  const handleSubmit = async (data: ProviderInput) => {
-    await createProvider({ variables: { input: { ...data } } });
+  const handleSubmit = async (data: EntryInput) => {
+    await createProvider({
+      variables: { type: EntryTypeEnum.PROVIDER, input: { ...data } },
+    });
   };
 
   const {
-    loadMore: loadMoreSegments,
-    search: searchSegment,
-    result: searchSegmentOpts,
-  } = useSegmentSearch({ variables: DEFAULT_INITIAL_SEARCH_DATA });
+    loadMore: loadMoreCategories,
+    search: searchCategory,
+    result: searchCategoryOpts,
+  } = useCategorySearch({
+    variables: { first: 20, query: "", type: EntryTypeEnum.PROVIDER },
+  });
 
   return (
-    <ProviderCreatePage
+    <EntryCreatePage
       onSubmit={handleSubmit}
-      errors={createProviderResult.data?.providerCreate.errors || []}
+      errors={createProviderResult.data?.entryCreate.errors || []}
       loading={createProviderResult.loading}
-      segments={mapEdgesToItems(searchSegmentOpts?.data?.search) || []}
+      categories={mapEdgesToItems(searchCategoryOpts?.data?.search) || []}
     />
   );
 };

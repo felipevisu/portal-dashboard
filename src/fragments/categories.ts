@@ -5,7 +5,8 @@ export const categoryFragment = gql`
     id
     name
     slug
-    vehicles {
+    type
+    entries {
       totalCount
     }
   }

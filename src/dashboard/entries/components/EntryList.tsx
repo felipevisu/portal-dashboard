@@ -7,25 +7,25 @@ import TableCellHeader from "@portal/components/TableCell";
 import TableCellWithStatus from "@portal/components/TableCellWithStatus";
 import TableHead from "@portal/components/TableHead";
 import TableRowLink from "@portal/components/TableRowLink";
-import { VehicleFragment } from "@portal/graphql";
+import { EntryFragment } from "@portal/graphql";
 import { renderCollection } from "@portal/misc";
 import { ListActions } from "@portal/types";
 
-interface VehicleListProps extends ListActions {
-  vehicles: VehicleFragment[];
+interface EntryListProps extends ListActions {
+  entries: EntryFragment[];
   disabled: boolean;
 }
 
-export const VehicleList = ({
-  vehicles,
+export const EntryList = ({
+  entries,
   isChecked,
   toggle,
   disabled,
   toggleAll,
   selected,
   toolbar,
-}: VehicleListProps) => {
-  const numberOfColumns = vehicles?.length === 0 ? 3 : 4;
+}: EntryListProps) => {
+  const numberOfColumns = entries?.length === 0 ? 3 : 4;
 
   return (
     <ResponsiveTable>
@@ -33,7 +33,7 @@ export const VehicleList = ({
         colSpan={numberOfColumns}
         selected={selected}
         disabled={disabled}
-        items={vehicles}
+        items={entries}
         toggleAll={toggleAll}
         toolbar={toolbar}
       >
@@ -42,26 +42,26 @@ export const VehicleList = ({
         <TableCellHeader>Visibilidade</TableCellHeader>
       </TableHead>
       <TableBody>
-        {renderCollection(vehicles, (vehicle) => {
-          const isSelected = vehicle ? isChecked(vehicle.id) : false;
+        {renderCollection(entries, (entry) => {
+          const isSelected = entry ? isChecked(entry.id) : false;
           return (
             <TableRowLink
-              key={vehicle ? vehicle.id : "skeleton"}
+              key={entry ? entry.id : "skeleton"}
               sx={{ cursor: "pointer" }}
               selected={isSelected}
-              href={`details/${vehicle.id}/`}
+              href={`details/${entry.id}/`}
             >
               <TableCell padding="checkbox">
                 <Checkbox
                   checked={isSelected}
                   disabled={disabled}
                   disableClickPropagation
-                  onChange={() => toggle(vehicle.id)}
+                  onChange={() => toggle(entry.id)}
                 />
               </TableCell>
-              <TableCell>{vehicle.name}</TableCell>
-              <TableCell>{vehicle.category.name}</TableCell>
-              <TableCellWithStatus status={vehicle.isPublished} />
+              <TableCell>{entry.name}</TableCell>
+              <TableCell>{entry.category.name}</TableCell>
+              <TableCellWithStatus status={entry.isPublished} />
             </TableRowLink>
           );
         })}
@@ -70,4 +70,4 @@ export const VehicleList = ({
   );
 };
 
-export default VehicleList;
+export default EntryList;

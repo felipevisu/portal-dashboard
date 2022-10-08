@@ -1,14 +1,14 @@
 import { gql } from "@apollo/client";
 
-export const providersQuery = gql`
-  query Providers(
+export const entriesQuery = gql`
+  query Entries(
     $first: Int
     $last: Int
     $after: String
     $before: String
-    $filter: ProviderFilterInput
+    $filter: EntryFilterInput
   ) {
-    providers(
+    entries(
       first: $first
       last: $last
       after: $after
@@ -17,7 +17,7 @@ export const providersQuery = gql`
     ) {
       edges {
         node {
-          ...Provider
+          ...Entry
         }
       }
       pageInfo {
@@ -27,10 +27,10 @@ export const providersQuery = gql`
   }
 `;
 
-export const providerDetailsQuery = gql`
-  query ProviderDetails($id: ID!, $first: Int = 10, $after: String) {
-    provider(id: $id) {
-      ...ProviderDetails
+export const entryDetailsQuery = gql`
+  query EntryDetails($id: ID!, $first: Int = 10, $after: String) {
+    entry(id: $id) {
+      ...EntryDetails
       documents(first: $first, after: $after) {
         edges {
           node {
