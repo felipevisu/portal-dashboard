@@ -4,7 +4,6 @@ import { useSearchParams } from "react-router-dom";
 import { Delete } from "@mui/icons-material";
 import {
   Card,
-  CardContent,
   CardHeader,
   IconButton,
   Table,

@@ -29,8 +29,8 @@ export type FormProps = {
 interface DocumentFormProps {
   data?: FormProps;
   errors: ErrorFragment[];
-  onChange: (e: ChangeEvent) => void;
   fileUpload: React.ReactNode;
+  onChange: (e: ChangeEvent) => void;
 }
 
 export const generateSubmitData = (data: FormProps) => {
@@ -40,11 +40,15 @@ export const generateSubmitData = (data: FormProps) => {
     expires: data.expires,
     isPublished: data.isPublished,
   };
-  if (data.expirationDate) {
-    submitData.expirationDate = data.expirationDate.toISOString().split("T")[0];
-  }
-  if (data.beginDate) {
-    submitData.beginDate = data.beginDate.toISOString().split("T")[0];
+  if (data.expires) {
+    if (data.expirationDate) {
+      submitData.expirationDate = data.expirationDate
+        .toISOString()
+        .split("T")[0];
+    }
+    if (data.beginDate) {
+      submitData.beginDate = data.beginDate.toISOString().split("T")[0];
+    }
   }
   return submitData;
 };

@@ -1,0 +1,14 @@
+{
+  "dashboard": {
+    "home": {
+      "title": "Bem vindo",
+      "message": "Aqui estão algumas informações importantes sobre seu sistema.",
+      "expired": "Documentos expirados",
+      "expiring": "Documentos expirando"
+    }
+  },
+  "name": "Nome",
+  "validUntil": "Válido até",
+  "entryTypes": "Veículo/Fornecedor",
+  "seeAll": "Ver todos"
+}

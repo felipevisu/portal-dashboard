@@ -1,12 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export const Home = () => {
-  return (
-    <div>
-      <Link to="/veiculos">Veículos</Link>
-    </div>
-  );
+  const { t } = useTranslation();
+
+  return <div>{t("Welcome to React")}</div>;
 };
 
 export default Home;

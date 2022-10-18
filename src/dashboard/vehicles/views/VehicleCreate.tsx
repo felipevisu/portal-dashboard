@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import { DEFAULT_INITIAL_SEARCH_DATA } from "@portal/config";
 import { EntryCreatePage } from "@portal/dashboard/entries/components/EntryCreatePage";
 import {
   EntryCreateMutation,

@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import { Box, Typography } from "@mui/material";
 import FormSpacer from "@portal/components/FormSpacer";
@@ -22,23 +23,25 @@ export const Homepage = ({
 }: HomepageProps) => {
   if (!expired || !closeToExpire) return null;
 
+  const { t } = useTranslation("translation", { keyPrefix: "dashboard.home" });
+
   return (
     <Box>
       <Typography variant="h4" fontWeight={700} marginBottom={1}>
-        Bem vindo
+        {t("title")}
       </Typography>
       <Typography variant="body1" marginBottom={3}>
-        Aqui estão algumas informações importantes sobre seu sistema.
+        {t("message")}
       </Typography>
       <DocumentList
         documents={mapEdgesToItems(expired)}
-        title="Documentos Expirados"
+        title={t("expired")}
         href={expiredFilter}
       />
       <FormSpacer />
       <DocumentList
         documents={mapEdgesToItems(closeToExpire)}
-        title="Documentos Expirando"
+        title={t("expiring")}
         href={closeToExpireFilter}
       />
     </Box>

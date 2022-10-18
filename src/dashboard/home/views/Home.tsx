@@ -19,6 +19,7 @@ export const Home = () => {
         expirationDate: { lte: today },
       },
     },
+    fetchPolicy: "cache-and-network",
   });
 
   const { data: closeToExpire, loading: loading2 } = useDocumentsQuery({
@@ -30,6 +31,7 @@ export const Home = () => {
         expirationDate: { gte: tomorrow, lte: nextWeek },
       },
     },
+    fetchPolicy: "cache-and-network",
   });
 
   const expiredFilter = `/admin/documents?expirationDate_Lte=${today}`;

@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import {
   Card,
@@ -24,15 +25,19 @@ interface DocumentListProps {
 }
 
 export const DocumentList = ({ title, documents, href }: DocumentListProps) => {
+  const { t } = useTranslation();
+
   return (
     <Card>
       <CardHeader title={title} />
       <Table>
         <TableHead>
           <TableRow>
-            <TableCellHeader sx={{ paddingLeft: 3 }}>Nome</TableCellHeader>
-            <TableCellHeader>Veículo/Fornecedor</TableCellHeader>
-            <TableCellHeader>Valido até</TableCellHeader>
+            <TableCellHeader sx={{ paddingLeft: 3 }}>
+              {t("name")}
+            </TableCellHeader>
+            <TableCellHeader>{t("entryTypes")}</TableCellHeader>
+            <TableCellHeader>{t("validUntil")}</TableCellHeader>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -51,7 +56,7 @@ export const DocumentList = ({ title, documents, href }: DocumentListProps) => {
       </Table>
       <Toolbar>
         <Button href={href} disabled={documents.length === 0}>
-          Ver todos
+          {t("seeAll")}
         </Button>
       </Toolbar>
     </Card>

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import isEqual from "lodash/isEqual";
 
 import { ChangeEvent } from "@portal/types";
