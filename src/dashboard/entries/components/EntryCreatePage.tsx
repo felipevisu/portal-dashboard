@@ -16,6 +16,8 @@ import { SubmitPromise } from "@portal/hooks/useForm";
 import { RelayToFlat } from "@portal/types";
 import { getChoices } from "@portal/utils/data";
 
+import { useEntryType } from "../hooks";
+
 import { EntryFormInfos, EntryFormStatus, FormProps } from "./EntryForm";
 
 interface EntryCreatePageProps {
@@ -24,20 +26,6 @@ interface EntryCreatePageProps {
   loading: boolean;
   categories: RelayToFlat<SearchCategoriesQuery["search"]>;
 }
-
-const content = {
-  vehicle: {
-    title: "Criar novo veículo",
-    link: "vehicles",
-  },
-  provider: {
-    title: "Criar novo prestador",
-    link: "providers",
-  },
-};
-
-const getContent = (pathname: string) =>
-  pathname.includes("vehicle") ? content.vehicle : content.provider;
 
 export const EntryCreatePage = ({
   onSubmit,
@@ -58,7 +46,7 @@ export const EntryCreatePage = ({
   };
 
   const categories = getChoices(categoryChoiceList);
-  const content = getContent(window.location.pathname);
+  const content = useEntryType();
 
   return (
     <Form initial={initialData} onSubmit={onSubmit}>
@@ -66,7 +54,7 @@ export const EntryCreatePage = ({
         return (
           <>
             <Backlink href={`/admin/${content.link}`}>Voltar</Backlink>
-            <PageHeader title={content.title} />
+            <PageHeader title={content.header} />
             <Grid container spacing={2}>
               <Grid item xs={8}>
                 <EntryFormInfos

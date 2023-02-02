@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import { DialogContentText } from "@mui/material";
 import ActionDialog from "@portal/components/ActionDialog";
@@ -14,16 +15,16 @@ export const ItemDeleteDialog = ({
   onConfirm,
   isOpen,
 }: ItemDeleteDialogProps) => {
+  const { t } = useTranslation();
+
   return (
     <ActionDialog
-      title="Excluir item"
+      title={t("deleteItem")}
       onClose={onClose}
       onConfirm={onConfirm}
       open={isOpen}
     >
-      <DialogContentText>
-        Esta ação é irreversível, deseja mesmo continuar?
-      </DialogContentText>
+      <DialogContentText>{t("confirmActionMessage")}</DialogContentText>
     </ActionDialog>
   );
 };

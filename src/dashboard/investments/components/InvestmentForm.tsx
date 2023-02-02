@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import {
   Card,
@@ -35,11 +36,12 @@ export const InvestmentForm = ({
   data,
   onChange,
 }: InvestmentFormProps) => {
+  const { t } = useTranslation();
   const formErrors = getFormErrors(["month", "year", "isPublished"], errors);
 
   return (
     <Card sx={{ marginBottom: (theme) => theme.spacing(2) }}>
-      <CardHeader title="Informações gerais" />
+      <CardHeader title={t("generalInfo")} />
       <CardContent>
         <Grid container spacing={2}>
           <Grid item xs={6}>
@@ -47,7 +49,7 @@ export const InvestmentForm = ({
               <InputLabel>Mês</InputLabel>
               <Select
                 value={data.month}
-                label="Mês"
+                label={t("month")}
                 name="month"
                 onChange={onChange}
               >
@@ -73,7 +75,7 @@ export const InvestmentForm = ({
                 error={formErrors.year && true}
                 fullWidth
                 name="year"
-                label="Ano"
+                label={t("year")}
                 value={data.year}
                 onChange={onChange}
                 helperText={formErrors.year?.message}
@@ -84,7 +86,7 @@ export const InvestmentForm = ({
         <FormSpacer />
         <FormControl>
           <ControledCheckbox
-            label="Publicado"
+            label={t("published")}
             name="isPublished"
             checked={data.isPublished}
             onChange={onChange}

@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import {
   Card,
@@ -38,6 +39,7 @@ interface EntryFormProps
 
 export const EntryFormInfos = ({ errors, data, onChange }: EntryFormProps) => {
   const formErrors = getFormErrors(["name", "slug", "documentNumber"], errors);
+  const { t } = useTranslation();
 
   return (
     <Card sx={{ marginBottom: 2 }}>
@@ -49,7 +51,7 @@ export const EntryFormInfos = ({ errors, data, onChange }: EntryFormProps) => {
             fullWidth
             type="text"
             name="name"
-            label="Nome"
+            label={t("nome")}
             value={data.name}
             onChange={onChange}
             helperText={formErrors.name?.message}
@@ -62,7 +64,7 @@ export const EntryFormInfos = ({ errors, data, onChange }: EntryFormProps) => {
             fullWidth
             type="text"
             name="slug"
-            label="Atalho"
+            label={t("slug")}
             value={data.slug}
             onChange={onChange}
             helperText={formErrors.slug?.message}
@@ -75,7 +77,7 @@ export const EntryFormInfos = ({ errors, data, onChange }: EntryFormProps) => {
             fullWidth
             type="text"
             name="documentNumber"
-            label="CNPJ"
+            label={t("documentNumber")}
             value={data.documentNumber}
             onChange={onChange}
             helperText={formErrors.documentNumber?.message}

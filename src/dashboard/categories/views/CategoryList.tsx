@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useMemo } from "react";
+import { useSearchParams } from "react-router-dom";
 
 import { Delete } from "@mui/icons-material";
 import { DialogContentText, IconButton } from "@mui/material";
@@ -10,11 +11,15 @@ import {
 } from "@portal/graphql";
 import { useBulkActions, usePaginator, useSearch } from "@portal/hooks";
 import useModal from "@portal/hooks/useModal";
+import { getQuery } from "@portal/utils/filters";
 import { mapEdgesToItems } from "@portal/utils/maps";
 
 import CategoryListPage from "../components/CategoryListPage";
 
+import { getFilterOpts } from "./filter";
+
 export const CategoryList = () => {
+  const [searchParams] = useSearchParams();
   const { search, handleSearch } = useSearch();
   const { pagination, handleNextPage, handlePreviousPage } = usePaginator();
 
@@ -24,9 +29,16 @@ export const CategoryList = () => {
 
   const { isOpen, openModal, closeModal } = useModal();
 
+  const filterOpts = getFilterOpts();
+
+  const queryParameters = useMemo(
+    () => getQuery(filterOpts, searchParams),
+    [searchParams]
+  );
+
   const { data, loading, refetch } = useCategoriesQuery({
     fetchPolicy: "cache-and-network",
-    variables: { ...pagination, filter: { search } },
+    variables: { ...pagination, filter: { search, ...queryParameters } },
   });
 
   const handleCategoryBulkDelete = (data: CategoryBulkDeleteMutation) => {
@@ -57,6 +69,7 @@ export const CategoryList = () => {
         }
         onSearchChange={handleSearch}
         initialSearch={search}
+        filterOpts={filterOpts}
         onNextPage={handleNextPage}
         onPreviousPage={handlePreviousPage}
         pageInfo={data?.categories?.pageInfo}

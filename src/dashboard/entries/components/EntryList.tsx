@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import { TableBody, TableCell } from "@mui/material";
 import Checkbox from "@portal/components/Checkbox";
@@ -26,6 +27,7 @@ export const EntryList = ({
   toolbar,
 }: EntryListProps) => {
   const numberOfColumns = entries?.length === 0 ? 3 : 4;
+  const { t } = useTranslation();
 
   return (
     <ResponsiveTable>
@@ -37,9 +39,9 @@ export const EntryList = ({
         toggleAll={toggleAll}
         toolbar={toolbar}
       >
-        <TableCellHeader>Nome</TableCellHeader>
-        <TableCellHeader>Categoria</TableCellHeader>
-        <TableCellHeader>Visibilidade</TableCellHeader>
+        <TableCellHeader>{t("name")}</TableCellHeader>
+        <TableCellHeader>{t("category")}</TableCellHeader>
+        <TableCellHeader>{t("visibility")}</TableCellHeader>
       </TableHead>
       <TableBody>
         {renderCollection(entries, (entry) => {

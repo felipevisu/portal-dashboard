@@ -24,13 +24,15 @@ const RoutesComponent = () => {
   const appHeaderAnchor = useBacklink();
   const appFooterAnchor = useSavebar();
 
+  if (authenticating) return <CircularLoading />;
+
   if (authenticated) {
     return (
       <Wrapper>
         <Lateral>
           <Menu />
         </Lateral>
-        <Content>
+        <Content maxWidth="xl">
           <Header>
             <div ref={appHeaderAnchor} />
             <UserMenu />
@@ -53,8 +55,6 @@ const RoutesComponent = () => {
       </Wrapper>
     );
   }
-
-  if (authenticating) return <CircularLoading />;
 
   return <Auth />;
 };

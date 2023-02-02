@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import { Card } from "@mui/material";
 import FilterBar from "@portal/components/FilterBar";
@@ -37,12 +38,13 @@ export const DocumentListPage = ({
   onPreviousPage,
   onSearchChange,
 }: DocumentListPageProps) => {
+  const { t } = useTranslation();
   return (
     <>
-      <PageHeader title="Documentos" />
+      <PageHeader title={t("documents")} />
       <Card>
         <FilterBar
-          placeholder="Pesquisar"
+          placeholder={t("search")}
           onSearchChange={onSearchChange}
           filterOpts={filterOpts}
         />

@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 
 import { Button, DialogContentText } from "@mui/material";
@@ -21,6 +22,7 @@ import ItemCreateDialog from "../components/ItemCreateDialog";
 import ItemDeleteDialog from "../components/ItemDeleteDialog";
 
 export const InvestmentDetails = () => {
+  const { t } = useTranslation();
   const { id } = useParams();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -95,7 +97,7 @@ export const InvestmentDetails = () => {
             variant="outlined"
             onClick={createItemModal.openModal}
           >
-            Adicionar
+            {t("add")}
           </Button>
         }
         onDeleteItem={deleteItemModal.openModal}
@@ -115,7 +117,7 @@ export const InvestmentDetails = () => {
         onClose={closeModal}
         onConfirm={handleInvestmentDelete}
         open={isOpen}
-        title="Excluir investimento"
+        title={t("deleteInvestment")}
         variant="delete"
       >
         <DialogContentText>

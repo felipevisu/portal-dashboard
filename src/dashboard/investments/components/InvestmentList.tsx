@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import { TableBody, TableCell } from "@mui/material";
 import Checkbox from "@portal/components/Checkbox";
@@ -28,6 +29,7 @@ export const InvestmentList = ({
   toolbar,
 }: InvestmentListProps) => {
   const numberOfColumns = investments?.length === 0 ? 3 : 4;
+  const { t } = useTranslation();
 
   return (
     <ResponsiveTable>
@@ -39,9 +41,9 @@ export const InvestmentList = ({
         toggleAll={toggleAll}
         toolbar={toolbar}
       >
-        <TableCellHeader>Data</TableCellHeader>
-        <TableCellHeader>Total</TableCellHeader>
-        <TableCellHeader>Visibilidade</TableCellHeader>
+        <TableCellHeader>{t("date")}</TableCellHeader>
+        <TableCellHeader>{t("total")}</TableCellHeader>
+        <TableCellHeader>{t("visibility")}</TableCellHeader>
       </TableHead>
       <TableBody>
         {renderCollection(investments, (investment) => {

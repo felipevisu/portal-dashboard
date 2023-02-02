@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import {
   Card,
@@ -30,6 +31,7 @@ export const DocumentList = ({
   paginator,
   pageInfo,
 }: DocumentListProps) => {
+  const { t } = useTranslation();
   return (
     <Card sx={{ marginBottom: 2 }}>
       <CardHeader
@@ -43,10 +45,12 @@ export const DocumentList = ({
       <Table>
         <TableHead>
           <TableRow>
-            <TableCellHeader sx={{ paddingLeft: 3 }}>Nome</TableCellHeader>
-            <TableCellHeader>Visibilidade</TableCellHeader>
-            <TableCellHeader>Status</TableCellHeader>
-            <TableCellHeader>Data de upload</TableCellHeader>
+            <TableCellHeader sx={{ paddingLeft: 3 }}>
+              {t("name")}
+            </TableCellHeader>
+            <TableCellHeader>{t("visibility")}</TableCellHeader>
+            <TableCellHeader>{t("status")}</TableCellHeader>
+            <TableCellHeader>{t("uploadDate")}</TableCellHeader>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -59,11 +63,14 @@ export const DocumentList = ({
               <TableCell sx={{ paddingLeft: 3 }}>{document.name}</TableCell>
               <TableCellWithStatus
                 status={document.isPublished}
-                labels={{ published: "Publicado", unPublished: "Despublicado" }}
+                labels={{
+                  published: t("published"),
+                  unPublished: t("unpublished"),
+                }}
               />
               <TableCellWithStatus
                 status={!document.expired}
-                labels={{ published: "Ativo", unPublished: "Expirado" }}
+                labels={{ published: t("active"), unPublished: t("expired") }}
               />
               <TableCell sx={{ width: "150px" }}>
                 {formatDate(document.created)}

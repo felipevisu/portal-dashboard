@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import { Card } from "@mui/material";
 import { Button } from "@portal/components/Button";
@@ -26,15 +27,17 @@ export const InvestmentListPage = ({
   onPreviousPage,
   disabled,
 }: InvestmentListPageProps) => {
+  const { t } = useTranslation();
+
   return (
     <>
-      <PageHeader title={"Investimentos"}>
+      <PageHeader title={t("investment")}>
         <Button
           color="primary"
           variant="contained"
           href={"/admin/investments/create"}
         >
-          Criar investimento
+          {t("createInvestment")}
         </Button>
       </PageHeader>
       <Card>

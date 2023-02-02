@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import { DialogActions } from "@mui/material";
 
@@ -20,6 +21,7 @@ interface DialogButtonsProps {
 }
 
 const DialogButtons: React.FC<DialogButtonsProps> = (props) => {
+  const { t } = useTranslation();
   const {
     confirmButtonLabel,
     confirmButtonState,
@@ -43,7 +45,7 @@ const DialogButtons: React.FC<DialogButtonsProps> = (props) => {
           error={variant === "delete"}
         >
           {confirmButtonLabel ||
-            (variant === "delete" ? "Excluir" : "Confirma")}
+            (variant === "delete" ? t("delete") : t("confirm"))}
         </ConfirmButton>
       )}
     </DialogActions>

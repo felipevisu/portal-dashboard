@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import {
   Card,
@@ -29,10 +30,11 @@ interface CategoryFormProps {
 
 export const CategoryForm = ({ errors, data, onChange }: CategoryFormProps) => {
   const formErrors = getFormErrors(["name", "slug", "type"], errors);
+  const { t } = useTranslation();
 
   return (
     <Card>
-      <CardHeader title="Informações gerais" />
+      <CardHeader title={t("generalInfo")} />
       <CardContent>
         <FormControl fullWidth>
           <TextField
@@ -40,7 +42,7 @@ export const CategoryForm = ({ errors, data, onChange }: CategoryFormProps) => {
             fullWidth
             type="text"
             name="name"
-            label="Nome"
+            label={t("name")}
             value={data.name}
             onChange={onChange}
             helperText={formErrors.name?.message}
@@ -53,7 +55,7 @@ export const CategoryForm = ({ errors, data, onChange }: CategoryFormProps) => {
             fullWidth
             type="text"
             name="slug"
-            label="Atalho"
+            label={t("slug")}
             value={data.slug}
             onChange={onChange}
             helperText={formErrors.slug?.message}
@@ -64,17 +66,13 @@ export const CategoryForm = ({ errors, data, onChange }: CategoryFormProps) => {
           <InputLabel id="category-type">Tipo</InputLabel>
           <Select
             labelId="category-type"
-            value={data.type}
-            label="Tipo"
+            value={data.type ? data.type : ""}
+            label={t("type")}
             name="type"
             onChange={onChange}
           >
-            <MenuItem value={EntryTypeEnum.VEHICLE}>
-              Veículo de comunicação
-            </MenuItem>
-            <MenuItem value={EntryTypeEnum.PROVIDER}>
-              Prestador de serviço
-            </MenuItem>
+            <MenuItem value={EntryTypeEnum.VEHICLE}>{t("vehicles")}</MenuItem>
+            <MenuItem value={EntryTypeEnum.PROVIDER}>{t("providers")}</MenuItem>
           </Select>
         </FormControl>
       </CardContent>

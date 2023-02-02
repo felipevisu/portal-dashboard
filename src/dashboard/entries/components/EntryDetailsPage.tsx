@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 import { Grid } from "@mui/material";
@@ -17,6 +18,8 @@ import { Paginator, RelayToFlat } from "@portal/types";
 import { getChoices } from "@portal/utils/data";
 import { mapEdgesToItems } from "@portal/utils/maps";
 
+import { useEntryType } from "../hooks";
+
 import DocumentList from "./DocumentList";
 import { EntryFormInfos, EntryFormStatus, FormProps } from "./EntryForm";
 
@@ -29,20 +32,6 @@ interface EntryDetailsPageProps {
   categories: RelayToFlat<SearchCategoriesQuery["search"]>;
   paginator: Paginator;
 }
-
-const content = {
-  vehicle: {
-    title: "Criar novo veículo",
-    link: "vehicles",
-  },
-  provider: {
-    title: "Criar novo prestador",
-    link: "providers",
-  },
-};
-
-const getContent = (pathname: string) =>
-  pathname.includes("vehicle") ? content.vehicle : content.provider;
 
 export const EntryDetailsPage = ({
   entry,
@@ -66,14 +55,15 @@ export const EntryDetailsPage = ({
   };
 
   const categories = getChoices(categoryChoiceList);
-  const content = getContent(window.location.pathname);
+  const content = useEntryType();
+  const { t } = useTranslation();
 
   return (
     <Form initial={initialData} onSubmit={onSubmit}>
       {({ change, submit, data }) => {
         return (
           <>
-            <Backlink href={`/admin/${content.link}`}>Voltar</Backlink>
+            <Backlink href={`/admin/${content.link}`}>{t("back")}</Backlink>
             <PageHeader title={data.name} />
             <Grid container spacing={2}>
               <Grid item xs={8}>

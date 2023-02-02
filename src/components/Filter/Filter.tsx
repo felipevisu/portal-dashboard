@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import {
   Box,
@@ -19,6 +20,7 @@ export const Filter = ({ filterOpts }: FilterProps) => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const [open, setOpen] = useState(false);
   const [placement, setPlacement] = useState<PopperPlacementType>();
+  const { t } = useTranslation();
 
   const handleClick =
     (newPlacement: PopperPlacementType) =>
@@ -32,7 +34,7 @@ export const Filter = ({ filterOpts }: FilterProps) => {
     <ClickAwayListener onClickAway={() => setOpen(false)}>
       <Box>
         <Button variant="outlined" onClick={handleClick("bottom-start")}>
-          Filtros
+          {t("filters")}
         </Button>
         <Popper open={open} anchorEl={anchorEl} placement={placement}>
           <FilterContent filterOpts={filterOpts} />

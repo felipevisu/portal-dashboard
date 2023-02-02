@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 import { Button } from "@mui/material";
@@ -15,6 +16,7 @@ import ItemCreateDialog from "../components/ItemCreateDialog";
 import ItemDeleteDialog from "../components/ItemDeleteDialog";
 
 export const InvestmentCreate = () => {
+  const { t } = useTranslation();
   const navigator = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -69,7 +71,7 @@ export const InvestmentCreate = () => {
             variant="outlined"
             onClick={createItemModal.openModal}
           >
-            Adicionar
+            {t("add")}
           </Button>
         }
         onDeleteItem={deleteItemModal.openModal}

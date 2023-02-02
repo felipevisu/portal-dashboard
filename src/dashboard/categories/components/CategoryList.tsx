@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import { TableBody, TableCell } from "@mui/material";
 import Checkbox from "@portal/components/Checkbox";
@@ -17,7 +18,7 @@ interface CategoryListProps extends ListActions {
 
 const typeMap = {
   [EntryTypeEnum.VEHICLE]: "Veículo de comunicação",
-  [EntryTypeEnum.PROVIDER]: "Prestador de serviço",
+  [EntryTypeEnum.PROVIDER]: "Fornecedor",
 };
 
 export const CategoryList = ({
@@ -30,6 +31,7 @@ export const CategoryList = ({
   toolbar,
 }: CategoryListProps) => {
   const numberOfColumns = categories?.length === 0 ? 2 : 3;
+  const { t } = useTranslation();
 
   return (
     <ResponsiveTable>
@@ -41,10 +43,10 @@ export const CategoryList = ({
         toggleAll={toggleAll}
         toolbar={toolbar}
       >
-        <TableCellHeader sx={{ width: "auto" }}>Nome</TableCellHeader>
-        <TableCellHeader sx={{ width: "auto" }}>Tipo</TableCellHeader>
+        <TableCellHeader sx={{ width: "auto" }}>{t("name")}</TableCellHeader>
+        <TableCellHeader sx={{ width: "auto" }}>{t("type")}</TableCellHeader>
         <TableCellHeader sx={{ width: 160, textAlign: "center" }}>
-          Veículos
+          {t("vehicles")}
         </TableCellHeader>
       </TableHead>
       <TableBody>

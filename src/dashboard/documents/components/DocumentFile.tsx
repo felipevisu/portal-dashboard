@@ -1,4 +1,5 @@
 import React, { useMemo, useRef } from "react";
+import { useTranslation } from "react-i18next";
 
 import { AttachFile, FileUpload, OpenInNew } from "@mui/icons-material";
 import {
@@ -24,6 +25,7 @@ export const DocumentFile = ({
   fileUrl,
   onChange,
 }: DocumentFileProps) => {
+  const { t } = useTranslation();
   const fileRef = useRef<HTMLInputElement>();
 
   const handleClick = () => {
@@ -38,8 +40,8 @@ export const DocumentFile = ({
   return (
     <Card>
       <CardHeader
-        title="Arquivo"
-        action={<Button onClick={handleClick}>Adicionar arquivo</Button>}
+        title={t("document")}
+        action={<Button onClick={handleClick}>{t("createDocument")}</Button>}
       />
       <CardContent>
         <input type="file" ref={fileRef} onChange={onChange} hidden />
@@ -61,7 +63,7 @@ export const DocumentFile = ({
             sx={{ textAlign: "center", cursor: "pointer", width: "100%" }}
           >
             <FileUpload />
-            <Typography>Clique aqui</Typography>
+            <Typography>{t("clickHere")}</Typography>
           </Box>
         )}
       </CardContent>

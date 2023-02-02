@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 import { Backlink } from "@portal/components/Backlink";
@@ -30,6 +31,7 @@ export const CategoryDetailsPage = ({
   loading,
 }: CategoryDetailsPageProps) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleDelete = () => {
     onDelete();
@@ -46,7 +48,7 @@ export const CategoryDetailsPage = ({
       {({ change, data, submit }) => {
         return (
           <>
-            <Backlink href="/admin/categories">Voltar</Backlink>
+            <Backlink href="/admin/categories">{t("back")}</Backlink>
             <PageHeader title={category?.name} />
             <CategoryForm errors={errors} onChange={change} data={data} />
             <Savebar

@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 import { Backlink } from "@portal/components/Backlink";
@@ -28,6 +29,7 @@ export const InvestmentCreatePage = ({
   onDeleteItem,
   items,
 }: InvestmentCreatePageProps) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const initialData: FormProps = {
@@ -41,8 +43,8 @@ export const InvestmentCreatePage = ({
       {({ change, submit, data }) => {
         return (
           <>
-            <Backlink href="/admin/investments">Voltar</Backlink>
-            <PageHeader title="Criar novo investimento" />
+            <Backlink href="/admin/investments">{t("back")}</Backlink>
+            <PageHeader title={t("createInvestment")} />
             <InvestmentForm errors={errors} onChange={change} data={data} />
             <InvestmentItems
               tollbar={tollbar}

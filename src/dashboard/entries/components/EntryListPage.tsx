@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import { Card } from "@mui/material";
 import { Button } from "@portal/components/Button";
@@ -13,6 +14,8 @@ import {
   SearchPageProps,
 } from "@portal/types";
 
+import { useEntryType } from "../hooks";
+
 import EntryList from "./EntryList";
 
 interface EntryListPageProps
@@ -23,22 +26,6 @@ interface EntryListPageProps
   disabled: boolean;
   filterOpts: FilterOpts[];
 }
-
-const content = {
-  vehicle: {
-    title: "Veículos de comunicação",
-    link: "vehicles",
-    new: "Novo veículo",
-  },
-  provider: {
-    title: "Prestadores de serviço",
-    link: "providers",
-    new: "Novo prestador",
-  },
-};
-
-const getContent = (pathname: string) =>
-  pathname.includes("vehicle") ? content.vehicle : content.provider;
 
 export const EntryListPage = ({
   entries,
@@ -54,11 +41,11 @@ export const EntryListPage = ({
   disabled,
   filterOpts,
 }: EntryListPageProps) => {
-  const content = getContent(window.location.pathname);
-
+  const content = useEntryType();
+  const { t } = useTranslation();
   return (
     <>
-      <PageHeader title={content.title}>
+      <PageHeader title={content.header}>
         <Button
           color="primary"
           variant="contained"
@@ -69,7 +56,7 @@ export const EntryListPage = ({
       </PageHeader>
       <Card>
         <FilterBar
-          placeholder="Pesquisar"
+          placeholder={t("search")}
           onSearchChange={onSearchChange}
           filterOpts={filterOpts}
         />

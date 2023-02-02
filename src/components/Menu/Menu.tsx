@@ -12,9 +12,9 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import DesignServicesIcon from "@mui/icons-material/DesignServices";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
-import SegmentIcon from "@mui/icons-material/Segment";
+import { Fade } from "@mui/material";
 
-import { Label, MenuContent, MenuItem, OpenClose } from "./styles";
+import { Label, MenuContent, MenuItem, MenuMain, OpenClose } from "./styles";
 
 const ITEMS = [
   {
@@ -57,9 +57,9 @@ const ITEMS = [
 type ItemProps = {
   label: string;
   path: string;
+  icon: React.ReactNode | string;
   active: boolean;
   opened: boolean;
-  icon: React.ReactNode | string;
 };
 
 const isActive = (path: string, location: string) => {
@@ -69,13 +69,15 @@ const isActive = (path: string, location: string) => {
   return location.includes(path);
 };
 
-export const Item = ({ label, path, active, opened, icon }: ItemProps) => {
+export const Item = ({ label, path, icon, active, opened }: ItemProps) => {
   return (
     <li>
       <Link to={path}>
-        <MenuItem active={active}>
-          {icon}
-          {opened && <Label>{label}</Label>}
+        <MenuItem active={active} opened={opened}>
+          <div>{icon}</div>
+          <Fade in={opened}>
+            <Label>{label}</Label>
+          </Fade>
         </MenuItem>
       </Link>
     </li>
@@ -87,21 +89,23 @@ export const Menu = () => {
   const location = useLocation();
 
   return (
-    <MenuContent opened={opened}>
-      <ul>
-        {ITEMS.map((item) => (
-          <Item
-            key={item.path}
-            {...item}
-            active={isActive(item.path, location.pathname)}
-            opened={opened}
-          />
-        ))}
-      </ul>
-      <OpenClose onClick={() => setOpened(!opened)}>
-        {opened ? <ArrowCircleLeft /> : <ArrowCircleRight />}
-      </OpenClose>
-    </MenuContent>
+    <MenuMain opened={opened}>
+      <MenuContent opened={opened}>
+        <ul>
+          {ITEMS.map((item) => (
+            <Item
+              key={item.path}
+              {...item}
+              active={isActive(item.path, location.pathname)}
+              opened={opened}
+            />
+          ))}
+        </ul>
+        <OpenClose onClick={() => setOpened(!opened)}>
+          {opened ? <ArrowCircleLeft /> : <ArrowCircleRight />}
+        </OpenClose>
+      </MenuContent>
+    </MenuMain>
   );
 };
 

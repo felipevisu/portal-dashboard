@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { Backlink } from "@portal/components/Backlink";
@@ -25,6 +26,7 @@ export const DocumentDetailsPage = ({
   errors,
   loading,
 }: DocumentDetailsPageProps) => {
+  const { t } = useTranslation();
   const { id } = useParams();
   const navigate = useNavigate();
   const [data, setData] = useState<FormProps>({
@@ -57,7 +59,7 @@ export const DocumentDetailsPage = ({
 
   return (
     <>
-      <Backlink href={`/admin/${link}/details/${id}`}>Voltar</Backlink>
+      <Backlink href={`/admin/${link}/details/${id}`}>{t("back")}</Backlink>
       <PageHeader title={document.name} limitText={document.entry.name} />
       <DocumentForm
         errors={errors}

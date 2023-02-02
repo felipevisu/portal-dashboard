@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import { TableBody, TableCell } from "@mui/material";
 import Checkbox from "@portal/components/Checkbox";
@@ -36,6 +37,7 @@ export const DocumentList = ({
   toolbar,
 }: DocumentListProps) => {
   const numberOfColumns = documents?.length === 0 ? 5 : 6;
+  const { t } = useTranslation();
 
   return (
     <ResponsiveTable>
@@ -47,10 +49,10 @@ export const DocumentList = ({
         toggleAll={toggleAll}
         toolbar={toolbar}
       >
-        <TableCellHeader>Nome</TableCellHeader>
-        <TableCellHeader>Veículo/Prestador</TableCellHeader>
-        <TableCellHeader>Visibilidade</TableCellHeader>
-        <TableCellHeader>Expira em</TableCellHeader>
+        <TableCellHeader>{t("name")}</TableCellHeader>
+        <TableCellHeader>{t("entryTypes")}</TableCellHeader>
+        <TableCellHeader>{t("visibility")}</TableCellHeader>
+        <TableCellHeader>{t("expiresIn")}</TableCellHeader>
       </TableHead>
       <TableBody>
         {renderCollection(documents, (document) => {

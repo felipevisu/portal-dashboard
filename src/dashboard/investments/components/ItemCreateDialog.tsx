@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { Box, FormControl, InputAdornment, TextField } from "@mui/material";
 import ActionDialog from "@portal/components/ActionDialog";
@@ -23,6 +24,7 @@ export const ItemCreateDialog = ({
   onConfirm,
   isOpen,
 }: ItemCreateDialogProps) => {
+  const { t } = useTranslation();
   const [data, setData] = useState<ItemProps>(initialData);
   const [errors, setErrors] = useState({ name: false, value: false });
 
@@ -52,7 +54,7 @@ export const ItemCreateDialog = ({
 
   return (
     <ActionDialog
-      title="Adicionar Investimento"
+      title={t("createInvestment")}
       onClose={handleClose}
       onConfirm={handleConfirm}
       open={isOpen}
@@ -63,7 +65,7 @@ export const ItemCreateDialog = ({
             error={errors.name}
             fullWidth
             name="name"
-            label="Nome"
+            label={t("name")}
             value={data.name}
             onChange={handleChange}
           />
@@ -74,7 +76,7 @@ export const ItemCreateDialog = ({
             error={errors.value}
             fullWidth
             name="value"
-            label="Valor"
+            label={t("value")}
             type="text"
             value={data.value}
             onChange={handleChange}

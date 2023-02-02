@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import { Delete } from "@mui/icons-material";
 import { DialogContentText, IconButton } from "@mui/material";
@@ -14,6 +15,7 @@ import { mapEdgesToItems } from "@portal/utils/maps";
 import InvestmentListPage from "../components/InvestmentListPage";
 
 export const InvestmentList = () => {
+  const { t } = useTranslation();
   const { pagination, handleNextPage, handlePreviousPage } = usePaginator();
   const { isSelected, listElements, toggle, toggleAll, reset } = useBulkActions(
     []
@@ -61,7 +63,7 @@ export const InvestmentList = () => {
           investmentBulkDelete({ variables: { ids: listElements } })
         }
         open={isOpen}
-        title={"Excluir investimentos"}
+        title={t("deleteIvestments")}
         variant="delete"
       >
         <DialogContentText>

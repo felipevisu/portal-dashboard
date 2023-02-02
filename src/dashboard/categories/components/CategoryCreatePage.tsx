@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 import { Backlink } from "@portal/components/Backlink";
@@ -22,6 +23,7 @@ export const CategoryCreatePage = ({
   loading,
 }: CategoryCreatePageProps) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const initialData: FormProps = {
     name: "",
@@ -34,8 +36,8 @@ export const CategoryCreatePage = ({
       {({ change, submit, data }) => {
         return (
           <>
-            <Backlink href="/admin/categories">Voltar</Backlink>
-            <PageHeader title="Criar nova categoria" />
+            <Backlink href="/admin/categories">{t("back")}</Backlink>
+            <PageHeader title={t("createCategory")} />
             <CategoryForm errors={errors} onChange={change} data={data} />
             <Savebar
               onSubmit={submit}

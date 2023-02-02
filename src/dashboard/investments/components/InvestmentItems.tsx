@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
 
 import { Delete } from "@mui/icons-material";
@@ -28,6 +29,7 @@ export const InvestmentItems = ({
   tollbar,
   items,
 }: InvestmentItemsProps) => {
+  const { t } = useTranslation();
   const [, setSearchParams] = useSearchParams();
 
   const handleItemDelete = (id: string) => {
@@ -37,14 +39,16 @@ export const InvestmentItems = ({
 
   return (
     <Card>
-      <CardHeader title="Investimentos" action={tollbar} />
+      <CardHeader title={t("investments")} action={tollbar} />
       <Table>
         <TableHead>
           <TableRow>
-            <TableCellHeader sx={{ paddingLeft: 3 }}>Nome</TableCellHeader>
-            <TableCellHeader>Valor</TableCellHeader>
+            <TableCellHeader sx={{ paddingLeft: 3 }}>
+              {t("name")}
+            </TableCellHeader>
+            <TableCellHeader>{t("value")}</TableCellHeader>
             <TableCellHeader sx={{ paddingRight: 3 }} align="right">
-              Excluir
+              {t("delete")}
             </TableCellHeader>
           </TableRow>
         </TableHead>

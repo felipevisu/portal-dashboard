@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import {
   Card,
@@ -63,6 +64,7 @@ export const DocumentForm = ({
     ["name", "description", "beginDate", "expirationDate"],
     errors
   );
+  const { t } = useTranslation();
 
   return (
     <Grid container spacing={2}>
@@ -76,7 +78,7 @@ export const DocumentForm = ({
                 fullWidth
                 type="text"
                 name="name"
-                label="Nome"
+                label={t("name")}
                 value={data.name}
                 onChange={onChange}
                 helperText={formErrors.name?.message}
@@ -86,7 +88,7 @@ export const DocumentForm = ({
             <FormControl fullWidth>
               <TextField
                 error={!!formErrors.description}
-                label="Descrição"
+                label={t("descripition")}
                 name="description"
                 multiline
                 rows={2}
@@ -105,7 +107,7 @@ export const DocumentForm = ({
           <CardContent>
             <FormControl fullWidth>
               <ControledCheckbox
-                label="Publicado"
+                label={t("published")}
                 name="isPublished"
                 checked={data.isPublished}
                 onChange={onChange}
@@ -113,7 +115,7 @@ export const DocumentForm = ({
             </FormControl>
             <FormControl fullWidth>
               <ControledCheckbox
-                label="Expirável"
+                label={t("expires")}
                 name="expires"
                 checked={data.expires}
                 onChange={onChange}
@@ -126,7 +128,7 @@ export const DocumentForm = ({
                   <DatePicker
                     inputFormat="dd/MM/yyyy"
                     value={data.beginDate}
-                    label="Data de início"
+                    label={t("initialDate")}
                     onChange={(value) => {
                       onChange({
                         target: {
@@ -145,7 +147,7 @@ export const DocumentForm = ({
                   <DatePicker
                     inputFormat="dd/MM/yyyy"
                     value={data.expirationDate}
-                    label="Data de expiração"
+                    label={t("expirationDate")}
                     onChange={(value) => {
                       onChange({
                         target: {

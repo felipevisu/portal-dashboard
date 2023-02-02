@@ -56,8 +56,6 @@ export function useAuthProvider({ apolloClient }) {
 
   const handleLogout = () => {
     deleteToken();
-    setUser(undefined);
-    setAuthenticated(false);
     document.location.reload();
   };
 
