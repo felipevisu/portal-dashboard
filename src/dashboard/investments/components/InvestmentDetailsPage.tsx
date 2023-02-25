@@ -50,7 +50,7 @@ export const InvestmentDetailsPage = ({
       {({ change, submit, data }) => {
         return (
           <>
-            <Backlink href="/admin/investments">{t("back")}</Backlink>
+            <Backlink href="/investments">{t("back")}</Backlink>
             <PageHeader
               title={`${toMonthName(investment.month)} de ${investment.year}`}
             />
@@ -63,7 +63,7 @@ export const InvestmentDetailsPage = ({
             <Savebar
               onDelete={onDelete}
               onSubmit={submit}
-              onCancel={() => navigate("/admin/investments")}
+              onCancel={() => navigate("/investments")}
               loading={loading}
             />
           </>

@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { DialogContentText } from "@mui/material";
@@ -17,13 +18,14 @@ import { useModal } from "@portal/hooks";
 import { SessionDetailsPage } from "../components/SessionDetailsPage";
 
 export const SessionDetails = () => {
+  const { t } = useTranslation();
   const { id } = useParams();
   const navigate = useNavigate();
   const { isOpen, openModal, closeModal } = useModal();
 
   const handleSuccess = (data: SessionUpdateMutation) => {
     if (!data?.sessionUpdate.errors.length) {
-      navigate(`/admin/sessions/details/${data?.sessionUpdate.session.id}`);
+      navigate(`/sessions/details/${data?.sessionUpdate.session.id}`);
     }
   };
 
@@ -38,7 +40,7 @@ export const SessionDetails = () => {
   };
 
   const [deleteSession] = useSessionDeleteMutation({
-    onCompleted: () => navigate("/admin/sessions"),
+    onCompleted: () => navigate("/sessions"),
   });
 
   const handleSessionDelete = async () => {
@@ -64,7 +66,7 @@ export const SessionDetails = () => {
         onClose={closeModal}
         onConfirm={handleSessionDelete}
         open={isOpen}
-        title="Excluir veículo"
+        title={t("session.delete")}
         variant="delete"
       >
         <DialogContentText>

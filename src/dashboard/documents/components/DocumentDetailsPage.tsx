@@ -59,8 +59,11 @@ export const DocumentDetailsPage = ({
 
   return (
     <>
-      <Backlink href={`/admin/${link}/details/${id}`}>{t("back")}</Backlink>
-      <PageHeader title={document.name} limitText={document.entry.name} />
+      <Backlink href={`/${link}/details/${id}`}>{t("back")}</Backlink>
+      <PageHeader
+        title={`${t("document.title")}: ${document.name}`}
+        limitText={document.entry.name}
+      />
       <DocumentForm
         errors={errors}
         onChange={handleChange}
@@ -78,7 +81,7 @@ export const DocumentDetailsPage = ({
       />
       <Savebar
         onSubmit={handleSubmit}
-        onCancel={() => navigate(`/admin/entries/details/${id}`)}
+        onCancel={() => navigate(`/entries/details/${id}`)}
         onDelete={onDelete}
         loading={loading}
       />

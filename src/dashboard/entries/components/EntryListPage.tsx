@@ -41,17 +41,13 @@ export const EntryListPage = ({
   disabled,
   filterOpts,
 }: EntryListPageProps) => {
-  const content = useEntryType();
-  const { t } = useTranslation();
+  const type = useEntryType();
+  const { t } = useTranslation("translation", { keyPrefix: type });
   return (
     <>
-      <PageHeader title={content.header}>
-        <Button
-          color="primary"
-          variant="contained"
-          href={`/admin/${content.link}/create`}
-        >
-          {content.new}
+      <PageHeader title={t("plural")}>
+        <Button color="primary" variant="contained" href={`/${type}s/create`}>
+          {t("create")}
         </Button>
       </PageHeader>
       <Card>

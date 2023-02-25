@@ -19,11 +19,7 @@ interface FilterBarProps {
   filterOpts: FilterOpts[];
 }
 
-export const FilterBar = ({
-  placeholder,
-  onSearchChange,
-  filterOpts,
-}: FilterBarProps) => {
+export const FilterBar = ({ onSearchChange, filterOpts }: FilterBarProps) => {
   return (
     <Root>
       <Filter filterOpts={filterOpts} />
@@ -31,7 +27,7 @@ export const FilterBar = ({
         fullWidth
         onChange={onSearchChange}
         size="small"
-        inputProps={{ placeholder }}
+        inputProps={{ placeholder: "Pesquisar" }}
       />
     </Root>
   );

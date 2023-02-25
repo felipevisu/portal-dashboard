@@ -51,7 +51,7 @@ export const EntryFormInfos = ({ errors, data, onChange }: EntryFormProps) => {
             fullWidth
             type="text"
             name="name"
-            label={t("nome")}
+            label={t("name")}
             value={data.name}
             onChange={onChange}
             helperText={formErrors.name?.message}
@@ -94,14 +94,15 @@ export const EntryFormStatus = ({
   categories,
   onChange,
 }: EntryFormProps) => {
+  const { t } = useTranslation();
   const formErrors = getFormErrors(["category", "isPublished"], errors);
 
   return (
     <Card>
-      <CardHeader title="Visibilidade e categoria" />
+      <CardHeader title={t("visibility")} />
       <CardContent>
         <FormControl fullWidth error={formErrors.category && true}>
-          <InputLabel>Categoria</InputLabel>
+          <InputLabel>{t("category.title")}</InputLabel>
           <Select
             fullWidth
             name="category"
@@ -120,7 +121,7 @@ export const EntryFormStatus = ({
         <FormSpacer />
         <FormControl>
           <ControledCheckbox
-            label="Publicado"
+            label={t("published")}
             name="isPublished"
             checked={data.isPublished}
             onChange={onChange}

@@ -3,16 +3,11 @@ import { useTranslation } from "react-i18next";
 
 import { Card } from "@mui/material";
 import { Button } from "@portal/components/Button";
-import FilterBar from "@portal/components/FilterBar";
 import PageHeader from "@portal/components/PageHeader";
 import { Pagination } from "@portal/components/Pagination";
+import SearchBar from "@portal/components/SearchBar";
 import { CategoryFragment } from "@portal/graphql";
-import {
-  FilterOpts,
-  ListActions,
-  PaginateListProps,
-  SearchPageProps,
-} from "@portal/types";
+import { ListActions, PaginateListProps, SearchPageProps } from "@portal/types";
 
 import CategoryList from "./CategoryList";
 
@@ -22,7 +17,6 @@ interface CategoryListPageProps
     PaginateListProps {
   categories: CategoryFragment[];
   disabled: boolean;
-  filterOpts: FilterOpts[];
 }
 
 export const CategoryListPage = ({
@@ -37,26 +31,17 @@ export const CategoryListPage = ({
   onNextPage,
   onPreviousPage,
   disabled,
-  filterOpts,
 }: CategoryListPageProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("translation", { keyPrefix: "category" });
   return (
     <>
-      <PageHeader title={t("categories")}>
-        <Button
-          color="primary"
-          variant="contained"
-          href={"/admin/categories/create"}
-        >
-          {t("createCategory")}
+      <PageHeader title={t("title")}>
+        <Button color="primary" variant="contained" href={"/categories/create"}>
+          {t("create")}
         </Button>
       </PageHeader>
       <Card>
-        <FilterBar
-          placeholder={t("search")}
-          onSearchChange={onSearchChange}
-          filterOpts={filterOpts}
-        />
+        <SearchBar onSearchChange={onSearchChange} />
         <CategoryList
           selected={selected}
           categories={categories}

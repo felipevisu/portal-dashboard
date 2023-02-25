@@ -53,8 +53,8 @@ export const DocumentCreatePage = ({
 
   return (
     <>
-      <Backlink href={`/admin/${link}/details/${id}`}>{t("back")}</Backlink>
-      <PageHeader title={t("createDocument")} />
+      <Backlink href={`/${link}/details/${id}`}>{t("back")}</Backlink>
+      <PageHeader title={t("document.create")} />
       <DocumentForm
         errors={errors}
         onChange={handleChange}
@@ -70,7 +70,7 @@ export const DocumentCreatePage = ({
       />
       <Savebar
         onSubmit={handleSubmit}
-        onCancel={() => navigate(`/admin/entries/details/${id}`)}
+        onCancel={() => navigate(`/entries/details/${id}`)}
         loading={loading}
       />
     </>

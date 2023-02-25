@@ -70,7 +70,7 @@ export const DocumentForm = ({
     <Grid container spacing={2}>
       <Grid item xs={8}>
         <Card sx={{ marginBottom: 2 }}>
-          <CardHeader title="Informações gerais" />
+          <CardHeader title={t("generalInfo")} />
           <CardContent>
             <FormControl fullWidth>
               <TextField
@@ -88,7 +88,7 @@ export const DocumentForm = ({
             <FormControl fullWidth>
               <TextField
                 error={!!formErrors.description}
-                label={t("descripition")}
+                label={t("description")}
                 name="description"
                 multiline
                 rows={2}

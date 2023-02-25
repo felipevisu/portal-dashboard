@@ -14,17 +14,9 @@ const MainPanel = styled("div")(({ theme }) => ({
 }));
 
 const Content = styled("div")(({ theme }) => ({
-  [theme.breakpoints.up("xs")]: {
-    width: "100%",
-  },
-  [theme.breakpoints.up("sm")]: {
-    width: 328,
-  },
-  "@media (min-width: 1440px)": {
-    width: 380,
-  },
   margin: "auto",
   width: "100%",
+  maxWidth: "420px",
 }));
 
 interface LayoutProps {

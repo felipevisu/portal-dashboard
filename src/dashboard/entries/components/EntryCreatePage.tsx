@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 import { Grid } from "@mui/material";
@@ -46,15 +47,16 @@ export const EntryCreatePage = ({
   };
 
   const categories = getChoices(categoryChoiceList);
-  const content = useEntryType();
+  const type = useEntryType();
+  const { t } = useTranslation();
 
   return (
     <Form initial={initialData} onSubmit={onSubmit}>
       {({ change, submit, data }) => {
         return (
           <>
-            <Backlink href={`/admin/${content.link}`}>Voltar</Backlink>
-            <PageHeader title={content.header} />
+            <Backlink href={`/${type}s`}>{t("back")}</Backlink>
+            <PageHeader title={t(`${type}.create`)} />
             <Grid container spacing={2}>
               <Grid item xs={8}>
                 <EntryFormInfos
@@ -80,7 +82,7 @@ export const EntryCreatePage = ({
             </Grid>
             <Savebar
               onSubmit={submit}
-              onCancel={() => navigate("/admin/entries")}
+              onCancel={() => navigate(`/${type}s`)}
               loading={loading}
             />
           </>

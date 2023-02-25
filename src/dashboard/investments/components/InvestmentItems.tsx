@@ -39,7 +39,7 @@ export const InvestmentItems = ({
 
   return (
     <Card>
-      <CardHeader title={t("investments")} action={tollbar} />
+      <CardHeader title={t("investment.plural")} action={tollbar} />
       <Table>
         <TableHead>
           <TableRow>
@@ -59,7 +59,7 @@ export const InvestmentItems = ({
                 colSpan={3}
                 sx={{ textAlign: "center", height: "64px" }}
               >
-                Nenhum valor adicionado
+                {t("empty")}
               </TableCell>
             </TableRow>
           )}

@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { DialogContentText } from "@mui/material";
@@ -16,6 +17,7 @@ import useModal from "@portal/hooks/useModal";
 import { CategoryDetailsPage } from "../components/CategoryDetailsPage";
 
 export const CategoryDetails = () => {
+  const { t } = useTranslation("translation", { keyPrefix: "category" });
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -26,7 +28,7 @@ export const CategoryDetails = () => {
   });
   const [updateCategory, updateCategoryResult] = useCategoryUpdateMutation();
   const [deleteCategory] = useCategoryDeleteMutation({
-    onCompleted: () => navigate("/admin/categories"),
+    onCompleted: () => navigate("/categories"),
   });
 
   const handleCategoryDelete = async () => {
@@ -56,7 +58,7 @@ export const CategoryDetails = () => {
         onClose={closeModal}
         onConfirm={handleCategoryDelete}
         open={isOpen}
-        title="Excluir categoria"
+        title={t("delete")}
         variant="delete"
       >
         <DialogContentText>

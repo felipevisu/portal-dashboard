@@ -40,7 +40,7 @@ export const EntryList = ({
         toolbar={toolbar}
       >
         <TableCellHeader>{t("name")}</TableCellHeader>
-        <TableCellHeader>{t("category")}</TableCellHeader>
+        <TableCellHeader>{t("category.title")}</TableCellHeader>
         <TableCellHeader>{t("visibility")}</TableCellHeader>
       </TableHead>
       <TableBody>

@@ -1,4 +1,6 @@
 import React from "react";
+import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 import { TableBody, TableCell } from "@mui/material";
 import Checkbox from "@portal/components/Checkbox";
@@ -26,6 +28,7 @@ export const SessionList = ({
   selected,
   toolbar,
 }: SessionListProps) => {
+  const { t } = useTranslation();
   const numberOfColumns = sessions?.length === 0 ? 3 : 4;
 
   return (
@@ -38,9 +41,9 @@ export const SessionList = ({
         toggleAll={toggleAll}
         toolbar={toolbar}
       >
-        <TableCellHeader>Nome</TableCellHeader>
-        <TableCellHeader>Data</TableCellHeader>
-        <TableCellHeader>Visibilidade</TableCellHeader>
+        <TableCellHeader>{t("name")}</TableCellHeader>
+        <TableCellHeader>{t("date")}</TableCellHeader>
+        <TableCellHeader>{t("visibility")}</TableCellHeader>
       </TableHead>
       <TableBody>
         {renderCollection(sessions, (session) => {

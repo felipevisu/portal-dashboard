@@ -16,7 +16,7 @@ export const VehicleCreate = () => {
 
   const handleSuccess = (data: EntryCreateMutation) => {
     if (!data?.entryCreate.errors.length) {
-      navigate(`/admin/vehicles/details/${data?.entryCreate.entry.id}`);
+      navigate(`/vehicles/details/${data?.entryCreate.entry.id}`);
     }
   };
 
@@ -35,7 +35,7 @@ export const VehicleCreate = () => {
     search: searchCategory,
     result: searchCategoryOpts,
   } = useCategorySearch({
-    variables: { first: 20, query: "", type: EntryTypeEnum.VEHICLE },
+    variables: { first: 20, query: "" },
   });
 
   return (

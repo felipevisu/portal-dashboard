@@ -20,7 +20,6 @@ type Category implements Node {
   name: String!
   slug: String
   totalEntries: Int
-  type: EntryTypeEnum
 }
 
 """Deletes categories."""
@@ -60,13 +59,11 @@ type CategoryDelete {
 
 input CategoryFilterInput {
   search: String
-  type: EntryTypeEnum
 }
 
 input CategoryInput {
   name: String
   slug: String
-  type: EntryTypeEnum
 }
 
 enum CategorySortField {
@@ -84,6 +81,22 @@ input CategorySortingInput {
 type CategoryUpdate {
   category: Category
   errors: [Error!]!
+}
+
+"""Create JWT token."""
+type CreateToken {
+  """CSRF token required to re-generate access token."""
+  csrfToken: String
+  errors: [Error!]!
+
+  """JWT refresh token, required to re-generate access token."""
+  refreshToken: String
+
+  """JWT token, required to authenticate."""
+  token: String
+
+  """A user instance."""
+  user: User
 }
 
 """
@@ -107,6 +120,11 @@ value as specified by
 [iso8601](https://en.wikipedia.org/wiki/ISO_8601).
 """
 scalar DateTime
+
+"""Deactivate all JWT tokens of the currently authenticated user."""
+type DeactivateAllUserTokens {
+  errors: [Error!]!
+}
 
 """The `Decimal` scalar type represents a python Decimal."""
 scalar Decimal
@@ -494,7 +512,25 @@ type Mutation {
   itemCreate(input: ItemInput!, investmentId: ID!): ItemCreate
   itemDelete(id: ID): ItemDelete
   itemUpdate(id: ID, input: ItemInput!): ItemUpdate
-  refreshToken(token: String): Refresh
+  passwordReset(
+    """Email of a user."""
+    email: String!
+
+    """Password of a user."""
+    password: String!
+
+    """A one-time token required to set the password."""
+    token: String!
+  ): SetPassword
+  requestPasswordReset(
+    """Email of the user that will be used for password recovery."""
+    email: String!
+
+    """
+    URL of a view where users should be redirected to reset the password. URL in RFC 1808 format.
+    """
+    redirectUrl: String!
+  ): RequestPasswordReset
 
   """Deletes sessions."""
   sessionBulkDelete(
@@ -504,20 +540,43 @@ type Mutation {
   sessionCreate(input: SessionInput!): SessionCreate
   sessionDelete(id: ID): SessionDelete
   sessionUpdate(id: ID, input: SessionInput!): SessionUpdate
-  tokenAuth(email: String, password: String): ObtainJSONWebToken
-  verifyToken(token: String): Verify
+
+  """Create JWT token."""
+  tokenCreate(
+    """Email of a user."""
+    email: String!
+
+    """Password of a user."""
+    password: String!
+  ): CreateToken
+
+  """
+  Refresh JWT token. Mutation tries to take refreshToken from the input.If it fails it will try to take refreshToken from the http-only cookie -refreshToken. csrfToken is required when refreshToken is provided as a cookie.
+  """
+  tokenRefresh(
+    """
+    CSRF token required to refresh token. This argument is required when refreshToken is provided as a cookie.
+    """
+    csrfToken: String
+
+    """Refresh token."""
+    refreshToken: String
+  ): RefreshToken
+
+  """Verify JWT token."""
+  tokenVerify(
+    """JWT token to validate."""
+    token: String!
+  ): VerifyToken
+
+  """Deactivate all JWT tokens of the currently authenticated user."""
+  tokensDeactivateAll: DeactivateAllUserTokens
 }
 
 """An object with an ID"""
 interface Node {
   """The ID of the object."""
   id: ID!
-}
-
-type ObtainJSONWebToken {
-  errors: [Error!]!
-  token: String
-  user: User
 }
 
 enum OrderDirection {
@@ -568,10 +627,21 @@ type Query {
   sessions(after: String, before: String, filter: SessionFilterInput, first: Int, last: Int, sortBy: SessionSortingInput): SessionCountableConnection
 }
 
-type Refresh {
-  payload: GenericScalar!
-  refreshExpiresIn: Int!
-  token: String!
+"""
+Refresh JWT token. Mutation tries to take refreshToken from the input.If it fails it will try to take refreshToken from the http-only cookie -refreshToken. csrfToken is required when refreshToken is provided as a cookie.
+"""
+type RefreshToken {
+  errors: [Error!]!
+
+  """JWT token, required to authenticate."""
+  token: String
+
+  """A user instance."""
+  user: User
+}
+
+type RequestPasswordReset {
+  errors: [Error!]!
 }
 
 type Session implements Node {
@@ -649,6 +719,10 @@ type SessionUpdate {
   session: Session
 }
 
+type SetPassword {
+  errors: [Error!]!
+}
+
 """
 Create scalar that ignores normal serialization/deserialization, since
 that will be handled by the multipart request spec
@@ -664,6 +738,16 @@ type User implements Node {
   permissions: [Permission]
 }
 
-type Verify {
-  payload: GenericScalar!
+"""Verify JWT token."""
+type VerifyToken {
+  errors: [Error!]!
+
+  """Determine if token is valid or not."""
+  isValid: Boolean!
+
+  """JWT payload."""
+  payload: GenericScalar
+
+  """User assigned to token."""
+  user: User
 }

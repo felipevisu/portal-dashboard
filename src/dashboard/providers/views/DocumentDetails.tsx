@@ -29,7 +29,7 @@ export const DocumentDetails = () => {
   };
 
   const [deleteDocument] = useDocumentDeleteMutation({
-    onCompleted: () => navigate(`/admin/vehicles/details/${id}`),
+    onCompleted: () => navigate(`/vehicles/details/${id}`),
   });
 
   const handleDocumentDelete = async () => {

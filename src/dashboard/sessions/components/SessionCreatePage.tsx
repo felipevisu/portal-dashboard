@@ -1,5 +1,6 @@
 import React from "react";
 import { convertToRaw, EditorState } from "draft-js";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 import { Backlink } from "@portal/components/Backlink";
@@ -22,6 +23,7 @@ export const SessionCreatePage = ({
   errors,
   loading,
 }: SessionCreatePageProps) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const initialData: FormProps = {
     name: "",
@@ -46,12 +48,12 @@ export const SessionCreatePage = ({
       {({ change, submit, data }) => {
         return (
           <>
-            <Backlink href="/admin/sessions">Voltar</Backlink>
-            <PageHeader title="Criar nova sessão" />
+            <Backlink href="/sessions">{t("back")}</Backlink>
+            <PageHeader title={t("session.create")} />
             <SessionForm errors={errors} onChange={change} data={data} />
             <Savebar
               onSubmit={submit}
-              onCancel={() => navigate("/admin/sessions")}
+              onCancel={() => navigate("/sessions")}
               loading={loading}
             />
           </>

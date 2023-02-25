@@ -8,7 +8,6 @@ import NotFound from "@portal/components/NotFound";
 import { EntryDetailsPage } from "@portal/dashboard/entries/components/EntryDetailsPage";
 import {
   EntryInput,
-  EntryTypeEnum,
   EntryUpdateMutation,
   useEntryDeleteMutation,
   useEntryDetailsQuery,
@@ -28,7 +27,7 @@ export const VehicleDetails = () => {
 
   const handleSuccess = (data: EntryUpdateMutation) => {
     if (!data?.entryUpdate.errors.length) {
-      navigate(`/admin/vehicles/details/${data?.entryUpdate.entry.id}`);
+      navigate(`/vehicles/details/${data?.entryUpdate.entry.id}`);
     }
   };
 
@@ -41,7 +40,7 @@ export const VehicleDetails = () => {
   };
 
   const [deleteVehicle] = useEntryDeleteMutation({
-    onCompleted: () => navigate("/admin/vehicles"),
+    onCompleted: () => navigate("/vehicles"),
   });
 
   const handleVehicleDelete = async () => {
@@ -49,7 +48,7 @@ export const VehicleDetails = () => {
   };
 
   const { result: searchCategoryOpts } = useCategorySearch({
-    variables: { first: 20, query: "", type: EntryTypeEnum.VEHICLE },
+    variables: { first: 20, query: "" },
   });
 
   const { data, loading, refetch } = useEntryDetailsQuery({

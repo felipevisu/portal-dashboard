@@ -37,7 +37,7 @@ export const InvestmentDetails = () => {
     useInvestmentUpdateMutation({ onCompleted: () => refetch() });
 
   const [deleteInvestment] = useInvestmentDeleteMutation({
-    onCompleted: () => navigate("/admin/investments"),
+    onCompleted: () => navigate("/investments"),
   });
 
   const handleInvestmentDelete = async () => {
@@ -117,7 +117,7 @@ export const InvestmentDetails = () => {
         onClose={closeModal}
         onConfirm={handleInvestmentDelete}
         open={isOpen}
-        title={t("deleteInvestment")}
+        title={t("investment.delete")}
         variant="delete"
       >
         <DialogContentText>

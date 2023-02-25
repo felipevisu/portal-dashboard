@@ -1,17 +1,20 @@
 {
 	"active": "Ativo",
 	"add": "Adicionar",
+	"address": "Endereço",
 	"back": "Voltar",
-	"categories": "Categorias",
-	"category": "Categoria",
+	"category": {
+		"title": "Categoria",
+		"plural": "Categorias",
+		"create": "Adicionar categoria",
+		"delete": "Excluir categoria"
+	},
 	"clickHere": "Clique aqui",
 	"confirm": "Confirma",
 	"confirmActionMessage": "Esta ação é irreversível, deseja mesmo continuar?",
-	"createCategory": "Adicionar categoria",
-	"createDocument": "Adicionar documento",
-	"createInvestment": "Adicionar investimento",
-  "createProvider": "Adicionar fornecedor",
-  "createVehicle": "Adicionar veículo",
+	"confirmDelete_one": "Tem certeza que deseja excluir este item? Lembre-se esta ação não é reversível",
+	"confirmDelete_other": "Tem certeza que deseja excluir estes {{ count }} itens? Lembre-se esta ação não é reversível",
+	"contactInfo": "Informações de contato",
 	"dashboard": {
 		"home": {
 			"title": "Bem vindo",
@@ -20,34 +23,52 @@
 			"expiring": "Documentos expirando"
 		}
 	},
-	"date": "Date",
+	"date": "Data",
 	"delete": "Excluir",
-	"deleteDocuments": "Excluir documentos",
 	"deleteItem": "Excluir item",
-	"deleteInvestment": "Excluir investimento",
-	"deleteProviders": "Excluir fornecedores",
-	"deleteVehicles": "Excluir veículos",
 	"description": "Descrição",
-	"document": "Documento",
-	"documents": "Documents",
+	"document": {
+		"title": "Documento",
+		"plural": "Documentos",
+		"create": "Adicionar documento",
+		"delete": "Excluir documento"
+	},
 	"documentNumber": "CNPJ/CPF",
+	"email": "Email",
+	"empty": "Nenhum item cadastrado",
 	"entryTypes": "Veículo/Fornecedor",
+	"expirationDate": "Data de expiração",
 	"expired": "Expirado",
 	"expires": "Expirável",
 	"expiresIn": "Expira em",
-	"expirationDate": "Data de expiração",
 	"filters": "Filtros",
 	"generalInfo": "Informações gerais",
 	"initialDate": "Data de início",
-	"investment": "Investimento",
-	"investments": "Investimentos",
+	"investment": {
+		"title": "Investimento",
+		"plural": "Investimentos",
+		"create": "Adicionar investimento",
+		"delete": "Excluir investimento"
+	},
 	"month": "Mês",
 	"name": "Nome",
-	"provider": "Fornecedor",
-	"providers": "Fornecedores",
+	"phone": "Telefone",
+	"provider": {
+		"title": "Fornecedor",
+		"plural": "Fornecedores",
+		"create": "Adicionar fornecedor",
+		"delete": "Excluir fornecedor"
+	},
 	"published": "Publicado",
+	"registrations": "Cadastros",
 	"search": "Pesquisar",
 	"seeAll": "Ver todos",
+	"session": {
+		"title": "Sessão pública",
+		"plural": "Sessões públicas",
+		"create": "Adicionar sessão",
+		"delete": "Excluir documento"
+	},
 	"slug": "Atalho",
 	"status": "Status",
 	"submit": "Enviar",
@@ -57,8 +78,12 @@
 	"uploadDate": "Data de upload",
 	"validUntil": "Válido até",
 	"value": "Valor",
-	"vehicle": "Veículo",
-	"vehicles": "Veículos",
-  "visibility": "Visibilidade",
+	"vehicle": {
+		"title": "Veículo",
+		"plural": "Veículos",
+		"create": "Adicionar veículo",
+		"delete": "Excluir veículo"
+	},
+	"visibility": "Visibilidade",
 	"year": "Ano"
 }

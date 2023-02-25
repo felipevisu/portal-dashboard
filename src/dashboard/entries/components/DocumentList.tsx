@@ -35,10 +35,10 @@ export const DocumentList = ({
   return (
     <Card sx={{ marginBottom: 2 }}>
       <CardHeader
-        title="Documentos"
+        title={t("document.title")}
         action={
           <Button variant="outlined" href="documents/create">
-            Adicionar
+            {t("add")}
           </Button>
         }
       />

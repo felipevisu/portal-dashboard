@@ -31,13 +31,13 @@ export const InvestmentListPage = ({
 
   return (
     <>
-      <PageHeader title={t("investment")}>
+      <PageHeader title={t("investment.plural")}>
         <Button
           color="primary"
           variant="contained"
-          href={"/admin/investments/create"}
+          href={"/investments/create"}
         >
-          {t("createInvestment")}
+          {t("investment.create")}
         </Button>
       </PageHeader>
       <Card>

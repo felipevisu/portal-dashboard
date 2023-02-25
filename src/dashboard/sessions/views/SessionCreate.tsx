@@ -14,7 +14,7 @@ export const SessionCreate = () => {
 
   const handleSuccess = (data: SessionCreateMutation) => {
     if (!data?.sessionCreate.errors.length) {
-      navigate(`/admin/sessions/details/${data?.sessionCreate.session.id}`);
+      navigate(`/sessions/details/${data?.sessionCreate.session.id}`);
     }
   };
 

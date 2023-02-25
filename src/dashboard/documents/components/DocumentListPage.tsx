@@ -41,13 +41,9 @@ export const DocumentListPage = ({
   const { t } = useTranslation();
   return (
     <>
-      <PageHeader title={t("documents")} />
+      <PageHeader title={t("document.plural")} />
       <Card>
-        <FilterBar
-          placeholder={t("search")}
-          onSearchChange={onSearchChange}
-          filterOpts={filterOpts}
-        />
+        <FilterBar onSearchChange={onSearchChange} filterOpts={filterOpts} />
         <DocumentList
           selected={selected}
           documents={documents}

@@ -34,8 +34,8 @@ export const Home = () => {
     fetchPolicy: "cache-and-network",
   });
 
-  const expiredFilter = `/admin/documents?expirationDate_Lte=${today}`;
-  const closeToExpireFilter = `/admin/documents?expirationDate_Gte=${tomorrow}&expirationDate_Lte=${nextWeek}`;
+  const expiredFilter = `/documents?expirationDate_Lte=${today}`;
+  const closeToExpireFilter = `/documents?expirationDate_Gte=${tomorrow}&expirationDate_Lte=${nextWeek}`;
 
   if (loading1 || loading2) return <CircularLoading />;
 

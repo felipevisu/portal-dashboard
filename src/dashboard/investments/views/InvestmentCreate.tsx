@@ -24,9 +24,7 @@ export const InvestmentCreate = () => {
 
   const handleSuccess = (data: InvestmentCreateMutation) => {
     if (!data?.investmentCreate.errors.length) {
-      navigator(
-        `/admin/investments/details/${data?.investmentCreate.investment.id}`
-      );
+      navigator(`/investments/details/${data?.investmentCreate.investment.id}`);
     }
   };
 

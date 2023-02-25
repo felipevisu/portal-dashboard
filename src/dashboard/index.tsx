@@ -1,11 +1,8 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 
-import { useBacklink } from "@portal/components/Backlink/context";
+import AppLayout from "@portal/components/AppLayout";
 import CircularLoading from "@portal/components/Circular";
-import { Menu } from "@portal/components/Menu";
-import { useSavebar } from "@portal/components/Savebar/context";
-import { UserMenu } from "@portal/components/UserMenu";
 
 import AuthProvider from "./auth/authProvider";
 import Auth, { useUser } from "./auth";
@@ -15,44 +12,26 @@ import Home from "./home";
 import Investments from "./investments";
 import Providers from "./providers";
 import Sessions from "./sessions";
-import { Content, Footer, Header, Lateral, Main, Wrapper } from "./styles";
 import Vehicles from "./vehicles";
 
 const RoutesComponent = () => {
   const { authenticated, authenticating } = useUser();
 
-  const appHeaderAnchor = useBacklink();
-  const appFooterAnchor = useSavebar();
-
   if (authenticating) return <CircularLoading />;
 
   if (authenticated) {
     return (
-      <Wrapper>
-        <Lateral>
-          <Menu />
-        </Lateral>
-        <Content maxWidth="xl">
-          <Header>
-            <div ref={appHeaderAnchor} />
-            <UserMenu />
-          </Header>
-          <Main>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/vehicles/*" element={<Vehicles />} />
-              <Route path="/providers/*" element={<Providers />} />
-              <Route path="/categories/*" element={<Categories />} />
-              <Route path="/documents/*" element={<Documents />} />
-              <Route path="/sessions/*" element={<Sessions />} />
-              <Route path="/investments/*" element={<Investments />} />
-            </Routes>
-          </Main>
-          <Footer>
-            <div ref={appFooterAnchor} />
-          </Footer>
-        </Content>
-      </Wrapper>
+      <AppLayout>
+        <Routes>
+          <Route path="/*" element={<Home />} />
+          <Route path="/vehicles/*" element={<Vehicles />} />
+          <Route path="/providers/*" element={<Providers />} />
+          <Route path="/categories/*" element={<Categories />} />
+          <Route path="/documents/*" element={<Documents />} />
+          <Route path="/sessions/*" element={<Sessions />} />
+          <Route path="/investments/*" element={<Investments />} />
+        </Routes>
+      </AppLayout>
     );
   }
 

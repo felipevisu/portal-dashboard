@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import {
   Card,
@@ -30,11 +31,12 @@ export const ContactInfosForm = <D,>({
   errors,
   onChange,
 }: ContactInfosFormProps<D>) => {
+  const { t } = useTranslation();
   const formErrors = getFormErrors(["email", "phone", "address"], errors);
 
   return (
     <Card sx={{ position: "relative", zIndex: 0 }}>
-      <CardHeader title="Informações de contato" />
+      <CardHeader title={t("contactInfo")} />
       <CardContent>
         <FormControl fullWidth>
           <TextField
@@ -42,7 +44,7 @@ export const ContactInfosForm = <D,>({
             fullWidth
             type="text"
             name="email"
-            label="Email"
+            label={t("email")}
             value={data.email}
             onChange={onChange}
             helperText={formErrors.email?.message}
@@ -55,7 +57,7 @@ export const ContactInfosForm = <D,>({
             fullWidth
             type="text"
             name="phone"
-            label="Telefone"
+            label={t("phone")}
             value={data.phone}
             onChange={onChange}
             helperText={formErrors.phone?.message}
@@ -68,7 +70,7 @@ export const ContactInfosForm = <D,>({
             fullWidth
             type="text"
             name="address"
-            label="Endereço"
+            label={t("address")}
             value={data.address}
             onChange={onChange}
             helperText={formErrors.address?.message}

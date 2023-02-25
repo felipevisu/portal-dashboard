@@ -22,8 +22,7 @@ export const buildLink = (document: DocumentFragment): string => {
   const id = document.entry.id;
   const path = document.entry ? "vehicles" : "providers";
   return (
-    "/admin/" +
-    [path, "details", id, "documents", document.id, "details"].join("/")
+    "/" + [path, "details", id, "documents", document.id, "details"].join("/")
   );
 };
 

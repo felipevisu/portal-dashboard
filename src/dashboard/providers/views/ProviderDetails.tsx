@@ -8,7 +8,6 @@ import NotFound from "@portal/components/NotFound";
 import { EntryDetailsPage } from "@portal/dashboard/entries/components/EntryDetailsPage";
 import {
   EntryInput,
-  EntryTypeEnum,
   EntryUpdateMutation,
   useEntryDeleteMutation,
   useEntryDetailsQuery,
@@ -28,7 +27,7 @@ export const ProviderDetails = () => {
 
   const handleSuccess = (data: EntryUpdateMutation) => {
     if (!data?.entryUpdate.errors.length) {
-      navigate(`/admin/providers/details/${data?.entryUpdate.entry.id}`);
+      navigate(`/providers/details/${data?.entryUpdate.entry.id}`);
     }
   };
 
@@ -41,7 +40,7 @@ export const ProviderDetails = () => {
   };
 
   const [deleteProvider] = useEntryDeleteMutation({
-    onCompleted: () => navigate("/admin/providers"),
+    onCompleted: () => navigate("/providers"),
   });
 
   const handleProviderDelete = async () => {
@@ -49,7 +48,7 @@ export const ProviderDetails = () => {
   };
 
   const { result: searchCategoryOpts } = useCategorySearch({
-    variables: { first: 20, query: "", type: EntryTypeEnum.PROVIDER },
+    variables: { first: 20, query: "" },
   });
 
   const { data, loading, refetch } = useEntryDetailsQuery({

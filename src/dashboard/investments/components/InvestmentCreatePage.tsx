@@ -43,8 +43,8 @@ export const InvestmentCreatePage = ({
       {({ change, submit, data }) => {
         return (
           <>
-            <Backlink href="/admin/investments">{t("back")}</Backlink>
-            <PageHeader title={t("createInvestment")} />
+            <Backlink href="/investments">{t("back")}</Backlink>
+            <PageHeader title={t("investment.create")} />
             <InvestmentForm errors={errors} onChange={change} data={data} />
             <InvestmentItems
               tollbar={tollbar}
@@ -53,7 +53,7 @@ export const InvestmentCreatePage = ({
             />
             <Savebar
               onSubmit={submit}
-              onCancel={() => navigate("/admin/investments")}
+              onCancel={() => navigate("/investments")}
               loading={loading}
             />
           </>

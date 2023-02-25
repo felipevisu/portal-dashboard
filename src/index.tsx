@@ -11,7 +11,7 @@ import { BacklinkProvider } from "./components/Backlink/context";
 import { SavebarProvider } from "./components/Savebar/context";
 import client from "./graphql/client";
 import pt from "./lang/pt.json";
-import App from "./App";
+import Dashboard from "./dashboard";
 import theme from "./theme";
 
 import "./styles.css";
@@ -35,7 +35,7 @@ root.render(
       <ThemeProvider theme={theme}>
         <BacklinkProvider>
           <SavebarProvider>
-            <App />
+            <Dashboard />
           </SavebarProvider>
         </BacklinkProvider>
       </ThemeProvider>

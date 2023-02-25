@@ -19,7 +19,7 @@ export const ItemDeleteDialog = ({
 
   return (
     <ActionDialog
-      title={t("deleteItem")}
+      title={t("investment.delete")}
       onClose={onClose}
       onConfirm={onConfirm}
       open={isOpen}

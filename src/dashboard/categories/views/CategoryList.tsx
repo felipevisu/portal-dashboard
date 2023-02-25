@@ -1,5 +1,5 @@
-import React, { useMemo } from "react";
-import { useSearchParams } from "react-router-dom";
+import React from "react";
+import { useTranslation } from "react-i18next";
 
 import { Delete } from "@mui/icons-material";
 import { DialogContentText, IconButton } from "@mui/material";
@@ -11,15 +11,12 @@ import {
 } from "@portal/graphql";
 import { useBulkActions, usePaginator, useSearch } from "@portal/hooks";
 import useModal from "@portal/hooks/useModal";
-import { getQuery } from "@portal/utils/filters";
 import { mapEdgesToItems } from "@portal/utils/maps";
 
 import CategoryListPage from "../components/CategoryListPage";
 
-import { getFilterOpts } from "./filter";
-
 export const CategoryList = () => {
-  const [searchParams] = useSearchParams();
+  const { t } = useTranslation();
   const { search, handleSearch } = useSearch();
   const { pagination, handleNextPage, handlePreviousPage } = usePaginator();
 
@@ -29,16 +26,9 @@ export const CategoryList = () => {
 
   const { isOpen, openModal, closeModal } = useModal();
 
-  const filterOpts = getFilterOpts();
-
-  const queryParameters = useMemo(
-    () => getQuery(filterOpts, searchParams),
-    [searchParams]
-  );
-
   const { data, loading, refetch } = useCategoriesQuery({
     fetchPolicy: "cache-and-network",
-    variables: { ...pagination, filter: { search, ...queryParameters } },
+    variables: { ...pagination, filter: { search } },
   });
 
   const handleCategoryBulkDelete = (data: CategoryBulkDeleteMutation) => {
@@ -69,7 +59,6 @@ export const CategoryList = () => {
         }
         onSearchChange={handleSearch}
         initialSearch={search}
-        filterOpts={filterOpts}
         onNextPage={handleNextPage}
         onPreviousPage={handlePreviousPage}
         pageInfo={data?.categories?.pageInfo}
@@ -84,9 +73,7 @@ export const CategoryList = () => {
         variant="delete"
       >
         <DialogContentText>
-          Tem certeza que deseja excluir {listElements.length} categorias?
-          <br />
-          Lembre-se esta ação não é reversível
+          {t("confirmDelete", { count: listElements.length })}
         </DialogContentText>
       </ActionDialog>
     </>

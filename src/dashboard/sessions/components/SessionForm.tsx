@@ -1,5 +1,6 @@
 import React from "react";
 import { EditorState } from "draft-js";
+import { useTranslation } from "react-i18next";
 
 import {
   Card,
@@ -34,6 +35,7 @@ interface SessionFormProps {
 }
 
 export const SessionForm = ({ errors, data, onChange }: SessionFormProps) => {
+  const { t } = useTranslation();
   const formErrors = getFormErrors(["name", "slug", "content", "date"], errors);
 
   return (
@@ -49,7 +51,7 @@ export const SessionForm = ({ errors, data, onChange }: SessionFormProps) => {
                   fullWidth
                   type="text"
                   name="name"
-                  label="Nome"
+                  label={t("name")}
                   value={data.name}
                   onChange={onChange}
                   helperText={formErrors.name?.message}
@@ -62,7 +64,7 @@ export const SessionForm = ({ errors, data, onChange }: SessionFormProps) => {
                   fullWidth
                   type="text"
                   name="slug"
-                  label="Atalho"
+                  label={t("slug")}
                   value={data.slug}
                   onChange={onChange}
                   helperText={formErrors.slug?.message}
@@ -71,7 +73,7 @@ export const SessionForm = ({ errors, data, onChange }: SessionFormProps) => {
             </CardContent>
           </Card>
           <Card>
-            <CardHeader title="Conteúdo" />
+            <CardHeader title={t("content")} />
             <CardContent>
               <RichTextEditor
                 name="content"
@@ -83,11 +85,11 @@ export const SessionForm = ({ errors, data, onChange }: SessionFormProps) => {
         </Grid>
         <Grid item xs={4}>
           <Card>
-            <CardHeader title="Visibilidade e data" />
+            <CardHeader title={t("visibility")} />
             <CardContent>
-              <FormControl>
+              <FormControl fullWidth>
                 <DateTimePicker
-                  label="Data"
+                  label={t("date")}
                   inputFormat="dd/MM/yyyy - HH:mm"
                   value={data.date}
                   onChange={(val) =>
@@ -105,7 +107,7 @@ export const SessionForm = ({ errors, data, onChange }: SessionFormProps) => {
               <FormSpacer />
               <FormControl>
                 <ControledCheckbox
-                  label="Publicado"
+                  label={t("published")}
                   name="isPublished"
                   checked={data.isPublished}
                   onChange={onChange}

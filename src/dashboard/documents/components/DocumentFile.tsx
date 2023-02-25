@@ -34,14 +34,14 @@ export const DocumentFile = ({
 
   const documentName = useMemo(() => {
     if (file) return file.name;
-    return fileName;
+    return fileName.split("/").reverse()[0];
   }, [fileName, file]);
 
   return (
     <Card>
       <CardHeader
-        title={t("document")}
-        action={<Button onClick={handleClick}>{t("createDocument")}</Button>}
+        title={t("document.title")}
+        action={<Button onClick={handleClick}>{t("document.create")}</Button>}
       />
       <CardContent>
         <input type="file" ref={fileRef} onChange={onChange} hidden />

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 import { KeyboardArrowDown } from "@mui/icons-material";
 import { Box, Button, MenuItem } from "@mui/material";
@@ -17,6 +17,11 @@ export const UserMenu = () => {
     setAnchorEl(null);
   };
 
+  const username = useMemo(
+    () => (user.firstName ? user.firstName : user.email.split("@")[0]),
+    [user]
+  );
+
   return (
     <Box>
       <Button
@@ -29,7 +34,7 @@ export const UserMenu = () => {
         endIcon={<KeyboardArrowDown />}
         onClick={handleClick}
       >
-        {user.firstName} {user.lastName}
+        {username}
       </Button>
       <StyledMenu
         id="demo-customized-menu"

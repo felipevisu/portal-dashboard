@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { ApolloClient } from "@apollo/client";
-import { useMeQuery, useTokenAuthMutation } from "@portal/graphql";
+import { useMeQuery, useTokenCreateMutation } from "@portal/graphql";
 import { deleteToken, setToken } from "@portal/lib/auth";
 
 export interface UseAuthProviderOpts {
@@ -32,23 +32,24 @@ export function useAuthProvider({ apolloClient }) {
     }
   }, [meQuery]);
 
-  const [tokenAuth, tokenAuthResult] = useTokenAuthMutation({
+  const [tokenCreate, tokenCreateResult] = useTokenCreateMutation({
     client: apolloClient,
   });
 
   useEffect(() => {
-    if (tokenAuthResult.data?.tokenAuth?.token) {
-      setToken(tokenAuthResult.data.tokenAuth.token);
+    if (tokenCreateResult.data?.tokenCreate) {
+      setToken(tokenCreateResult.data.tokenCreate.token);
       setAuthenticated(true);
     }
-    if (tokenAuthResult.data?.tokenAuth?.user) {
-      setUser(tokenAuthResult.data.tokenAuth.user);
+    if (tokenCreateResult.data?.tokenCreate?.user) {
+      setUser(tokenCreateResult.data.tokenCreate.user);
     }
-  }, [tokenAuthResult]);
+  }, [tokenCreateResult]);
 
   const handleLogin = async (email: string, password: string) => {
     try {
-      await tokenAuth({ variables: { email, password } });
+      const response = await tokenCreate({ variables: { email, password } });
+      return response.data.tokenCreate;
     } catch (error) {
       setError("serverError");
     }
@@ -57,6 +58,7 @@ export function useAuthProvider({ apolloClient }) {
   const handleLogout = () => {
     deleteToken();
     document.location.reload();
+    window.location.pathname = "/";
   };
 
   return {
@@ -64,7 +66,7 @@ export function useAuthProvider({ apolloClient }) {
     logout: handleLogout,
     authenticated: !!(authenticated && user),
     authenticating: (authenticating && !error) || meQuery.loading,
-    loading: tokenAuthResult.loading,
+    loading: tokenCreateResult.loading,
     user,
     error,
   };

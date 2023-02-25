@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
 
 import { Delete } from "@mui/icons-material";
@@ -23,6 +24,7 @@ import SessionListPage from "../components/SessionListPage";
 import { getFilterOpts } from "./filter";
 
 export const SessionList = () => {
+  const { t } = useTranslation();
   const [searchParams] = useSearchParams();
   const { search, handleSearch } = useSearch();
   const { pagination, handleNextPage, handlePreviousPage } = usePaginator();
@@ -84,7 +86,7 @@ export const SessionList = () => {
           sessionBulkDelete({ variables: { ids: listElements } })
         }
         open={isOpen}
-        title={"Excluir sessões"}
+        title={t("session.delete")}
         variant="delete"
       >
         <DialogContentText>

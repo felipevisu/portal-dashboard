@@ -16,7 +16,7 @@ export const ProviderCreate = () => {
 
   const handleSuccess = (data: EntryCreateMutation) => {
     if (!data?.entryCreate.errors.length) {
-      navigate(`/admin/providers/details/${data?.entryCreate.entry.id}`);
+      navigate(`/providers/details/${data?.entryCreate.entry.id}`);
     }
   };
 
@@ -35,7 +35,7 @@ export const ProviderCreate = () => {
     search: searchCategory,
     result: searchCategoryOpts,
   } = useCategorySearch({
-    variables: { first: 20, query: "", type: EntryTypeEnum.PROVIDER },
+    variables: { first: 20, query: "" },
   });
 
   return (

@@ -14,9 +14,7 @@ export const CategoryCreate = () => {
 
   const handleSuccess = (data: CategoryCreateMutation) => {
     if (!data?.categoryCreate.errors.length) {
-      navigator(
-        `/admin/categories/details/${data?.categoryCreate.category.id}`
-      );
+      navigator(`/categories/details/${data?.categoryCreate.category.id}`);
     }
   };
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useRef } from "react";
 
 export type BacklinkContextType = React.RefObject<HTMLDivElement>;
 
@@ -8,7 +8,7 @@ export const BacklinkContext = React.createContext<
 BacklinkContext.displayName = "BacklinkContext";
 
 export const useBacklink = () => {
-  const ctx = React.useContext(BacklinkContext);
+  const ctx = useContext(BacklinkContext);
   if (ctx === undefined) {
     throw new Error("useBacklink must be used within a BacklinkContext");
   }
@@ -17,7 +17,7 @@ export const useBacklink = () => {
 };
 
 export const BacklinkProvider: React.FC = ({ children }) => {
-  const anchor = React.useRef<HTMLDivElement | null>(null);
+  const anchor = useRef<HTMLDivElement | null>(null);
 
   return (
     <BacklinkContext.Provider value={anchor}>

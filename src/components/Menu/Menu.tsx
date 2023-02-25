@@ -19,37 +19,37 @@ import { Label, MenuContent, MenuItem, MenuMain, OpenClose } from "./styles";
 const ITEMS = [
   {
     label: "Homepage",
-    path: "/admin",
+    path: "/",
     icon: <DashboardIcon />,
   },
   {
     label: "Categorias",
-    path: "/admin/categories",
+    path: "/categories",
     icon: <CategoryIcon />,
   },
   {
     label: "Veículos de comunicação",
-    path: "/admin/vehicles",
+    path: "/vehicles",
     icon: <ChatIcon />,
   },
   {
     label: "Prestadores de serviço",
-    path: "/admin/providers",
+    path: "/providers",
     icon: <DesignServicesIcon />,
   },
   {
     label: "Documentos",
-    path: "/admin/documents",
+    path: "/documents",
     icon: <InsertDriveFileIcon />,
   },
   {
     label: "Investimentos",
-    path: "/admin/investments",
+    path: "/investments",
     icon: <AttachMoney />,
   },
   {
     label: "Sessões públicas",
-    path: "/admin/sessions",
+    path: "/sessions",
     icon: <EventNoteIcon />,
   },
 ];
@@ -63,7 +63,7 @@ type ItemProps = {
 };
 
 const isActive = (path: string, location: string) => {
-  if (path === "/admin") {
+  if (path === "/") {
     return path === location;
   }
   return location.includes(path);

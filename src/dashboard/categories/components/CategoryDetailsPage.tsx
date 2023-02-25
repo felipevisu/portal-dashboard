@@ -40,7 +40,6 @@ export const CategoryDetailsPage = ({
   const initialData: FormProps = {
     name: category.name,
     slug: category.slug,
-    type: category.type,
   };
 
   return (
@@ -48,13 +47,13 @@ export const CategoryDetailsPage = ({
       {({ change, data, submit }) => {
         return (
           <>
-            <Backlink href="/admin/categories">{t("back")}</Backlink>
+            <Backlink href="/categories">{t("back")}</Backlink>
             <PageHeader title={category?.name} />
             <CategoryForm errors={errors} onChange={change} data={data} />
             <Savebar
               onSubmit={submit}
               onDelete={handleDelete}
-              onCancel={() => navigate("/admin/categories")}
+              onCancel={() => navigate("/categories")}
               loading={loading}
             />
           </>

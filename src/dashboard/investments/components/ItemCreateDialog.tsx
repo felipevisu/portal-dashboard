@@ -54,7 +54,7 @@ export const ItemCreateDialog = ({
 
   return (
     <ActionDialog
-      title={t("createInvestment")}
+      title={t("investment.create")}
       onClose={handleClose}
       onConfirm={handleConfirm}
       open={isOpen}

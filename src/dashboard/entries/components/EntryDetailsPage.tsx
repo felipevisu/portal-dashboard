@@ -55,7 +55,7 @@ export const EntryDetailsPage = ({
   };
 
   const categories = getChoices(categoryChoiceList);
-  const content = useEntryType();
+  const type = useEntryType();
   const { t } = useTranslation();
 
   return (
@@ -63,7 +63,7 @@ export const EntryDetailsPage = ({
       {({ change, submit, data }) => {
         return (
           <>
-            <Backlink href={`/admin/${content.link}`}>{t("back")}</Backlink>
+            <Backlink href={`/${type}s`}>{t("back")}</Backlink>
             <PageHeader title={data.name} />
             <Grid container spacing={2}>
               <Grid item xs={8}>
@@ -95,7 +95,7 @@ export const EntryDetailsPage = ({
             </Grid>
             <Savebar
               onSubmit={submit}
-              onCancel={() => navigate("/admin/entries")}
+              onCancel={() => navigate(`/${type}s`)}
               onDelete={onDelete}
               loading={loading}
             />

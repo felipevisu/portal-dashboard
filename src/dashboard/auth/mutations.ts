@@ -1,14 +1,15 @@
 import { gql } from "@apollo/client";
 
-export const tokenAuth = gql`
-  mutation tokenAuth($email: String!, $password: String!) {
-    tokenAuth(email: $email, password: $password) {
+export const tokenCreate = gql`
+  mutation tokenCreate($email: String!, $password: String!) {
+    tokenCreate(email: $email, password: $password) {
       errors {
         message
         field
         code
       }
       token
+      refreshToken
       user {
         email
         firstName

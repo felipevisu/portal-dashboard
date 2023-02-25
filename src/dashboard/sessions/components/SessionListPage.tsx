@@ -1,4 +1,6 @@
 import React from "react";
+import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 import { Card } from "@mui/material";
 import { Button } from "@portal/components/Button";
@@ -38,23 +40,16 @@ export const SessionListPage = ({
   disabled,
   filterOpts,
 }: SessionListPageProps) => {
+  const { t } = useTranslation();
   return (
     <>
-      <PageHeader title={"Sessões públicas"}>
-        <Button
-          color="primary"
-          variant="contained"
-          href={"/admin/sessions/create"}
-        >
-          Criar sessão
+      <PageHeader title={t("session.plural")}>
+        <Button color="primary" variant="contained" href={"/sessions/create"}>
+          {t("session.create")}
         </Button>
       </PageHeader>
       <Card>
-        <FilterBar
-          placeholder="Pesquisar"
-          onSearchChange={onSearchChange}
-          filterOpts={filterOpts}
-        />
+        <FilterBar onSearchChange={onSearchChange} filterOpts={filterOpts} />
         <SessionList
           selected={selected}
           sessions={sessions}

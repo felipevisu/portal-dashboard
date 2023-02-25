@@ -1,7 +1,6 @@
 import React from "react";
 
 import { ExpandMore } from "@mui/icons-material";
-import { DatePicker, LocalizationProvider } from "@mui/lab";
 import {
   Accordion,
   AccordionDetails,
@@ -14,6 +13,8 @@ import {
   Typography,
 } from "@mui/material";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import FormSpacer from "@portal/components/FormSpacer";
 import { FilterOpts } from "@portal/types";
 

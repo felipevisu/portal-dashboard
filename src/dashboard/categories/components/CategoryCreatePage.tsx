@@ -28,7 +28,6 @@ export const CategoryCreatePage = ({
   const initialData: FormProps = {
     name: "",
     slug: "",
-    type: null,
   };
 
   return (
@@ -36,12 +35,12 @@ export const CategoryCreatePage = ({
       {({ change, submit, data }) => {
         return (
           <>
-            <Backlink href="/admin/categories">{t("back")}</Backlink>
-            <PageHeader title={t("createCategory")} />
+            <Backlink href="/categories">{t("back")}</Backlink>
+            <PageHeader title={t("category.create")} />
             <CategoryForm errors={errors} onChange={change} data={data} />
             <Savebar
               onSubmit={submit}
-              onCancel={() => navigate("/admin/categories")}
+              onCancel={() => navigate("/categories")}
               loading={loading}
             />
           </>

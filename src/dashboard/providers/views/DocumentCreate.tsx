@@ -15,7 +15,7 @@ export const DocumentCreate = () => {
   const handleSuccess = (data: DocumentCreateMutation) => {
     if (!data?.documentCreate.errors.length) {
       navigate(
-        `/admin/vehicles/details/${id}/documents/${data?.documentCreate.document.id}/details`
+        `/vehicles/details/${id}/documents/${data?.documentCreate.document.id}/details`
       );
     }
   };

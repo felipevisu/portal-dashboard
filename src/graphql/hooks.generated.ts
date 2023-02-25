@@ -24,7 +24,6 @@ export const CategoryFragmentDoc = gql`
   id
   name
   slug
-  type
   entries {
     totalCount
   }
@@ -165,9 +164,9 @@ export const SessionDetailsFragmentDoc = gql`
   isPublished
 }
     `;
-export const TokenAuthDocument = gql`
-    mutation tokenAuth($email: String!, $password: String!) {
-  tokenAuth(email: $email, password: $password) {
+export const TokenCreateDocument = gql`
+    mutation tokenCreate($email: String!, $password: String!) {
+  tokenCreate(email: $email, password: $password) {
     errors {
       message
       field
@@ -182,33 +181,33 @@ export const TokenAuthDocument = gql`
   }
 }
     `;
-export type TokenAuthMutationFn = Apollo.MutationFunction<Types.TokenAuthMutation, Types.TokenAuthMutationVariables>;
+export type TokenCreateMutationFn = Apollo.MutationFunction<Types.TokenCreateMutation, Types.TokenCreateMutationVariables>;
 
 /**
- * __useTokenAuthMutation__
+ * __useTokenCreateMutation__
  *
- * To run a mutation, you first call `useTokenAuthMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useTokenAuthMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useTokenCreateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useTokenCreateMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [tokenAuthMutation, { data, loading, error }] = useTokenAuthMutation({
+ * const [tokenCreateMutation, { data, loading, error }] = useTokenCreateMutation({
  *   variables: {
  *      email: // value for 'email'
  *      password: // value for 'password'
  *   },
  * });
  */
-export function useTokenAuthMutation(baseOptions?: Apollo.MutationHookOptions<Types.TokenAuthMutation, Types.TokenAuthMutationVariables>) {
+export function useTokenCreateMutation(baseOptions?: Apollo.MutationHookOptions<Types.TokenCreateMutation, Types.TokenCreateMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<Types.TokenAuthMutation, Types.TokenAuthMutationVariables>(TokenAuthDocument, options);
+        return Apollo.useMutation<Types.TokenCreateMutation, Types.TokenCreateMutationVariables>(TokenCreateDocument, options);
       }
-export type TokenAuthMutationHookResult = ReturnType<typeof useTokenAuthMutation>;
-export type TokenAuthMutationResult = Apollo.MutationResult<Types.TokenAuthMutation>;
-export type TokenAuthMutationOptions = Apollo.BaseMutationOptions<Types.TokenAuthMutation, Types.TokenAuthMutationVariables>;
+export type TokenCreateMutationHookResult = ReturnType<typeof useTokenCreateMutation>;
+export type TokenCreateMutationResult = Apollo.MutationResult<Types.TokenCreateMutation>;
+export type TokenCreateMutationOptions = Apollo.BaseMutationOptions<Types.TokenCreateMutation, Types.TokenCreateMutationVariables>;
 export const MeDocument = gql`
     query Me {
   me {
@@ -1560,12 +1559,8 @@ export type SessionDetailsQueryHookResult = ReturnType<typeof useSessionDetailsQ
 export type SessionDetailsLazyQueryHookResult = ReturnType<typeof useSessionDetailsLazyQuery>;
 export type SessionDetailsQueryResult = Apollo.QueryResult<Types.SessionDetailsQuery, Types.SessionDetailsQueryVariables>;
 export const SearchCategoriesDocument = gql`
-    query SearchCategories($after: String, $first: Int!, $query: String!, $type: EntryTypeEnum) {
-  search: categories(
-    after: $after
-    first: $first
-    filter: {search: $query, type: $type}
-  ) {
+    query SearchCategories($after: String, $first: Int!, $query: String!) {
+  search: categories(after: $after, first: $first, filter: {search: $query}) {
     edges {
       node {
         id
@@ -1594,7 +1589,6 @@ export const SearchCategoriesDocument = gql`
  *      after: // value for 'after'
  *      first: // value for 'first'
  *      query: // value for 'query'
- *      type: // value for 'type'
  *   },
  * });
  */

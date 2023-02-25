@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
 
 import { Delete } from "@mui/icons-material";
@@ -23,6 +24,7 @@ import { DocumentListPage } from "../components/DocumentListPage";
 import { getFilterOpts } from "./filter";
 
 export const DocumentList = () => {
+  const { t } = useTranslation();
   const [searchParams] = useSearchParams();
   const { search, handleSearch } = useSearch();
   const { pagination, handleNextPage, handlePreviousPage } = usePaginator();
@@ -82,7 +84,7 @@ export const DocumentList = () => {
           documentBulkDelete({ variables: { ids: listElements } })
         }
         open={isOpen}
-        title={"Excluir documentos"}
+        title={t("document.delete")}
         variant="delete"
       >
         <DialogContentText>

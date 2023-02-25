@@ -1,6 +1,5 @@
 import React from "react";
 
-import { LoadingButton } from "@mui/lab";
 import { Box, Button, Card, CardContent, Portal, styled } from "@mui/material";
 
 import { useSavebar } from "./context";
@@ -46,13 +45,9 @@ export const Savebar = ({
                 Voltar
               </Button>
             )}
-            <LoadingButton
-              loading={loading}
-              variant="contained"
-              onClick={onSubmit}
-            >
-              Enviar
-            </LoadingButton>
+            <Button variant="contained" onClick={onSubmit}>
+              {loading ? "Enviando" : "Enviar"}
+            </Button>
           </Box>
         </CardContent>
       </Card>

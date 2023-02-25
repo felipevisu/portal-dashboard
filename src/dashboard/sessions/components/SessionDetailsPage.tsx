@@ -1,5 +1,6 @@
 import React from "react";
 import { convertFromRaw, convertToRaw, EditorState } from "draft-js";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 import { Backlink } from "@portal/components/Backlink";
@@ -30,6 +31,7 @@ export const SessionDetailsPage = ({
   errors,
   loading,
 }: SessionDetailsPageProps) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const initialData = {
@@ -57,12 +59,12 @@ export const SessionDetailsPage = ({
       {({ change, submit, data }) => {
         return (
           <>
-            <Backlink href="/admin/sessions">Voltar</Backlink>
+            <Backlink href="/sessions">{t("back")}</Backlink>
             <PageHeader title={session.name} />
             <SessionForm errors={errors} onChange={change} data={data} />
             <Savebar
               onSubmit={submit}
-              onCancel={() => navigate("/admin/sessions")}
+              onCancel={() => navigate("/sessions")}
               onDelete={onDelete}
               loading={loading}
             />

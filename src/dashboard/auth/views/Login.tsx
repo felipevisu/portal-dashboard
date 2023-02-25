@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-import { LoadingButton } from "@mui/lab";
 import {
   Card,
   CardContent,
@@ -8,6 +7,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { Button } from "@portal/components/Button";
 import { FormSpacer } from "@portal/components/FormSpacer";
 import { ErrorFragment, UserFragment } from "@portal/graphql";
 
@@ -36,8 +36,8 @@ const Panel = styled("div")(({ theme }) => ({
     color: theme.palette.error.contrastText,
   },
   ...theme.typography.body1,
-  background: "red",
-  borderRadius: 8,
+  background: "#ffd6d9",
+  borderRadius: 4,
   marginBottom: theme.spacing(2),
   padding: theme.spacing(1.5, 2.5),
 }));
@@ -56,8 +56,10 @@ export const Login = () => {
     setErrors(errors.filter((error) => error.field !== e.target.name));
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const result = await login(form.email, form.password);
+    console.log(result);
     const errors = result?.errors || [];
     setErrors(errors);
   };
@@ -92,8 +94,7 @@ export const Login = () => {
           />
           <FormSpacer />
           <ButtonsContainer>
-            <LoadingButton
-              loading={loading}
+            <Button
               sx={{ width: "100%" }}
               color="primary"
               variant="contained"
@@ -101,8 +102,8 @@ export const Login = () => {
               type="submit"
               data-test-id="submit"
             >
-              Entrar
-            </LoadingButton>
+              {loading ? "Carregando" : "Entrar"}
+            </Button>
           </ButtonsContainer>
         </form>
       </CardContent>

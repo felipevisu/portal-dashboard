@@ -12,7 +12,10 @@ interface SearchBarProps {
   onSearchChange: (e: React.ChangeEvent<any>) => void;
 }
 
-export const SearchBar = ({ placeholder, onSearchChange }: SearchBarProps) => {
+export const SearchBar = ({
+  placeholder = "Pesquisar",
+  onSearchChange,
+}: SearchBarProps) => {
   return (
     <Root>
       <TextField
