@@ -27,7 +27,7 @@ export const CategoryList = () => {
   const { isOpen, openModal, closeModal } = useModal();
 
   const { data, loading, refetch } = useCategoriesQuery({
-    fetchPolicy: "cache-and-network",
+    fetchPolicy: "network-only",
     variables: { ...pagination, filter: { search } },
   });
 

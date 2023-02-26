@@ -48,6 +48,7 @@ export const VehicleList = () => {
   );
 
   const { data, loading, refetch } = useEntriesQuery({
+    fetchPolicy: "network-only",
     variables: {
       ...pagination,
       filter: { type: EntryTypeEnum.VEHICLE, search, ...queryParameters },

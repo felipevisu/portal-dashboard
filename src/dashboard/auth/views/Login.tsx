@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+import { LoadingButton } from "@mui/lab";
 import {
   Card,
   CardContent,
@@ -59,7 +60,6 @@ export const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const result = await login(form.email, form.password);
-    console.log(result);
     const errors = result?.errors || [];
     setErrors(errors);
   };
@@ -94,7 +94,8 @@ export const Login = () => {
           />
           <FormSpacer />
           <ButtonsContainer>
-            <Button
+            <LoadingButton
+              loading={loading}
               sx={{ width: "100%" }}
               color="primary"
               variant="contained"
@@ -102,8 +103,8 @@ export const Login = () => {
               type="submit"
               data-test-id="submit"
             >
-              {loading ? "Carregando" : "Entrar"}
-            </Button>
+              Entrar
+            </LoadingButton>
           </ButtonsContainer>
         </form>
       </CardContent>

@@ -33,8 +33,8 @@ export const InvestmentCreatePage = ({
   const navigate = useNavigate();
 
   const initialData: FormProps = {
-    year: undefined,
-    month: undefined,
+    year: null,
+    month: null,
     isPublished: false,
   };
 

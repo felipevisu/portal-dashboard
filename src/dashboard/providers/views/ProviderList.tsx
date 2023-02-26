@@ -48,6 +48,7 @@ export const ProviderList = () => {
   );
 
   const { data, loading, refetch } = useEntriesQuery({
+    fetchPolicy: "network-only",
     variables: {
       ...pagination,
       filter: { type: EntryTypeEnum.PROVIDER, search, ...queryParameters },

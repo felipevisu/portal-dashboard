@@ -34,7 +34,8 @@ export const DocumentFile = ({
 
   const documentName = useMemo(() => {
     if (file) return file.name;
-    return fileName.split("/").reverse()[0];
+    if (fileName) return fileName.split("/").reverse()[0];
+    return null;
   }, [fileName, file]);
 
   return (

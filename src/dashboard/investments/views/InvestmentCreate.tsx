@@ -54,6 +54,7 @@ export const InvestmentCreate = () => {
   };
 
   const handleSubmit = async (data: InvestmentInput) => {
+    console.log(data);
     await createInvestment({ variables: { input: { ...data, items } } });
   };
 

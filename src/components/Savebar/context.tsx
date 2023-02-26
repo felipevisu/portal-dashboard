@@ -12,7 +12,6 @@ export const useSavebar = () => {
   if (ctx === undefined) {
     throw new Error("useSavebar must be used within a SavebarContext");
   }
-  console.log(ctx);
 
   return ctx;
 };

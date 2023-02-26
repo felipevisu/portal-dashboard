@@ -20,13 +20,13 @@ import { ChangeEvent } from "@portal/types";
 import { getFormErrors } from "@portal/utils/errors";
 
 export type FormProps = {
-  month: number;
-  year: number;
+  month?: number;
+  year?: number;
   isPublished: boolean;
 };
 
 interface InvestmentFormProps {
-  data?: FormProps;
+  data: FormProps;
   errors: ErrorFragment[];
   onChange: (e: ChangeEvent) => void;
 }
@@ -48,7 +48,7 @@ export const InvestmentForm = ({
             <FormControl fullWidth error={formErrors.month && true}>
               <InputLabel>Mês</InputLabel>
               <Select
-                value={data.month}
+                value={data.month || ""}
                 label={t("month")}
                 name="month"
                 onChange={onChange}
@@ -76,7 +76,7 @@ export const InvestmentForm = ({
                 fullWidth
                 name="year"
                 label={t("year")}
-                value={data.year}
+                value={data.year || ""}
                 onChange={onChange}
                 helperText={formErrors.year?.message}
               />
