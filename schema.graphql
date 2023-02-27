@@ -130,14 +130,12 @@ type DeactivateAllUserTokens {
 scalar Decimal
 
 type Document implements Node {
-  beginDate: Date
   created: DateTime
+  defaultFile: DocumentFile
   description: String
   entry: Entry
-  expirationDate: Date
   expired: Boolean
   expires: Boolean
-  file: File
   id: ID!
   isPublished: Boolean
   name: String!
@@ -178,6 +176,18 @@ type DocumentCreate {
 type DocumentDelete {
   document: Document
   errors: [Error!]!
+}
+
+type DocumentFile implements Node {
+  beginDate: Date
+  created: DateTime
+  document: Document
+  expirationDate: Date
+  file: File
+
+  """The ID of the object."""
+  id: ID!
+  updated: DateTime
 }
 
 input DocumentFilterInput {

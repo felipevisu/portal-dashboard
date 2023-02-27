@@ -43,12 +43,12 @@ export const generateSubmitData = (data: FormProps) => {
   };
   if (data.expires) {
     if (data.expirationDate) {
-      submitData.expirationDate = data.expirationDate
-        .toISOString()
-        .split("T")[0];
+      const date = new Date(data.expirationDate);
+      submitData.expirationDate = date.toISOString().split("T")[0];
     }
     if (data.beginDate) {
-      submitData.beginDate = data.beginDate.toISOString().split("T")[0];
+      const date = new Date(data.beginDate);
+      submitData.beginDate = date.toISOString().split("T")[0];
     }
   }
   return submitData;

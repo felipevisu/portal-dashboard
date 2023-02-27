@@ -49,7 +49,9 @@ export const DocumentList = ({ title, documents, href }: DocumentListProps) => {
             >
               <TableCell sx={{ paddingLeft: 3 }}>{document.name}</TableCell>
               <TableCell>{document.entry.name}</TableCell>
-              <TableCell>{formatDate(document.expirationDate)}</TableCell>
+              <TableCell>
+                {formatDate(document.defaultFile.expirationDate)}
+              </TableCell>
             </TableRowLink>
           ))}
         </TableBody>

@@ -34,15 +34,25 @@ export const DocumentFragmentDoc = gql`
   id
   name
   created
-  beginDate
-  expirationDate
   isPublished
   expired
   expires
+  defaultFile {
+    beginDate
+    expirationDate
+  }
   entry {
     id
     name
   }
+}
+    `;
+export const DocumentFileFragmentDoc = gql`
+    fragment DocumentFile on DocumentFile {
+  id
+  created
+  beginDate
+  expirationDate
 }
     `;
 export const DocumentDetailsFragmentDoc = gql`
@@ -52,13 +62,15 @@ export const DocumentDetailsFragmentDoc = gql`
   description
   isPublished
   expires
-  file {
-    url
-  }
   created
   updated
-  beginDate
-  expirationDate
+  defaultFile {
+    beginDate
+    expirationDate
+    file {
+      url
+    }
+  }
   entry {
     id
     name
@@ -173,6 +185,7 @@ export const TokenCreateDocument = gql`
       code
     }
     token
+    refreshToken
     user {
       email
       firstName

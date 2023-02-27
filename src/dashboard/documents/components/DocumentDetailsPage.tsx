@@ -34,8 +34,8 @@ export const DocumentDetailsPage = ({
     description: document.description,
     isPublished: document.isPublished,
     expires: document.expires,
-    expirationDate: document.expirationDate,
-    beginDate: document.beginDate,
+    expirationDate: document.defaultFile?.expirationDate || null,
+    beginDate: document.defaultFile?.beginDate || null,
   });
   const [file, setFile] = useState(null);
 
@@ -71,8 +71,8 @@ export const DocumentDetailsPage = ({
         fileUpload={
           <DocumentFile
             file={file}
-            fileName={document.file.url}
-            fileUrl={document.file.url}
+            fileName={document.defaultFile?.file.url}
+            fileUrl={document.defaultFile?.file.url}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setFile(e.target.files[0])
             }

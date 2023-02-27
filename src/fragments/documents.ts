@@ -5,15 +5,26 @@ export const documentFragment = gql`
     id
     name
     created
-    beginDate
-    expirationDate
     isPublished
     expired
     expires
+    defaultFile {
+      beginDate
+      expirationDate
+    }
     entry {
       id
       name
     }
+  }
+`;
+
+export const documentFileFragment = gql`
+  fragment DocumentFile on DocumentFile {
+    id
+    created
+    beginDate
+    expirationDate
   }
 `;
 
@@ -24,13 +35,15 @@ export const documentDetailsFragment = gql`
     description
     isPublished
     expires
-    file {
-      url
-    }
     created
     updated
-    beginDate
-    expirationDate
+    defaultFile {
+      beginDate
+      expirationDate
+      file {
+        url
+      }
+    }
     entry {
       id
       name
