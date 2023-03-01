@@ -53,6 +53,9 @@ export const DocumentFileFragmentDoc = gql`
   created
   beginDate
   expirationDate
+  file {
+    url
+  }
 }
     `;
 export const DocumentDetailsFragmentDoc = gql`
@@ -65,18 +68,17 @@ export const DocumentDetailsFragmentDoc = gql`
   created
   updated
   defaultFile {
-    beginDate
-    expirationDate
-    file {
-      url
-    }
+    ...DocumentFile
+  }
+  files {
+    ...DocumentFile
   }
   entry {
     id
     name
   }
 }
-    `;
+    ${DocumentFileFragmentDoc}`;
 export const EntryFragmentDoc = gql`
     fragment Entry on Entry {
   id

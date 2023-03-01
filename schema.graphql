@@ -136,6 +136,7 @@ type Document implements Node {
   entry: Entry
   expired: Boolean
   expires: Boolean
+  files: [DocumentFile!]
   id: ID!
   isPublished: Boolean
   name: String!

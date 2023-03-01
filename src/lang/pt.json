@@ -15,6 +15,7 @@
 	"confirmDelete_one": "Tem certeza que deseja excluir este item? Lembre-se esta ação não é reversível",
 	"confirmDelete_other": "Tem certeza que deseja excluir estes {{ count }} itens? Lembre-se esta ação não é reversível",
 	"contactInfo": "Informações de contato",
+	"created": "Criado",
 	"dashboard": {
 		"home": {
 			"title": "Bem vindo",
@@ -41,6 +42,13 @@
 	"expired": "Expirado",
 	"expires": "Expirável",
 	"expiresIn": "Expira em",
+	"file": {
+		"title": "Arquivo",
+		"plural": "Arquivos",
+		"create": "Adicionar arquivo",
+		"delete": "Excluir arquivo"
+	},
+	"filesHistory": "Histórico de arquivos",
 	"filters": "Filtros",
 	"generalInfo": "Informações gerais",
 	"initialDate": "Data de início",

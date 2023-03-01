@@ -10,6 +10,7 @@ import { ChangeEvent } from "@portal/types";
 
 import DocumentFile from "./DocumentFile";
 import DocumentForm, { FormProps, generateSubmitData } from "./DocumentForm";
+import DocumentHistory from "./DocumentHistory";
 
 interface DocumentDetailsPageProps {
   document: DocumentDetailsFragment;
@@ -77,6 +78,15 @@ export const DocumentDetailsPage = ({
               setFile(e.target.files[0])
             }
           />
+        }
+        fileHistory={
+          document.expires && (
+            <DocumentHistory
+              files={document.files.filter(
+                (file) => file.id !== document.defaultFile.id
+              )}
+            />
+          )
         }
       />
       <Savebar

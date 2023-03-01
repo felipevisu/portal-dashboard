@@ -25,6 +25,9 @@ export const documentFileFragment = gql`
     created
     beginDate
     expirationDate
+    file {
+      url
+    }
   }
 `;
 
@@ -38,11 +41,10 @@ export const documentDetailsFragment = gql`
     created
     updated
     defaultFile {
-      beginDate
-      expirationDate
-      file {
-        url
-      }
+      ...DocumentFile
+    }
+    files {
+      ...DocumentFile
     }
     entry {
       id

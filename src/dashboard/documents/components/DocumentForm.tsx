@@ -31,6 +31,7 @@ interface DocumentFormProps {
   data?: FormProps;
   errors: ErrorFragment[];
   fileUpload: React.ReactNode;
+  fileHistory?: React.ReactNode;
   onChange: (e: ChangeEvent) => void;
 }
 
@@ -59,6 +60,7 @@ export const DocumentForm = ({
   errors,
   onChange,
   fileUpload,
+  fileHistory,
 }: DocumentFormProps) => {
   const formErrors = getFormErrors(
     ["name", "description", "beginDate", "expirationDate"],
@@ -100,6 +102,7 @@ export const DocumentForm = ({
           </CardContent>
         </Card>
         {fileUpload}
+        {fileHistory}
       </Grid>
       <Grid item xs={4}>
         <Card>

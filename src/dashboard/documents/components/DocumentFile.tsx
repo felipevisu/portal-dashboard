@@ -41,8 +41,8 @@ export const DocumentFile = ({
   return (
     <Card>
       <CardHeader
-        title={t("document.title")}
-        action={<Button onClick={handleClick}>{t("document.create")}</Button>}
+        title={t("file.title")}
+        action={<Button onClick={handleClick}>{t("file.create")}</Button>}
       />
       <CardContent>
         <input type="file" ref={fileRef} onChange={onChange} hidden />
