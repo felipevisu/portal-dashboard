@@ -69,7 +69,7 @@ export const DocumentDetailsPage = ({
         errors={errors}
         onChange={handleChange}
         data={data}
-        expires={document.expires}
+        expires={false}
         fileUpload={
           <DocumentFile
             file={file}
