@@ -58,6 +58,7 @@ export const DocumentCreatePage = ({
       <DocumentForm
         errors={errors}
         onChange={handleChange}
+        expires={true}
         data={data}
         fileUpload={
           <DocumentFile

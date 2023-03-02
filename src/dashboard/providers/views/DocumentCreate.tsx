@@ -1,5 +1,7 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import DocumentCreatePage from "@portal/dashboard/documents/components/DocumentCreatePage";
 import {
@@ -10,18 +12,23 @@ import {
 
 export const DocumentCreate = () => {
   const { id } = useParams();
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const handleSuccess = (data: DocumentCreateMutation) => {
-    if (!data?.documentCreate.errors.length) {
+  const handleCreateDocument = (data: DocumentCreateMutation) => {
+    if (!data?.documentCreate?.errors?.length) {
+      toast(t("messages.create.success"), { type: toast.TYPE.SUCCESS });
       navigate(
         `/vehicles/details/${id}/documents/${data?.documentCreate.document.id}/details`
       );
     }
+    if (data?.documentCreate?.errors?.some((error) => error.field === "file")) {
+      toast(t("Você precisa adicionar um arquivo"), { type: toast.TYPE.ERROR });
+    }
   };
 
   const [createDocument, createDocumentResult] = useDocumentCreateMutation({
-    onCompleted: handleSuccess,
+    onCompleted: handleCreateDocument,
   });
 
   const handleSubmit = async (data: DocumentInput) => {

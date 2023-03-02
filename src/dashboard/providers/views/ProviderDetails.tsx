@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import { DialogContentText } from "@mui/material";
 import ActionDialog from "@portal/components/ActionDialog";
@@ -21,18 +23,19 @@ import { mapEdgesToItems } from "@portal/utils/maps";
 export const ProviderDetails = () => {
   const [vehicle, setProvider] = useState(null);
   const { id } = useParams();
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { isOpen, openModal, closeModal } = useModal();
   const paginator = usePaginator();
 
-  const handleSuccess = (data: EntryUpdateMutation) => {
+  const handleUpdateProvider = (data: EntryUpdateMutation) => {
     if (!data?.entryUpdate.errors.length) {
-      navigate(`/providers/details/${data?.entryUpdate.entry.id}`);
+      toast(t("messages.update.success"), { type: toast.TYPE.SUCCESS });
     }
   };
 
   const [updateProvider, updateProviderResult] = useEntryUpdateMutation({
-    onCompleted: handleSuccess,
+    onCompleted: handleUpdateProvider,
   });
 
   const handleSubmit = async (data: EntryInput) => {

@@ -1,6 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import { DialogContentText } from "@mui/material";
 import ActionDialog from "@portal/components/ActionDialog";
@@ -8,6 +9,7 @@ import CircularLoading from "@portal/components/Circular";
 import NotFound from "@portal/components/NotFound";
 import {
   CategoryInput,
+  CategoryUpdateMutation,
   useCategoryDeleteMutation,
   useCategoryDetailsQuery,
   useCategoryUpdateMutation,
@@ -17,7 +19,7 @@ import useModal from "@portal/hooks/useModal";
 import { CategoryDetailsPage } from "../components/CategoryDetailsPage";
 
 export const CategoryDetails = () => {
-  const { t } = useTranslation("translation", { keyPrefix: "category" });
+  const { t } = useTranslation();
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -26,7 +28,16 @@ export const CategoryDetails = () => {
   const { data, loading } = useCategoryDetailsQuery({
     variables: { id },
   });
-  const [updateCategory, updateCategoryResult] = useCategoryUpdateMutation();
+
+  const handleUpdateCategory = (data: CategoryUpdateMutation) => {
+    if (data.categoryUpdate.errors.length === 0)
+      toast(t("messages.update.success"), { type: toast.TYPE.SUCCESS });
+  };
+
+  const [updateCategory, updateCategoryResult] = useCategoryUpdateMutation({
+    onCompleted: handleUpdateCategory,
+  });
+
   const [deleteCategory] = useCategoryDeleteMutation({
     onCompleted: () => navigate("/categories"),
   });
@@ -58,7 +69,7 @@ export const CategoryDetails = () => {
         onClose={closeModal}
         onConfirm={handleCategoryDelete}
         open={isOpen}
-        title={t("delete")}
+        title={t("category.delete")}
         variant="delete"
       >
         <DialogContentText>

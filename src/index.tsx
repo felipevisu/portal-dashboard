@@ -14,6 +14,7 @@ import pt from "./lang/pt.json";
 import Dashboard from "./dashboard";
 import theme from "./theme";
 
+import "react-toastify/dist/ReactToastify.css";
 import "./styles.css";
 
 i18n.use(initReactI18next).init({

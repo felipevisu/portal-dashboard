@@ -69,6 +69,7 @@ export const DocumentDetailsPage = ({
         errors={errors}
         onChange={handleChange}
         data={data}
+        expires={document.expires}
         fileUpload={
           <DocumentFile
             file={file}
@@ -91,7 +92,7 @@ export const DocumentDetailsPage = ({
       />
       <Savebar
         onSubmit={handleSubmit}
-        onCancel={() => navigate(`/entries/details/${id}`)}
+        onCancel={() => navigate(`/${link}/details/${id}`)}
         onDelete={onDelete}
         loading={loading}
       />

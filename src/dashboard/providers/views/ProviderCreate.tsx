@@ -1,5 +1,7 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import { EntryCreatePage } from "@portal/dashboard/entries/components/EntryCreatePage";
 import {
@@ -13,15 +15,17 @@ import { mapEdgesToItems } from "@portal/utils/maps";
 
 export const ProviderCreate = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
-  const handleSuccess = (data: EntryCreateMutation) => {
+  const handleCreateProvider = (data: EntryCreateMutation) => {
     if (!data?.entryCreate.errors.length) {
+      toast(t("messages.create.success"), { type: toast.TYPE.SUCCESS });
       navigate(`/providers/details/${data?.entryCreate.entry.id}`);
     }
   };
 
   const [createProvider, createProviderResult] = useEntryCreateMutation({
-    onCompleted: handleSuccess,
+    onCompleted: handleCreateProvider,
   });
 
   const handleSubmit = async (data: EntryInput) => {

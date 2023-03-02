@@ -1,4 +1,5 @@
 import React from "react";
+import { ToastContainer } from "react-toastify";
 
 import { useBacklink } from "../Backlink/context";
 import { Menu } from "../Menu";
@@ -13,6 +14,7 @@ export const AppLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <Wrapper>
+      <ToastContainer />
       <Lateral>
         <Menu />
       </Lateral>

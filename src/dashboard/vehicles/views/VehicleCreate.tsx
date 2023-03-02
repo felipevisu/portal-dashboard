@@ -1,5 +1,7 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import { EntryCreatePage } from "@portal/dashboard/entries/components/EntryCreatePage";
 import {
@@ -12,16 +14,18 @@ import useCategorySearch from "@portal/searches/useCategorySearch";
 import { mapEdgesToItems } from "@portal/utils/maps";
 
 export const VehicleCreate = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const handleSuccess = (data: EntryCreateMutation) => {
+  const handleCreateVehicle = (data: EntryCreateMutation) => {
     if (!data?.entryCreate.errors.length) {
+      toast(t("messages.create.success"), { type: toast.TYPE.SUCCESS });
       navigate(`/vehicles/details/${data?.entryCreate.entry.id}`);
     }
   };
 
   const [createVehicle, createVehicleResult] = useEntryCreateMutation({
-    onCompleted: handleSuccess,
+    onCompleted: handleCreateVehicle,
   });
 
   const handleSubmit = async (data: EntryInput) => {

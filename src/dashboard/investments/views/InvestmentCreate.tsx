@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import { Button } from "@mui/material";
 import {
@@ -22,15 +23,16 @@ export const InvestmentCreate = () => {
 
   const [items, setItems] = useState<ItemCreateInput[]>([]);
 
-  const handleSuccess = (data: InvestmentCreateMutation) => {
+  const handleCreateInvestment = (data: InvestmentCreateMutation) => {
     if (!data?.investmentCreate.errors.length) {
+      toast(t("messages.create.success"), { type: toast.TYPE.SUCCESS });
       navigator(`/investments/details/${data?.investmentCreate.investment.id}`);
     }
   };
 
   const [createInvestment, createInvestmentResult] =
     useInvestmentCreateMutation({
-      onCompleted: handleSuccess,
+      onCompleted: handleCreateInvestment,
     });
 
   const createItemModal = useModal();
@@ -54,7 +56,6 @@ export const InvestmentCreate = () => {
   };
 
   const handleSubmit = async (data: InvestmentInput) => {
-    console.log(data);
     await createInvestment({ variables: { input: { ...data, items } } });
   };
 

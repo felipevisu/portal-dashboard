@@ -20,7 +20,7 @@ interface DocumentListProps extends ListActions {
 
 export const buildLink = (document: DocumentFragment): string => {
   const id = document.entry.id;
-  const path = document.entry ? "vehicles" : "providers";
+  const path = document.entry.type === "PROVIDER" ? "providers" : "vehicles";
   return (
     "/" + [path, "details", id, "documents", document.id, "details"].join("/")
   );

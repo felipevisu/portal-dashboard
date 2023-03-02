@@ -58,6 +58,14 @@
 		"create": "Adicionar investimento",
 		"delete": "Excluir investimento"
 	},
+	"messages": {
+		"create": {
+			"success": "Criado com sucesso."
+		},
+		"update": {
+			"success": "Salvo com sucesso."
+		}
+	},
 	"month": "Mês",
 	"name": "Nome",
 	"phone": "Telefone",

@@ -12,6 +12,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import TableCellHeader from "@portal/components/TableCell";
 import { DocumentFileFragment } from "@portal/graphql";
 import { formatDate } from "@portal/utils/date";
 
@@ -21,6 +22,9 @@ interface DocumentHistoryProps {
 
 export const DocumentHistory = ({ files }: DocumentHistoryProps) => {
   const { t } = useTranslation();
+
+  if (!files.length) return null;
+
   return (
     <Card sx={{ marginTop: 2 }}>
       <CardHeader title={t("filesHistory")} />
@@ -28,9 +32,9 @@ export const DocumentHistory = ({ files }: DocumentHistoryProps) => {
         <Table size="small">
           <TableHead>
             <TableRow>
-              <TableCell>{t("file.title")}</TableCell>
-              <TableCell>{t("created")}</TableCell>
-              <TableCell>{t("expired")}</TableCell>
+              <TableCellHeader>{t("file.title")}</TableCellHeader>
+              <TableCellHeader>{t("created")}</TableCellHeader>
+              <TableCellHeader>{t("expired")}</TableCellHeader>
             </TableRow>
           </TableHead>
           <TableBody>

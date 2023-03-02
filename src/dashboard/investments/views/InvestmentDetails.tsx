@@ -1,6 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import { Button, DialogContentText } from "@mui/material";
 import ActionDialog from "@portal/components/ActionDialog";
@@ -8,6 +9,7 @@ import CircularLoading from "@portal/components/Circular";
 import NotFound from "@portal/components/NotFound";
 import {
   InvestmentUpdateInput,
+  InvestmentUpdateMutation,
   ItemCreateInput,
   useInvestmentDeleteMutation,
   useInvestmentDetailsQuery,
@@ -33,8 +35,15 @@ export const InvestmentDetails = () => {
     variables: { id },
   });
 
+  const handleUpdateInvestment = (data: InvestmentUpdateMutation) => {
+    if (!data?.investmentUpdate.errors.length) {
+      toast(t("messages.update.success"), { type: toast.TYPE.SUCCESS });
+      refetch();
+    }
+  };
+
   const [updateInvestment, updateInvestmentResult] =
-    useInvestmentUpdateMutation({ onCompleted: () => refetch() });
+    useInvestmentUpdateMutation({ onCompleted: handleUpdateInvestment });
 
   const [deleteInvestment] = useInvestmentDeleteMutation({
     onCompleted: () => navigate("/investments"),

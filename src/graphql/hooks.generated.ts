@@ -44,6 +44,7 @@ export const DocumentFragmentDoc = gql`
   entry {
     id
     name
+    type
   }
 }
     `;
@@ -76,6 +77,7 @@ export const DocumentDetailsFragmentDoc = gql`
   entry {
     id
     name
+    type
   }
 }
     ${DocumentFileFragmentDoc}`;

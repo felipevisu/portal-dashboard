@@ -40,7 +40,7 @@ export const InvestmentItems = ({
   return (
     <Card>
       <CardHeader title={t("investment.plural")} action={tollbar} />
-      <Table>
+      <Table size="small">
         <TableHead>
           <TableRow>
             <TableCellHeader sx={{ paddingLeft: 3 }}>

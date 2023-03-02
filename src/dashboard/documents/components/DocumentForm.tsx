@@ -29,6 +29,7 @@ export type FormProps = {
 
 interface DocumentFormProps {
   data?: FormProps;
+  expires: boolean;
   errors: ErrorFragment[];
   fileUpload: React.ReactNode;
   fileHistory?: React.ReactNode;
@@ -57,6 +58,7 @@ export const generateSubmitData = (data: FormProps) => {
 
 export const DocumentForm = ({
   data,
+  expires,
   errors,
   onChange,
   fileUpload,
@@ -116,14 +118,16 @@ export const DocumentForm = ({
                 onChange={onChange}
               />
             </FormControl>
-            <FormControl fullWidth>
-              <ControledCheckbox
-                label={t("expires")}
-                name="expires"
-                checked={data.expires}
-                onChange={onChange}
-              />
-            </FormControl>
+            {expires && (
+              <FormControl fullWidth>
+                <ControledCheckbox
+                  label={t("expires")}
+                  name="expires"
+                  checked={data.expires}
+                  onChange={onChange}
+                />
+              </FormControl>
+            )}
             {data.expires && (
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <FormSpacer />

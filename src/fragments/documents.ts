@@ -15,6 +15,7 @@ export const documentFragment = gql`
     entry {
       id
       name
+      type
     }
   }
 `;
@@ -49,6 +50,7 @@ export const documentDetailsFragment = gql`
     entry {
       id
       name
+      type
     }
   }
 `;

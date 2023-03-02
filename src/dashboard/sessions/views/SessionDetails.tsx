@@ -1,6 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import { DialogContentText } from "@mui/material";
 import ActionDialog from "@portal/components/ActionDialog";
@@ -25,7 +26,7 @@ export const SessionDetails = () => {
 
   const handleSuccess = (data: SessionUpdateMutation) => {
     if (!data?.sessionUpdate.errors.length) {
-      navigate(`/sessions/details/${data?.sessionUpdate.session.id}`);
+      toast(t("messages.update.success"), { type: toast.TYPE.SUCCESS });
     }
   };
 

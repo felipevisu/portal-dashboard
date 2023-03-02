@@ -42,6 +42,7 @@ export const DocumentList = () => {
   );
 
   const { data, loading, refetch } = useDocumentsQuery({
+    fetchPolicy: "network-only",
     variables: { ...pagination, filter: { search, ...queryParameters } },
   });
 
