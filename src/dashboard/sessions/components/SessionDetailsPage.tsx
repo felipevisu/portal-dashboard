@@ -1,4 +1,5 @@
 import React from "react";
+import dayjs from "dayjs";
 import { convertFromRaw, convertToRaw, EditorState } from "draft-js";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
@@ -40,7 +41,7 @@ export const SessionDetailsPage = ({
     content: EditorState.createWithContent(
       convertFromRaw(JSON.parse(session.content))
     ),
-    date: session.date,
+    date: dayjs(session.date),
     isPublished: session.isPublished,
   };
 

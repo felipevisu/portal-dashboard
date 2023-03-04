@@ -28,30 +28,34 @@ export const DocumentHistory = ({ files }: DocumentHistoryProps) => {
   return (
     <Card sx={{ marginTop: 2 }}>
       <CardHeader title={t("filesHistory")} />
-      <CardContent>
-        <Table size="small">
-          <TableHead>
-            <TableRow>
-              <TableCellHeader>{t("file.title")}</TableCellHeader>
-              <TableCellHeader>{t("created")}</TableCellHeader>
-              <TableCellHeader>{t("expired")}</TableCellHeader>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCellHeader>{t("file.title")}</TableCellHeader>
+            <TableCellHeader>{t("created")}</TableCellHeader>
+            <TableCellHeader>{t("expired")}</TableCellHeader>
+          </TableRow>
+        </TableHead>
+        <TableBody
+          sx={{
+            ".MuiTableRow-root:last-of-type .MuiTableCell-root": {
+              border: "none",
+            },
+          }}
+        >
+          {files.map((file) => (
+            <TableRow key={file.id}>
+              <TableCell sx={{ paddingLeft: 3 }}>
+                <Link href={file.file.url} target="_blank" rel="noreferrer">
+                  {file.file.url.split("/").reverse()[0]}
+                </Link>
+              </TableCell>
+              <TableCell>{formatDate(file.created)}</TableCell>
+              <TableCell>{formatDate(file.expirationDate)}</TableCell>
             </TableRow>
-          </TableHead>
-          <TableBody>
-            {files.map((file) => (
-              <TableRow key={file.id}>
-                <TableCell>
-                  <Link href={file.file.url} target="_blank" rel="noreferrer">
-                    {file.file.url.split("/").reverse()[0]}
-                  </Link>
-                </TableCell>
-                <TableCell>{formatDate(file.created)}</TableCell>
-                <TableCell>{formatDate(file.expirationDate)}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </CardContent>
+          ))}
+        </TableBody>
+      </Table>
     </Card>
   );
 };

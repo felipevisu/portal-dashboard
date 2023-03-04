@@ -43,13 +43,9 @@ export const InvestmentItems = ({
       <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCellHeader sx={{ paddingLeft: 3 }}>
-              {t("name")}
-            </TableCellHeader>
+            <TableCellHeader>{t("name")}</TableCellHeader>
             <TableCellHeader>{t("value")}</TableCellHeader>
-            <TableCellHeader sx={{ paddingRight: 3 }} align="right">
-              {t("delete")}
-            </TableCellHeader>
+            <TableCellHeader align="right">{t("delete")}</TableCellHeader>
           </TableRow>
         </TableHead>
         <TableBody>

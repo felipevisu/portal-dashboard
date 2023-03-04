@@ -3,10 +3,10 @@ import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { Backlink } from "@portal/components/Backlink";
+import { Form } from "@portal/components/Form";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
 import { ErrorFragment } from "@portal/graphql";
-import { ChangeEvent } from "@portal/types";
 
 import DocumentFile from "./DocumentFile";
 import DocumentForm, { FormProps, generateSubmitData } from "./DocumentForm";
@@ -25,24 +25,18 @@ export const DocumentCreatePage = ({
   const { t } = useTranslation();
   const { id } = useParams();
   const navigate = useNavigate();
-  const [data, setData] = useState<FormProps>({
+  const [file, setFile] = useState(null);
+
+  const initialData: FormProps = {
     name: "",
     description: "",
     isPublished: false,
     expires: false,
     expirationDate: null,
     beginDate: null,
-  });
-  const [file, setFile] = useState(null);
-
-  const handleChange = (e: ChangeEvent) => {
-    setData({
-      ...data,
-      [e.target.name]: e.target.value,
-    });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (data: FormProps) => {
     const submitData = generateSubmitData(data);
     onSubmit({ ...submitData, entry: id, file: file });
   };
@@ -52,29 +46,35 @@ export const DocumentCreatePage = ({
     : "providers";
 
   return (
-    <>
-      <Backlink href={`/${link}/details/${id}`}>{t("back")}</Backlink>
-      <PageHeader title={t("document.create")} />
-      <DocumentForm
-        errors={errors}
-        onChange={handleChange}
-        expires={true}
-        data={data}
-        fileUpload={
-          <DocumentFile
-            file={file}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setFile(e.target.files[0])
-            }
-          />
-        }
-      />
-      <Savebar
-        onSubmit={handleSubmit}
-        onCancel={() => navigate(`/entries/details/${id}`)}
-        loading={loading}
-      />
-    </>
+    <Form initial={initialData} onSubmit={handleSubmit}>
+      {({ change, submit, data }) => {
+        return (
+          <>
+            <Backlink href={`/${link}/details/${id}`}>{t("back")}</Backlink>
+            <PageHeader title={t("document.create")} />
+            <DocumentForm
+              errors={errors}
+              onChange={change}
+              expires={true}
+              data={data}
+              fileUpload={
+                <DocumentFile
+                  file={file}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setFile(e.target.files[0])
+                  }
+                />
+              }
+            />
+            <Savebar
+              onSubmit={submit}
+              onCancel={() => navigate(`/entries/details/${id}`)}
+              loading={loading}
+            />
+          </>
+        );
+      }}
+    </Form>
   );
 };
 

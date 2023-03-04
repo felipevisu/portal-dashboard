@@ -1,12 +1,13 @@
 import React, { useState } from "react";
+import dayjs from "dayjs";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { Backlink } from "@portal/components/Backlink";
+import { Form } from "@portal/components/Form";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
 import { DocumentDetailsFragment, ErrorFragment } from "@portal/graphql";
-import { ChangeEvent } from "@portal/types";
 
 import DocumentFile from "./DocumentFile";
 import DocumentForm, { FormProps, generateSubmitData } from "./DocumentForm";
@@ -30,24 +31,18 @@ export const DocumentDetailsPage = ({
   const { t } = useTranslation();
   const { id } = useParams();
   const navigate = useNavigate();
-  const [data, setData] = useState<FormProps>({
+  const [file, setFile] = useState(null);
+
+  const initialData: FormProps = {
     name: document.name,
     description: document.description,
     isPublished: document.isPublished,
     expires: document.expires,
-    expirationDate: document.defaultFile?.expirationDate || null,
-    beginDate: document.defaultFile?.beginDate || null,
-  });
-  const [file, setFile] = useState(null);
-
-  const handleChange = (e: ChangeEvent) => {
-    setData({
-      ...data,
-      [e.target.name]: e.target.value,
-    });
+    expirationDate: dayjs(document.defaultFile.expirationDate),
+    beginDate: dayjs(document.defaultFile.beginDate),
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (data: FormProps) => {
     const submitData = generateSubmitData(data);
     if (file) submitData.file = file;
     onSubmit({ ...submitData, entry: id });
@@ -59,44 +54,50 @@ export const DocumentDetailsPage = ({
     : "providers";
 
   return (
-    <>
-      <Backlink href={`/${link}/details/${id}`}>{t("back")}</Backlink>
-      <PageHeader
-        title={`${t("document.title")}: ${document.name}`}
-        limitText={document.entry.name}
-      />
-      <DocumentForm
-        errors={errors}
-        onChange={handleChange}
-        data={data}
-        expires={false}
-        fileUpload={
-          <DocumentFile
-            file={file}
-            fileName={document.defaultFile?.file.url}
-            fileUrl={document.defaultFile?.file.url}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setFile(e.target.files[0])
-            }
-          />
-        }
-        fileHistory={
-          document.expires && (
-            <DocumentHistory
-              files={document.files.filter(
-                (file) => file.id !== document.defaultFile.id
-              )}
+    <Form initial={initialData} onSubmit={handleSubmit}>
+      {({ change, submit, data }) => {
+        return (
+          <>
+            <Backlink href={`/${link}/details/${id}`}>{t("back")}</Backlink>
+            <PageHeader
+              title={`${t("document.title")}: ${document.name}`}
+              limitText={document.entry.name}
             />
-          )
-        }
-      />
-      <Savebar
-        onSubmit={handleSubmit}
-        onCancel={() => navigate(`/${link}/details/${id}`)}
-        onDelete={onDelete}
-        loading={loading}
-      />
-    </>
+            <DocumentForm
+              errors={errors}
+              onChange={change}
+              data={data}
+              expires={false}
+              fileUpload={
+                <DocumentFile
+                  file={file}
+                  fileName={document.defaultFile?.file.url}
+                  fileUrl={document.defaultFile?.file.url}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setFile(e.target.files[0])
+                  }
+                />
+              }
+              fileHistory={
+                document.expires && (
+                  <DocumentHistory
+                    files={document.files.filter(
+                      (file) => file.id !== document.defaultFile.id
+                    )}
+                  />
+                )
+              }
+            />
+            <Savebar
+              onSubmit={submit}
+              onCancel={() => navigate(`/${link}/details/${id}`)}
+              onDelete={onDelete}
+              loading={loading}
+            />
+          </>
+        );
+      }}
+    </Form>
   );
 };
 

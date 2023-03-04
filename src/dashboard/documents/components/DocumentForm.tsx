@@ -1,4 +1,5 @@
 import React from "react";
+import { Dayjs } from "dayjs";
 import { useTranslation } from "react-i18next";
 
 import {
@@ -9,7 +10,7 @@ import {
   Grid,
   TextField,
 } from "@mui/material";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import ControledCheckbox from "@portal/components/ControledCheckbox";
@@ -23,8 +24,8 @@ export type FormProps = {
   description: string;
   expires: boolean;
   isPublished: boolean;
-  expirationDate?: Date;
-  beginDate?: Date;
+  expirationDate: Dayjs | null;
+  beginDate: Dayjs | null;
 };
 
 interface DocumentFormProps {
@@ -37,23 +38,16 @@ interface DocumentFormProps {
 }
 
 export const generateSubmitData = (data: FormProps) => {
-  const submitData: DocumentInput = {
+  const submit: DocumentInput = {
     name: data.name,
     description: data.description,
     expires: data.expires,
     isPublished: data.isPublished,
+    expirationDate: data.expirationDate?.format("YYYY-MM-DD"),
+    beginDate: data.beginDate?.format("YYYY-MM-DD"),
   };
-  if (data.expires) {
-    if (data.expirationDate) {
-      const date = new Date(data.expirationDate);
-      submitData.expirationDate = date.toISOString().split("T")[0];
-    }
-    if (data.beginDate) {
-      const date = new Date(data.beginDate);
-      submitData.beginDate = date.toISOString().split("T")[0];
-    }
-  }
-  return submitData;
+
+  return submit;
 };
 
 export const DocumentForm = ({
@@ -129,11 +123,11 @@ export const DocumentForm = ({
               </FormControl>
             )}
             {data.expires && (
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <FormSpacer />
                 <FormControl fullWidth>
                   <DatePicker
-                    inputFormat="dd/MM/yyyy"
+                    inputFormat="DD/MM/YYYY"
                     value={data.beginDate}
                     label={t("initialDate")}
                     onChange={(value) => {
@@ -152,7 +146,7 @@ export const DocumentForm = ({
                 <FormSpacer />
                 <FormControl fullWidth>
                   <DatePicker
-                    inputFormat="dd/MM/yyyy"
+                    inputFormat="DD/MM/YYYY"
                     value={data.expirationDate}
                     label={t("expirationDate")}
                     onChange={(value) => {

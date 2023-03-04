@@ -1,16 +1,16 @@
 import React, { useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 
-import { AttachFile, FileUpload, OpenInNew } from "@mui/icons-material";
+import { FileUpload } from "@mui/icons-material";
 import {
+  Box,
   Button,
   Card,
   CardContent,
   CardHeader,
-  IconButton,
+  Link,
   Typography,
 } from "@mui/material";
-import { Box } from "@mui/system";
 
 interface DocumentFileProps {
   file?: File;
@@ -47,15 +47,15 @@ export const DocumentFile = ({
       <CardContent>
         <input type="file" ref={fileRef} onChange={onChange} hidden />
         {documentName ? (
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <AttachFile />
-            <Typography>{documentName}</Typography>
-            {fileUrl && !file && (
-              <a href={fileUrl} target="_blank" rel="noreferrer">
-                <IconButton color="primary" sx={{ marginLeft: 1 }}>
-                  <OpenInNew />
-                </IconButton>
-              </a>
+          <Box>
+            {fileUrl ? (
+              <Typography>
+                <Link href={fileUrl} target="_blank" rel="noreferrer">
+                  {documentName}
+                </Link>
+              </Typography>
+            ) : (
+              <Typography>{documentName}</Typography>
             )}
           </Box>
         ) : (

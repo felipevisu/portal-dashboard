@@ -1,4 +1,5 @@
 import React from "react";
+import { Dayjs } from "dayjs";
 import { EditorState } from "draft-js";
 import { useTranslation } from "react-i18next";
 
@@ -10,7 +11,7 @@ import {
   Grid,
   TextField,
 } from "@mui/material";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import ControledCheckbox from "@portal/components/ControledCheckbox";
@@ -24,7 +25,7 @@ export type FormProps = {
   name: string;
   slug: string;
   content: EditorState;
-  date: Date | null;
+  date: Dayjs | null;
   isPublished: boolean;
 };
 
@@ -39,7 +40,7 @@ export const SessionForm = ({ errors, data, onChange }: SessionFormProps) => {
   const formErrors = getFormErrors(["name", "slug", "content", "date"], errors);
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDateFns}>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Grid container spacing={2}>
         <Grid item xs={8}>
           <Card sx={{ marginBottom: (theme) => theme.spacing(2) }}>
@@ -90,10 +91,10 @@ export const SessionForm = ({ errors, data, onChange }: SessionFormProps) => {
               <FormControl fullWidth>
                 <DateTimePicker
                   label={t("date")}
-                  inputFormat="dd/MM/yyyy - HH:mm"
+                  inputFormat="DD/MM/YYYY - HH:mm"
                   value={data.date}
-                  onChange={(val) =>
-                    onChange({ target: { name: "date", value: val } })
+                  onChange={(value) =>
+                    onChange({ target: { name: "date", value } })
                   }
                   renderInput={(params) => (
                     <TextField
