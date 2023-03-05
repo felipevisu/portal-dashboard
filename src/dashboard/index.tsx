@@ -12,6 +12,7 @@ import Home from "./home";
 import Investments from "./investments";
 import Providers from "./providers";
 import Sessions from "./sessions";
+import Settings from "./settings";
 import Vehicles from "./vehicles";
 
 const RoutesComponent = () => {
@@ -30,6 +31,7 @@ const RoutesComponent = () => {
           <Route path="/documents/*" element={<Documents />} />
           <Route path="/sessions/*" element={<Sessions />} />
           <Route path="/investments/*" element={<Investments />} />
+          <Route path="/settings/*" element={<Settings />} />
         </Routes>
       </AppLayout>
     );

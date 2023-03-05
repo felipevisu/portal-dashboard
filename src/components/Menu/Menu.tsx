@@ -10,6 +10,7 @@ import CategoryIcon from "@mui/icons-material/Category";
 import ChatIcon from "@mui/icons-material/Chat";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import DesignServicesIcon from "@mui/icons-material/DesignServices";
+import DisplaySettingsIcon from "@mui/icons-material/DisplaySettings";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import { Fade } from "@mui/material";
@@ -51,6 +52,11 @@ const ITEMS = [
     label: "Sessões públicas",
     path: "/sessions",
     icon: <EventNoteIcon />,
+  },
+  {
+    label: "Configurações",
+    path: "/settings",
+    icon: <DisplaySettingsIcon />,
   },
 ];
 
