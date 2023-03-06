@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import { Card, CardHeader } from "@mui/material";
 
@@ -9,9 +10,10 @@ import PluginDetailsChannelsCardContent, {
 const PluginDetailsChannelsCard: React.FC<PluginDetailsChannelsCardProps> = (
   props
 ) => {
+  const { t } = useTranslation();
   return (
     <Card>
-      <CardHeader title="Canais" />
+      <CardHeader title={t("channel.plural")} />
       <PluginDetailsChannelsCardContent {...props} />
     </Card>
   );

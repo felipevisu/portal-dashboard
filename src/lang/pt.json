@@ -9,6 +9,12 @@
 		"create": "Adicionar categoria",
 		"delete": "Excluir categoria"
 	},
+	"channel": {
+		"title": "Canal",
+		"plural": "Canais",
+		"create": "Adicionar canal",
+		"delete": "Excluir canal"
+	},
 	"clickHere": "Clique aqui",
 	"configurationType": "Tipo de configuração",
 	"confirm": "Confirma",
@@ -76,7 +82,12 @@
 		"type": {
 			"global": "Global",
 			"channel": "Por canal"
-		}
+		},
+		"commomConfiguration": "Esta configuração de Plugin é comum em todos os canais.",
+		"info": "Informações do Plugin e status",
+		"setActive": "Marcar Plugin como ativo",
+		"settings": "Configurações do Plugin",
+		"authorization": "Autorização"
 	},
 	"provider": {
 		"title": "Fornecedor",

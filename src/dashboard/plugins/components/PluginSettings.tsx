@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import InfoIcon from "@mui/icons-material/Info";
 import {
@@ -34,9 +35,10 @@ const PluginSettings: React.FC<PluginSettingsProps> = ({
   onChange,
   fields,
 }) => {
+  const { t } = useTranslation();
   return (
     <Card sx={{ marginBottom: 2 }}>
-      <CardHeader title="Plugin Settings" />
+      <CardHeader title={t("plugin.settings")} />
       <CardContent>
         {data.configuration.map((field) => {
           const fieldData = fields.find(

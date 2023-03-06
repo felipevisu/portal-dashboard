@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import { Card, CardContent, CardHeader, Typography } from "@mui/material";
 import ControlledCheckbox from "@portal/components/ControlledCheckbox";
@@ -22,18 +23,18 @@ const PluginInfo: React.FC<PluginInfoProps> = ({
   name,
   onChange,
 }) => {
+  const { t } = useTranslation();
   return (
     <Card sx={{ marginBottom: 2 }}>
-      <CardHeader title="Plugin Information and Status" />
+      <CardHeader title={t("plugin.info")} />
       <CardContent>
-        <Typography variant="h6">Plugin Name</Typography>
-        <Typography>{name}</Typography>
+        <Typography variant="h6">{name}</Typography>
         {description && <Typography>{description}</Typography>}
         <FormSpacer />
-        <Typography>Status</Typography>
+        <Typography>{t("status")}</Typography>
         <ControlledCheckbox
           name={"active" as keyof PluginDetailsPageFormData}
-          label="Set plugin as active"
+          label={t("plugin.setActive")}
           checked={data.active}
           onChange={onChange}
         />

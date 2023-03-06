@@ -22,7 +22,7 @@ export const PluginsList = () => {
     [searchParams]
   );
 
-  const { data, loading, refetch } = usePluginsQuery({
+  const { data } = usePluginsQuery({
     fetchPolicy: "network-only",
     variables: {
       ...pagination,

@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import { CardContent, Typography } from "@mui/material";
 import CollectionWithDividers from "@portal/components/CollectionWithDividers";
@@ -15,6 +16,7 @@ export interface PluginDetailsChannelsCardProps {
 const PluginDetailsChannelsCardContent: React.FC<
   PluginDetailsChannelsCardProps
 > = ({ plugin, selectedChannelId, setSelectedChannelId }) => {
+  const { t } = useTranslation();
   if (!plugin) {
     return null;
   }
@@ -22,9 +24,7 @@ const PluginDetailsChannelsCardContent: React.FC<
   if (isPluginGlobal(plugin.globalConfiguration)) {
     return (
       <CardContent>
-        <Typography>
-          Esta configuração de plugin é comum em todos os canais.
-        </Typography>
+        <Typography>{t("plugin.commomConfiguration")}</Typography>
       </CardContent>
     );
   }

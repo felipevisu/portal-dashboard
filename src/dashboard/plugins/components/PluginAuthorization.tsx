@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import {
   Card,
@@ -22,6 +23,7 @@ interface PluginAuthorizationProps {
 }
 
 const PluginAuthorization: React.FC<PluginAuthorizationProps> = (props) => {
+  const { t } = useTranslation();
   const { fields, onClear, onEdit } = props;
 
   const secretFields = fields.filter((field) =>
@@ -30,7 +32,7 @@ const PluginAuthorization: React.FC<PluginAuthorizationProps> = (props) => {
 
   return (
     <Card>
-      <CardHeader title="Authorization" />
+      <CardHeader title={t("plugin.authorization")} />
       <CardContent>
         {secretFields.map((field, fieldIndex) => (
           <React.Fragment key={field.name}>
