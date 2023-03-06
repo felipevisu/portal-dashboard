@@ -14,7 +14,7 @@ import {
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import ControledCheckbox from "@portal/components/ControledCheckbox";
+import ControlledCheckbox from "@portal/components/ControlledCheckbox";
 import FormSpacer from "@portal/components/FormSpacer";
 import RichTextEditor from "@portal/components/Richtext/Richtext";
 import { ErrorFragment } from "@portal/graphql";
@@ -107,7 +107,7 @@ export const SessionForm = ({ errors, data, onChange }: SessionFormProps) => {
               </FormControl>
               <FormSpacer />
               <FormControl>
-                <ControledCheckbox
+                <ControlledCheckbox
                   label={t("published")}
                   name="isPublished"
                   checked={data.isPublished}

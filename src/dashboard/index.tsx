@@ -10,6 +10,7 @@ import Categories from "./categories";
 import Documents from "./documents";
 import Home from "./home";
 import Investments from "./investments";
+import Plugins from "./plugins";
 import Providers from "./providers";
 import Sessions from "./sessions";
 import Settings from "./settings";
@@ -32,6 +33,7 @@ const RoutesComponent = () => {
           <Route path="/sessions/*" element={<Sessions />} />
           <Route path="/investments/*" element={<Investments />} />
           <Route path="/settings/*" element={<Settings />} />
+          <Route path="/plugins/*" element={<Plugins />} />
         </Routes>
       </AppLayout>
     );

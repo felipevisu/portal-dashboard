@@ -83,6 +83,75 @@ type CategoryUpdate {
   errors: [Error!]!
 }
 
+"""Represents channel."""
+type Channel implements Node {
+  id: ID!
+
+  """Whether the channel is active."""
+  isActive: Boolean!
+
+  """Name of the channel."""
+  name: String!
+
+  """Slug of the channel."""
+  slug: String!
+}
+
+type ChannelActivate {
+  channel: Channel
+  errors: [Error!]!
+}
+
+type ChannelCreate {
+  channel: Channel
+  errors: [Error!]!
+}
+
+type ChannelDeactivate {
+  channel: Channel
+  errors: [Error!]!
+}
+
+type ChannelDelete {
+  channel: Channel
+  errors: [Error!]!
+}
+
+input ChannelInput {
+  isActive: Boolean
+  name: String!
+  slug: String!
+}
+
+type ChannelUpdate {
+  channel: Channel
+  errors: [Error!]!
+}
+
+type ConfigurationItem {
+  helpText: String
+  label: String
+  name: String!
+  type: ConfigurationTypeFieldEnum
+  value: String
+}
+
+input ConfigurationItemInput {
+  name: String!
+  value: String
+}
+
+"""An enumeration."""
+enum ConfigurationTypeFieldEnum {
+  BOOLEAN
+  MULTILINE
+  OUTPUT
+  PASSWORD
+  SECRET
+  SECRETMULTILINE
+  STRING
+}
+
 """Create JWT token."""
 type CreateToken {
   """CSRF token required to re-generate access token."""
@@ -492,6 +561,14 @@ type Mutation {
   categoryCreate(input: CategoryInput!): CategoryCreate
   categoryDelete(id: ID): CategoryDelete
   categoryUpdate(id: ID, input: CategoryInput!): CategoryUpdate
+  channelActivate(id: ID!): ChannelActivate
+  channelCreate(input: ChannelInput!): ChannelCreate
+  channelDeactivate(id: ID!): ChannelDeactivate
+  channelDelete(
+    """ID of a channel to delete."""
+    id: ID!
+  ): ChannelDelete
+  channelUpdate(id: ID!, input: ChannelInput!): ChannelUpdate
 
   """Deletes segments."""
   documentBulkDelete(
@@ -523,25 +600,9 @@ type Mutation {
   itemCreate(input: ItemInput!, investmentId: ID!): ItemCreate
   itemDelete(id: ID): ItemDelete
   itemUpdate(id: ID, input: ItemInput!): ItemUpdate
-  passwordReset(
-    """Email of a user."""
-    email: String!
-
-    """Password of a user."""
-    password: String!
-
-    """A one-time token required to set the password."""
-    token: String!
-  ): SetPassword
-  requestPasswordReset(
-    """Email of the user that will be used for password recovery."""
-    email: String!
-
-    """
-    URL of a view where users should be redirected to reset the password. URL in RFC 1808 format.
-    """
-    redirectUrl: String!
-  ): RequestPasswordReset
+  passwordReset(email: String!, password: String!, token: String!): SetPassword
+  pluginUpdate(channelId: ID, id: ID!, input: PluginUpdateInput!): PluginUpdate
+  requestPasswordReset(email: String!, redirectUrl: String!): RequestPasswordReset
 
   """Deletes sessions."""
   sessionBulkDelete(
@@ -624,9 +685,93 @@ type Permission {
   name: String!
 }
 
+"""Plugin."""
+type Plugin {
+  channelConfigurations: [PluginConfiguration!]!
+  description: String!
+  globalConfiguration: PluginConfiguration
+  id: ID!
+  name: String!
+}
+
+type PluginConfiguration {
+  active: Boolean!
+  channel: Channel
+  configuration: [ConfigurationItem!]
+}
+
+enum PluginConfigurationType {
+  GLOBAL
+  PER_CHANNEL
+}
+
+type PluginCountableConnection {
+  edges: [PluginCountableEdge!]!
+
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """A total count of items in the collection."""
+  totalCount: Int
+}
+
+type PluginCountableEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: Plugin!
+}
+
+input PluginFilterInput {
+  search: String
+  statusInChannels: PluginStatusInChannelsInput
+  type: PluginConfigurationType
+}
+
+enum PluginSortField {
+  IS_ACTIVE
+  NAME
+}
+
+input PluginSortingInput {
+  """Specifies the direction in which to sort products."""
+  direction: OrderDirection!
+
+  """Sort plugins by the selected field."""
+  field: PluginSortField!
+}
+
+input PluginStatusInChannelsInput {
+  active: Boolean!
+  channels: [ID!]!
+}
+
+type PluginUpdate {
+  errors: [Error!]!
+  plugin: Plugin
+}
+
+input PluginUpdateInput {
+  active: Boolean
+  configuration: [ConfigurationItemInput!]
+}
+
 type Query {
   categories(after: String, before: String, filter: CategoryFilterInput, first: Int, last: Int, sortBy: CategorySortingInput): CategoryCountableConnection
   category(id: ID, slug: String): Category
+
+  """Look up a channel by ID or slug."""
+  channel(
+    """ID of the channel."""
+    id: ID
+
+    """Slug of the channel."""
+    slug: String
+  ): Channel
+
+  """List of all channels."""
+  channels: [Channel!]
   document(id: ID): Document
   documents(after: String, before: String, filter: DocumentFilterInput, first: Int, last: Int, sortBy: DocumentSortingInput): DocumentCountableConnection
   entries(after: String, before: String, filter: EntryFilterInput, first: Int, last: Int, sortBy: EntrySortingInput): EntryCountableConnection
@@ -634,6 +779,8 @@ type Query {
   investment(id: ID, month: Int, year: Int): Investment
   investments(after: String, before: String, filter: InvestmentFilterInput, first: Int, last: Int, sortBy: InvestmentSortingInput): InvestmentCountableConnection
   me: User
+  plugin(id: ID!): Plugin
+  plugins(after: String, before: String, filter: PluginFilterInput, first: Int, last: Int, sortBy: PluginSortingInput): PluginCountableConnection
   session(id: ID, slug: String): Session
   sessions(after: String, before: String, filter: SessionFilterInput, first: Int, last: Int, sortBy: SessionSortingInput): SessionCountableConnection
 }

@@ -161,6 +161,60 @@ export const PageInfoFragmentDoc = gql`
   startCursor
 }
     `;
+export const PluginConfigurationBaseFragmentDoc = gql`
+    fragment PluginConfigurationBase on PluginConfiguration {
+  active
+  channel {
+    id
+    name
+    slug
+  }
+}
+    `;
+export const PluginBaseFragmentDoc = gql`
+    fragment PluginBase on Plugin {
+  id
+  name
+  description
+  channelConfigurations {
+    ...PluginConfigurationBase
+  }
+  globalConfiguration {
+    ...PluginConfigurationBase
+  }
+}
+    ${PluginConfigurationBaseFragmentDoc}`;
+export const ConfigurationItemFragmentDoc = gql`
+    fragment ConfigurationItem on ConfigurationItem {
+  name
+  value
+  type
+  helpText
+  label
+}
+    `;
+export const PluginConfigurationExtendedFragmentDoc = gql`
+    fragment PluginConfigurationExtended on PluginConfiguration {
+  ...PluginConfigurationBase
+  configuration {
+    ...ConfigurationItem
+  }
+}
+    ${PluginConfigurationBaseFragmentDoc}
+${ConfigurationItemFragmentDoc}`;
+export const PluginsDetailsFragmentDoc = gql`
+    fragment PluginsDetails on Plugin {
+  id
+  name
+  description
+  globalConfiguration {
+    ...PluginConfigurationExtended
+  }
+  channelConfigurations {
+    ...PluginConfigurationExtended
+  }
+}
+    ${PluginConfigurationExtendedFragmentDoc}`;
 export const SessionFragmentDoc = gql`
     fragment Session on Session {
   id
@@ -1338,6 +1392,139 @@ export function useInvestmentDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHook
 export type InvestmentDetailsQueryHookResult = ReturnType<typeof useInvestmentDetailsQuery>;
 export type InvestmentDetailsLazyQueryHookResult = ReturnType<typeof useInvestmentDetailsLazyQuery>;
 export type InvestmentDetailsQueryResult = Apollo.QueryResult<Types.InvestmentDetailsQuery, Types.InvestmentDetailsQueryVariables>;
+export const PluginUpdateDocument = gql`
+    mutation PluginUpdate($channelId: ID, $id: ID!, $input: PluginUpdateInput!) {
+  pluginUpdate(channelId: $channelId, id: $id, input: $input) {
+    errors {
+      ...Error
+    }
+    plugin {
+      ...PluginsDetails
+    }
+  }
+}
+    ${ErrorFragmentDoc}
+${PluginsDetailsFragmentDoc}`;
+export type PluginUpdateMutationFn = Apollo.MutationFunction<Types.PluginUpdateMutation, Types.PluginUpdateMutationVariables>;
+
+/**
+ * __usePluginUpdateMutation__
+ *
+ * To run a mutation, you first call `usePluginUpdateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `usePluginUpdateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [pluginUpdateMutation, { data, loading, error }] = usePluginUpdateMutation({
+ *   variables: {
+ *      channelId: // value for 'channelId'
+ *      id: // value for 'id'
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function usePluginUpdateMutation(baseOptions?: Apollo.MutationHookOptions<Types.PluginUpdateMutation, Types.PluginUpdateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Types.PluginUpdateMutation, Types.PluginUpdateMutationVariables>(PluginUpdateDocument, options);
+      }
+export type PluginUpdateMutationHookResult = ReturnType<typeof usePluginUpdateMutation>;
+export type PluginUpdateMutationResult = Apollo.MutationResult<Types.PluginUpdateMutation>;
+export type PluginUpdateMutationOptions = Apollo.BaseMutationOptions<Types.PluginUpdateMutation, Types.PluginUpdateMutationVariables>;
+export const PluginsDocument = gql`
+    query Plugins($first: Int, $after: String, $last: Int, $before: String, $filter: PluginFilterInput, $sort: PluginSortingInput) {
+  plugins(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    filter: $filter
+    sortBy: $sort
+  ) {
+    edges {
+      node {
+        ...PluginBase
+      }
+    }
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+  }
+}
+    ${PluginBaseFragmentDoc}`;
+
+/**
+ * __usePluginsQuery__
+ *
+ * To run a query within a React component, call `usePluginsQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePluginsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePluginsQuery({
+ *   variables: {
+ *      first: // value for 'first'
+ *      after: // value for 'after'
+ *      last: // value for 'last'
+ *      before: // value for 'before'
+ *      filter: // value for 'filter'
+ *      sort: // value for 'sort'
+ *   },
+ * });
+ */
+export function usePluginsQuery(baseOptions?: Apollo.QueryHookOptions<Types.PluginsQuery, Types.PluginsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<Types.PluginsQuery, Types.PluginsQueryVariables>(PluginsDocument, options);
+      }
+export function usePluginsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.PluginsQuery, Types.PluginsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<Types.PluginsQuery, Types.PluginsQueryVariables>(PluginsDocument, options);
+        }
+export type PluginsQueryHookResult = ReturnType<typeof usePluginsQuery>;
+export type PluginsLazyQueryHookResult = ReturnType<typeof usePluginsLazyQuery>;
+export type PluginsQueryResult = Apollo.QueryResult<Types.PluginsQuery, Types.PluginsQueryVariables>;
+export const PluginDocument = gql`
+    query Plugin($id: ID!) {
+  plugin(id: $id) {
+    ...PluginsDetails
+  }
+}
+    ${PluginsDetailsFragmentDoc}`;
+
+/**
+ * __usePluginQuery__
+ *
+ * To run a query within a React component, call `usePluginQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePluginQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePluginQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function usePluginQuery(baseOptions: Apollo.QueryHookOptions<Types.PluginQuery, Types.PluginQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<Types.PluginQuery, Types.PluginQueryVariables>(PluginDocument, options);
+      }
+export function usePluginLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.PluginQuery, Types.PluginQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<Types.PluginQuery, Types.PluginQueryVariables>(PluginDocument, options);
+        }
+export type PluginQueryHookResult = ReturnType<typeof usePluginQuery>;
+export type PluginLazyQueryHookResult = ReturnType<typeof usePluginLazyQuery>;
+export type PluginQueryResult = Apollo.QueryResult<Types.PluginQuery, Types.PluginQueryVariables>;
 export const SessionCreateDocument = gql`
     mutation SessionCreate($input: SessionInput!) {
   sessionCreate(input: $input) {

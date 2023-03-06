@@ -13,7 +13,7 @@ import {
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import ControledCheckbox from "@portal/components/ControledCheckbox";
+import ControlledCheckbox from "@portal/components/ControlledCheckbox";
 import FormSpacer from "@portal/components/FormSpacer";
 import { DocumentInput, ErrorFragment } from "@portal/graphql";
 import { ChangeEvent } from "@portal/types";
@@ -105,7 +105,7 @@ export const DocumentForm = ({
           <CardHeader title="Status e publicação" />
           <CardContent>
             <FormControl fullWidth>
-              <ControledCheckbox
+              <ControlledCheckbox
                 label={t("published")}
                 name="isPublished"
                 checked={data.isPublished}
@@ -114,7 +114,7 @@ export const DocumentForm = ({
             </FormControl>
             {expires && (
               <FormControl fullWidth>
-                <ControledCheckbox
+                <ControlledCheckbox
                   label={t("expires")}
                   name="expires"
                   checked={data.expires}

@@ -13,7 +13,7 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import ControledCheckbox from "@portal/components/ControledCheckbox";
+import ControlledCheckbox from "@portal/components/ControlledCheckbox";
 import FormSpacer from "@portal/components/FormSpacer";
 import { ErrorFragment } from "@portal/graphql";
 import { ChangeEvent } from "@portal/types";
@@ -85,7 +85,7 @@ export const InvestmentForm = ({
         </Grid>
         <FormSpacer />
         <FormControl>
-          <ControledCheckbox
+          <ControlledCheckbox
             label={t("published")}
             name="isPublished"
             checked={data.isPublished}

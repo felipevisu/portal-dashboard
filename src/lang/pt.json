@@ -10,6 +10,7 @@
 		"delete": "Excluir categoria"
 	},
 	"clickHere": "Clique aqui",
+	"configurationType": "Tipo de configuração",
 	"confirm": "Confirma",
 	"confirmActionMessage": "Esta ação é irreversível, deseja mesmo continuar?",
 	"confirmDelete_one": "Tem certeza que deseja excluir este item? Lembre-se esta ação não é reversível",
@@ -69,6 +70,14 @@
 	"month": "Mês",
 	"name": "Nome",
 	"phone": "Telefone",
+	"plugin": {
+		"title": "Plugin",
+		"plural": "Plugins",
+		"type": {
+			"global": "Global",
+			"channel": "Por canal"
+		}
+	},
 	"provider": {
 		"title": "Fornecedor",
 		"plural": "Fornecedores",

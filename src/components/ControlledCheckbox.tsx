@@ -2,19 +2,19 @@ import React from "react";
 
 import { Checkbox, FormControlLabel } from "@mui/material";
 
-interface ControledCheckboxProps {
+interface ControlledCheckboxProps {
   label: string;
   name: string;
   checked: boolean;
   onChange: (e: any) => void;
 }
 
-export const ControledCheckbox = ({
+export const ControlledCheckbox = ({
   label,
   name,
   checked,
   onChange,
-}: ControledCheckboxProps) => {
+}: ControlledCheckboxProps) => {
   return (
     <FormControlLabel
       label={label}
@@ -28,4 +28,4 @@ export const ControledCheckbox = ({
   );
 };
 
-export default ControledCheckbox;
+export default ControlledCheckbox;

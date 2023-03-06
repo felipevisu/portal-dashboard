@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -21,7 +21,6 @@ import useCategorySearch from "@portal/searches/useCategorySearch";
 import { mapEdgesToItems } from "@portal/utils/maps";
 
 export const ProviderDetails = () => {
-  const [vehicle, setProvider] = useState(null);
   const { id } = useParams();
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -59,23 +58,17 @@ export const ProviderDetails = () => {
   });
 
   useEffect(() => {
-    if (data?.entry) {
-      setProvider(data.entry);
-    }
-  }, [data]);
-
-  useEffect(() => {
     refetch();
   }, []);
 
-  if (loading && !vehicle) return <CircularLoading />;
+  if (loading) return <CircularLoading />;
 
-  if (!vehicle) return <NotFound />;
+  if (!data?.entry) return <NotFound />;
 
   return (
     <>
       <EntryDetailsPage
-        entry={vehicle}
+        entry={data.entry}
         onSubmit={handleSubmit}
         onDelete={openModal}
         errors={updateProviderResult.data?.entryUpdate.errors || []}

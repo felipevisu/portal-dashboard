@@ -46,6 +46,13 @@ export const useForm = <T extends FormData, TErrors>(
     }
   }
 
+  function set(newData: Partial<T>) {
+    setData((data) => ({
+      ...data,
+      ...newData,
+    }));
+  }
+
   async function submit() {
     onSubmit(data);
   }
@@ -54,6 +61,7 @@ export const useForm = <T extends FormData, TErrors>(
     data,
     submit,
     change,
+    set,
   };
 };
 
