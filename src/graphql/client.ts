@@ -5,7 +5,7 @@ import { getToken } from "../lib/auth";
 export const link = createUploadLink({
   uri: process.env.REACT_APP_API_URI,
   headers: {
-    authorization: getToken() ? `JWT ${getToken()}` : "",
+    authorization: `JWT ${getToken()}`,
   },
 });
 

@@ -12,13 +12,7 @@ export function useAuthProvider({ apolloClient }) {
   const [error, setError] = useState<string | undefined>();
   const [user, setUser] = useState(undefined);
   const [authenticated, setAuthenticated] = useState<boolean>(false);
-  const [authenticating] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (authenticating && error) {
-      setError(undefined);
-    }
-  }, [authenticating]);
+  const [authenticating, setAuthenticating] = useState<boolean>(true);
 
   const meQuery = useMeQuery({
     client: apolloClient,
@@ -26,25 +20,29 @@ export function useAuthProvider({ apolloClient }) {
   });
 
   useEffect(() => {
+    if (meQuery.called && !meQuery.loading) setAuthenticating(false);
     if (meQuery?.data?.me) {
-      setUser(meQuery.data.me);
       setAuthenticated(true);
+      setUser(meQuery.data.me);
     }
   }, [meQuery]);
+
+  console.log(meQuery);
 
   const [tokenCreate, tokenCreateResult] = useTokenCreateMutation({
     client: apolloClient,
   });
 
   useEffect(() => {
-    if (tokenCreateResult.data?.tokenCreate) {
+    if (tokenCreateResult.data?.tokenCreate?.token) {
       setToken(tokenCreateResult.data.tokenCreate.token);
-      setAuthenticated(true);
-    }
-    if (tokenCreateResult.data?.tokenCreate?.user) {
-      setUser(tokenCreateResult.data.tokenCreate.user);
+      document.location.reload();
     }
   }, [tokenCreateResult]);
+
+  useEffect(() => {
+    if (authenticated) apolloClient.resetStore();
+  }, [authenticated]);
 
   const handleLogin = async (email: string, password: string) => {
     try {
@@ -65,8 +63,8 @@ export function useAuthProvider({ apolloClient }) {
     login: handleLogin,
     logout: handleLogout,
     authenticated: !!(authenticated && user),
-    authenticating: (authenticating && !error) || meQuery.loading,
-    loading: tokenCreateResult.loading,
+    authenticating: (meQuery.loading || authenticating) && !authenticated,
+    loading: tokenCreateResult.loading || meQuery.loading,
     user,
     error,
   };

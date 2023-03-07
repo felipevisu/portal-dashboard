@@ -1,5 +1,8 @@
 import React from "react";
 
+import EditAttributesIcon from "@mui/icons-material/EditAttributes";
+import LanguageIcon from "@mui/icons-material/Language";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import PublicIcon from "@mui/icons-material/Public";
 import UsbIcon from "@mui/icons-material/Usb";
 
@@ -25,6 +28,26 @@ export const createConfigurationMenu = (): SettingsItem[] => {
         "Crie um canal para cada público do seu site e organize seu conteúdo.",
       url: "/channels",
       icon: <PublicIcon fontSize="large" />,
+    },
+    {
+      title: "Atributos",
+      description:
+        "Crie campos personalizados para seus veículos, fornecedores e documentos.",
+      url: "/attributes",
+      icon: <EditAttributesIcon fontSize="large" />,
+    },
+    {
+      title: "Equipe",
+      description:
+        "Adicione mais membros da sua equipe para gerênciar a plataforma",
+      url: "/team",
+      icon: <PeopleAltIcon fontSize="large" />,
+    },
+    {
+      title: "Site",
+      description: "Edite as configurações e aparência do seu site.",
+      url: "/site",
+      icon: <LanguageIcon fontSize="large" />,
     },
   ];
 };
