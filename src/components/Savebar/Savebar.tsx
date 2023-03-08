@@ -18,9 +18,9 @@ export const Savebar = ({
   onDelete,
   loading,
 }: SavebarProps) => {
-  const anchor = useSavebar();
+  const [anchor] = useSavebar();
 
-  if (!anchor.current) {
+  if (!anchor?.current) {
     return null;
   }
 

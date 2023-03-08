@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 
-export type SavebarContextType = React.RefObject<HTMLDivElement>;
+export type SavebarContextType = [
+  React.RefObject<HTMLDivElement>,
+  React.Dispatch<React.SetStateAction<React.RefObject<HTMLDivElement>>>
+];
 
 export const SavebarContext = React.createContext<
   SavebarContextType | undefined
@@ -17,9 +20,13 @@ export const useSavebar = () => {
 };
 
 export const SavebarProvider: React.FC = ({ children }) => {
-  const anchor = React.useRef<HTMLDivElement | null>(null);
+  const [anchor, setAnchor] = useState<React.RefObject<HTMLDivElement> | null>(
+    null
+  );
 
   return (
-    <SavebarContext.Provider value={anchor}>{children}</SavebarContext.Provider>
+    <SavebarContext.Provider value={[anchor, setAnchor]}>
+      {children}
+    </SavebarContext.Provider>
   );
 };

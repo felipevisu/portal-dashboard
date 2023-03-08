@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { ToastContainer } from "react-toastify";
 
 import { useBacklink } from "../Backlink/context";
@@ -9,8 +9,15 @@ import { UserMenu } from "../UserMenu";
 import { Content, Footer, Header, Lateral, Main, Wrapper } from "./styles";
 
 export const AppLayout = ({ children }: { children: React.ReactNode }) => {
-  const appHeaderAnchor = useBacklink();
-  const appFooterAnchor = useSavebar();
+  const [, setBackLinkAnchor] = useBacklink();
+  const [, setAppFooterAnchor] = useSavebar();
+  const backLinkRef = useRef();
+  const appFooterAnchor = useRef();
+
+  useEffect(() => {
+    setBackLinkAnchor(backLinkRef);
+    setAppFooterAnchor(appFooterAnchor);
+  }, []);
 
   return (
     <Wrapper>
@@ -20,7 +27,7 @@ export const AppLayout = ({ children }: { children: React.ReactNode }) => {
       </Lateral>
       <Content maxWidth="xl">
         <Header>
-          <div ref={appHeaderAnchor} />
+          <div ref={backLinkRef} />
           <UserMenu />
         </Header>
         <Main>{children}</Main>

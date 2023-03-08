@@ -1,6 +1,9 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useState } from "react";
 
-export type BacklinkContextType = React.RefObject<HTMLDivElement>;
+export type BacklinkContextType = [
+  React.RefObject<HTMLDivElement>,
+  React.Dispatch<React.SetStateAction<React.RefObject<HTMLDivElement>>>
+];
 
 export const BacklinkContext = React.createContext<
   BacklinkContextType | undefined
@@ -17,10 +20,12 @@ export const useBacklink = () => {
 };
 
 export const BacklinkProvider: React.FC = ({ children }) => {
-  const anchor = useRef<HTMLDivElement | null>(null);
+  const [anchor, setAnchor] = useState<React.RefObject<HTMLDivElement> | null>(
+    null
+  );
 
   return (
-    <BacklinkContext.Provider value={anchor}>
+    <BacklinkContext.Provider value={[anchor, setAnchor]}>
       {children}
     </BacklinkContext.Provider>
   );

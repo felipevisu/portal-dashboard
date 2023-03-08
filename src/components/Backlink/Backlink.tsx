@@ -21,9 +21,9 @@ export const BacklinkComponent = <T extends React.ElementType>({
   onClick,
   ...props
 }: BacklinkProps<T>) => {
-  const anchor = useBacklink();
+  const [anchor] = useBacklink();
 
-  if (!anchor.current) {
+  if (!anchor?.current) {
     return null;
   }
 
