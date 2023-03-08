@@ -464,7 +464,11 @@ type InvestmentDelete {
 
 input InvestmentFilterInput {
   isPublished: Boolean
+
+  """"""
   month: Float
+
+  """"""
   year: Float
 }
 
@@ -602,6 +606,7 @@ type Mutation {
   itemUpdate(id: ID, input: ItemInput!): ItemUpdate
   passwordReset(email: String!, password: String!, token: String!): SetPassword
   pluginUpdate(channelId: ID, id: ID!, input: PluginUpdateInput!): PluginUpdate
+  requestNewDocument(id: ID!): RequestNewDocument
   requestPasswordReset(email: String!, redirectUrl: String!): RequestPasswordReset
 
   """Deletes sessions."""
@@ -796,6 +801,11 @@ type RefreshToken {
 
   """A user instance."""
   user: User
+}
+
+type RequestNewDocument {
+  errors: [Error!]!
+  success: Boolean
 }
 
 type RequestPasswordReset {

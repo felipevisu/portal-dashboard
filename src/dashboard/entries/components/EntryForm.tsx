@@ -38,7 +38,10 @@ interface EntryFormProps
 }
 
 export const EntryFormInfos = ({ errors, data, onChange }: EntryFormProps) => {
-  const formErrors = getFormErrors(["name", "slug", "documentNumber"], errors);
+  const formErrors = getFormErrors(
+    ["name", "slug", "documentNumber", "email"],
+    errors
+  );
   const { t } = useTranslation();
 
   return (
@@ -81,6 +84,19 @@ export const EntryFormInfos = ({ errors, data, onChange }: EntryFormProps) => {
             value={data.documentNumber}
             onChange={onChange}
             helperText={formErrors.documentNumber?.message}
+          />
+        </FormControl>
+        <FormSpacer />
+        <FormControl fullWidth>
+          <TextField
+            error={formErrors.email && true}
+            fullWidth
+            type="text"
+            name="email"
+            label={t("email")}
+            value={data.email}
+            onChange={onChange}
+            helperText={formErrors.email?.message}
           />
         </FormControl>
       </CardContent>

@@ -32,25 +32,12 @@ export const ContactInfosForm = <D,>({
   onChange,
 }: ContactInfosFormProps<D>) => {
   const { t } = useTranslation();
-  const formErrors = getFormErrors(["email", "phone", "address"], errors);
+  const formErrors = getFormErrors(["phone", "address"], errors);
 
   return (
     <Card sx={{ position: "relative", zIndex: 0 }}>
       <CardHeader title={t("contactInfo")} />
       <CardContent>
-        <FormControl fullWidth>
-          <TextField
-            error={formErrors.email && true}
-            fullWidth
-            type="text"
-            name="email"
-            label={t("email")}
-            value={data.email}
-            onChange={onChange}
-            helperText={formErrors.email?.message}
-          />
-        </FormControl>
-        <FormSpacer />
         <FormControl fullWidth>
           <TextField
             error={formErrors.phone && true}
