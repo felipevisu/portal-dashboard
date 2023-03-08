@@ -38,8 +38,12 @@ export const DocumentDetailsPage = ({
     description: document.description,
     isPublished: document.isPublished,
     expires: document.expires,
-    expirationDate: dayjs(document.defaultFile.expirationDate),
-    beginDate: dayjs(document.defaultFile.beginDate),
+    expirationDate: document.defaultFile.expirationDate
+      ? dayjs(document.defaultFile.expirationDate)
+      : null,
+    beginDate: document.defaultFile.beginDate
+      ? dayjs(document.defaultFile.beginDate)
+      : null,
   };
 
   const handleSubmit = (data: FormProps) => {

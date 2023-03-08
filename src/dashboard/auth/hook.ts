@@ -27,8 +27,6 @@ export function useAuthProvider({ apolloClient }) {
     }
   }, [meQuery]);
 
-  console.log(meQuery);
-
   const [tokenCreate, tokenCreateResult] = useTokenCreateMutation({
     client: apolloClient,
   });
