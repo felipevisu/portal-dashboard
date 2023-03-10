@@ -11,9 +11,13 @@ import DocumentDetailsPage from "@portal/dashboard/documents/components/Document
 import {
   DocumentInput,
   DocumentUpdateMutation,
+  useApproveDocumentFileMutation,
   useDocumentDeleteMutation,
   useDocumentDetailsQuery,
+  useDocumentFileDeleteMutation,
   useDocumentUpdateMutation,
+  useRefuseDocumentFileMutation,
+  useRestoreDocumentFileMutation,
 } from "@portal/graphql";
 import { useModal } from "@portal/hooks";
 
@@ -25,6 +29,10 @@ export const DocumentDetails = () => {
     variables: { id: documentId },
   });
   const { isOpen, openModal, closeModal } = useModal();
+
+  const link = window.location.pathname.includes("vehicle")
+    ? "vehicles"
+    : "providers";
 
   const handleUpdateDocument = (data: DocumentUpdateMutation) => {
     if (!data?.documentUpdate.errors.length) {
@@ -42,8 +50,26 @@ export const DocumentDetails = () => {
   };
 
   const [deleteDocument] = useDocumentDeleteMutation({
-    onCompleted: () => navigate(`/vehicles/details/${id}`),
+    onCompleted: () => navigate(`/${link}/details/${id}`),
   });
+
+  const [deleteDocumentFile] = useDocumentFileDeleteMutation();
+  const [restoreDocumentFile] = useRestoreDocumentFileMutation();
+  const [approveDocumentFile] = useApproveDocumentFileMutation();
+  const [refuseDocumentFile] = useRefuseDocumentFileMutation();
+
+  const actionMap = {
+    APPROVE: approveDocumentFile,
+    REFUSE: refuseDocumentFile,
+    DELETE: deleteDocumentFile,
+    RESTORE: restoreDocumentFile,
+  };
+
+  const handleDocumentFileAction = async (id: string, actionName: string) => {
+    const action = actionMap[actionName];
+    await action({ variables: { id } });
+    refetch();
+  };
 
   const handleDocumentDelete = async () => {
     await deleteDocument({
@@ -63,6 +89,7 @@ export const DocumentDetails = () => {
         onDelete={openModal}
         errors={updateDocumentResult.data?.documentUpdate.errors || []}
         loading={updateDocumentResult.loading}
+        onFileAction={handleDocumentFileAction}
       />
       <ActionDialog
         onClose={closeModal}

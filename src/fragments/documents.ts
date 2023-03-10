@@ -9,6 +9,7 @@ export const documentFragment = gql`
     expired
     expires
     defaultFile {
+      id
       beginDate
       expirationDate
     }
@@ -26,6 +27,7 @@ export const documentFileFragment = gql`
     created
     beginDate
     expirationDate
+    status
     file {
       url
     }

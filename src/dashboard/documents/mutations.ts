@@ -45,3 +45,43 @@ export const documentBulkDeleteMutation = gql`
     }
   }
 `;
+
+export const documentFileDeleteMutation = gql`
+  mutation DocumentFileDelete($id: ID!) {
+    documentFileDelete(id: $id) {
+      errors {
+        ...Error
+      }
+    }
+  }
+`;
+
+export const approveDocumentFileMutation = gql`
+  mutation ApproveDocumentFile($id: ID!) {
+    approveDocumentFile(id: $id) {
+      errors {
+        ...Error
+      }
+    }
+  }
+`;
+
+export const refuseDocumentFileMutation = gql`
+  mutation RefuseDocumentFile($id: ID!) {
+    refuseDocumentFile(id: $id) {
+      errors {
+        ...Error
+      }
+    }
+  }
+`;
+
+export const restoreDocumentFileMutation = gql`
+  mutation RestoreDocumentFile($id: ID!) {
+    restoreDocumentFile(id: $id) {
+      errors {
+        ...Error
+      }
+    }
+  }
+`;

@@ -1,3 +1,8 @@
+type ApproveDocumentFile {
+  documentFile: DocumentFile
+  errors: [Error!]!
+}
+
 type BulkItemError {
   """The error code."""
   code: String
@@ -257,7 +262,20 @@ type DocumentFile implements Node {
 
   """The ID of the object."""
   id: ID!
+  status: DocumentFileStatusEnum
   updated: DateTime
+}
+
+type DocumentFileDelete {
+  documentFile: DocumentFile
+  errors: [Error!]!
+}
+
+"""An enumeration."""
+enum DocumentFileStatusEnum {
+  APPROVED
+  REFUSED
+  WAITING
 }
 
 input DocumentFilterInput {
@@ -557,6 +575,8 @@ schema (one of the key benefits of GraphQL).
 scalar JSONString
 
 type Mutation {
+  approveDocumentFile(id: ID!): ApproveDocumentFile
+
   """Deletes categories."""
   categoryBulkDelete(
     """List of category IDs to delete."""
@@ -581,6 +601,7 @@ type Mutation {
   ): DocumentBulkDelete
   documentCreate(input: DocumentInput!): DocumentCreate
   documentDelete(id: ID): DocumentDelete
+  documentFileDelete(id: ID): DocumentFileDelete
   documentUpdate(id: ID, input: DocumentInput!): DocumentUpdate
 
   """Deletes entries."""
@@ -606,8 +627,10 @@ type Mutation {
   itemUpdate(id: ID, input: ItemInput!): ItemUpdate
   passwordReset(email: String!, password: String!, token: String!): SetPassword
   pluginUpdate(channelId: ID, id: ID!, input: PluginUpdateInput!): PluginUpdate
+  refuseDocumentFile(id: ID!): RefuseDocumentFile
   requestNewDocument(id: ID!): RequestNewDocument
   requestPasswordReset(email: String!, redirectUrl: String!): RequestPasswordReset
+  restoreDocumentFile(id: ID!): RestoreDocumentFile
 
   """Deletes sessions."""
   sessionBulkDelete(
@@ -648,6 +671,7 @@ type Mutation {
 
   """Deactivate all JWT tokens of the currently authenticated user."""
   tokensDeactivateAll: DeactivateAllUserTokens
+  validateToken(token: String!): ValidateDocumentToken
 }
 
 """An object with an ID"""
@@ -803,12 +827,22 @@ type RefreshToken {
   user: User
 }
 
+type RefuseDocumentFile {
+  documentFile: DocumentFile
+  errors: [Error!]!
+}
+
 type RequestNewDocument {
   errors: [Error!]!
   success: Boolean
 }
 
 type RequestPasswordReset {
+  errors: [Error!]!
+}
+
+type RestoreDocumentFile {
+  documentFile: DocumentFile
   errors: [Error!]!
 }
 
@@ -904,6 +938,11 @@ type User implements Node {
   isStaff: Boolean
   lastName: String
   permissions: [Permission]
+}
+
+type ValidateDocumentToken {
+  errors: [Error!]!
+  success: Boolean
 }
 
 """Verify JWT token."""

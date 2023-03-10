@@ -19,6 +19,7 @@ interface DocumentDetailsPageProps {
   onDelete: () => void;
   errors: ErrorFragment[];
   loading: boolean;
+  onFileAction: (id: string, actionName: string) => Promise<void>;
 }
 
 export const DocumentDetailsPage = ({
@@ -27,6 +28,7 @@ export const DocumentDetailsPage = ({
   onDelete,
   errors,
   loading,
+  onFileAction,
 }: DocumentDetailsPageProps) => {
   const { t } = useTranslation();
   const { id } = useParams();
@@ -88,6 +90,7 @@ export const DocumentDetailsPage = ({
                     files={document.files.filter(
                       (file) => file.id !== document.defaultFile.id
                     )}
+                    onFileAction={onFileAction}
                   />
                 )
               }

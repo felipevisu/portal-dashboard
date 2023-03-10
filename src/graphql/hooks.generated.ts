@@ -38,6 +38,7 @@ export const DocumentFragmentDoc = gql`
   expired
   expires
   defaultFile {
+    id
     beginDate
     expirationDate
   }
@@ -54,6 +55,7 @@ export const DocumentFileFragmentDoc = gql`
   created
   beginDate
   expirationDate
+  status
   file {
     url
   }
@@ -701,6 +703,146 @@ export function useDocumentBulkDeleteMutation(baseOptions?: Apollo.MutationHookO
 export type DocumentBulkDeleteMutationHookResult = ReturnType<typeof useDocumentBulkDeleteMutation>;
 export type DocumentBulkDeleteMutationResult = Apollo.MutationResult<Types.DocumentBulkDeleteMutation>;
 export type DocumentBulkDeleteMutationOptions = Apollo.BaseMutationOptions<Types.DocumentBulkDeleteMutation, Types.DocumentBulkDeleteMutationVariables>;
+export const DocumentFileDeleteDocument = gql`
+    mutation DocumentFileDelete($id: ID!) {
+  documentFileDelete(id: $id) {
+    errors {
+      ...Error
+    }
+  }
+}
+    ${ErrorFragmentDoc}`;
+export type DocumentFileDeleteMutationFn = Apollo.MutationFunction<Types.DocumentFileDeleteMutation, Types.DocumentFileDeleteMutationVariables>;
+
+/**
+ * __useDocumentFileDeleteMutation__
+ *
+ * To run a mutation, you first call `useDocumentFileDeleteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDocumentFileDeleteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [documentFileDeleteMutation, { data, loading, error }] = useDocumentFileDeleteMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDocumentFileDeleteMutation(baseOptions?: Apollo.MutationHookOptions<Types.DocumentFileDeleteMutation, Types.DocumentFileDeleteMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Types.DocumentFileDeleteMutation, Types.DocumentFileDeleteMutationVariables>(DocumentFileDeleteDocument, options);
+      }
+export type DocumentFileDeleteMutationHookResult = ReturnType<typeof useDocumentFileDeleteMutation>;
+export type DocumentFileDeleteMutationResult = Apollo.MutationResult<Types.DocumentFileDeleteMutation>;
+export type DocumentFileDeleteMutationOptions = Apollo.BaseMutationOptions<Types.DocumentFileDeleteMutation, Types.DocumentFileDeleteMutationVariables>;
+export const ApproveDocumentFileDocument = gql`
+    mutation ApproveDocumentFile($id: ID!) {
+  approveDocumentFile(id: $id) {
+    errors {
+      ...Error
+    }
+  }
+}
+    ${ErrorFragmentDoc}`;
+export type ApproveDocumentFileMutationFn = Apollo.MutationFunction<Types.ApproveDocumentFileMutation, Types.ApproveDocumentFileMutationVariables>;
+
+/**
+ * __useApproveDocumentFileMutation__
+ *
+ * To run a mutation, you first call `useApproveDocumentFileMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useApproveDocumentFileMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [approveDocumentFileMutation, { data, loading, error }] = useApproveDocumentFileMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useApproveDocumentFileMutation(baseOptions?: Apollo.MutationHookOptions<Types.ApproveDocumentFileMutation, Types.ApproveDocumentFileMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Types.ApproveDocumentFileMutation, Types.ApproveDocumentFileMutationVariables>(ApproveDocumentFileDocument, options);
+      }
+export type ApproveDocumentFileMutationHookResult = ReturnType<typeof useApproveDocumentFileMutation>;
+export type ApproveDocumentFileMutationResult = Apollo.MutationResult<Types.ApproveDocumentFileMutation>;
+export type ApproveDocumentFileMutationOptions = Apollo.BaseMutationOptions<Types.ApproveDocumentFileMutation, Types.ApproveDocumentFileMutationVariables>;
+export const RefuseDocumentFileDocument = gql`
+    mutation RefuseDocumentFile($id: ID!) {
+  refuseDocumentFile(id: $id) {
+    errors {
+      ...Error
+    }
+  }
+}
+    ${ErrorFragmentDoc}`;
+export type RefuseDocumentFileMutationFn = Apollo.MutationFunction<Types.RefuseDocumentFileMutation, Types.RefuseDocumentFileMutationVariables>;
+
+/**
+ * __useRefuseDocumentFileMutation__
+ *
+ * To run a mutation, you first call `useRefuseDocumentFileMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRefuseDocumentFileMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [refuseDocumentFileMutation, { data, loading, error }] = useRefuseDocumentFileMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useRefuseDocumentFileMutation(baseOptions?: Apollo.MutationHookOptions<Types.RefuseDocumentFileMutation, Types.RefuseDocumentFileMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Types.RefuseDocumentFileMutation, Types.RefuseDocumentFileMutationVariables>(RefuseDocumentFileDocument, options);
+      }
+export type RefuseDocumentFileMutationHookResult = ReturnType<typeof useRefuseDocumentFileMutation>;
+export type RefuseDocumentFileMutationResult = Apollo.MutationResult<Types.RefuseDocumentFileMutation>;
+export type RefuseDocumentFileMutationOptions = Apollo.BaseMutationOptions<Types.RefuseDocumentFileMutation, Types.RefuseDocumentFileMutationVariables>;
+export const RestoreDocumentFileDocument = gql`
+    mutation RestoreDocumentFile($id: ID!) {
+  restoreDocumentFile(id: $id) {
+    errors {
+      ...Error
+    }
+  }
+}
+    ${ErrorFragmentDoc}`;
+export type RestoreDocumentFileMutationFn = Apollo.MutationFunction<Types.RestoreDocumentFileMutation, Types.RestoreDocumentFileMutationVariables>;
+
+/**
+ * __useRestoreDocumentFileMutation__
+ *
+ * To run a mutation, you first call `useRestoreDocumentFileMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRestoreDocumentFileMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [restoreDocumentFileMutation, { data, loading, error }] = useRestoreDocumentFileMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useRestoreDocumentFileMutation(baseOptions?: Apollo.MutationHookOptions<Types.RestoreDocumentFileMutation, Types.RestoreDocumentFileMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Types.RestoreDocumentFileMutation, Types.RestoreDocumentFileMutationVariables>(RestoreDocumentFileDocument, options);
+      }
+export type RestoreDocumentFileMutationHookResult = ReturnType<typeof useRestoreDocumentFileMutation>;
+export type RestoreDocumentFileMutationResult = Apollo.MutationResult<Types.RestoreDocumentFileMutation>;
+export type RestoreDocumentFileMutationOptions = Apollo.BaseMutationOptions<Types.RestoreDocumentFileMutation, Types.RestoreDocumentFileMutationVariables>;
 export const DocumentDetailsDocument = gql`
     query DocumentDetails($id: ID!) {
   document(id: $id) {

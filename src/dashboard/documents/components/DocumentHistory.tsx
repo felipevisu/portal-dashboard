@@ -3,8 +3,9 @@ import { useTranslation } from "react-i18next";
 
 import {
   Card,
-  CardContent,
   CardHeader,
+  Chip,
+  ChipProps,
   Link,
   Table,
   TableBody,
@@ -16,11 +17,29 @@ import TableCellHeader from "@portal/components/TableCell";
 import { DocumentFileFragment } from "@portal/graphql";
 import { formatDate } from "@portal/utils/date";
 
+import FileMenu from "./DocumentFileMenu";
+
 interface DocumentHistoryProps {
   files: DocumentFileFragment[];
+  onFileAction: (id: string, actionName: string) => Promise<void>;
 }
 
-export const DocumentHistory = ({ files }: DocumentHistoryProps) => {
+const variant: Record<string, ChipProps["color"]> = {
+  APPROVED: "default",
+  WAITING: "warning",
+  REFUSED: "error",
+};
+
+const label = {
+  APPROVED: "Finalizado",
+  WAITING: "Aguardando",
+  REFUSED: "Recusado",
+};
+
+export const DocumentHistory = ({
+  files,
+  onFileAction,
+}: DocumentHistoryProps) => {
   const { t } = useTranslation();
 
   if (!files.length) return null;
@@ -34,6 +53,8 @@ export const DocumentHistory = ({ files }: DocumentHistoryProps) => {
             <TableCellHeader>{t("file.title")}</TableCellHeader>
             <TableCellHeader>{t("created")}</TableCellHeader>
             <TableCellHeader>{t("expired")}</TableCellHeader>
+            <TableCellHeader>{t("status")}</TableCellHeader>
+            <TableCellHeader align="right">{t("actions")}</TableCellHeader>
           </TableRow>
         </TableHead>
         <TableBody
@@ -52,6 +73,16 @@ export const DocumentHistory = ({ files }: DocumentHistoryProps) => {
               </TableCell>
               <TableCell>{formatDate(file.created)}</TableCell>
               <TableCell>{formatDate(file.expirationDate)}</TableCell>
+              <TableCell>
+                <Chip
+                  label={label[file.status]}
+                  color={variant[file.status]}
+                  size="small"
+                />
+              </TableCell>
+              <TableCell align="right">
+                <FileMenu documentFile={file} onFileAction={onFileAction} />
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
