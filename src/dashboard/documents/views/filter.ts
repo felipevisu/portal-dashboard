@@ -21,6 +21,15 @@ export function getFilterOpts(): FilterOpts[] {
       type: "radio",
     },
     {
+      name: "Aguardando aprovação",
+      slug: "waiting",
+      choices: [
+        { value: "true", label: "Sim" },
+        { value: "false", label: "Não" },
+      ],
+      type: "radio",
+    },
+    {
       name: "Data de expiração",
       slug: "expirationDate",
       type: "daterange",
@@ -28,7 +37,7 @@ export function getFilterOpts(): FilterOpts[] {
     },
     {
       name: "Tipo",
-      slug: "owner",
+      slug: "type",
       choices: [
         { value: "VEHICLE", label: "Veículos de comunicação" },
         { value: "PROVIDER", label: "Prestadores de serviço" },

@@ -107,6 +107,7 @@ export type DocumentFilterInput = {
   isPublished?: InputMaybe<Scalars['Boolean']>;
   search?: InputMaybe<Scalars['String']>;
   type?: InputMaybe<EntryTypeEnum>;
+  waiting?: InputMaybe<Scalars['Boolean']>;
 };
 
 export type DocumentInput = {

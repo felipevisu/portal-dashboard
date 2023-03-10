@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import dayjs from "dayjs";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
@@ -19,6 +19,8 @@ interface DocumentDetailsPageProps {
   onDelete: () => void;
   errors: ErrorFragment[];
   loading: boolean;
+  file?: File;
+  setFile: (file: File) => void;
   onFileAction: (id: string, actionName: string) => Promise<void>;
 }
 
@@ -26,6 +28,8 @@ export const DocumentDetailsPage = ({
   document,
   onSubmit,
   onDelete,
+  file,
+  setFile,
   errors,
   loading,
   onFileAction,
@@ -33,7 +37,6 @@ export const DocumentDetailsPage = ({
   const { t } = useTranslation();
   const { id } = useParams();
   const navigate = useNavigate();
-  const [file, setFile] = useState(null);
 
   const initialData: FormProps = {
     name: document.name,
@@ -52,7 +55,6 @@ export const DocumentDetailsPage = ({
     const submitData = generateSubmitData(data);
     if (file) submitData.file = file;
     onSubmit({ ...submitData, entry: id });
-    setFile(null);
   };
 
   const link = window.location.pathname.includes("vehicle")

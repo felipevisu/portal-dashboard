@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -14,6 +14,7 @@ export const DocumentCreate = () => {
   const { id } = useParams();
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const [file, setFile] = useState<File | null>(null);
 
   const link = window.location.pathname.includes("vehicle")
     ? "vehicles"
@@ -44,6 +45,8 @@ export const DocumentCreate = () => {
       onSubmit={handleSubmit}
       errors={createDocumentResult.data?.documentCreate.errors || []}
       loading={createDocumentResult.loading}
+      file={file}
+      setFile={setFile}
     />
   );
 };

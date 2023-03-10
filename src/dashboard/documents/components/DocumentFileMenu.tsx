@@ -36,12 +36,12 @@ export default function FileMenu({
   return (
     <React.Fragment>
       <Box>
-        <Tooltip title="Account settings">
+        <Tooltip title="Ações">
           <IconButton
             onClick={handleClick}
             size="small"
             sx={{ ml: 2 }}
-            aria-controls={open ? "account-menu" : undefined}
+            aria-controls={open ? "file-menu" : undefined}
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
           >
@@ -50,8 +50,8 @@ export default function FileMenu({
         </Tooltip>
       </Box>
       <Menu
-        id="demo-positioned-menu"
-        aria-labelledby="demo-positioned-button"
+        id="file-positioned-menu"
+        aria-labelledby="file-positioned-button"
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}

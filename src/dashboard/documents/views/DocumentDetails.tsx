@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -11,15 +11,13 @@ import DocumentDetailsPage from "@portal/dashboard/documents/components/Document
 import {
   DocumentInput,
   DocumentUpdateMutation,
-  useApproveDocumentFileMutation,
   useDocumentDeleteMutation,
   useDocumentDetailsQuery,
-  useDocumentFileDeleteMutation,
   useDocumentUpdateMutation,
-  useRefuseDocumentFileMutation,
-  useRestoreDocumentFileMutation,
 } from "@portal/graphql";
 import { useModal } from "@portal/hooks";
+
+import { useDocumentActions } from "./hooks";
 
 export const DocumentDetails = () => {
   const { id, documentId } = useParams();
@@ -29,6 +27,7 @@ export const DocumentDetails = () => {
     variables: { id: documentId },
   });
   const { isOpen, openModal, closeModal } = useModal();
+  const [file, setFile] = useState<File | null>(null);
 
   const link = window.location.pathname.includes("vehicle")
     ? "vehicles"
@@ -37,6 +36,8 @@ export const DocumentDetails = () => {
   const handleUpdateDocument = (data: DocumentUpdateMutation) => {
     if (!data?.documentUpdate.errors.length) {
       toast(t("messages.update.success"), { type: toast.TYPE.SUCCESS });
+      setFile(null);
+      refetch();
     }
   };
 
@@ -46,30 +47,13 @@ export const DocumentDetails = () => {
 
   const handleSubmit = async (data: DocumentInput) => {
     await updateDocument({ variables: { id: documentId, input: data } });
-    refetch();
   };
 
   const [deleteDocument] = useDocumentDeleteMutation({
     onCompleted: () => navigate(`/${link}/details/${id}`),
   });
 
-  const [deleteDocumentFile] = useDocumentFileDeleteMutation();
-  const [restoreDocumentFile] = useRestoreDocumentFileMutation();
-  const [approveDocumentFile] = useApproveDocumentFileMutation();
-  const [refuseDocumentFile] = useRefuseDocumentFileMutation();
-
-  const actionMap = {
-    APPROVE: approveDocumentFile,
-    REFUSE: refuseDocumentFile,
-    DELETE: deleteDocumentFile,
-    RESTORE: restoreDocumentFile,
-  };
-
-  const handleDocumentFileAction = async (id: string, actionName: string) => {
-    const action = actionMap[actionName];
-    await action({ variables: { id } });
-    refetch();
-  };
+  const { handleAction } = useDocumentActions({ callback: refetch });
 
   const handleDocumentDelete = async () => {
     await deleteDocument({
@@ -86,10 +70,12 @@ export const DocumentDetails = () => {
       <DocumentDetailsPage
         document={data.document}
         onSubmit={handleSubmit}
+        file={file}
+        setFile={setFile}
         onDelete={openModal}
         errors={updateDocumentResult.data?.documentUpdate.errors || []}
         loading={updateDocumentResult.loading}
-        onFileAction={handleDocumentFileAction}
+        onFileAction={handleAction}
       />
       <ActionDialog
         onClose={closeModal}

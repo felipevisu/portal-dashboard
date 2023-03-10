@@ -49,8 +49,8 @@ export const DocumentList = ({
               {t("name")}
             </TableCellHeader>
             <TableCellHeader>{t("visibility")}</TableCellHeader>
-            <TableCellHeader>{t("status")}</TableCellHeader>
-            <TableCellHeader>{t("uploadDate")}</TableCellHeader>
+            <TableCellHeader>{t("created")}</TableCellHeader>
+            <TableCellHeader>{t("expiresIn")}</TableCellHeader>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -61,19 +61,12 @@ export const DocumentList = ({
               href={`documents/${document.id}/details`}
             >
               <TableCell sx={{ paddingLeft: 3 }}>{document.name}</TableCell>
-              <TableCellWithStatus
-                status={document.isPublished}
-                labels={{
-                  published: t("published"),
-                  unPublished: t("unpublished"),
-                }}
-              />
-              <TableCellWithStatus
-                status={!document.expired}
-                labels={{ published: t("active"), unPublished: t("expired") }}
-              />
-              <TableCell sx={{ width: "150px" }}>
-                {formatDate(document.created)}
+              <TableCellWithStatus status={document.isPublished} />
+              <TableCell>{formatDate(document.created)}</TableCell>
+              <TableCell sx={{ color: document.expired ? "error.main" : "" }}>
+                {document.defaultFile.expirationDate
+                  ? formatDate(document.defaultFile.expirationDate)
+                  : "Não expirável"}
               </TableCell>
             </TableRowLink>
           ))}

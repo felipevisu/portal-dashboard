@@ -15,17 +15,20 @@ interface DocumentCreatePageProps {
   onSubmit: (data) => Promise<void>;
   errors: ErrorFragment[];
   loading: boolean;
+  file?: File;
+  setFile: (file: File) => void;
 }
 
 export const DocumentCreatePage = ({
   onSubmit,
   errors,
   loading,
+  file,
+  setFile,
 }: DocumentCreatePageProps) => {
   const { t } = useTranslation();
   const { id } = useParams();
   const navigate = useNavigate();
-  const [file, setFile] = useState(null);
 
   const initialData: FormProps = {
     name: "",

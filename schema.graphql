@@ -285,6 +285,7 @@ input DocumentFilterInput {
   isPublished: Boolean
   search: String
   type: EntryTypeEnum
+  waiting: Boolean
 }
 
 input DocumentInput {

@@ -1,14 +1,16 @@
-import React, { useMemo, useRef } from "react";
+import React, { useRef } from "react";
 import { useTranslation } from "react-i18next";
 
-import { FileUpload } from "@mui/icons-material";
+import { FileUpload, Loop } from "@mui/icons-material";
 import {
   Box,
   Button,
   Card,
   CardContent,
   CardHeader,
+  Divider,
   Link,
+  Stack,
   Typography,
 } from "@mui/material";
 
@@ -32,12 +34,6 @@ export const DocumentFile = ({
     fileRef.current.click();
   };
 
-  const documentName = useMemo(() => {
-    if (file) return file.name;
-    if (fileName) return fileName.split("/").reverse()[0];
-    return null;
-  }, [fileName, file]);
-
   return (
     <Card>
       <CardHeader
@@ -46,18 +42,18 @@ export const DocumentFile = ({
       />
       <CardContent>
         <input type="file" ref={fileRef} onChange={onChange} hidden />
-        {documentName ? (
-          <Box>
-            {fileUrl ? (
+        {file || fileName ? (
+          <Stack direction="row" spacing={1}>
+            {fileName && (
               <Typography>
                 <Link href={fileUrl} target="_blank" rel="noreferrer">
-                  {documentName}
+                  {fileName.split("/").reverse()[0]}
                 </Link>
               </Typography>
-            ) : (
-              <Typography>{documentName}</Typography>
             )}
-          </Box>
+            {fileName && file && <Loop />}
+            {file && <Typography color="primary">{file.name}</Typography>}
+          </Stack>
         ) : (
           <Box
             onClick={handleClick}
