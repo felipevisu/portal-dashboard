@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import dayjs from "dayjs";
 import { useSearchParams } from "react-router-dom";
 
 import { Paper } from "@mui/material";
@@ -27,15 +28,16 @@ export const FilterContent = ({ filterOpts }: FilterContentProps) => {
       if (filter.type === "daterange") {
         const gte = searchParams.get(filter.slug + "_Gte");
         const lte = searchParams.get(filter.slug + "_Lte");
-        if (gte || lte) {
-          filters[filter.slug] = { Gte: gte, Lte: lte };
-        }
+        let value = {};
+        if (gte) value = { Gte: dayjs(gte) };
+        if (lte) value = { ...value, Lte: dayjs(lte) };
+        filters[filter.slug] = value;
       }
     }
     setApplyedFilters(filters);
   }, [filterOpts]);
 
-  const handleClick = ({ name, value }) => {
+  const handleChange = ({ name, value }) => {
     setApplyedFilters({
       ...applyedFilters,
       [name]: value,
@@ -52,10 +54,8 @@ export const FilterContent = ({ filterOpts }: FilterContentProps) => {
           params[slug] = value;
         }
         if (filter.type === "daterange") {
-          const gte = value.Gte;
-          const lte = value.Lte;
-          if (gte) params[slug + "_Gte"] = gte.toISOString().split("T")[0];
-          if (lte) params[slug + "_Lte"] = lte.toISOString().split("T")[0];
+          if (value.Lte) params[slug + "_Lte"] = value.Lte.format("YYYY-MM-DD");
+          if (value.Gte) params[slug + "_Gte"] = value.Gte.format("YYYY-MM-DD");
         }
       }
     }
@@ -80,7 +80,7 @@ export const FilterContent = ({ filterOpts }: FilterContentProps) => {
         <FilterItem
           key={filter.slug}
           filter={filter}
-          onClick={handleClick}
+          onChange={handleChange}
           value={applyedFilters[filter.slug]}
         />
       ))}

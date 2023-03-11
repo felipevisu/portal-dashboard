@@ -85,3 +85,13 @@ export const restoreDocumentFileMutation = gql`
     }
   }
 `;
+
+export const requestNewDocumentMutation = gql`
+  mutation RequestNewDocument($id: ID!) {
+    requestNewDocument(id: $id) {
+      errors {
+        ...Error
+      }
+    }
+  }
+`;

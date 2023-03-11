@@ -14,6 +14,7 @@ import {
   useDocumentDeleteMutation,
   useDocumentDetailsQuery,
   useDocumentUpdateMutation,
+  useRequestNewDocumentMutation,
 } from "@portal/graphql";
 import { useModal } from "@portal/hooks";
 
@@ -26,7 +27,8 @@ export const DocumentDetails = () => {
   const { data, loading, refetch } = useDocumentDetailsQuery({
     variables: { id: documentId },
   });
-  const { isOpen, openModal, closeModal } = useModal();
+  const deleteModal = useModal();
+  const requestModal = useModal();
   const [file, setFile] = useState<File | null>(null);
 
   const link = window.location.pathname.includes("vehicle")
@@ -53,10 +55,29 @@ export const DocumentDetails = () => {
     onCompleted: () => navigate(`/${link}/details/${id}`),
   });
 
+  const [requestNewDocument, requestNewDocumentResult] =
+    useRequestNewDocumentMutation({
+      onCompleted: (data) => {
+        if (!data?.requestNewDocument.errors.length) {
+          toast(t("document.requestDialog.success"), {
+            type: toast.TYPE.SUCCESS,
+          });
+          refetch();
+          requestModal.closeModal();
+        }
+      },
+    });
+
   const { handleAction } = useDocumentActions({ callback: refetch });
 
   const handleDocumentDelete = async () => {
     await deleteDocument({
+      variables: { id: documentId },
+    });
+  };
+
+  const handleRequestNewDocument = async () => {
+    await requestNewDocument({
       variables: { id: documentId },
     });
   };
@@ -72,23 +93,36 @@ export const DocumentDetails = () => {
         onSubmit={handleSubmit}
         file={file}
         setFile={setFile}
-        onDelete={openModal}
+        onDelete={deleteModal.openModal}
+        onRequest={requestModal.openModal}
         errors={updateDocumentResult.data?.documentUpdate.errors || []}
         loading={updateDocumentResult.loading}
         onFileAction={handleAction}
       />
       <ActionDialog
-        onClose={closeModal}
+        onClose={deleteModal.closeModal}
         onConfirm={handleDocumentDelete}
-        open={isOpen}
-        title="Excluir documento"
+        open={deleteModal.isOpen}
+        title={t("document.deleteDialog.title")}
         variant="delete"
       >
         <DialogContentText>
-          Tem certeza que deseja excluir o documento{" "}
-          <b>{data?.document?.name}</b>
-          <br />
-          Lembre-se esta ação não é reversível
+          {t("document.deleteDialog.description", {
+            name: data.document.name,
+          })}
+        </DialogContentText>
+      </ActionDialog>
+      <ActionDialog
+        onClose={requestModal.closeModal}
+        onConfirm={handleRequestNewDocument}
+        open={requestModal.isOpen}
+        title={t("document.requestDialog.title")}
+        loading={requestNewDocumentResult.loading}
+      >
+        <DialogContentText>
+          {t("document.requestDialog.description", {
+            entry: data.document.entry.name,
+          })}
         </DialogContentText>
       </ActionDialog>
     </>

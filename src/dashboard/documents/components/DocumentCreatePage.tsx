@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -6,13 +6,13 @@ import { Backlink } from "@portal/components/Backlink";
 import { Form } from "@portal/components/Form";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
-import { ErrorFragment } from "@portal/graphql";
+import { DocumentInput, ErrorFragment } from "@portal/graphql";
 
 import DocumentFile from "./DocumentFile";
 import DocumentForm, { FormProps, generateSubmitData } from "./DocumentForm";
 
 interface DocumentCreatePageProps {
-  onSubmit: (data) => Promise<void>;
+  onSubmit: (data: DocumentInput) => Promise<void>;
   errors: ErrorFragment[];
   loading: boolean;
   file?: File;
@@ -41,7 +41,8 @@ export const DocumentCreatePage = ({
 
   const handleSubmit = (data: FormProps) => {
     const submitData = generateSubmitData(data);
-    onSubmit({ ...submitData, entry: id, file: file });
+    if (file) submitData.file = file;
+    onSubmit({ ...submitData, entry: id });
   };
 
   const link = window.location.pathname.includes("vehicle")

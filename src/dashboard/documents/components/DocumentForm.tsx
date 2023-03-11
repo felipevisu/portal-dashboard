@@ -4,15 +4,18 @@ import { useTranslation } from "react-i18next";
 
 import {
   Card,
+  CardActions,
   CardContent,
   CardHeader,
   FormControl,
   Grid,
   TextField,
+  Typography,
 } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { Button } from "@portal/components/Button";
 import ControlledCheckbox from "@portal/components/ControlledCheckbox";
 import FormSpacer from "@portal/components/FormSpacer";
 import { DocumentInput, ErrorFragment } from "@portal/graphql";
@@ -35,6 +38,7 @@ interface DocumentFormProps {
   fileUpload: React.ReactNode;
   fileHistory?: React.ReactNode;
   onChange: (e: ChangeEvent) => void;
+  onRequest?: () => void;
 }
 
 export const generateSubmitData = (data: FormProps) => {
@@ -57,6 +61,7 @@ export const DocumentForm = ({
   onChange,
   fileUpload,
   fileHistory,
+  onRequest,
 }: DocumentFormProps) => {
   const formErrors = getFormErrors(
     ["name", "description", "beginDate", "expirationDate"],
@@ -101,6 +106,19 @@ export const DocumentForm = ({
         {fileHistory}
       </Grid>
       <Grid item xs={4}>
+        {onRequest && (
+          <Card sx={{ marginBottom: 2 }}>
+            <CardHeader title={t("document.requestCard.title")} />
+            <CardContent>
+              <Typography>{t("document.requestCard.description")}</Typography>
+            </CardContent>
+            <CardActions>
+              <Button onClick={onRequest} variant="contained" fullWidth>
+                {t("document.requestCard.button")}
+              </Button>
+            </CardActions>
+          </Card>
+        )}
         <Card>
           <CardHeader title="Status e publicação" />
           <CardContent>

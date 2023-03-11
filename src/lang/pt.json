@@ -39,7 +39,25 @@
 		"title": "Documento",
 		"plural": "Documentos",
 		"create": "Adicionar documento",
-		"delete": "Excluir documento"
+		"delete": "Excluir documento",
+		"deleteDialog": {
+			"title": "Excluir documento",
+			"description": "Deseja mesmo excluir o documento {{ name }}? Lembre-se esta ação não é reversível."
+		},
+		"deleteDialogList": {
+			"title": "Excluir documentos",
+			"description": "Deseja mesmo excluir estes documentos? Lembre-se esta ação não é reversível."
+		},
+		"requestDialog": {
+			"title": "Solicitar novo arquivo",
+			"description": "Um email solicitando o novo arquivo será enviado para {{entry}}.",
+			"success": "Arquivo solicitado com sucesso"
+		},
+		"requestCard": {
+			"title": "Novo arquivo",
+			"description": "Solicite um novo arquivo ao fornecedor.",
+			"button": "Solicite agora"
+		}
 	},
 	"documentNumber": "CNPJ/CPF",
 	"email": "Email",

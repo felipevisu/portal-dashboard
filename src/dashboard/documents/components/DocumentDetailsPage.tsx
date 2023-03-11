@@ -7,7 +7,11 @@ import { Backlink } from "@portal/components/Backlink";
 import { Form } from "@portal/components/Form";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
-import { DocumentDetailsFragment, ErrorFragment } from "@portal/graphql";
+import {
+  DocumentDetailsFragment,
+  DocumentInput,
+  ErrorFragment,
+} from "@portal/graphql";
 
 import DocumentFile from "./DocumentFile";
 import DocumentForm, { FormProps, generateSubmitData } from "./DocumentForm";
@@ -15,8 +19,9 @@ import DocumentHistory from "./DocumentHistory";
 
 interface DocumentDetailsPageProps {
   document: DocumentDetailsFragment;
-  onSubmit: (data) => Promise<void>;
+  onSubmit: (data: DocumentInput) => Promise<void>;
   onDelete: () => void;
+  onRequest: () => void;
   errors: ErrorFragment[];
   loading: boolean;
   file?: File;
@@ -28,6 +33,7 @@ export const DocumentDetailsPage = ({
   document,
   onSubmit,
   onDelete,
+  onRequest,
   file,
   setFile,
   errors,
@@ -43,11 +49,11 @@ export const DocumentDetailsPage = ({
     description: document.description,
     isPublished: document.isPublished,
     expires: document.expires,
-    expirationDate: document.defaultFile.expirationDate
+    expirationDate: document.defaultFile?.expirationDate
       ? dayjs(document.defaultFile.expirationDate)
       : null,
-    beginDate: document.defaultFile.beginDate
-      ? dayjs(document.defaultFile.beginDate)
+    beginDate: document.defaultFile?.beginDate
+      ? dayjs(document.defaultFile?.beginDate)
       : null,
   };
 
@@ -74,13 +80,14 @@ export const DocumentDetailsPage = ({
             <DocumentForm
               errors={errors}
               onChange={change}
+              onRequest={onRequest}
               data={data}
               expires={false}
               fileUpload={
                 <DocumentFile
                   file={file}
-                  fileName={document.defaultFile?.file.url}
-                  fileUrl={document.defaultFile?.file.url}
+                  fileName={document.defaultFile?.file?.url || ""}
+                  fileUrl={document.defaultFile?.file?.url || ""}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     setFile(e.target.files[0])
                   }
@@ -90,7 +97,7 @@ export const DocumentDetailsPage = ({
                 document.expires && (
                   <DocumentHistory
                     files={document.files.filter(
-                      (file) => file.id !== document.defaultFile.id
+                      (file) => file.id !== document.defaultFile?.id
                     )}
                     onFileAction={onFileAction}
                   />

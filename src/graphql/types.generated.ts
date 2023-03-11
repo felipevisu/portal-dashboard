@@ -403,6 +403,13 @@ export type RestoreDocumentFileMutationVariables = Exact<{
 
 export type RestoreDocumentFileMutation = { __typename: 'Mutation', restoreDocumentFile: { __typename: 'RestoreDocumentFile', errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
 
+export type RequestNewDocumentMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type RequestNewDocumentMutation = { __typename: 'Mutation', requestNewDocument: { __typename: 'RequestNewDocument', errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+
 export type DocumentDetailsQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;

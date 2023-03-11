@@ -85,13 +85,11 @@ export const DocumentList = () => {
           documentBulkDelete({ variables: { ids: listElements } })
         }
         open={isOpen}
-        title={t("document.delete")}
+        title={t("document.deleteDialogList.title")}
         variant="delete"
       >
         <DialogContentText>
-          Tem certeza que deseja excluir {listElements.length} documentos?
-          <br />
-          Lembre-se esta ação não é reversível
+          {t("document.deleteDialogList.description")}
         </DialogContentText>
       </ActionDialog>
     </>

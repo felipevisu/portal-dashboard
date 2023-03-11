@@ -1,10 +1,10 @@
 import React, { ReactNode } from "react";
 
-import { Button } from "@mui/material";
+import { LoadingButton } from "@mui/lab";
 
 export interface ConfirmButtonProps {
   onClick: () => void;
-  disabled: boolean;
+  loading: boolean;
   transitionState?: string;
   error?: boolean;
   children: ReactNode;
@@ -14,15 +14,17 @@ export const ConfirmButton: React.FC<ConfirmButtonProps> = ({
   onClick,
   children,
   error,
+  loading,
 }) => {
   return (
-    <Button
+    <LoadingButton
       onClick={onClick}
       color={error ? "error" : "primary"}
       variant="contained"
+      loading={loading}
     >
       {children}
-    </Button>
+    </LoadingButton>
   );
 };
 ConfirmButton.displayName = "ConfirmButton";

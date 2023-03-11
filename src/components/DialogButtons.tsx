@@ -17,7 +17,8 @@ interface DialogButtonsProps {
   variant?: ActionDialogVariant;
   children?: React.ReactNode;
   showBackButton?: boolean;
-  onConfirm();
+  onConfirm: () => void;
+  loading: boolean;
 }
 
 const DialogButtons: React.FC<DialogButtonsProps> = (props) => {
@@ -25,12 +26,12 @@ const DialogButtons: React.FC<DialogButtonsProps> = (props) => {
   const {
     confirmButtonLabel,
     confirmButtonState,
-    disabled,
     variant,
     onConfirm,
     onClose,
     children,
     showBackButton = true,
+    loading = false,
   } = props;
 
   return (
@@ -39,7 +40,7 @@ const DialogButtons: React.FC<DialogButtonsProps> = (props) => {
       {showBackButton && <BackButton onClick={onClose} />}
       {variant !== "info" && (
         <ConfirmButton
-          disabled={disabled}
+          loading={loading}
           transitionState={confirmButtonState}
           onClick={onConfirm}
           error={variant === "delete"}

@@ -843,6 +843,41 @@ export function useRestoreDocumentFileMutation(baseOptions?: Apollo.MutationHook
 export type RestoreDocumentFileMutationHookResult = ReturnType<typeof useRestoreDocumentFileMutation>;
 export type RestoreDocumentFileMutationResult = Apollo.MutationResult<Types.RestoreDocumentFileMutation>;
 export type RestoreDocumentFileMutationOptions = Apollo.BaseMutationOptions<Types.RestoreDocumentFileMutation, Types.RestoreDocumentFileMutationVariables>;
+export const RequestNewDocumentDocument = gql`
+    mutation RequestNewDocument($id: ID!) {
+  requestNewDocument(id: $id) {
+    errors {
+      ...Error
+    }
+  }
+}
+    ${ErrorFragmentDoc}`;
+export type RequestNewDocumentMutationFn = Apollo.MutationFunction<Types.RequestNewDocumentMutation, Types.RequestNewDocumentMutationVariables>;
+
+/**
+ * __useRequestNewDocumentMutation__
+ *
+ * To run a mutation, you first call `useRequestNewDocumentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRequestNewDocumentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [requestNewDocumentMutation, { data, loading, error }] = useRequestNewDocumentMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useRequestNewDocumentMutation(baseOptions?: Apollo.MutationHookOptions<Types.RequestNewDocumentMutation, Types.RequestNewDocumentMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Types.RequestNewDocumentMutation, Types.RequestNewDocumentMutationVariables>(RequestNewDocumentDocument, options);
+      }
+export type RequestNewDocumentMutationHookResult = ReturnType<typeof useRequestNewDocumentMutation>;
+export type RequestNewDocumentMutationResult = Apollo.MutationResult<Types.RequestNewDocumentMutation>;
+export type RequestNewDocumentMutationOptions = Apollo.BaseMutationOptions<Types.RequestNewDocumentMutation, Types.RequestNewDocumentMutationVariables>;
 export const DocumentDetailsDocument = gql`
     query DocumentDetails($id: ID!) {
   document(id: $id) {

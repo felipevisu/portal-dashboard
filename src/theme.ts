@@ -50,6 +50,13 @@ const theme = createTheme({
         },
       },
     },
+    MuiCardActions: {
+      styleOverrides: {
+        root: {
+          padding: "0 16px 16px",
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: {

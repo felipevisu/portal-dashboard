@@ -12,7 +12,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import FormSpacer from "@portal/components/FormSpacer";
@@ -20,11 +20,11 @@ import { FilterOpts } from "@portal/types";
 
 interface FilterItemProps {
   filter: FilterOpts;
-  onClick: ({ name, value }) => void;
+  onChange: ({ name, value }) => void;
   value: any;
 }
 
-const FilterItem = ({ filter, onClick, value }: FilterItemProps) => {
+const FilterItem = ({ filter, onChange, value }: FilterItemProps) => {
   return (
     <Accordion disableGutters>
       <AccordionSummary
@@ -46,22 +46,22 @@ const FilterItem = ({ filter, onClick, value }: FilterItemProps) => {
                 control={<Radio />}
                 label={choice.label}
                 onClick={() =>
-                  onClick({ name: filter.slug, value: choice.value })
+                  onChange({ name: filter.slug, value: choice.value })
                 }
               />
             ))}
           </RadioGroup>
         )}
         {filter.type === "daterange" && (
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
             <FormSpacer />
             <FormControl fullWidth>
               <DatePicker
-                inputFormat="dd/MM/yyyy"
+                inputFormat="DD/MM/YYYY"
                 value={value?.Gte || ""}
                 label="De"
-                onChange={(val: Date) => {
-                  onClick({
+                onChange={(val) => {
+                  onChange({
                     name: filter.slug,
                     value: {
                       ...value,
@@ -77,11 +77,11 @@ const FilterItem = ({ filter, onClick, value }: FilterItemProps) => {
             <FormSpacer />
             <FormControl fullWidth>
               <DatePicker
-                inputFormat="dd/MM/yyyy"
+                inputFormat="DD/MM/YYYY"
                 value={value?.Lte || ""}
                 label="Até"
-                onChange={(val: Date) => {
-                  onClick({
+                onChange={(val) => {
+                  onChange({
                     name: filter.slug,
                     value: { ...value, Lte: val },
                   });
