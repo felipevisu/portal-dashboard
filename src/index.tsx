@@ -6,6 +6,8 @@ import { BrowserRouter } from "react-router-dom";
 
 import { ApolloProvider } from "@apollo/client";
 import { ThemeProvider } from "@mui/material";
+import * as Sentry from "@sentry/react";
+import { BrowserTracing } from "@sentry/tracing";
 
 import { BacklinkProvider } from "./components/Backlink/context";
 import { SavebarProvider } from "./components/Savebar/context";
@@ -16,6 +18,12 @@ import theme from "./theme";
 
 import "react-toastify/dist/ReactToastify.css";
 import "./styles.css";
+
+Sentry.init({
+  dsn: process.env.REACT_APP_SENTRY_DNS,
+  integrations: [new BrowserTracing()],
+  tracesSampleRate: 1.0,
+});
 
 i18n.use(initReactI18next).init({
   resources: {
