@@ -49,6 +49,9 @@ export const documentDetailsFragment = gql`
     files {
       ...DocumentFile
     }
+    events {
+      ...Event
+    }
     entry {
       id
       name

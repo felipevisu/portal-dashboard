@@ -13,6 +13,7 @@ import {
   ErrorFragment,
 } from "@portal/graphql";
 
+import DocumentEvents from "./DocumentEvents";
 import DocumentFile from "./DocumentFile";
 import DocumentForm, { FormProps, generateSubmitData } from "./DocumentForm";
 import DocumentHistory from "./DocumentHistory";
@@ -103,6 +104,7 @@ export const DocumentDetailsPage = ({
                   />
                 )
               }
+              documentEvents={<DocumentEvents events={document.events} />}
             />
             <Savebar
               onSubmit={submit}

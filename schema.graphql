@@ -208,8 +208,13 @@ type Document implements Node {
   defaultFile: DocumentFile
   description: String
   entry: Entry
+
+  "\n\nRequires one of the following permissions: MANAGE_EVENTS."
+  events: [Event!]
   expired: Boolean
   expires: Boolean
+
+  "\n\nRequires one of the following permissions: MANAGE_DOCUMENTS."
   files: [DocumentFile!]
   id: ID!
   isPublished: Boolean
@@ -425,6 +430,43 @@ type Error {
 
   """The error message."""
   message: String
+}
+
+type Event implements Node {
+  date: DateTime
+  document: Document
+  id: ID!
+  parameters: JSONString
+
+  """Order event type."""
+  type: EventTypesEnum
+  user: User
+}
+
+type EventCountableConnection {
+  edges: [EventCountableEdge!]!
+
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """A total count of items in the collection."""
+  totalCount: Int
+}
+
+type EventCountableEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: Event!
+}
+
+"""An enumeration."""
+enum EventTypesEnum {
+  DOCUMENT_APPROVED
+  DOCUMENT_DECLINED
+  DOCUMENT_RECEIVED
+  DOCUMENT_REQUESTED
 }
 
 type File {
@@ -806,6 +848,9 @@ type Query {
   documents(after: String, before: String, filter: DocumentFilterInput, first: Int, last: Int, sortBy: DocumentSortingInput): DocumentCountableConnection
   entries(after: String, before: String, filter: EntryFilterInput, first: Int, last: Int, sortBy: EntrySortingInput): EntryCountableConnection
   entry(id: ID, slug: String): Entry
+
+  "\n\nRequires one of the following permissions: MANAGE_EVENTS."
+  events(after: String, before: String, first: Int, last: Int): EventCountableConnection
   investment(id: ID, month: Int, year: Int): Investment
   investments(after: String, before: String, filter: InvestmentFilterInput, first: Int, last: Int, sortBy: InvestmentSortingInput): InvestmentCountableConnection
   me: User
@@ -835,7 +880,6 @@ type RefuseDocumentFile {
 
 type RequestNewDocument {
   errors: [Error!]!
-  success: Boolean
 }
 
 type RequestPasswordReset {

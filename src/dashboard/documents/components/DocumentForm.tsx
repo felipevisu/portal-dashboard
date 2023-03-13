@@ -18,9 +18,11 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { Button } from "@portal/components/Button";
 import ControlledCheckbox from "@portal/components/ControlledCheckbox";
 import FormSpacer from "@portal/components/FormSpacer";
-import { DocumentInput, ErrorFragment } from "@portal/graphql";
+import { DocumentInput, ErrorFragment, EventFragment } from "@portal/graphql";
 import { ChangeEvent } from "@portal/types";
 import { getFormErrors } from "@portal/utils/errors";
+
+import DocumentEvents from "./DocumentEvents";
 
 export type FormProps = {
   name: string;
@@ -37,6 +39,7 @@ interface DocumentFormProps {
   errors: ErrorFragment[];
   fileUpload: React.ReactNode;
   fileHistory?: React.ReactNode;
+  documentEvents?: React.ReactNode;
   onChange: (e: ChangeEvent) => void;
   onRequest?: () => void;
 }
@@ -61,6 +64,7 @@ export const DocumentForm = ({
   onChange,
   fileUpload,
   fileHistory,
+  documentEvents,
   onRequest,
 }: DocumentFormProps) => {
   const formErrors = getFormErrors(
@@ -104,6 +108,7 @@ export const DocumentForm = ({
         </Card>
         {fileUpload}
         {fileHistory}
+        {documentEvents}
       </Grid>
       <Grid item xs={4}>
         {onRequest && (

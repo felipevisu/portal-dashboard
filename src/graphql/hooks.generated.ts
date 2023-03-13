@@ -3,15 +3,6 @@ import * as Types from './types.generated';
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
-export const UserFragmentDoc = gql`
-    fragment User on User {
-  id
-  email
-  firstName
-  lastName
-  isStaff
-}
-    `;
 export const UserBaseFragmentDoc = gql`
     fragment UserBase on User {
   id
@@ -61,6 +52,25 @@ export const DocumentFileFragmentDoc = gql`
   }
 }
     `;
+export const UserFragmentDoc = gql`
+    fragment User on User {
+  id
+  email
+  firstName
+  lastName
+  isStaff
+}
+    `;
+export const EventFragmentDoc = gql`
+    fragment Event on Event {
+  id
+  date
+  type
+  user {
+    ...User
+  }
+}
+    ${UserFragmentDoc}`;
 export const DocumentDetailsFragmentDoc = gql`
     fragment DocumentDetails on Document {
   id
@@ -76,13 +86,17 @@ export const DocumentDetailsFragmentDoc = gql`
   files {
     ...DocumentFile
   }
+  events {
+    ...Event
+  }
   entry {
     id
     name
     type
   }
 }
-    ${DocumentFileFragmentDoc}`;
+    ${DocumentFileFragmentDoc}
+${EventFragmentDoc}`;
 export const EntryFragmentDoc = gql`
     fragment Entry on Entry {
   id
@@ -129,6 +143,24 @@ export const BulkItemErrorFragmentDoc = gql`
   index
 }
     `;
+export const EventDetailsFragmentDoc = gql`
+    fragment EventDetails on Event {
+  id
+  date
+  type
+  user {
+    ...User
+  }
+  document {
+    id
+    name
+    entry {
+      id
+      name
+    }
+  }
+}
+    ${UserFragmentDoc}`;
 export const InvestmentFragmentDoc = gql`
     fragment Investment on Investment {
   id
