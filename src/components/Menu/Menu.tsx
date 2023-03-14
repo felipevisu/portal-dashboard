@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import i18n from "i18next";
 import { Link, useLocation } from "react-router-dom";
 
 import {
@@ -14,51 +15,63 @@ import DisplaySettingsIcon from "@mui/icons-material/DisplaySettings";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import { Fade } from "@mui/material";
+import { useLinks } from "@portal/hooks";
 
 import { Label, MenuContent, MenuItem, MenuMain, OpenClose } from "./styles";
 
-const ITEMS = [
-  {
-    label: "Homepage",
-    path: "/",
-    icon: <DashboardIcon />,
-  },
-  {
-    label: "Categorias",
-    path: "/categories",
-    icon: <CategoryIcon />,
-  },
-  {
-    label: "Veículos de comunicação",
-    path: "/vehicles",
-    icon: <ChatIcon />,
-  },
-  {
-    label: "Prestadores de serviço",
-    path: "/providers",
-    icon: <DesignServicesIcon />,
-  },
-  {
-    label: "Documentos",
-    path: "/documents",
-    icon: <InsertDriveFileIcon />,
-  },
-  {
-    label: "Investimentos",
-    path: "/investments",
-    icon: <AttachMoney />,
-  },
-  {
-    label: "Sessões públicas",
-    path: "/sessions",
-    icon: <EventNoteIcon />,
-  },
-  {
-    label: "Configurações",
-    path: "/settings",
-    icon: <DisplaySettingsIcon />,
-  },
-];
+type MenuItemProps = {
+  label: string;
+  path: string;
+  icon: React.ReactNode;
+};
+
+const useMenuItems = (): MenuItemProps[] => {
+  const { t } = i18n;
+  const links = useLinks();
+
+  return [
+    {
+      label: t("homepage"),
+      path: links.homepage(),
+      icon: <DashboardIcon />,
+    },
+    {
+      label: t("category.plural"),
+      path: links.categoryList(),
+      icon: <CategoryIcon />,
+    },
+    {
+      label: t("vehicle.plural"),
+      path: links.entryList("vehicle"),
+      icon: <ChatIcon />,
+    },
+    {
+      label: t("provider.plural"),
+      path: links.entryList("provider"),
+      icon: <DesignServicesIcon />,
+    },
+    {
+      label: t("document.plural"),
+      path: links.documentList(),
+      icon: <InsertDriveFileIcon />,
+    },
+    {
+      label: t("investment.plural"),
+      path: "/investments",
+      icon: <AttachMoney />,
+    },
+    {
+      label: t("session.plural"),
+      path: "/sessions",
+      icon: <EventNoteIcon />,
+    },
+    {
+      label: t("settings"),
+      path: "/settings",
+      icon: <DisplaySettingsIcon />,
+    },
+  ];
+};
 
 type ItemProps = {
   label: string;
@@ -93,12 +106,13 @@ export const Item = ({ label, path, icon, active, opened }: ItemProps) => {
 export const Menu = () => {
   const [opened, setOpened] = useState<boolean>(false);
   const location = useLocation();
+  const menuItems = useMenuItems();
 
   return (
     <MenuMain opened={opened}>
       <MenuContent opened={opened}>
         <ul>
-          {ITEMS.map((item) => (
+          {menuItems.map((item) => (
             <Item
               key={item.path}
               {...item}

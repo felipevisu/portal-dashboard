@@ -59,6 +59,7 @@ export const EntryFormInfos = ({ errors, data, onChange }: EntryFormProps) => {
             onChange={onChange}
             helperText={formErrors.name?.message}
           />
+          <FormHelperText>{t("helperText.name")}</FormHelperText>
         </FormControl>
         <FormSpacer />
         <FormControl fullWidth>
@@ -72,6 +73,7 @@ export const EntryFormInfos = ({ errors, data, onChange }: EntryFormProps) => {
             onChange={onChange}
             helperText={formErrors.slug?.message}
           />
+          <FormHelperText>{t("helperText.slug")}</FormHelperText>
         </FormControl>
         <FormSpacer />
         <FormControl fullWidth>
@@ -85,6 +87,7 @@ export const EntryFormInfos = ({ errors, data, onChange }: EntryFormProps) => {
             onChange={onChange}
             helperText={formErrors.documentNumber?.message}
           />
+          <FormHelperText>{t("helperText.documentNumber")}</FormHelperText>
         </FormControl>
         <FormSpacer />
         <FormControl fullWidth>
@@ -98,6 +101,7 @@ export const EntryFormInfos = ({ errors, data, onChange }: EntryFormProps) => {
             onChange={onChange}
             helperText={formErrors.email?.message}
           />
+          <FormHelperText>{t("helperText.email")}</FormHelperText>
         </FormControl>
       </CardContent>
     </Card>
@@ -117,14 +121,17 @@ export const EntryFormStatus = ({
     <Card>
       <CardHeader title={t("visibility")} />
       <CardContent>
-        <FormControl fullWidth error={formErrors.category && true}>
-          <InputLabel>{t("category.title")}</InputLabel>
+        <FormControl fullWidth>
+          <InputLabel error={formErrors.category && true}>
+            {t("category.title")}
+          </InputLabel>
           <Select
             fullWidth
             name="category"
-            label="Categoria"
+            label={t("category.title")}
             value={data.category}
             onChange={onChange}
+            error={formErrors.category && true}
           >
             {categories.map((category) => (
               <MenuItem key={category.value} value={category.value}>
@@ -132,7 +139,9 @@ export const EntryFormStatus = ({
               </MenuItem>
             ))}
           </Select>
-          <FormHelperText>{formErrors.category?.message}</FormHelperText>
+          <FormHelperText error={formErrors.category && true}>
+            {formErrors.category?.message}
+          </FormHelperText>
         </FormControl>
         <FormSpacer />
         <FormControl>
@@ -142,6 +151,7 @@ export const EntryFormStatus = ({
             checked={data.isPublished}
             onChange={onChange}
           />
+          <FormHelperText>{t("helperText.isPublished")}</FormHelperText>
         </FormControl>
       </CardContent>
     </Card>

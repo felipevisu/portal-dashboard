@@ -3,17 +3,18 @@
 	"add": "Adicionar",
 	"address": "Endereço",
 	"back": "Voltar",
+	"homepage": "Homepage",
 	"category": {
-		"title": "Categoria",
-		"plural": "Categorias",
-		"create": "Adicionar categoria",
-		"delete": "Excluir categoria"
+		"title": "Atividade",
+		"plural": "Atividades",
+		"create": "Adicionar Atividade",
+		"delete": "Excluir Atividade"
 	},
 	"channel": {
 		"title": "Canal",
 		"plural": "Canais",
-		"create": "Adicionar canal",
-		"delete": "Excluir canal"
+		"create": "Adicionar Canal",
+		"delete": "Excluir Canal"
 	},
 	"clickHere": "Clique aqui",
 	"configurationType": "Tipo de configuração",
@@ -38,14 +39,14 @@
 	"document": {
 		"title": "Documento",
 		"plural": "Documentos",
-		"create": "Adicionar documento",
-		"delete": "Excluir documento",
+		"create": "Adicionar Documento",
+		"delete": "Excluir Documento",
 		"deleteDialog": {
-			"title": "Excluir documento",
+			"title": "Excluir Documento",
 			"description": "Deseja mesmo excluir o documento {{ name }}? Lembre-se esta ação não é reversível."
 		},
 		"deleteDialogList": {
-			"title": "Excluir documentos",
+			"title": "Excluir Documentos",
 			"description": "Deseja mesmo excluir estes documentos? Lembre-se esta ação não é reversível."
 		},
 		"requestDialog": {
@@ -54,8 +55,9 @@
 			"success": "Arquivo solicitado com sucesso"
 		},
 		"requestCard": {
-			"title": "Novo arquivo",
+			"title": "Novo Arquivo",
 			"description": "Solicite um novo arquivo ao fornecedor.",
+			"helper": "O responsável pelo documento será notificado por email com link para formulário onde poderá enviar um novo arquivo. O arquivo deve ser aprovado por um administrador da plataforma para então ser disponibilizado no site público.",
 			"button": "Solicite agora"
 		}
 	},
@@ -94,6 +96,7 @@
 	"month": "Mês",
 	"name": "Nome",
 	"phone": "Telefone",
+	"settings": "Configurações",
 	"plugin": {
 		"title": "Plugin",
 		"plural": "Plugins",
@@ -139,5 +142,17 @@
 		"delete": "Excluir veículo"
 	},
 	"visibility": "Visibilidade",
-	"year": "Ano"
+	"year": "Ano",
+	"helperText": {
+		"name": "Este valor será utilizado para identificar este item dentro da plataforma e no site público.",
+		"slug": "Este campo será utilizado para gerar a URL deste item no site e não pode conter caracteres especiais. Deixe em branco durante a criação para o sistema gerá-lo automaticamente.",
+		"email": "O email informado será utilizado para notificar o veículo/fornecedor sobre documentos expirados.",
+		"isPublished": "O item quando despublicado fica visivel apenas dentro da plataforma administrativa e oculto no site público.",
+		"documentNumber": "Identificação de pessoa física ou jurídica.",
+		"optional": "Opcional",
+		"expires": "Quando o documento expira o veículo/fornecedor é notificado solicitando um novo documento.",
+		"beginDate": "Início da validade do documento.",
+		"expirationDate": "Final da validade do documento. Quando próximo desta data o responsável pelo documento será notificado.",
+		"file": "O arquivo deve estar no formato .pdf e não deve conter mais do que 50MB de tamanho."
+	}
 }

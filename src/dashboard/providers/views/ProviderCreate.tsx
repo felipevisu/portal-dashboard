@@ -4,23 +4,27 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { EntryCreatePage } from "@portal/dashboard/entries/components/EntryCreatePage";
+import { useEntryType } from "@portal/dashboard/entries/hooks";
 import {
   EntryCreateMutation,
   EntryInput,
   EntryTypeEnum,
   useEntryCreateMutation,
 } from "@portal/graphql";
+import { useLinks } from "@portal/hooks";
 import useCategorySearch from "@portal/searches/useCategorySearch";
 import { mapEdgesToItems } from "@portal/utils/maps";
 
 export const ProviderCreate = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const type = useEntryType();
+  const { entryDetails } = useLinks();
 
   const handleCreateProvider = (data: EntryCreateMutation) => {
     if (!data?.entryCreate.errors.length) {
       toast(t("messages.create.success"), { type: toast.TYPE.SUCCESS });
-      navigate(`/providers/details/${data?.entryCreate.entry.id}`);
+      navigate(entryDetails(type, data?.entryCreate.entry.id));
     }
   };
 

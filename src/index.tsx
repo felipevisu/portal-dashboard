@@ -19,11 +19,13 @@ import theme from "./theme";
 import "react-toastify/dist/ReactToastify.css";
 import "./styles.css";
 
-Sentry.init({
-  dsn: process.env.REACT_APP_SENTRY_DNS,
-  integrations: [new BrowserTracing()],
-  tracesSampleRate: 1.0,
-});
+if (process.env.NODE_ENV === "production") {
+  Sentry.init({
+    dsn: process.env.REACT_APP_SENTRY_DNS,
+    integrations: [new BrowserTracing()],
+    tracesSampleRate: 1.0,
+  });
+}
 
 i18n.use(initReactI18next).init({
   resources: {

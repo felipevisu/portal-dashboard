@@ -8,7 +8,7 @@ import {
   Card,
   CardContent,
   CardHeader,
-  Divider,
+  FormHelperText,
   Link,
   Stack,
   Typography,
@@ -63,6 +63,11 @@ export const DocumentFile = ({
             <Typography>{t("clickHere")}</Typography>
           </Box>
         )}
+        <FormHelperText
+          sx={{ marginTop: 2, textAlign: fileName ? "left" : "center" }}
+        >
+          {t("helperText.file")}
+        </FormHelperText>
       </CardContent>
     </Card>
   );

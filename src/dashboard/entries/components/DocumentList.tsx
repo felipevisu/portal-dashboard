@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router-dom";
 
 import {
   Card,
@@ -17,8 +18,11 @@ import TableCellHeader from "@portal/components/TableCell";
 import TableCellWithStatus from "@portal/components/TableCellWithStatus";
 import TableRowLink from "@portal/components/TableRowLink";
 import { DocumentFragment, PageInfoFragment } from "@portal/graphql";
+import { useLinks } from "@portal/hooks";
 import { Paginator } from "@portal/types";
 import { formatDate } from "@portal/utils/date";
+
+import { useEntryType } from "../hooks";
 
 interface DocumentListProps {
   documents: DocumentFragment[];
@@ -31,13 +35,16 @@ export const DocumentList = ({
   paginator,
   pageInfo,
 }: DocumentListProps) => {
+  const { id: entryId } = useParams();
   const { t } = useTranslation();
+  const type = useEntryType();
+  const { documentCreate, documentDetails } = useLinks();
   return (
     <Card sx={{ marginBottom: 2 }}>
       <CardHeader
         title={t("document.title")}
         action={
-          <Button variant="outlined" href="documents/create">
+          <Button variant="outlined" href={documentCreate(type, entryId)}>
             {t("add")}
           </Button>
         }
@@ -58,7 +65,7 @@ export const DocumentList = ({
             <TableRowLink
               key={document.id}
               sx={{ cursor: "pointer" }}
-              href={`documents/${document.id}/details`}
+              href={documentDetails(type, entryId, document.id)}
             >
               <TableCell sx={{ paddingLeft: 3 }}>{document.name}</TableCell>
               <TableCellWithStatus status={document.isPublished} />

@@ -7,11 +7,13 @@ import { Backlink } from "@portal/components/Backlink";
 import { Form } from "@portal/components/Form";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
+import { useEntryType } from "@portal/dashboard/entries/hooks";
 import {
   DocumentDetailsFragment,
   DocumentInput,
   ErrorFragment,
 } from "@portal/graphql";
+import { useLinks } from "@portal/hooks";
 
 import DocumentEvents from "./DocumentEvents";
 import DocumentFile from "./DocumentFile";
@@ -42,7 +44,9 @@ export const DocumentDetailsPage = ({
   onFileAction,
 }: DocumentDetailsPageProps) => {
   const { t } = useTranslation();
-  const { id } = useParams();
+  const { id: entryId } = useParams();
+  const { entryDetails } = useLinks();
+  const type = useEntryType();
   const navigate = useNavigate();
 
   const initialData: FormProps = {
@@ -61,19 +65,15 @@ export const DocumentDetailsPage = ({
   const handleSubmit = (data: FormProps) => {
     const submitData = generateSubmitData(data);
     if (file) submitData.file = file;
-    onSubmit({ ...submitData, entry: id });
+    onSubmit({ ...submitData, entry: entryId });
   };
-
-  const link = window.location.pathname.includes("vehicle")
-    ? "vehicles"
-    : "providers";
 
   return (
     <Form initial={initialData} onSubmit={handleSubmit}>
       {({ change, submit, data }) => {
         return (
           <>
-            <Backlink href={`/${link}/details/${id}`}>{t("back")}</Backlink>
+            <Backlink href={entryDetails(type, entryId)}>{t("back")}</Backlink>
             <PageHeader
               title={`${t("document.title")}: ${document.name}`}
               limitText={document.entry.name}
@@ -108,7 +108,7 @@ export const DocumentDetailsPage = ({
             />
             <Savebar
               onSubmit={submit}
-              onCancel={() => navigate(`/${link}/details/${id}`)}
+              onCancel={() => navigate(entryDetails(type, entryId))}
               onDelete={onDelete}
               loading={loading}
             />

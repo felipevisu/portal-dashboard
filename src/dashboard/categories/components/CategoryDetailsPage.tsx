@@ -11,6 +11,7 @@ import {
   CategoryInput,
   ErrorFragment,
 } from "@portal/graphql";
+import { useLinks } from "@portal/hooks";
 import { SubmitPromise } from "@portal/hooks/useForm";
 
 import CategoryForm, { FormProps } from "./CategoryForm";
@@ -32,6 +33,7 @@ export const CategoryDetailsPage = ({
 }: CategoryDetailsPageProps) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { categoryList } = useLinks();
 
   const handleDelete = () => {
     onDelete();
@@ -47,13 +49,13 @@ export const CategoryDetailsPage = ({
       {({ change, data, submit }) => {
         return (
           <>
-            <Backlink href="/categories">{t("back")}</Backlink>
-            <PageHeader title={category?.name} />
+            <Backlink href={categoryList()}>{t("back")}</Backlink>
+            <PageHeader title={`${t("category.title")}: ${category?.name}`} />
             <CategoryForm errors={errors} onChange={change} data={data} />
             <Savebar
               onSubmit={submit}
               onDelete={handleDelete}
-              onCancel={() => navigate("/categories")}
+              onCancel={() => navigate(categoryList())}
               loading={loading}
             />
           </>

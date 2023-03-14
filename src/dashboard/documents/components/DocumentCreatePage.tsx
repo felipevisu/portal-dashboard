@@ -6,7 +6,9 @@ import { Backlink } from "@portal/components/Backlink";
 import { Form } from "@portal/components/Form";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
+import { useEntryType } from "@portal/dashboard/entries/hooks";
 import { DocumentInput, ErrorFragment } from "@portal/graphql";
+import { useLinks } from "@portal/hooks";
 
 import DocumentFile from "./DocumentFile";
 import DocumentForm, { FormProps, generateSubmitData } from "./DocumentForm";
@@ -27,8 +29,10 @@ export const DocumentCreatePage = ({
   setFile,
 }: DocumentCreatePageProps) => {
   const { t } = useTranslation();
-  const { id } = useParams();
+  const { id: entryId } = useParams();
   const navigate = useNavigate();
+  const type = useEntryType();
+  const { entryDetails } = useLinks();
 
   const initialData: FormProps = {
     name: "",
@@ -42,19 +46,15 @@ export const DocumentCreatePage = ({
   const handleSubmit = (data: FormProps) => {
     const submitData = generateSubmitData(data);
     if (file) submitData.file = file;
-    onSubmit({ ...submitData, entry: id });
+    onSubmit({ ...submitData, entry: entryId });
   };
-
-  const link = window.location.pathname.includes("vehicle")
-    ? "vehicles"
-    : "providers";
 
   return (
     <Form initial={initialData} onSubmit={handleSubmit}>
       {({ change, submit, data }) => {
         return (
           <>
-            <Backlink href={`/${link}/details/${id}`}>{t("back")}</Backlink>
+            <Backlink href={entryDetails(type, entryId)}>{t("back")}</Backlink>
             <PageHeader title={t("document.create")} />
             <DocumentForm
               errors={errors}
@@ -72,7 +72,7 @@ export const DocumentCreatePage = ({
             />
             <Savebar
               onSubmit={submit}
-              onCancel={() => navigate(`/entries/details/${id}`)}
+              onCancel={() => navigate(entryDetails(type, entryId))}
               loading={loading}
             />
           </>

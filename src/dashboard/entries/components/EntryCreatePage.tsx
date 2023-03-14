@@ -13,6 +13,7 @@ import {
   ErrorFragment,
   SearchCategoriesQuery,
 } from "@portal/graphql";
+import { useLinks } from "@portal/hooks";
 import { SubmitPromise } from "@portal/hooks/useForm";
 import { RelayToFlat } from "@portal/types";
 import { getChoices } from "@portal/utils/data";
@@ -48,6 +49,7 @@ export const EntryCreatePage = ({
 
   const categories = getChoices(categoryChoiceList);
   const type = useEntryType();
+  const { entryList } = useLinks();
   const { t } = useTranslation();
 
   return (
@@ -55,7 +57,7 @@ export const EntryCreatePage = ({
       {({ change, submit, data }) => {
         return (
           <>
-            <Backlink href={`/${type}s`}>{t("back")}</Backlink>
+            <Backlink href={entryList(type)}>{t("back")}</Backlink>
             <PageHeader title={t(`${type}.create`)} />
             <Grid container spacing={2}>
               <Grid item xs={8}>
@@ -82,7 +84,7 @@ export const EntryCreatePage = ({
             </Grid>
             <Savebar
               onSubmit={submit}
-              onCancel={() => navigate(`/${type}s`)}
+              onCancel={() => navigate(entryList(type))}
               loading={loading}
             />
           </>

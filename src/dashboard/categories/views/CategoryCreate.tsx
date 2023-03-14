@@ -8,17 +8,19 @@ import {
   CategoryInput,
   useCategoryCreateMutation,
 } from "@portal/graphql";
+import { useLinks } from "@portal/hooks";
 
 import { CategoryCreatePage } from "../components/CategoryCreatePage";
 
 export const CategoryCreate = () => {
   const { t } = useTranslation();
   const navigator = useNavigate();
+  const { categoryDetails } = useLinks();
 
   const handleCreateCategory = (data: CategoryCreateMutation) => {
     if (!data?.categoryCreate.errors.length) {
       toast(t("messages.create.success"), { type: toast.TYPE.SUCCESS });
-      navigator(`/categories/details/${data?.categoryCreate.category.id}`);
+      navigator(categoryDetails(data?.categoryCreate.category.id));
     }
   };
 

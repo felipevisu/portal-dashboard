@@ -9,8 +9,11 @@ import TableCellWithStatus from "@portal/components/TableCellWithStatus";
 import TableHead from "@portal/components/TableHead";
 import TableRowLink from "@portal/components/TableRowLink";
 import { EntryFragment } from "@portal/graphql";
+import { useLinks } from "@portal/hooks";
 import { renderCollection } from "@portal/misc";
 import { ListActions } from "@portal/types";
+
+import { useEntryType } from "../hooks";
 
 interface EntryListProps extends ListActions {
   entries: EntryFragment[];
@@ -28,6 +31,8 @@ export const EntryList = ({
 }: EntryListProps) => {
   const numberOfColumns = entries?.length === 0 ? 3 : 4;
   const { t } = useTranslation();
+  const type = useEntryType();
+  const { entryDetails } = useLinks();
 
   return (
     <ResponsiveTable>
@@ -51,7 +56,7 @@ export const EntryList = ({
               key={entry ? entry.id : "skeleton"}
               sx={{ cursor: "pointer" }}
               selected={isSelected}
-              href={`details/${entry.id}/`}
+              href={entryDetails(type, entry.id)}
             >
               <TableCell padding="checkbox">
                 <Checkbox

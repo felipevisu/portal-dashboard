@@ -8,6 +8,7 @@ import {
   CardContent,
   CardHeader,
   FormControl,
+  FormHelperText,
   Grid,
   TextField,
   Typography,
@@ -18,11 +19,9 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { Button } from "@portal/components/Button";
 import ControlledCheckbox from "@portal/components/ControlledCheckbox";
 import FormSpacer from "@portal/components/FormSpacer";
-import { DocumentInput, ErrorFragment, EventFragment } from "@portal/graphql";
+import { DocumentInput, ErrorFragment } from "@portal/graphql";
 import { ChangeEvent } from "@portal/types";
 import { getFormErrors } from "@portal/utils/errors";
-
-import DocumentEvents from "./DocumentEvents";
 
 export type FormProps = {
   name: string;
@@ -90,6 +89,7 @@ export const DocumentForm = ({
                 onChange={onChange}
                 helperText={formErrors.name?.message}
               />
+              <FormHelperText>{t("helperText.name")}</FormHelperText>
             </FormControl>
             <FormSpacer />
             <FormControl fullWidth>
@@ -116,6 +116,9 @@ export const DocumentForm = ({
             <CardHeader title={t("document.requestCard.title")} />
             <CardContent>
               <Typography>{t("document.requestCard.description")}</Typography>
+              <FormHelperText>
+                {t("document.requestCard.helper")}
+              </FormHelperText>
             </CardContent>
             <CardActions>
               <Button onClick={onRequest} variant="contained" fullWidth>
@@ -134,16 +137,21 @@ export const DocumentForm = ({
                 checked={data.isPublished}
                 onChange={onChange}
               />
+              <FormHelperText>{t("helperText.isPublished")}</FormHelperText>
             </FormControl>
             {expires && (
-              <FormControl fullWidth>
-                <ControlledCheckbox
-                  label={t("expires")}
-                  name="expires"
-                  checked={data.expires}
-                  onChange={onChange}
-                />
-              </FormControl>
+              <>
+                <FormSpacer />
+                <FormControl fullWidth>
+                  <ControlledCheckbox
+                    label={t("expires")}
+                    name="expires"
+                    checked={data.expires}
+                    onChange={onChange}
+                  />
+                  <FormHelperText>{t("helperText.expires")}</FormHelperText>
+                </FormControl>
+              </>
             )}
             {data.expires && (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -165,6 +173,7 @@ export const DocumentForm = ({
                       <TextField {...params} error={!!formErrors.beginDate} />
                     )}
                   />
+                  <FormHelperText>{t("helperText.beginDate")}</FormHelperText>
                 </FormControl>
                 <FormSpacer />
                 <FormControl fullWidth>
@@ -188,6 +197,9 @@ export const DocumentForm = ({
                       />
                     )}
                   />
+                  <FormHelperText>
+                    {t("helperText.expirationDate")}
+                  </FormHelperText>
                 </FormControl>
               </LocalizationProvider>
             )}

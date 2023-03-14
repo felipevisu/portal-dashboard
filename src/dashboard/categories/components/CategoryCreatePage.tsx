@@ -7,6 +7,7 @@ import { Form } from "@portal/components/Form";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
 import { CategoryInput, ErrorFragment } from "@portal/graphql";
+import { useLinks } from "@portal/hooks";
 import { SubmitPromise } from "@portal/hooks/useForm";
 
 import CategoryForm, { FormProps } from "./CategoryForm";
@@ -24,6 +25,7 @@ export const CategoryCreatePage = ({
 }: CategoryCreatePageProps) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { categoryList } = useLinks();
 
   const initialData: FormProps = {
     name: "",
@@ -35,12 +37,12 @@ export const CategoryCreatePage = ({
       {({ change, submit, data }) => {
         return (
           <>
-            <Backlink href="/categories">{t("back")}</Backlink>
+            <Backlink href={categoryList()}>{t("back")}</Backlink>
             <PageHeader title={t("category.create")} />
             <CategoryForm errors={errors} onChange={change} data={data} />
             <Savebar
               onSubmit={submit}
-              onCancel={() => navigate("/categories")}
+              onCancel={() => navigate(categoryList())}
               loading={loading}
             />
           </>

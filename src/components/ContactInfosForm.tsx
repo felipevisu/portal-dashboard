@@ -6,6 +6,7 @@ import {
   CardContent,
   CardHeader,
   FormControl,
+  FormHelperText,
   TextField,
 } from "@mui/material";
 import { ErrorFragment } from "@portal/graphql";
@@ -49,6 +50,7 @@ export const ContactInfosForm = <D,>({
             onChange={onChange}
             helperText={formErrors.phone?.message}
           />
+          <FormHelperText>{t("helperText.optional")}</FormHelperText>
         </FormControl>
         <FormSpacer />
         <FormControl fullWidth>
@@ -62,6 +64,7 @@ export const ContactInfosForm = <D,>({
             onChange={onChange}
             helperText={formErrors.address?.message}
           />
+          <FormHelperText>{t("helperText.optional")}</FormHelperText>
         </FormControl>
       </CardContent>
     </Card>

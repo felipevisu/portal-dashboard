@@ -6,6 +6,7 @@ import {
   CardContent,
   CardHeader,
   FormControl,
+  FormHelperText,
   TextField,
 } from "@mui/material";
 import FormSpacer from "@portal/components/FormSpacer";
@@ -43,6 +44,7 @@ export const CategoryForm = ({ errors, data, onChange }: CategoryFormProps) => {
             onChange={onChange}
             helperText={formErrors.name?.message}
           />
+          <FormHelperText>{t("helperText.name")}</FormHelperText>
         </FormControl>
         <FormSpacer />
         <FormControl fullWidth>
@@ -56,6 +58,7 @@ export const CategoryForm = ({ errors, data, onChange }: CategoryFormProps) => {
             onChange={onChange}
             helperText={formErrors.slug?.message}
           />
+          <FormHelperText>{t("helperText.slug")}</FormHelperText>
         </FormControl>
         <FormSpacer />
       </CardContent>

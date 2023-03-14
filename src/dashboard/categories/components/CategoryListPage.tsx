@@ -7,6 +7,7 @@ import PageHeader from "@portal/components/PageHeader";
 import { Pagination } from "@portal/components/Pagination";
 import SearchBar from "@portal/components/SearchBar";
 import { CategoryFragment } from "@portal/graphql";
+import useLinks from "@portal/hooks/useLinks";
 import { ListActions, PaginateListProps, SearchPageProps } from "@portal/types";
 
 import CategoryList from "./CategoryList";
@@ -32,12 +33,14 @@ export const CategoryListPage = ({
   onPreviousPage,
   disabled,
 }: CategoryListPageProps) => {
-  const { t } = useTranslation("translation", { keyPrefix: "category" });
+  const { t } = useTranslation();
+  const { categoryCreate } = useLinks();
+
   return (
     <>
-      <PageHeader title={t("title")}>
-        <Button color="primary" variant="contained" href={"/categories/create"}>
-          {t("create")}
+      <PageHeader title={t("category.plural")}>
+        <Button color="primary" variant="contained" href={categoryCreate()}>
+          {t("category.create")}
         </Button>
       </PageHeader>
       <Card>

@@ -8,6 +8,7 @@ import TableCellHeader from "@portal/components/TableCell";
 import TableHead from "@portal/components/TableHead";
 import TableRowLink from "@portal/components/TableRowLink";
 import { CategoryFragment } from "@portal/graphql";
+import { useLinks } from "@portal/hooks";
 import { renderCollection } from "@portal/misc";
 import { ListActions } from "@portal/types";
 
@@ -27,6 +28,7 @@ export const CategoryList = ({
 }: CategoryListProps) => {
   const numberOfColumns = categories?.length === 0 ? 2 : 3;
   const { t } = useTranslation();
+  const { categoryDetails } = useLinks();
 
   return (
     <ResponsiveTable>
@@ -51,7 +53,7 @@ export const CategoryList = ({
               key={category ? category.id : "skeleton"}
               sx={{ cursor: "pointer" }}
               selected={isSelected}
-              href={`details/${category.id}/`}
+              href={categoryDetails(category.id)}
             >
               <TableCell padding="checkbox">
                 <Checkbox
