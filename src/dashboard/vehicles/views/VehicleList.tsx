@@ -33,7 +33,11 @@ export const VehicleList = () => {
   const { isOpen, openModal, closeModal } = useModal();
 
   const { result: searchCategoryOpts } = useCategorySearch({
-    variables: DEFAULT_INITIAL_SEARCH_DATA,
+    variables: {
+      ...DEFAULT_INITIAL_SEARCH_DATA,
+      query: search,
+      type: EntryTypeEnum.VEHICLE,
+    },
   });
 
   const categories = getChoices(

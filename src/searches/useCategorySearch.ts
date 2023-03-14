@@ -7,11 +7,16 @@ import {
 import { makeTopLevelSearch } from "@portal/hooks";
 
 export const searchCategories = gql`
-  query SearchCategories($after: String, $first: Int!, $query: String!) {
+  query SearchCategories(
+    $after: String
+    $first: Int!
+    $query: String!
+    $type: EntryTypeEnum
+  ) {
     search: categories(
       after: $after
       first: $first
-      filter: { search: $query }
+      filter: { search: $query, type: $type }
     ) {
       edges {
         node {

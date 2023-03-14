@@ -40,7 +40,8 @@ export const CategoryList = ({
         toggleAll={toggleAll}
         toolbar={toolbar}
       >
-        <TableCellHeader sx={{ width: "auto" }}>{t("name")}</TableCellHeader>
+        <TableCellHeader>{t("name")}</TableCellHeader>
+        <TableCellHeader>{t("type")}</TableCellHeader>
         <TableCellHeader sx={{ width: 160, textAlign: "center" }}>
           {t("registrations")}
         </TableCellHeader>
@@ -63,7 +64,12 @@ export const CategoryList = ({
                   onChange={() => toggle(category.id)}
                 />
               </TableCell>
-              <TableCell sx={{ width: "auto" }}>{category.name}</TableCell>
+              <TableCell>{category.name}</TableCell>
+              <TableCellHeader>
+                {category.type === "VEHICLE"
+                  ? t("vehicle.title")
+                  : t("provider.title")}
+              </TableCellHeader>
               <TableCell sx={{ width: 160, textAlign: "center" }}>
                 {category.entries.totalCount}
               </TableCell>

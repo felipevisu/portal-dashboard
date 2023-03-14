@@ -7,9 +7,11 @@ import { DialogContentText } from "@mui/material";
 import ActionDialog from "@portal/components/ActionDialog";
 import CircularLoading from "@portal/components/Circular";
 import NotFound from "@portal/components/NotFound";
+import { DEFAULT_INITIAL_SEARCH_DATA } from "@portal/config";
 import { EntryDetailsPage } from "@portal/dashboard/entries/components/EntryDetailsPage";
 import {
   EntryInput,
+  EntryTypeEnum,
   EntryUpdateMutation,
   useEntryDeleteMutation,
   useEntryDetailsQuery,
@@ -50,7 +52,10 @@ export const ProviderDetails = () => {
   };
 
   const { result: searchCategoryOpts } = useCategorySearch({
-    variables: { first: 20, query: "" },
+    variables: {
+      ...DEFAULT_INITIAL_SEARCH_DATA,
+      type: EntryTypeEnum.PROVIDER,
+    },
   });
 
   const { data, loading, refetch } = useEntryDetailsQuery({

@@ -128,7 +128,7 @@ export const DocumentForm = ({
           </Card>
         )}
         <Card>
-          <CardHeader title="Status e publicação" />
+          <CardHeader title={t("status")} />
           <CardContent>
             <FormControl fullWidth>
               <ControlledCheckbox

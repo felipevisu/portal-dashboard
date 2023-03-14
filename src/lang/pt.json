@@ -72,7 +72,7 @@
 	"file": {
 		"title": "Arquivo",
 		"plural": "Arquivos",
-		"create": "Adicionar arquivo",
+		"create": "Adicionar Arquivo",
 		"delete": "Excluir arquivo"
 	},
 	"filesHistory": "Histórico de arquivos",
@@ -113,8 +113,8 @@
 	"provider": {
 		"title": "Fornecedor",
 		"plural": "Fornecedores",
-		"create": "Adicionar fornecedor",
-		"delete": "Excluir fornecedor"
+		"create": "Adicionar Fornecedor",
+		"delete": "Excluir Fornecedor"
 	},
 	"published": "Publicado",
 	"registrations": "Cadastros",
@@ -123,8 +123,8 @@
 	"session": {
 		"title": "Sessão pública",
 		"plural": "Sessões públicas",
-		"create": "Adicionar sessão",
-		"delete": "Excluir documento"
+		"create": "Adicionar Sessão",
+		"delete": "Excluir Sessão"
 	},
 	"slug": "Atalho",
 	"status": "Status",
@@ -138,8 +138,8 @@
 	"vehicle": {
 		"title": "Veículo",
 		"plural": "Veículos",
-		"create": "Adicionar veículo",
-		"delete": "Excluir veículo"
+		"create": "Adicionar Veículo",
+		"delete": "Excluir Veículo"
 	},
 	"visibility": "Visibilidade",
 	"year": "Ano",

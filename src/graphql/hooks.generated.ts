@@ -15,6 +15,7 @@ export const CategoryFragmentDoc = gql`
   id
   name
   slug
+  type
   entries {
     totalCount
   }
@@ -1972,8 +1973,12 @@ export type SessionDetailsQueryHookResult = ReturnType<typeof useSessionDetailsQ
 export type SessionDetailsLazyQueryHookResult = ReturnType<typeof useSessionDetailsLazyQuery>;
 export type SessionDetailsQueryResult = Apollo.QueryResult<Types.SessionDetailsQuery, Types.SessionDetailsQueryVariables>;
 export const SearchCategoriesDocument = gql`
-    query SearchCategories($after: String, $first: Int!, $query: String!) {
-  search: categories(after: $after, first: $first, filter: {search: $query}) {
+    query SearchCategories($after: String, $first: Int!, $query: String!, $type: EntryTypeEnum) {
+  search: categories(
+    after: $after
+    first: $first
+    filter: {search: $query, type: $type}
+  ) {
     edges {
       node {
         id
@@ -2002,6 +2007,7 @@ export const SearchCategoriesDocument = gql`
  *      after: // value for 'after'
  *      first: // value for 'first'
  *      query: // value for 'query'
+ *      type: // value for 'type'
  *   },
  * });
  */

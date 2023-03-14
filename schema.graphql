@@ -25,6 +25,7 @@ type Category implements Node {
   name: String!
   slug: String
   totalEntries: Int
+  type: EntryTypeEnum
 }
 
 """Deletes categories."""
@@ -64,11 +65,13 @@ type CategoryDelete {
 
 input CategoryFilterInput {
   search: String
+  type: EntryTypeEnum
 }
 
 input CategoryInput {
   name: String
   slug: String
+  type: EntryTypeEnum
 }
 
 enum CategorySortField {

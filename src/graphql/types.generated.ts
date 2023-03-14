@@ -46,11 +46,13 @@ export type Scalars = {
 
 export type CategoryFilterInput = {
   search?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<EntryTypeEnum>;
 };
 
 export type CategoryInput = {
   name?: InputMaybe<Scalars['String']>;
   slug?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<EntryTypeEnum>;
 };
 
 export enum CategorySortField {
@@ -312,7 +314,7 @@ export type CategoryCreateMutationVariables = Exact<{
 }>;
 
 
-export type CategoryCreateMutation = { __typename: 'Mutation', categoryCreate: { __typename: 'CategoryCreate', category: { __typename: 'Category', id: string, name: string, slug: string | null, entries: { __typename: 'EntryCountableConnection', totalCount: number | null } | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+export type CategoryCreateMutation = { __typename: 'Mutation', categoryCreate: { __typename: 'CategoryCreate', category: { __typename: 'Category', id: string, name: string, slug: string | null, type: EntryTypeEnum | null, entries: { __typename: 'EntryCountableConnection', totalCount: number | null } | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
 
 export type CategoryUpdateMutationVariables = Exact<{
   id?: InputMaybe<Scalars['ID']>;
@@ -320,7 +322,7 @@ export type CategoryUpdateMutationVariables = Exact<{
 }>;
 
 
-export type CategoryUpdateMutation = { __typename: 'Mutation', categoryUpdate: { __typename: 'CategoryUpdate', category: { __typename: 'Category', id: string, name: string, slug: string | null, entries: { __typename: 'EntryCountableConnection', totalCount: number | null } | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+export type CategoryUpdateMutation = { __typename: 'Mutation', categoryUpdate: { __typename: 'CategoryUpdate', category: { __typename: 'Category', id: string, name: string, slug: string | null, type: EntryTypeEnum | null, entries: { __typename: 'EntryCountableConnection', totalCount: number | null } | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
 
 export type CategoryDeleteMutationVariables = Exact<{
   id: Scalars['ID'];
@@ -345,14 +347,14 @@ export type CategoriesQueryVariables = Exact<{
 }>;
 
 
-export type CategoriesQuery = { __typename: 'Query', categories: { __typename: 'CategoryCountableConnection', edges: Array<{ __typename: 'CategoryCountableEdge', node: { __typename: 'Category', id: string, name: string, slug: string | null, entries: { __typename: 'EntryCountableConnection', totalCount: number | null } | null } }>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
+export type CategoriesQuery = { __typename: 'Query', categories: { __typename: 'CategoryCountableConnection', edges: Array<{ __typename: 'CategoryCountableEdge', node: { __typename: 'Category', id: string, name: string, slug: string | null, type: EntryTypeEnum | null, entries: { __typename: 'EntryCountableConnection', totalCount: number | null } | null } }>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
 
 export type CategoryDetailsQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type CategoryDetailsQuery = { __typename: 'Query', category: { __typename: 'Category', id: string, name: string, slug: string | null, entries: { __typename: 'EntryCountableConnection', totalCount: number | null } | null } | null };
+export type CategoryDetailsQuery = { __typename: 'Query', category: { __typename: 'Category', id: string, name: string, slug: string | null, type: EntryTypeEnum | null, entries: { __typename: 'EntryCountableConnection', totalCount: number | null } | null } | null };
 
 export type DocumentCreateMutationVariables = Exact<{
   input: DocumentInput;
@@ -635,7 +637,7 @@ export type UserFragment = { __typename: 'User', id: string, email: string, firs
 
 export type UserBaseFragment = { __typename: 'User', id: string, firstName: string | null, lastName: string | null };
 
-export type CategoryFragment = { __typename: 'Category', id: string, name: string, slug: string | null, entries: { __typename: 'EntryCountableConnection', totalCount: number | null } | null };
+export type CategoryFragment = { __typename: 'Category', id: string, name: string, slug: string | null, type: EntryTypeEnum | null, entries: { __typename: 'EntryCountableConnection', totalCount: number | null } | null };
 
 export type DocumentFragment = { __typename: 'Document', id: string, name: string, created: any | null, isPublished: boolean | null, expired: boolean | null, expires: boolean | null, defaultFile: { __typename: 'DocumentFile', id: string, beginDate: any | null, expirationDate: any | null } | null, entry: { __typename: 'Entry', id: string, name: string, type: EntryTypeEnum | null } | null };
 
@@ -681,6 +683,7 @@ export type SearchCategoriesQueryVariables = Exact<{
   after?: InputMaybe<Scalars['String']>;
   first: Scalars['Int'];
   query: Scalars['String'];
+  type?: InputMaybe<EntryTypeEnum>;
 }>;
 
 

@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
+import { DEFAULT_INITIAL_SEARCH_DATA } from "@portal/config";
 import { EntryCreatePage } from "@portal/dashboard/entries/components/EntryCreatePage";
 import { useEntryType } from "@portal/dashboard/entries/hooks";
 import {
@@ -43,7 +44,10 @@ export const ProviderCreate = () => {
     search: searchCategory,
     result: searchCategoryOpts,
   } = useCategorySearch({
-    variables: { first: 20, query: "" },
+    variables: {
+      ...DEFAULT_INITIAL_SEARCH_DATA,
+      type: EntryTypeEnum.PROVIDER,
+    },
   });
 
   return (

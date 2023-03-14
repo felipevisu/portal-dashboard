@@ -39,8 +39,8 @@ export function getFilterOpts(): FilterOpts[] {
       name: "Tipo",
       slug: "type",
       choices: [
-        { value: "VEHICLE", label: "Veículos de comunicação" },
-        { value: "PROVIDER", label: "Prestadores de serviço" },
+        { value: "VEHICLE", label: "Veículos" },
+        { value: "PROVIDER", label: "Fornecedores" },
       ],
       type: "radio",
     },
