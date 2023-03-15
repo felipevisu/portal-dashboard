@@ -45,7 +45,7 @@ export const EntryFormInfos = ({ errors, data, onChange }: EntryFormProps) => {
   const { t } = useTranslation();
 
   return (
-    <Card sx={{ marginBottom: 2 }}>
+    <Card>
       <CardHeader title="Informações gerais" />
       <CardContent>
         <FormControl fullWidth>

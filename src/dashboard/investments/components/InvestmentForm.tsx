@@ -40,7 +40,7 @@ export const InvestmentForm = ({
   const formErrors = getFormErrors(["month", "year", "isPublished"], errors);
 
   return (
-    <Card sx={{ marginBottom: (theme) => theme.spacing(2) }}>
+    <Card>
       <CardHeader title={t("generalInfo")} />
       <CardContent>
         <Grid container spacing={2}>

@@ -31,6 +31,7 @@ const theme = createTheme({
         root: {
           boxShadow: "none",
           borderRadius: 8,
+          marginBottom: spacing(2),
         },
       },
     },

@@ -5,14 +5,13 @@ import { toast } from "react-toastify";
 
 import { DEFAULT_INITIAL_SEARCH_DATA } from "@portal/config";
 import { EntryCreatePage } from "@portal/dashboard/entries/components/EntryCreatePage";
-import { useEntryType } from "@portal/dashboard/entries/hooks";
 import {
   EntryCreateMutation,
   EntryInput,
   EntryTypeEnum,
   useEntryCreateMutation,
 } from "@portal/graphql";
-import { useLinks } from "@portal/hooks";
+import { useEntryType, useLinks } from "@portal/hooks";
 import useCategorySearch from "@portal/searches/useCategorySearch";
 import { mapEdgesToItems } from "@portal/utils/maps";
 

@@ -18,7 +18,7 @@ import { SubmitPromise } from "@portal/hooks/useForm";
 import { RelayToFlat } from "@portal/types";
 import { getChoices } from "@portal/utils/data";
 
-import { useEntryType } from "../hooks";
+import { useEntryType } from "../../../hooks/useEntryType";
 
 import { EntryFormInfos, EntryFormStatus, FormProps } from "./EntryForm";
 

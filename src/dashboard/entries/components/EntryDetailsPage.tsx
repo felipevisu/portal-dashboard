@@ -19,7 +19,7 @@ import { Paginator, RelayToFlat } from "@portal/types";
 import { getChoices } from "@portal/utils/data";
 import { mapEdgesToItems } from "@portal/utils/maps";
 
-import { useEntryType } from "../hooks";
+import { useEntryType } from "../../../hooks/useEntryType";
 
 import DocumentList from "./DocumentList";
 import { EntryFormInfos, EntryFormStatus, FormProps } from "./EntryForm";

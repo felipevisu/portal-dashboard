@@ -30,7 +30,7 @@ export const Savebar = ({
         sx={{
           borderRadius: "8px 8px 0 0",
           paddingBottom: "0 !important",
-          marginTop: 2,
+          marginBottom: 0,
         }}
       >
         <CardContent sx={{ paddingBottom: "16px !important" }}>

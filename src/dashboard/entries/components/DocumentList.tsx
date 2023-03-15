@@ -22,7 +22,7 @@ import { useLinks } from "@portal/hooks";
 import { Paginator } from "@portal/types";
 import { formatDate } from "@portal/utils/date";
 
-import { useEntryType } from "../hooks";
+import { useEntryType } from "../../../hooks/useEntryType";
 
 interface DocumentListProps {
   documents: DocumentFragment[];
@@ -40,7 +40,7 @@ export const DocumentList = ({
   const type = useEntryType();
   const { documentCreate, documentDetails } = useLinks();
   return (
-    <Card sx={{ marginBottom: 2 }}>
+    <Card>
       <CardHeader
         title={t("document.title")}
         action={

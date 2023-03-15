@@ -13,7 +13,7 @@ import { useLinks } from "@portal/hooks";
 import { renderCollection } from "@portal/misc";
 import { ListActions } from "@portal/types";
 
-import { useEntryType } from "../hooks";
+import { useEntryType } from "../../../hooks/useEntryType";
 
 interface EntryListProps extends ListActions {
   entries: EntryFragment[];

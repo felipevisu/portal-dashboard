@@ -9,6 +9,7 @@ import {
   DocumentInput,
   useDocumentCreateMutation,
 } from "@portal/graphql";
+import { useEntryType, useLinks } from "@portal/hooks";
 
 export const DocumentCreate = () => {
   const { id } = useParams();
@@ -16,19 +17,13 @@ export const DocumentCreate = () => {
   const navigate = useNavigate();
   const [file, setFile] = useState<File | null>(null);
 
-  const link = window.location.pathname.includes("vehicle")
-    ? "vehicles"
-    : "providers";
+  const type = useEntryType();
+  const { documentDetails } = useLinks();
 
   const handleCreateDocument = (data: DocumentCreateMutation) => {
     if (!data?.documentCreate?.errors?.length) {
       toast(t("messages.create.success"), { type: toast.TYPE.SUCCESS });
-      navigate(
-        `/${link}/details/${id}/documents/${data?.documentCreate.document.id}/details`
-      );
-    }
-    if (data?.documentCreate?.errors?.some((error) => error.field === "file")) {
-      toast(t("Você precisa adicionar um arquivo"), { type: toast.TYPE.ERROR });
+      navigate(documentDetails(type, id, data?.documentCreate.document.id));
     }
   };
 

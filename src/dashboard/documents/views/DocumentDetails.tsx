@@ -16,7 +16,7 @@ import {
   useDocumentUpdateMutation,
   useRequestNewDocumentMutation,
 } from "@portal/graphql";
-import { useModal } from "@portal/hooks";
+import { useEntryType, useLinks, useModal } from "@portal/hooks";
 
 import { useDocumentActions } from "./hooks";
 
@@ -31,9 +31,8 @@ export const DocumentDetails = () => {
   const requestModal = useModal();
   const [file, setFile] = useState<File | null>(null);
 
-  const link = window.location.pathname.includes("vehicle")
-    ? "vehicles"
-    : "providers";
+  const type = useEntryType();
+  const { entryDetails } = useLinks();
 
   const handleUpdateDocument = (data: DocumentUpdateMutation) => {
     if (!data?.documentUpdate.errors.length) {
@@ -52,7 +51,7 @@ export const DocumentDetails = () => {
   };
 
   const [deleteDocument] = useDocumentDeleteMutation({
-    onCompleted: () => navigate(`/${link}/details/${id}`),
+    onCompleted: () => navigate(entryDetails(type, id)),
   });
 
   const [requestNewDocument, requestNewDocumentResult] =

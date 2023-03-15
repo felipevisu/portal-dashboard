@@ -45,7 +45,7 @@ export const DocumentHistory = ({
   if (!files.length) return null;
 
   return (
-    <Card sx={{ marginTop: 2 }}>
+    <Card>
       <CardHeader title={t("filesHistory")} />
       <Table>
         <TableHead>

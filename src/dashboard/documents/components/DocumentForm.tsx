@@ -75,7 +75,7 @@ export const DocumentForm = ({
   return (
     <Grid container spacing={2}>
       <Grid item xs={8}>
-        <Card sx={{ marginBottom: 2 }}>
+        <Card>
           <CardHeader title={t("generalInfo")} />
           <CardContent>
             <FormControl fullWidth>
@@ -112,7 +112,7 @@ export const DocumentForm = ({
       </Grid>
       <Grid item xs={4}>
         {onRequest && (
-          <Card sx={{ marginBottom: 2 }}>
+          <Card>
             <CardHeader title={t("document.requestCard.title")} />
             <CardContent>
               <Typography>{t("document.requestCard.description")}</Typography>

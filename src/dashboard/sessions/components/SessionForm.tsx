@@ -43,7 +43,7 @@ export const SessionForm = ({ errors, data, onChange }: SessionFormProps) => {
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Grid container spacing={2}>
         <Grid item xs={8}>
-          <Card sx={{ marginBottom: (theme) => theme.spacing(2) }}>
+          <Card>
             <CardHeader title="Informações gerais" />
             <CardContent>
               <FormControl fullWidth>

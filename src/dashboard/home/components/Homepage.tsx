@@ -38,7 +38,6 @@ export const Homepage = ({
         title={t("expired")}
         href={expiredFilter}
       />
-      <FormSpacer />
       <DocumentList
         documents={mapEdgesToItems(closeToExpire)}
         title={t("expiring")}

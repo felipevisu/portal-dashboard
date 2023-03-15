@@ -25,7 +25,7 @@ const PluginInfo: React.FC<PluginInfoProps> = ({
 }) => {
   const { t } = useTranslation();
   return (
-    <Card sx={{ marginBottom: 2 }}>
+    <Card>
       <CardHeader title={t("plugin.info")} />
       <CardContent>
         <Typography variant="h6">{name}</Typography>

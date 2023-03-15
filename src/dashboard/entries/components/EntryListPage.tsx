@@ -15,7 +15,7 @@ import {
   SearchPageProps,
 } from "@portal/types";
 
-import { useEntryType } from "../hooks";
+import { useEntryType } from "../../../hooks/useEntryType";
 
 import EntryList from "./EntryList";
 

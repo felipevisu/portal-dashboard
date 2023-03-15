@@ -37,7 +37,7 @@ const PluginSettings: React.FC<PluginSettingsProps> = ({
 }) => {
   const { t } = useTranslation();
   return (
-    <Card sx={{ marginBottom: 2 }}>
+    <Card>
       <CardHeader title={t("plugin.settings")} />
       <CardContent>
         {data.configuration.map((field) => {

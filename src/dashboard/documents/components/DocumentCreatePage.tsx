@@ -6,7 +6,7 @@ import { Backlink } from "@portal/components/Backlink";
 import { Form } from "@portal/components/Form";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
-import { useEntryType } from "@portal/dashboard/entries/hooks";
+import { useEntryType } from "@portal/hooks";
 import { DocumentInput, ErrorFragment } from "@portal/graphql";
 import { useLinks } from "@portal/hooks";
 
