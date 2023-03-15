@@ -34,7 +34,7 @@ export const PluginsList = () => {
     <PluginsListPage
       plugins={mapEdgesToItems(data?.plugins)}
       onSearchChange={handleSearch}
-      initialSearch={search}
+      search={search}
       filterOpts={filterOpts}
       onNextPage={handleNextPage}
       onPreviousPage={handlePreviousPage}

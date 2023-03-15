@@ -17,9 +17,14 @@ interface FilterBarProps {
   placeholder?: string;
   onSearchChange: (e: React.ChangeEvent<any>) => void;
   filterOpts: FilterOpts[];
+  search?: string;
 }
 
-export const FilterBar = ({ onSearchChange, filterOpts }: FilterBarProps) => {
+export const FilterBar = ({
+  onSearchChange,
+  filterOpts,
+  search,
+}: FilterBarProps) => {
   return (
     <Root>
       <Filter filterOpts={filterOpts} />
@@ -27,7 +32,10 @@ export const FilterBar = ({ onSearchChange, filterOpts }: FilterBarProps) => {
         fullWidth
         onChange={onSearchChange}
         size="small"
-        inputProps={{ placeholder: "Pesquisar" }}
+        inputProps={{
+          placeholder: "Pesquisar",
+        }}
+        value={search}
       />
     </Root>
   );

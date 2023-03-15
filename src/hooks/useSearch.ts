@@ -5,13 +5,15 @@ import useDebounce from "./useDebounce";
 
 export const useSearch = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [search, setSearch] = useState<string>(searchParams.get("search"));
-  const debouncedSearch = useDebounce(setSearch);
+  const [search, setSearch] = useState<string>(
+    searchParams.get("search") || ""
+  );
+  const debouncedSearch = useDebounce(setSearchParams);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    debouncedSearch(value);
-    setSearchParams({ search: value });
+    debouncedSearch({ search: value });
+    setSearch(value);
   };
 
   return {

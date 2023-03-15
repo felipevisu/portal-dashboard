@@ -26,7 +26,7 @@ export interface SearchProps {
   onSearchChange: (e: React.ChangeEvent<any>) => void;
 }
 export interface SearchPageProps extends SearchProps {
-  initialSearch: string;
+  search: string;
 }
 
 export interface ListActionsWithoutToolbar {

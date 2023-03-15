@@ -19,28 +19,24 @@ export interface PaginationState {
 
 const PAGE_SIZE = 20;
 
+const initialDirection = {
+  first: PAGE_SIZE,
+  last: null,
+};
+
 export const usePaginator = (): Paginator => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [pagination, setPagination] = useState<PaginationState>({
-    before: "",
-    after: "",
-    first: PAGE_SIZE,
-    last: null,
-  });
+  const [direction, setDirection] = useState<PaginationState>(initialDirection);
 
   useEffect(() => {
     if (searchParams.get("after")) {
-      setPagination({
-        before: "",
-        after: searchParams.get("after"),
+      setDirection({
         first: PAGE_SIZE,
         last: null,
       });
     }
     if (searchParams.get("before")) {
-      setPagination({
-        before: searchParams.get("before"),
-        after: "",
+      setDirection({
         first: null,
         last: PAGE_SIZE,
       });
@@ -58,7 +54,11 @@ export const usePaginator = (): Paginator => {
   return {
     handleNextPage,
     handlePreviousPage,
-    pagination,
+    pagination: {
+      ...direction,
+      after: searchParams.get("after") || "",
+      before: searchParams.get("before") || "",
+    },
   };
 };
 

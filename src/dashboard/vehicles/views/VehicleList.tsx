@@ -35,7 +35,6 @@ export const VehicleList = () => {
   const { result: searchCategoryOpts } = useCategorySearch({
     variables: {
       ...DEFAULT_INITIAL_SEARCH_DATA,
-      query: search,
       type: EntryTypeEnum.VEHICLE,
     },
   });
@@ -55,7 +54,7 @@ export const VehicleList = () => {
     fetchPolicy: "network-only",
     variables: {
       ...pagination,
-      filter: { type: EntryTypeEnum.VEHICLE, search, ...queryParameters },
+      filter: { type: EntryTypeEnum.VEHICLE, ...queryParameters },
     },
   });
 
@@ -86,7 +85,7 @@ export const VehicleList = () => {
           </IconButton>
         }
         onSearchChange={handleSearch}
-        initialSearch={search}
+        search={search}
         filterOpts={filterOpts}
         onNextPage={handleNextPage}
         onPreviousPage={handlePreviousPage}

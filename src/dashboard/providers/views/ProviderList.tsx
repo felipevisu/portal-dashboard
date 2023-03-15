@@ -35,7 +35,6 @@ export const ProviderList = () => {
   const { result: searchCategoryOpts } = useCategorySearch({
     variables: {
       ...DEFAULT_INITIAL_SEARCH_DATA,
-      query: search,
       type: EntryTypeEnum.PROVIDER,
     },
   });
@@ -55,7 +54,7 @@ export const ProviderList = () => {
     fetchPolicy: "network-only",
     variables: {
       ...pagination,
-      filter: { type: EntryTypeEnum.PROVIDER, search, ...queryParameters },
+      filter: { type: EntryTypeEnum.PROVIDER, ...queryParameters },
     },
   });
 
@@ -86,7 +85,7 @@ export const ProviderList = () => {
           </IconButton>
         }
         onSearchChange={handleSearch}
-        initialSearch={search}
+        search={search}
         filterOpts={filterOpts}
         onNextPage={handleNextPage}
         onPreviousPage={handlePreviousPage}

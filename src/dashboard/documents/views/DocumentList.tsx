@@ -43,7 +43,7 @@ export const DocumentList = () => {
 
   const { data, loading, refetch } = useDocumentsQuery({
     fetchPolicy: "network-only",
-    variables: { ...pagination, filter: { search, ...queryParameters } },
+    variables: { ...pagination, filter: { ...queryParameters } },
   });
 
   const handleDocumentBulkDelete = (data: DocumentBulkDeleteMutation) => {
@@ -67,7 +67,7 @@ export const DocumentList = () => {
         onNextPage={handleNextPage}
         onPreviousPage={handlePreviousPage}
         onSearchChange={handleSearch}
-        initialSearch={search}
+        search={search}
         selected={listElements.length}
         isChecked={isSelected}
         toggle={toggle}

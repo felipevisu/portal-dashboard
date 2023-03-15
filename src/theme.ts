@@ -2,8 +2,10 @@ import { createTheme } from "@mui/material/styles";
 
 const fontFamily = '"Inter", "sans-serif"';
 
+const spacing = (value = 1) => `${(value * 8) / 16}rem`;
+
 const theme = createTheme({
-  spacing: (value = 1) => `${(value * 8) / 16}rem`,
+  spacing,
   palette: {
     text: {
       primary: "#28234a",

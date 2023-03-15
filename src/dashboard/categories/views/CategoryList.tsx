@@ -39,7 +39,7 @@ export const CategoryList = () => {
 
   const { data, loading, refetch } = useCategoriesQuery({
     fetchPolicy: "network-only",
-    variables: { ...pagination, filter: { search, ...queryParameters } },
+    variables: { ...pagination, filter: { ...queryParameters } },
   });
 
   const handleCategoryBulkDelete = (data: CategoryBulkDeleteMutation) => {
@@ -69,7 +69,7 @@ export const CategoryList = () => {
           </IconButton>
         }
         onSearchChange={handleSearch}
-        initialSearch={search}
+        search={search}
         filterOpts={filterOpts}
         onNextPage={handleNextPage}
         onPreviousPage={handlePreviousPage}

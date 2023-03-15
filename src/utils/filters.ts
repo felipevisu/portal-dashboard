@@ -6,7 +6,7 @@ export const getQuery = (
   filterOpts: FilterOpts[],
   searchParams: URLSearchParams
 ) => {
-  const query = {};
+  const query: Record<string, any> = {};
   filterOpts.forEach((filter) => {
     if (filter.type === "radio") {
       let value: string | boolean = searchParams.get(filter.slug);
@@ -22,5 +22,7 @@ export const getQuery = (
       query[filter.slug] = daterage;
     }
   });
+  const search = searchParams.get("search");
+  if (search) query.search = search;
   return query;
 };

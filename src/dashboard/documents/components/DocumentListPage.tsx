@@ -31,6 +31,7 @@ export const DocumentListPage = ({
   disabled,
   toolbar,
   filterOpts,
+  search,
   toggle,
   toggleAll,
   isChecked,
@@ -43,7 +44,11 @@ export const DocumentListPage = ({
     <>
       <PageHeader title={t("document.plural")} />
       <Card>
-        <FilterBar onSearchChange={onSearchChange} filterOpts={filterOpts} />
+        <FilterBar
+          onSearchChange={onSearchChange}
+          filterOpts={filterOpts}
+          search={search}
+        />
         <DocumentList
           selected={selected}
           documents={documents}

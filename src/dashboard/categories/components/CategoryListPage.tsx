@@ -39,6 +39,7 @@ export const CategoryListPage = ({
   onNextPage,
   onPreviousPage,
   disabled,
+  search,
 }: CategoryListPageProps) => {
   const { t } = useTranslation();
   const { categoryCreate } = useLinks();
@@ -51,7 +52,11 @@ export const CategoryListPage = ({
         </Button>
       </PageHeader>
       <Card>
-        <FilterBar onSearchChange={onSearchChange} filterOpts={filterOpts} />
+        <FilterBar
+          onSearchChange={onSearchChange}
+          filterOpts={filterOpts}
+          search={search}
+        />
         <CategoryList
           selected={selected}
           categories={categories}

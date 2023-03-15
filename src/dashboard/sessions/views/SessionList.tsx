@@ -44,7 +44,7 @@ export const SessionList = () => {
 
   const { data, loading, refetch } = useSessionsQuery({
     fetchPolicy: "cache-and-network",
-    variables: { ...pagination, filter: { search, ...queryParameters } },
+    variables: { ...pagination, filter: { ...queryParameters } },
   });
 
   const handleSessionBulkDelete = (data: SessionBulkDeleteMutation) => {
@@ -74,7 +74,7 @@ export const SessionList = () => {
           </IconButton>
         }
         onSearchChange={handleSearch}
-        initialSearch={search}
+        search={search}
         filterOpts={filterOpts}
         onNextPage={handleNextPage}
         onPreviousPage={handlePreviousPage}

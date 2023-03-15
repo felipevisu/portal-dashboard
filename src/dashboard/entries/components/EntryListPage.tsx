@@ -41,6 +41,7 @@ export const EntryListPage = ({
   onPreviousPage,
   disabled,
   filterOpts,
+  search,
 }: EntryListPageProps) => {
   const type = useEntryType();
   const { t } = useTranslation("translation", { keyPrefix: type });
@@ -57,6 +58,7 @@ export const EntryListPage = ({
           placeholder={t("search")}
           onSearchChange={onSearchChange}
           filterOpts={filterOpts}
+          search={search}
         />
         <EntryList
           selected={selected}

@@ -32,6 +32,7 @@ export const SessionListPage = ({
   pageInfo,
   selected,
   toolbar,
+  search,
   toggle,
   toggleAll,
   isChecked,
@@ -49,7 +50,11 @@ export const SessionListPage = ({
         </Button>
       </PageHeader>
       <Card>
-        <FilterBar onSearchChange={onSearchChange} filterOpts={filterOpts} />
+        <FilterBar
+          onSearchChange={onSearchChange}
+          filterOpts={filterOpts}
+          search={search}
+        />
         <SessionList
           selected={selected}
           sessions={sessions}
