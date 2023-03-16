@@ -6,9 +6,8 @@ import { Backlink } from "@portal/components/Backlink";
 import { Form } from "@portal/components/Form";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
-import { useEntryType } from "@portal/hooks";
 import { DocumentInput, ErrorFragment } from "@portal/graphql";
-import { useLinks } from "@portal/hooks";
+import { useEntryType, useLinks } from "@portal/hooks";
 
 import DocumentFile from "./DocumentFile";
 import DocumentForm, { FormProps, generateSubmitData } from "./DocumentForm";
