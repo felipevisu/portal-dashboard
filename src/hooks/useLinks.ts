@@ -1,5 +1,3 @@
-type EntryType = "vehicle" | "provider";
-
 export const useLinks = () => {
   const homepage = () => "/";
   const categoryList = () => "/activities";
@@ -7,21 +5,15 @@ export const useLinks = () => {
   const categoryDetails = (id: string) => `/activities/details/${id}`;
   const vehicleList = () => "/vehicles";
   const providerList = () => "/providers";
-  const entryList = (type: EntryType) =>
-    type === "vehicle" ? "/vehicles" : "/providers";
-  const entryCreate = (type: EntryType) =>
-    type === "vehicle" ? "/vehicles/create" : "/providers/create";
-  const entryDetails = (type: EntryType, id: string) =>
-    type === "vehicle" ? `/vehicles/details/${id}` : `/providers/details/${id}`;
+  const entryList = (type: string) => `/entries/${type}`;
+  const entryCreate = (type: string) => `/entries/${type}/create`;
+  const entryDetails = (type: string, id: string) =>
+    `/entries/${type}/details/${id}`;
   const documentList = () => "/documents";
-  const documentCreate = (type: EntryType, entry: string) =>
-    type === "vehicle"
-      ? `/vehicles/details/${entry}/documents/create`
-      : `/providers/details/${entry}/documents/create`;
-  const documentDetails = (type: EntryType, entry: string, id: string) =>
-    type === "vehicle"
-      ? `/vehicles/details/${entry}/documents/${id}/details`
-      : `/providers/details/${entry}/documents/${id}/details`;
+  const documentCreate = (type: string, entryId: string) =>
+    `/entries/${type}/details/${entryId}/documents/create`;
+  const documentDetails = (type: string, entryId: string, id: string) =>
+    `/entries/${type}/details/${entryId}/documents/${id}/details`;
 
   return {
     homepage,

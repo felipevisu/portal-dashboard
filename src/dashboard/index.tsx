@@ -8,13 +8,12 @@ import AuthProvider from "./auth/authProvider";
 import Auth, { useUser } from "./auth";
 import Categories from "./categories";
 import Documents from "./documents";
+import Entries from "./entries";
 import Home from "./home";
 import Investments from "./investments";
 import Plugins from "./plugins";
-import Providers from "./providers";
 import Sessions from "./sessions";
 import Settings from "./settings";
-import Vehicles from "./vehicles";
 
 const RoutesComponent = () => {
   const { authenticated, authenticating } = useUser();
@@ -26,10 +25,9 @@ const RoutesComponent = () => {
       <AppLayout>
         <Routes>
           <Route path="/*" element={<Home />} />
-          <Route path="/vehicles/*" element={<Vehicles />} />
-          <Route path="/providers/*" element={<Providers />} />
-          <Route path="/activities/*" element={<Categories />} />
+          <Route path="/entries/:entry/*" element={<Entries />} />
           <Route path="/documents/*" element={<Documents />} />
+          <Route path="/activities/*" element={<Categories />} />
           <Route path="/sessions/*" element={<Sessions />} />
           <Route path="/investments/*" element={<Investments />} />
           <Route path="/settings/*" element={<Settings />} />

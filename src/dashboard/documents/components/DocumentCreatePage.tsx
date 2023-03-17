@@ -7,7 +7,7 @@ import { Form } from "@portal/components/Form";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
 import { DocumentInput, ErrorFragment } from "@portal/graphql";
-import { useEntryType, useLinks } from "@portal/hooks";
+import { useLinks } from "@portal/hooks";
 
 import DocumentFile from "./DocumentFile";
 import DocumentForm, { FormProps, generateSubmitData } from "./DocumentForm";
@@ -28,9 +28,8 @@ export const DocumentCreatePage = ({
   setFile,
 }: DocumentCreatePageProps) => {
   const { t } = useTranslation();
-  const { id: entryId } = useParams();
+  const { entry: type, id: entryId } = useParams();
   const navigate = useNavigate();
-  const type = useEntryType();
   const { entryDetails } = useLinks();
 
   const initialData: FormProps = {

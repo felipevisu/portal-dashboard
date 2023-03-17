@@ -9,15 +9,14 @@ import {
   DocumentInput,
   useDocumentCreateMutation,
 } from "@portal/graphql";
-import { useEntryType, useLinks } from "@portal/hooks";
+import { useLinks } from "@portal/hooks";
 
 export const DocumentCreate = () => {
-  const { id } = useParams();
+  const { entry: type, id } = useParams();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [file, setFile] = useState<File | null>(null);
 
-  const type = useEntryType();
   const { documentDetails } = useLinks();
 
   const handleCreateDocument = (data: DocumentCreateMutation) => {

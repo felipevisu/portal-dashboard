@@ -12,7 +12,7 @@ import {
   DocumentInput,
   ErrorFragment,
 } from "@portal/graphql";
-import { useEntryType, useLinks } from "@portal/hooks";
+import { useLinks } from "@portal/hooks";
 
 import DocumentEvents from "./DocumentEvents";
 import DocumentFile from "./DocumentFile";
@@ -43,9 +43,8 @@ export const DocumentDetailsPage = ({
   onFileAction,
 }: DocumentDetailsPageProps) => {
   const { t } = useTranslation();
-  const { id: entryId } = useParams();
+  const { entry: type, id: entryId } = useParams();
   const { entryDetails } = useLinks();
-  const type = useEntryType();
   const navigate = useNavigate();
 
   const initialData: FormProps = {

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -22,39 +22,42 @@ import useModal from "@portal/hooks/useModal";
 import useCategorySearch from "@portal/searches/useCategorySearch";
 import { mapEdgesToItems } from "@portal/utils/maps";
 
-export const ProviderDetails = () => {
-  const { id } = useParams();
+import { mapType } from "./utils";
+
+export const VehicleDetails = () => {
+  const [vehicle, setVehicle] = useState(null);
+  const { entry: type, id } = useParams();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { isOpen, openModal, closeModal } = useModal();
   const paginator = usePaginator();
 
-  const handleUpdateProvider = (data: EntryUpdateMutation) => {
+  const handleUpdateVehicle = (data: EntryUpdateMutation) => {
     if (!data?.entryUpdate.errors.length) {
       toast(t("messages.update.success"), { type: toast.TYPE.SUCCESS });
     }
   };
 
-  const [updateProvider, updateProviderResult] = useEntryUpdateMutation({
-    onCompleted: handleUpdateProvider,
+  const [updateVehicle, updateVehicleResult] = useEntryUpdateMutation({
+    onCompleted: handleUpdateVehicle,
   });
 
   const handleSubmit = async (data: EntryInput) => {
-    await updateProvider({ variables: { id: id, input: { ...data } } });
+    await updateVehicle({ variables: { id: id, input: { ...data } } });
   };
 
-  const [deleteProvider] = useEntryDeleteMutation({
-    onCompleted: () => navigate("/providers"),
+  const [deleteVehicle] = useEntryDeleteMutation({
+    onCompleted: () => navigate("/vehicles"),
   });
 
-  const handleProviderDelete = async () => {
-    await deleteProvider({ variables: { id } });
+  const handleVehicleDelete = async () => {
+    await deleteVehicle({ variables: { id } });
   };
 
   const { result: searchCategoryOpts } = useCategorySearch({
     variables: {
       ...DEFAULT_INITIAL_SEARCH_DATA,
-      type: EntryTypeEnum.PROVIDER,
+      type: mapType[type],
     },
   });
 
@@ -63,27 +66,33 @@ export const ProviderDetails = () => {
   });
 
   useEffect(() => {
+    if (data?.entry) {
+      setVehicle(data.entry);
+    }
+  }, [data]);
+
+  useEffect(() => {
     refetch();
   }, []);
 
-  if (loading) return <CircularLoading />;
+  if (loading && !vehicle) return <CircularLoading />;
 
-  if (!data?.entry) return <NotFound />;
+  if (!vehicle) return <NotFound />;
 
   return (
     <>
       <EntryDetailsPage
-        entry={data.entry}
+        entry={vehicle}
         onSubmit={handleSubmit}
         onDelete={openModal}
-        errors={updateProviderResult.data?.entryUpdate.errors || []}
-        loading={updateProviderResult.loading}
+        errors={updateVehicleResult.data?.entryUpdate.errors || []}
+        loading={updateVehicleResult.loading}
         categories={mapEdgesToItems(searchCategoryOpts?.data?.search) || []}
         paginator={paginator}
       />
       <ActionDialog
         onClose={closeModal}
-        onConfirm={handleProviderDelete}
+        onConfirm={handleVehicleDelete}
         open={isOpen}
         title="Excluir veículo"
         variant="delete"
@@ -98,4 +107,4 @@ export const ProviderDetails = () => {
   );
 };
 
-export default ProviderDetails;
+export default VehicleDetails;

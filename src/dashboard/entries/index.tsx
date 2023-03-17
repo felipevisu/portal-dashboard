@@ -4,16 +4,16 @@ import { Route, Routes } from "react-router-dom";
 import DocumentCreate from "../documents/views/DocumentCreate";
 import DocumentDetails from "../documents/views/DocumentDetails";
 
-import VehicleCreate from "./views/VehicleCreate";
-import VehicleDetails from "./views/VehicleDetails";
-import VehicleList from "./views/VehicleList";
+import EntryCreate from "./views/EntryCreate";
+import EntryDetails from "./views/EntryDetails";
+import EntryList from "./views/EntryList";
 
-export const Vehicles = () => {
+export const Entries = () => {
   return (
     <Routes>
-      <Route path="/" element={<VehicleList />} />
-      <Route path="/create" element={<VehicleCreate />} />
-      <Route path="/details/:id/*" element={<VehicleDetails />} />
+      <Route path="/" element={<EntryList />} />
+      <Route path="/create" element={<EntryCreate />} />
+      <Route path="/details/:id" element={<EntryDetails />} />
       <Route
         path="/details/:id/documents/create"
         element={<DocumentCreate />}
@@ -26,4 +26,4 @@ export const Vehicles = () => {
   );
 };
 
-export default Vehicles;
+export default Entries;

@@ -110,7 +110,7 @@
 		"settings": "Configurações do Plugin",
 		"authorization": "Autorização"
 	},
-	"provider": {
+	"providers": {
 		"title": "Fornecedor",
 		"plural": "Fornecedores",
 		"create": "Adicionar Fornecedor",
@@ -135,7 +135,7 @@
 	"uploadDate": "Data de upload",
 	"validUntil": "Válido até",
 	"value": "Valor",
-	"vehicle": {
+	"vehicles": {
 		"title": "Veículo",
 		"plural": "Veículos",
 		"create": "Adicionar Veículo",

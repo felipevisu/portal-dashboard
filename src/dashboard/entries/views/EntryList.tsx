@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 
 import { Delete } from "@mui/icons-material";
 import { DialogContentText, IconButton } from "@mui/material";
@@ -20,12 +20,13 @@ import { getQuery } from "@portal/utils/filters";
 import { mapEdgesToItems } from "@portal/utils/maps";
 
 import { getFilterOpts } from "./filter";
+import { mapType } from "./utils";
 
-export const ProviderList = () => {
+export const VehicleList = () => {
   const [searchParams] = useSearchParams();
   const { search, handleSearch } = useSearch();
   const { pagination, handleNextPage, handlePreviousPage } = usePaginator();
-
+  const { entry: type } = useParams();
   const { isSelected, listElements, toggle, toggleAll, reset } = useBulkActions(
     []
   );
@@ -35,7 +36,7 @@ export const ProviderList = () => {
   const { result: searchCategoryOpts } = useCategorySearch({
     variables: {
       ...DEFAULT_INITIAL_SEARCH_DATA,
-      type: EntryTypeEnum.PROVIDER,
+      type: mapType[type],
     },
   });
 
@@ -54,11 +55,11 @@ export const ProviderList = () => {
     fetchPolicy: "network-only",
     variables: {
       ...pagination,
-      filter: { type: EntryTypeEnum.PROVIDER, ...queryParameters },
+      filter: { type: mapType[type], ...queryParameters },
     },
   });
 
-  const handleProviderBulkDelete = (data: EntryBulkDeleteMutation) => {
+  const handleVehicleBulkDelete = (data: EntryBulkDeleteMutation) => {
     if (data.entryBulkDelete.errors.length === 0) {
       refetch();
       reset();
@@ -67,7 +68,7 @@ export const ProviderList = () => {
   };
 
   const [vehicleBulkDelete] = useEntryBulkDeleteMutation({
-    onCompleted: handleProviderBulkDelete,
+    onCompleted: handleVehicleBulkDelete,
   });
 
   return (
@@ -110,4 +111,4 @@ export const ProviderList = () => {
   );
 };
 
-export default ProviderList;
+export default VehicleList;

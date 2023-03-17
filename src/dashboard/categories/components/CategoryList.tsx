@@ -67,8 +67,8 @@ export const CategoryList = ({
               <TableCell>{category.name}</TableCell>
               <TableCellHeader>
                 {category.type === "VEHICLE"
-                  ? t("vehicle.title")
-                  : t("provider.title")}
+                  ? t("vehicles.title")
+                  : t("providers.title")}
               </TableCellHeader>
               <TableCell sx={{ width: 160, textAlign: "center" }}>
                 {category.entries.totalCount}

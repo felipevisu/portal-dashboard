@@ -16,12 +16,12 @@ import {
   useDocumentUpdateMutation,
   useRequestNewDocumentMutation,
 } from "@portal/graphql";
-import { useEntryType, useLinks, useModal } from "@portal/hooks";
+import { useLinks, useModal } from "@portal/hooks";
 
 import { useDocumentActions } from "./hooks";
 
 export const DocumentDetails = () => {
-  const { id, documentId } = useParams();
+  const { entry: type, id, documentId } = useParams();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { data, loading, refetch } = useDocumentDetailsQuery({
@@ -31,7 +31,6 @@ export const DocumentDetails = () => {
   const requestModal = useModal();
   const [file, setFile] = useState<File | null>(null);
 
-  const type = useEntryType();
   const { entryDetails } = useLinks();
 
   const handleUpdateDocument = (data: DocumentUpdateMutation) => {

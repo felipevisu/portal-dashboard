@@ -22,8 +22,6 @@ import { useLinks } from "@portal/hooks";
 import { Paginator } from "@portal/types";
 import { formatDate } from "@portal/utils/date";
 
-import { useEntryType } from "../../../hooks/useEntryType";
-
 interface DocumentListProps {
   documents: DocumentFragment[];
   paginator: Paginator;
@@ -37,7 +35,7 @@ export const DocumentList = ({
 }: DocumentListProps) => {
   const { id: entryId } = useParams();
   const { t } = useTranslation();
-  const type = useEntryType();
+  const { entry: type } = useParams();
   const { documentCreate, documentDetails } = useLinks();
   return (
     <Card>

@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { Grid } from "@mui/material";
 import { Backlink } from "@portal/components/Backlink";
@@ -17,8 +17,6 @@ import { useLinks } from "@portal/hooks";
 import { SubmitPromise } from "@portal/hooks/useForm";
 import { RelayToFlat } from "@portal/types";
 import { getChoices } from "@portal/utils/data";
-
-import { useEntryType } from "../../../hooks/useEntryType";
 
 import { EntryFormInfos, EntryFormStatus, FormProps } from "./EntryForm";
 
@@ -48,7 +46,7 @@ export const EntryCreatePage = ({
   };
 
   const categories = getChoices(categoryChoiceList);
-  const type = useEntryType();
+  const { entry: type } = useParams();
   const { entryList } = useLinks();
   const { t } = useTranslation();
 

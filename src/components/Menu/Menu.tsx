@@ -41,13 +41,13 @@ const useMenuItems = (): MenuItemProps[] => {
       icon: <CategoryIcon />,
     },
     {
-      label: t("vehicle.plural"),
-      path: links.entryList("vehicle"),
+      label: t("vehicles.plural"),
+      path: links.entryList("vehicles"),
       icon: <ChatIcon />,
     },
     {
-      label: t("provider.plural"),
-      path: links.entryList("provider"),
+      label: t("providers.plural"),
+      path: links.entryList("providers"),
       icon: <DesignServicesIcon />,
     },
     {

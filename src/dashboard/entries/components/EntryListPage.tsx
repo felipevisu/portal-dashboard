@@ -1,5 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router-dom";
 
 import { Card } from "@mui/material";
 import { Button } from "@portal/components/Button";
@@ -14,8 +15,6 @@ import {
   PaginateListProps,
   SearchPageProps,
 } from "@portal/types";
-
-import { useEntryType } from "../../../hooks/useEntryType";
 
 import EntryList from "./EntryList";
 
@@ -43,7 +42,7 @@ export const EntryListPage = ({
   filterOpts,
   search,
 }: EntryListPageProps) => {
-  const type = useEntryType();
+  const { entry: type } = useParams();
   const { t } = useTranslation("translation", { keyPrefix: type });
   const { entryCreate } = useLinks();
   return (

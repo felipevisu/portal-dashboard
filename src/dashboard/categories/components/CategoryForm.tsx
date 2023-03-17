@@ -89,7 +89,7 @@ export const CategoryForm = ({ errors, data, onChange }: CategoryFormProps) => {
               >
                 {[
                   { value: "VEHICLE", label: t("vehicle.title") },
-                  { value: "PROVIDER", label: t("provider.title") },
+                  { value: "PROVIDER", label: t("providers.title") },
                 ].map((category) => (
                   <MenuItem key={category.value} value={category.value}>
                     {category.label}

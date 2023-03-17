@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { DEFAULT_INITIAL_SEARCH_DATA } from "@portal/config";
@@ -8,17 +8,18 @@ import { EntryCreatePage } from "@portal/dashboard/entries/components/EntryCreat
 import {
   EntryCreateMutation,
   EntryInput,
-  EntryTypeEnum,
   useEntryCreateMutation,
 } from "@portal/graphql";
-import { useEntryType, useLinks } from "@portal/hooks";
+import { useLinks } from "@portal/hooks";
 import useCategorySearch from "@portal/searches/useCategorySearch";
 import { mapEdgesToItems } from "@portal/utils/maps";
 
+import { mapType } from "./utils";
+
 export const VehicleCreate = () => {
+  const { entry: type } = useParams();
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const type = useEntryType();
   const { entryDetails } = useLinks();
 
   const handleCreateVehicle = (data: EntryCreateMutation) => {
@@ -34,7 +35,7 @@ export const VehicleCreate = () => {
 
   const handleSubmit = async (data: EntryInput) => {
     await createVehicle({
-      variables: { type: EntryTypeEnum.VEHICLE, input: { ...data } },
+      variables: { type: mapType[type], input: { ...data } },
     });
   };
 
@@ -45,7 +46,7 @@ export const VehicleCreate = () => {
   } = useCategorySearch({
     variables: {
       ...DEFAULT_INITIAL_SEARCH_DATA,
-      type: EntryTypeEnum.VEHICLE,
+      type: mapType[type],
     },
   });
 

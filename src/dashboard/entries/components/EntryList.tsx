@@ -1,5 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router-dom";
 
 import { TableBody, TableCell } from "@mui/material";
 import Checkbox from "@portal/components/Checkbox";
@@ -12,8 +13,6 @@ import { EntryFragment } from "@portal/graphql";
 import { useLinks } from "@portal/hooks";
 import { renderCollection } from "@portal/misc";
 import { ListActions } from "@portal/types";
-
-import { useEntryType } from "../../../hooks/useEntryType";
 
 interface EntryListProps extends ListActions {
   entries: EntryFragment[];
@@ -31,7 +30,7 @@ export const EntryList = ({
 }: EntryListProps) => {
   const numberOfColumns = entries?.length === 0 ? 3 : 4;
   const { t } = useTranslation();
-  const type = useEntryType();
+  const { entry: type } = useParams();
   const { entryDetails } = useLinks();
 
   return (
