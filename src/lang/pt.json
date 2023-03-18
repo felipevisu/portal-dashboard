@@ -2,8 +2,32 @@
 	"active": "Ativo",
 	"add": "Adicionar",
 	"address": "Endereço",
+	"attribute": {
+		"title": "Atributo",
+		"plural": "Atributos",
+		"create": "Adicionar Atributo",
+		"delete": "Excluir Atributo",
+		"deleteDialog": {
+			"title": "Excluir Atributo",
+			"description": "Deseja mesmo excluir o atributo {{ name }}? Lembre-se esta ação não é reversível."
+		},
+		"deleteDialogList": {
+			"title": "Excluir Atributos",
+			"description": "Deseja mesmo excluir estes atributos? Lembre-se esta ação não é reversível."
+		},
+		"fields": {
+			"name": "Nome",
+			"type": "Atribuição",
+			"inputType": "Tipo de campo",
+			"visibleInWebsite": "Visível no site",
+			"valueRequired": "Obrigatório"
+		}
+	},
 	"back": "Voltar",
-	"homepage": "Homepage",
+	"boolean": {
+		"yes": "Sim",
+		"no": "Não"
+	},
 	"category": {
 		"title": "Atividade",
 		"plural": "Atividades",
@@ -64,6 +88,16 @@
 	"documentNumber": "CNPJ/CPF",
 	"email": "Email",
 	"empty": "Nenhum item cadastrado",
+	"entry": {
+		"deleteDialog": {
+			"title": "Excluir Cadastro",
+			"description": "Deseja mesmo excluir {{ name }}? Lembre-se esta ação não é reversível."
+		},
+		"deleteDialogList": {
+			"title": "Excluir Cadastros",
+			"description": "Deseja mesmo excluir estes cadastros? Lembre-se esta ação não é reversível."
+		}
+	},
 	"entryTypes": "Veículo/Fornecedor",
 	"expirationDate": "Data de expiração",
 	"expired": "Expirado",
@@ -78,6 +112,19 @@
 	"filesHistory": "Histórico de arquivos",
 	"filters": "Filtros",
 	"generalInfo": "Informações gerais",
+	"helperText": {
+		"name": "Este valor será utilizado para identificar este item dentro da plataforma e no site público.",
+		"slug": "Este campo será utilizado para gerar a URL deste item no site e não pode conter caracteres especiais. Deixe em branco durante a criação para o sistema gerá-lo automaticamente.",
+		"email": "O email informado será utilizado para notificar o veículo/fornecedor sobre documentos expirados.",
+		"isPublished": "O item quando despublicado fica visivel apenas dentro da plataforma administrativa e oculto no site público.",
+		"documentNumber": "Identificação de pessoa física ou jurídica.",
+		"optional": "Opcional",
+		"expires": "Quando o documento expira o veículo/fornecedor é notificado solicitando um novo documento.",
+		"beginDate": "Início da validade do documento.",
+		"expirationDate": "Final da validade do documento. Quando próximo desta data o responsável pelo documento será notificado.",
+		"file": "O arquivo deve estar no formato .pdf e não deve conter mais do que 50MB de tamanho."
+	},
+	"homepage": "Homepage",
 	"initialDate": "Data de início",
 	"investment": {
 		"title": "Investimento",
@@ -96,7 +143,6 @@
 	"month": "Mês",
 	"name": "Nome",
 	"phone": "Telefone",
-	"settings": "Configurações",
 	"plugin": {
 		"title": "Plugin",
 		"plural": "Plugins",
@@ -126,6 +172,7 @@
 		"create": "Adicionar Sessão",
 		"delete": "Excluir Sessão"
 	},
+	"settings": "Configurações",
 	"slug": "Atalho",
 	"status": "Status",
 	"submit": "Enviar",
@@ -142,17 +189,5 @@
 		"delete": "Excluir Veículo"
 	},
 	"visibility": "Visibilidade",
-	"year": "Ano",
-	"helperText": {
-		"name": "Este valor será utilizado para identificar este item dentro da plataforma e no site público.",
-		"slug": "Este campo será utilizado para gerar a URL deste item no site e não pode conter caracteres especiais. Deixe em branco durante a criação para o sistema gerá-lo automaticamente.",
-		"email": "O email informado será utilizado para notificar o veículo/fornecedor sobre documentos expirados.",
-		"isPublished": "O item quando despublicado fica visivel apenas dentro da plataforma administrativa e oculto no site público.",
-		"documentNumber": "Identificação de pessoa física ou jurídica.",
-		"optional": "Opcional",
-		"expires": "Quando o documento expira o veículo/fornecedor é notificado solicitando um novo documento.",
-		"beginDate": "Início da validade do documento.",
-		"expirationDate": "Final da validade do documento. Quando próximo desta data o responsável pelo documento será notificado.",
-		"file": "O arquivo deve estar no formato .pdf e não deve conter mais do que 50MB de tamanho."
-	}
+	"year": "Ano"
 }

@@ -6,7 +6,10 @@ export const getQuery = (
   filterOpts: FilterOpts[],
   searchParams: URLSearchParams
 ) => {
-  const query: Record<string, any> = {};
+  const query: Record<
+    string,
+    string | string[] | boolean | Record<string, string>
+  > = {};
   filterOpts.forEach((filter) => {
     if (filter.type === "radio") {
       let value: string | boolean = searchParams.get(filter.slug);
@@ -14,6 +17,10 @@ export const getQuery = (
         if (isBooleanable(value)) value = boolean(value);
         query[filter.slug] = value;
       }
+    }
+    if (filter.type === "multiple") {
+      const value: string[] = searchParams.getAll(filter.slug);
+      if (value.length) query[filter.slug] = value;
     }
     if (filter.type === "daterange") {
       const gte = searchParams.get(filter.slug + "_Gte");

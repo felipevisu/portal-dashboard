@@ -11,9 +11,9 @@ export function getFilterOpts(
   return [
     {
       name: t("category.title"),
-      slug: "category",
+      slug: "categories",
       choices: categories,
-      type: "radio",
+      type: "multiple",
     },
     {
       name: t("status"),

@@ -1,5 +1,8 @@
 export const useLinks = () => {
   const homepage = () => "/";
+  const attributeList = () => "/attributes";
+  const attributeCreate = () => "/attributes/create";
+  const attributeDetails = (id: string) => `/attributes/details/${id}`;
   const categoryList = () => "/activities";
   const categoryCreate = () => "/activities/create";
   const categoryDetails = (id: string) => `/activities/details/${id}`;
@@ -17,6 +20,9 @@ export const useLinks = () => {
 
   return {
     homepage,
+    attributeList,
+    attributeCreate,
+    attributeDetails,
     categoryList,
     categoryCreate,
     categoryDetails,

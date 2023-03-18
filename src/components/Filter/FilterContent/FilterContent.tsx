@@ -5,8 +5,9 @@ import { useSearchParams } from "react-router-dom";
 import { Paper } from "@mui/material";
 import { FilterOpts } from "@portal/types";
 
+import { FilterItem } from "../FilterItem";
+
 import FilterContentHeader from "./FiltercontentHeader";
-import FilterItem from "./FilterItem";
 
 interface FilterContentProps {
   filterOpts: FilterOpts[];
@@ -21,9 +22,11 @@ export const FilterContent = ({ filterOpts }: FilterContentProps) => {
     for (const filter of filterOpts) {
       if (filter.type === "radio") {
         const value = searchParams.get(filter.slug);
-        if (value) {
-          filters[filter.slug] = value;
-        }
+        filters[filter.slug] = value;
+      }
+      if (filter.type === "multiple") {
+        const value = searchParams.getAll(filter.slug);
+        filters[filter.slug] = value;
       }
       if (filter.type === "daterange") {
         const gte = searchParams.get(filter.slug + "_Gte");
@@ -51,6 +54,9 @@ export const FilterContent = ({ filterOpts }: FilterContentProps) => {
       const slug = filter.slug;
       if (value) {
         if (filter.type === "radio") {
+          params[slug] = value;
+        }
+        if (filter.type === "multiple") {
           params[slug] = value;
         }
         if (filter.type === "daterange") {

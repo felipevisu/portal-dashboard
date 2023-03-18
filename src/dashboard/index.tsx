@@ -5,6 +5,7 @@ import AppLayout from "@portal/components/AppLayout";
 import CircularLoading from "@portal/components/Circular";
 
 import AuthProvider from "./auth/authProvider";
+import Attributes from "./attributes";
 import Auth, { useUser } from "./auth";
 import Categories from "./categories";
 import Documents from "./documents";
@@ -32,6 +33,7 @@ const RoutesComponent = () => {
           <Route path="/investments/*" element={<Investments />} />
           <Route path="/settings/*" element={<Settings />} />
           <Route path="/plugins/*" element={<Plugins />} />
+          <Route path="/attributes/*" element={<Attributes />} />
         </Routes>
       </AppLayout>
     );

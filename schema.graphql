@@ -3,6 +3,228 @@ type ApproveDocumentFile {
   errors: [Error!]!
 }
 
+type Attribute implements Node {
+  choices(after: String, before: String, filter: AttributeValueFilterInput, first: Int, last: Int, sortBy: AttributeChoicesSortingInput): AttributeValueCountableConnection
+  documents(after: String, before: String, first: Int, last: Int): DocumentCountableConnection!
+  entries(after: String, before: String, first: Int, last: Int): EntryCountableConnection!
+  entryType: AttributeEntryTypeEnum
+  filterableInDashboard: Boolean!
+  filterableInWebsite: Boolean!
+  id: ID!
+  inputType: AttributeInputTypeEnum
+  name: String
+  slug: String
+  type: AttributeTypeEnum
+  valueRequired: Boolean!
+  visibleInWebsite: Boolean!
+}
+
+enum AttributeChoicesSortField {
+  """Sort attribute choice by name."""
+  NAME
+
+  """Sort attribute choice by slug."""
+  SLUG
+}
+
+input AttributeChoicesSortingInput {
+  """Specifies the direction in which to sort products."""
+  direction: OrderDirection!
+
+  """Sort attribute choices by the selected field."""
+  field: AttributeChoicesSortField!
+}
+
+type AttributeCountableConnection {
+  edges: [AttributeCountableEdge!]!
+
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """A total count of items in the collection."""
+  totalCount: Int
+}
+
+type AttributeCountableEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: Attribute!
+}
+
+type AttributeCreate {
+  attribute: Attribute
+  errors: [Error!]!
+}
+
+input AttributeCreateInput {
+  entryType: AttributeEntryTypeEnum
+  filterableInDashboard: Boolean
+  filterableInWebsite: Boolean
+  inputType: AttributeInputTypeEnum
+  name: String!
+  slug: String
+  type: AttributeTypeEnum!
+  valueRequired: Boolean
+  values: [AttributeValueCreateInput!]
+  visibleInWebsite: Boolean
+}
+
+type AttributeDelete {
+  attribute: Attribute
+  errors: [Error!]!
+}
+
+"""An enumeration."""
+enum AttributeEntryTypeEnum {
+  PROVIDER
+  VEHICLE
+  VEHICLE_AND_PROVIDER
+}
+
+input AttributeFilterInput {
+  filterableInDashboard: Boolean
+  filterableInWebsite: Boolean
+  ids: [ID!]
+  search: String
+  slugs: [String!]
+  type: AttributeTypeEnum
+  valueRequired: Boolean
+  visibleInWebsite: Boolean
+}
+
+"""An enumeration."""
+enum AttributeInputTypeEnum {
+  BOOLEAN
+  DATE
+  DATE_TIME
+  DROPDOWN
+  FILE
+  MULTISELECT
+  NUMERIC
+  PLAIN_TEXT
+  SWATCH
+}
+
+enum AttributeSortField {
+  """Sort attributes by the filterable in dashboard flag"""
+  FILTERABLE_IN_DASHBOARD
+
+  """Sort attributes by the filterable in storefront flag"""
+  FILTERABLE_IN_WEBSITE
+
+  """Sort attributes by name"""
+  NAME
+
+  """Sort attributes by slug"""
+  SLUG
+
+  """Sort attributes by the value required flag"""
+  VALUE_REQUIRED
+
+  """Sort attributes by visibility in the storefront"""
+  VISIBLE_IN_WEBSITE
+}
+
+input AttributeSortingInput {
+  """Specifies the direction in which to sort products."""
+  direction: OrderDirection!
+
+  """Sort attributes by the selected field."""
+  field: AttributeSortField!
+}
+
+"""An enumeration."""
+enum AttributeTypeEnum {
+  DOCUMENT
+  ENTRY
+}
+
+type AttributeUpdate {
+  attribute: Attribute
+  errors: [Error!]!
+}
+
+input AttributeUpdateInput {
+  addValues: [AttributeValueUpdateInput!]
+  filterableInDashboard: Boolean
+  filterableInWebsite: Boolean
+  name: String
+  removeValues: [ID!]
+  slug: String
+  valueRequired: Boolean
+  visibleInWebsite: Boolean
+}
+
+type AttributeValue implements Node {
+  boolean: Boolean
+  date: Date
+  dateTime: DateTime
+  file: File
+  id: ID!
+  inputType: AttributeInputTypeEnum
+  name: String
+  plainText: String
+  slug: String
+  value: String
+}
+
+type AttributeValueCountableConnection {
+  edges: [AttributeValueCountableEdge!]!
+
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """A total count of items in the collection."""
+  totalCount: Int
+}
+
+type AttributeValueCountableEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: AttributeValue!
+}
+
+type AttributeValueCreate {
+  attribute: Attribute
+  attributeValue: AttributeValue
+  errors: [Error!]!
+}
+
+input AttributeValueCreateInput {
+  fileUrl: String
+  name: String!
+  plainText: String
+  value: String
+}
+
+type AttributeValueDelete {
+  attribute: Attribute
+  attributeValue: AttributeValue
+  errors: [Error!]!
+}
+
+input AttributeValueFilterInput {
+  ids: [ID!]
+  search: String
+}
+
+type AttributeValueUpdate {
+  attribute: Attribute
+  attributeValue: AttributeValue
+  errors: [Error!]!
+}
+
+input AttributeValueUpdateInput {
+  fileUrl: String
+  name: String
+  plainText: String
+  value: String
+}
+
 type BulkItemError {
   """The error code."""
   code: String
@@ -622,6 +844,12 @@ scalar JSONString
 
 type Mutation {
   approveDocumentFile(id: ID!): ApproveDocumentFile
+  attributeCreate(input: AttributeCreateInput!): AttributeCreate
+  attributeDelete(externalReference: String, id: ID): AttributeDelete
+  attributeUpdate(id: ID, input: AttributeUpdateInput!): AttributeUpdate
+  attributeValueCreate(attribute: ID!, input: AttributeValueCreateInput!): AttributeValueCreate
+  attributeValueDelete(id: ID): AttributeValueDelete
+  attributeValueUpdate(externalReference: String, id: ID, input: AttributeValueUpdateInput!): AttributeValueUpdate
 
   """Deletes categories."""
   categoryBulkDelete(
@@ -833,6 +1061,8 @@ input PluginUpdateInput {
 }
 
 type Query {
+  attribute(id: ID, slug: String): Attribute
+  attributes(after: String, before: String, filter: AttributeFilterInput, first: Int, last: Int, search: String, sortBy: AttributeSortingInput): AttributeCountableConnection
   categories(after: String, before: String, filter: CategoryFilterInput, first: Int, last: Int, sortBy: CategorySortingInput): CategoryCountableConnection
   category(id: ID, slug: String): Category
 

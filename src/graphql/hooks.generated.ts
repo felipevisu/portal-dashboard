@@ -3,6 +3,76 @@ import * as Types from './types.generated';
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
+export const AttributeFragmentDoc = gql`
+    fragment Attribute on Attribute {
+  id
+  name
+  slug
+  type
+  visibleInWebsite
+  filterableInDashboard
+  filterableInWebsite
+  inputType
+  valueRequired
+}
+    `;
+export const AttributeDetailsFragmentDoc = gql`
+    fragment AttributeDetails on Attribute {
+  ...Attribute
+  inputType
+  entryType
+  valueRequired
+}
+    ${AttributeFragmentDoc}`;
+export const PageInfoFragmentDoc = gql`
+    fragment PageInfo on PageInfo {
+  endCursor
+  hasNextPage
+  hasPreviousPage
+  startCursor
+}
+    `;
+export const AttributeValueFragmentDoc = gql`
+    fragment AttributeValue on AttributeValue {
+  id
+  name
+  slug
+  file {
+    url
+  }
+  boolean
+  date
+  dateTime
+  value
+}
+    `;
+export const AttributeValueDetailsFragmentDoc = gql`
+    fragment AttributeValueDetails on AttributeValue {
+  ...AttributeValue
+  plainText
+}
+    ${AttributeValueFragmentDoc}`;
+export const AttributeValueListFragmentDoc = gql`
+    fragment AttributeValueList on AttributeValueCountableConnection {
+  pageInfo {
+    ...PageInfo
+  }
+  edges {
+    cursor
+    node {
+      ...AttributeValueDetails
+    }
+  }
+}
+    ${PageInfoFragmentDoc}
+${AttributeValueDetailsFragmentDoc}`;
+export const AvailableAttributeFragmentDoc = gql`
+    fragment AvailableAttribute on Attribute {
+  id
+  name
+  slug
+}
+    `;
 export const UserBaseFragmentDoc = gql`
     fragment UserBase on User {
   id
@@ -188,14 +258,6 @@ export const InvestmentDetailsFragmentDoc = gql`
   }
 }
     ${ItemFragmentDoc}`;
-export const PageInfoFragmentDoc = gql`
-    fragment PageInfo on PageInfo {
-  endCursor
-  hasNextPage
-  hasPreviousPage
-  startCursor
-}
-    `;
 export const PluginConfigurationBaseFragmentDoc = gql`
     fragment PluginConfigurationBase on PluginConfiguration {
   active
@@ -269,6 +331,223 @@ export const SessionDetailsFragmentDoc = gql`
   isPublished
 }
     `;
+export const AttributeCreateDocument = gql`
+    mutation AttributeCreate($input: AttributeCreateInput!) {
+  attributeCreate(input: $input) {
+    attribute {
+      ...AttributeDetails
+    }
+    errors {
+      ...Error
+    }
+  }
+}
+    ${AttributeDetailsFragmentDoc}
+${ErrorFragmentDoc}`;
+export type AttributeCreateMutationFn = Apollo.MutationFunction<Types.AttributeCreateMutation, Types.AttributeCreateMutationVariables>;
+
+/**
+ * __useAttributeCreateMutation__
+ *
+ * To run a mutation, you first call `useAttributeCreateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAttributeCreateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [attributeCreateMutation, { data, loading, error }] = useAttributeCreateMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useAttributeCreateMutation(baseOptions?: Apollo.MutationHookOptions<Types.AttributeCreateMutation, Types.AttributeCreateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Types.AttributeCreateMutation, Types.AttributeCreateMutationVariables>(AttributeCreateDocument, options);
+      }
+export type AttributeCreateMutationHookResult = ReturnType<typeof useAttributeCreateMutation>;
+export type AttributeCreateMutationResult = Apollo.MutationResult<Types.AttributeCreateMutation>;
+export type AttributeCreateMutationOptions = Apollo.BaseMutationOptions<Types.AttributeCreateMutation, Types.AttributeCreateMutationVariables>;
+export const AttributeUpdateDocument = gql`
+    mutation AttributeUpdate($id: ID, $input: AttributeUpdateInput!) {
+  attributeUpdate(id: $id, input: $input) {
+    attribute {
+      ...AttributeDetails
+    }
+    errors {
+      ...Error
+    }
+  }
+}
+    ${AttributeDetailsFragmentDoc}
+${ErrorFragmentDoc}`;
+export type AttributeUpdateMutationFn = Apollo.MutationFunction<Types.AttributeUpdateMutation, Types.AttributeUpdateMutationVariables>;
+
+/**
+ * __useAttributeUpdateMutation__
+ *
+ * To run a mutation, you first call `useAttributeUpdateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAttributeUpdateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [attributeUpdateMutation, { data, loading, error }] = useAttributeUpdateMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useAttributeUpdateMutation(baseOptions?: Apollo.MutationHookOptions<Types.AttributeUpdateMutation, Types.AttributeUpdateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Types.AttributeUpdateMutation, Types.AttributeUpdateMutationVariables>(AttributeUpdateDocument, options);
+      }
+export type AttributeUpdateMutationHookResult = ReturnType<typeof useAttributeUpdateMutation>;
+export type AttributeUpdateMutationResult = Apollo.MutationResult<Types.AttributeUpdateMutation>;
+export type AttributeUpdateMutationOptions = Apollo.BaseMutationOptions<Types.AttributeUpdateMutation, Types.AttributeUpdateMutationVariables>;
+export const AttributeDeleteDocument = gql`
+    mutation AttributeDelete($id: ID!) {
+  attributeDelete(id: $id) {
+    errors {
+      ...Error
+    }
+  }
+}
+    ${ErrorFragmentDoc}`;
+export type AttributeDeleteMutationFn = Apollo.MutationFunction<Types.AttributeDeleteMutation, Types.AttributeDeleteMutationVariables>;
+
+/**
+ * __useAttributeDeleteMutation__
+ *
+ * To run a mutation, you first call `useAttributeDeleteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAttributeDeleteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [attributeDeleteMutation, { data, loading, error }] = useAttributeDeleteMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useAttributeDeleteMutation(baseOptions?: Apollo.MutationHookOptions<Types.AttributeDeleteMutation, Types.AttributeDeleteMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Types.AttributeDeleteMutation, Types.AttributeDeleteMutationVariables>(AttributeDeleteDocument, options);
+      }
+export type AttributeDeleteMutationHookResult = ReturnType<typeof useAttributeDeleteMutation>;
+export type AttributeDeleteMutationResult = Apollo.MutationResult<Types.AttributeDeleteMutation>;
+export type AttributeDeleteMutationOptions = Apollo.BaseMutationOptions<Types.AttributeDeleteMutation, Types.AttributeDeleteMutationVariables>;
+export const AttributeDetailsDocument = gql`
+    query AttributeDetails($id: ID!, $firstValues: Int, $afterValues: String, $lastValues: Int, $beforeValues: String) {
+  attribute(id: $id) {
+    ...AttributeDetails
+    choices(
+      first: $firstValues
+      after: $afterValues
+      last: $lastValues
+      before: $beforeValues
+    ) {
+      ...AttributeValueList
+    }
+  }
+}
+    ${AttributeDetailsFragmentDoc}
+${AttributeValueListFragmentDoc}`;
+
+/**
+ * __useAttributeDetailsQuery__
+ *
+ * To run a query within a React component, call `useAttributeDetailsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAttributeDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAttributeDetailsQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *      firstValues: // value for 'firstValues'
+ *      afterValues: // value for 'afterValues'
+ *      lastValues: // value for 'lastValues'
+ *      beforeValues: // value for 'beforeValues'
+ *   },
+ * });
+ */
+export function useAttributeDetailsQuery(baseOptions: Apollo.QueryHookOptions<Types.AttributeDetailsQuery, Types.AttributeDetailsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<Types.AttributeDetailsQuery, Types.AttributeDetailsQueryVariables>(AttributeDetailsDocument, options);
+      }
+export function useAttributeDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.AttributeDetailsQuery, Types.AttributeDetailsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<Types.AttributeDetailsQuery, Types.AttributeDetailsQueryVariables>(AttributeDetailsDocument, options);
+        }
+export type AttributeDetailsQueryHookResult = ReturnType<typeof useAttributeDetailsQuery>;
+export type AttributeDetailsLazyQueryHookResult = ReturnType<typeof useAttributeDetailsLazyQuery>;
+export type AttributeDetailsQueryResult = Apollo.QueryResult<Types.AttributeDetailsQuery, Types.AttributeDetailsQueryVariables>;
+export const AttributesDocument = gql`
+    query Attributes($filter: AttributeFilterInput, $before: String, $after: String, $first: Int, $last: Int, $sort: AttributeSortingInput) {
+  attributes(
+    filter: $filter
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sortBy: $sort
+  ) {
+    edges {
+      node {
+        ...Attribute
+      }
+    }
+    pageInfo {
+      ...PageInfo
+    }
+  }
+}
+    ${AttributeFragmentDoc}
+${PageInfoFragmentDoc}`;
+
+/**
+ * __useAttributesQuery__
+ *
+ * To run a query within a React component, call `useAttributesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAttributesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAttributesQuery({
+ *   variables: {
+ *      filter: // value for 'filter'
+ *      before: // value for 'before'
+ *      after: // value for 'after'
+ *      first: // value for 'first'
+ *      last: // value for 'last'
+ *      sort: // value for 'sort'
+ *   },
+ * });
+ */
+export function useAttributesQuery(baseOptions?: Apollo.QueryHookOptions<Types.AttributesQuery, Types.AttributesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<Types.AttributesQuery, Types.AttributesQueryVariables>(AttributesDocument, options);
+      }
+export function useAttributesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.AttributesQuery, Types.AttributesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<Types.AttributesQuery, Types.AttributesQueryVariables>(AttributesDocument, options);
+        }
+export type AttributesQueryHookResult = ReturnType<typeof useAttributesQuery>;
+export type AttributesLazyQueryHookResult = ReturnType<typeof useAttributesLazyQuery>;
+export type AttributesQueryResult = Apollo.QueryResult<Types.AttributesQuery, Types.AttributesQueryVariables>;
 export const TokenCreateDocument = gql`
     mutation tokenCreate($email: String!, $password: String!) {
   tokenCreate(email: $email, password: $password) {

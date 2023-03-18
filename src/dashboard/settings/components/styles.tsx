@@ -8,7 +8,7 @@ export const SettingsGrid = styled("div")(({ theme }) => ({
   gridTemplateColumns: "1fr 1fr 1fr",
 }));
 
-export const SettingsLink = styled(Link)(({ theme }) => ({
+export const SettingsLink = styled(Link)(() => ({
   backgroundColor: "#fff",
   borderRadius: 8,
   transition: "all ease 300ms",

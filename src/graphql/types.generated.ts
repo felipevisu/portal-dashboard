@@ -44,6 +44,122 @@ export type Scalars = {
   Upload: any;
 };
 
+export enum AttributeChoicesSortField {
+  /** Sort attribute choice by name. */
+  NAME = 'NAME',
+  /** Sort attribute choice by slug. */
+  SLUG = 'SLUG'
+}
+
+export type AttributeChoicesSortingInput = {
+  /** Specifies the direction in which to sort products. */
+  direction: OrderDirection;
+  /** Sort attribute choices by the selected field. */
+  field: AttributeChoicesSortField;
+};
+
+export type AttributeCreateInput = {
+  entryType?: InputMaybe<AttributeEntryTypeEnum>;
+  filterableInDashboard?: InputMaybe<Scalars['Boolean']>;
+  filterableInWebsite?: InputMaybe<Scalars['Boolean']>;
+  inputType?: InputMaybe<AttributeInputTypeEnum>;
+  name: Scalars['String'];
+  slug?: InputMaybe<Scalars['String']>;
+  type: AttributeTypeEnum;
+  valueRequired?: InputMaybe<Scalars['Boolean']>;
+  values?: InputMaybe<Array<AttributeValueCreateInput>>;
+  visibleInWebsite?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** An enumeration. */
+export enum AttributeEntryTypeEnum {
+  PROVIDER = 'PROVIDER',
+  VEHICLE = 'VEHICLE',
+  VEHICLE_AND_PROVIDER = 'VEHICLE_AND_PROVIDER'
+}
+
+export type AttributeFilterInput = {
+  filterableInDashboard?: InputMaybe<Scalars['Boolean']>;
+  filterableInWebsite?: InputMaybe<Scalars['Boolean']>;
+  ids?: InputMaybe<Array<Scalars['ID']>>;
+  search?: InputMaybe<Scalars['String']>;
+  slugs?: InputMaybe<Array<Scalars['String']>>;
+  type?: InputMaybe<AttributeTypeEnum>;
+  valueRequired?: InputMaybe<Scalars['Boolean']>;
+  visibleInWebsite?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** An enumeration. */
+export enum AttributeInputTypeEnum {
+  BOOLEAN = 'BOOLEAN',
+  DATE = 'DATE',
+  DATE_TIME = 'DATE_TIME',
+  DROPDOWN = 'DROPDOWN',
+  FILE = 'FILE',
+  MULTISELECT = 'MULTISELECT',
+  NUMERIC = 'NUMERIC',
+  PLAIN_TEXT = 'PLAIN_TEXT',
+  SWATCH = 'SWATCH'
+}
+
+export enum AttributeSortField {
+  /** Sort attributes by the filterable in dashboard flag */
+  FILTERABLE_IN_DASHBOARD = 'FILTERABLE_IN_DASHBOARD',
+  /** Sort attributes by the filterable in storefront flag */
+  FILTERABLE_IN_WEBSITE = 'FILTERABLE_IN_WEBSITE',
+  /** Sort attributes by name */
+  NAME = 'NAME',
+  /** Sort attributes by slug */
+  SLUG = 'SLUG',
+  /** Sort attributes by the value required flag */
+  VALUE_REQUIRED = 'VALUE_REQUIRED',
+  /** Sort attributes by visibility in the storefront */
+  VISIBLE_IN_WEBSITE = 'VISIBLE_IN_WEBSITE'
+}
+
+export type AttributeSortingInput = {
+  /** Specifies the direction in which to sort products. */
+  direction: OrderDirection;
+  /** Sort attributes by the selected field. */
+  field: AttributeSortField;
+};
+
+/** An enumeration. */
+export enum AttributeTypeEnum {
+  DOCUMENT = 'DOCUMENT',
+  ENTRY = 'ENTRY'
+}
+
+export type AttributeUpdateInput = {
+  addValues?: InputMaybe<Array<AttributeValueUpdateInput>>;
+  filterableInDashboard?: InputMaybe<Scalars['Boolean']>;
+  filterableInWebsite?: InputMaybe<Scalars['Boolean']>;
+  name?: InputMaybe<Scalars['String']>;
+  removeValues?: InputMaybe<Array<Scalars['ID']>>;
+  slug?: InputMaybe<Scalars['String']>;
+  valueRequired?: InputMaybe<Scalars['Boolean']>;
+  visibleInWebsite?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type AttributeValueCreateInput = {
+  fileUrl?: InputMaybe<Scalars['String']>;
+  name: Scalars['String'];
+  plainText?: InputMaybe<Scalars['String']>;
+  value?: InputMaybe<Scalars['String']>;
+};
+
+export type AttributeValueFilterInput = {
+  ids?: InputMaybe<Array<Scalars['ID']>>;
+  search?: InputMaybe<Scalars['String']>;
+};
+
+export type AttributeValueUpdateInput = {
+  fileUrl?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  plainText?: InputMaybe<Scalars['String']>;
+  value?: InputMaybe<Scalars['String']>;
+};
+
 export type CategoryFilterInput = {
   search?: InputMaybe<Scalars['String']>;
   type?: InputMaybe<EntryTypeEnum>;
@@ -295,6 +411,51 @@ export type SessionSortingInput = {
   /** Sort sessions by the selected field. */
   field: SessionSortField;
 };
+
+export type AttributeCreateMutationVariables = Exact<{
+  input: AttributeCreateInput;
+}>;
+
+
+export type AttributeCreateMutation = { __typename: 'Mutation', attributeCreate: { __typename: 'AttributeCreate', attribute: { __typename: 'Attribute', inputType: AttributeInputTypeEnum | null, entryType: AttributeEntryTypeEnum | null, valueRequired: boolean, id: string, name: string | null, slug: string | null, type: AttributeTypeEnum | null, visibleInWebsite: boolean, filterableInDashboard: boolean, filterableInWebsite: boolean } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+
+export type AttributeUpdateMutationVariables = Exact<{
+  id?: InputMaybe<Scalars['ID']>;
+  input: AttributeUpdateInput;
+}>;
+
+
+export type AttributeUpdateMutation = { __typename: 'Mutation', attributeUpdate: { __typename: 'AttributeUpdate', attribute: { __typename: 'Attribute', inputType: AttributeInputTypeEnum | null, entryType: AttributeEntryTypeEnum | null, valueRequired: boolean, id: string, name: string | null, slug: string | null, type: AttributeTypeEnum | null, visibleInWebsite: boolean, filterableInDashboard: boolean, filterableInWebsite: boolean } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+
+export type AttributeDeleteMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type AttributeDeleteMutation = { __typename: 'Mutation', attributeDelete: { __typename: 'AttributeDelete', errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+
+export type AttributeDetailsQueryVariables = Exact<{
+  id: Scalars['ID'];
+  firstValues?: InputMaybe<Scalars['Int']>;
+  afterValues?: InputMaybe<Scalars['String']>;
+  lastValues?: InputMaybe<Scalars['Int']>;
+  beforeValues?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type AttributeDetailsQuery = { __typename: 'Query', attribute: { __typename: 'Attribute', inputType: AttributeInputTypeEnum | null, entryType: AttributeEntryTypeEnum | null, valueRequired: boolean, id: string, name: string | null, slug: string | null, type: AttributeTypeEnum | null, visibleInWebsite: boolean, filterableInDashboard: boolean, filterableInWebsite: boolean, choices: { __typename: 'AttributeValueCountableConnection', pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null }, edges: Array<{ __typename: 'AttributeValueCountableEdge', cursor: string, node: { __typename: 'AttributeValue', plainText: string | null, id: string, name: string | null, slug: string | null, boolean: boolean | null, date: any | null, dateTime: any | null, value: string | null, file: { __typename: 'File', url: string } | null } }> } | null } | null };
+
+export type AttributesQueryVariables = Exact<{
+  filter?: InputMaybe<AttributeFilterInput>;
+  before?: InputMaybe<Scalars['String']>;
+  after?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  sort?: InputMaybe<AttributeSortingInput>;
+}>;
+
+
+export type AttributesQuery = { __typename: 'Query', attributes: { __typename: 'AttributeCountableConnection', edges: Array<{ __typename: 'AttributeCountableEdge', node: { __typename: 'Attribute', id: string, name: string | null, slug: string | null, type: AttributeTypeEnum | null, visibleInWebsite: boolean, filterableInDashboard: boolean, filterableInWebsite: boolean, inputType: AttributeInputTypeEnum | null, valueRequired: boolean } }>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
 
 export type TokenCreateMutationVariables = Exact<{
   email: Scalars['String'];
@@ -632,6 +793,18 @@ export type SessionDetailsQueryVariables = Exact<{
 
 
 export type SessionDetailsQuery = { __typename: 'Query', session: { __typename: 'Session', id: string, name: string, slug: string | null, content: any | null, date: any | null, isPublished: boolean | null } | null };
+
+export type AttributeValueFragment = { __typename: 'AttributeValue', id: string, name: string | null, slug: string | null, boolean: boolean | null, date: any | null, dateTime: any | null, value: string | null, file: { __typename: 'File', url: string } | null };
+
+export type AttributeValueDetailsFragment = { __typename: 'AttributeValue', plainText: string | null, id: string, name: string | null, slug: string | null, boolean: boolean | null, date: any | null, dateTime: any | null, value: string | null, file: { __typename: 'File', url: string } | null };
+
+export type AttributeFragment = { __typename: 'Attribute', id: string, name: string | null, slug: string | null, type: AttributeTypeEnum | null, visibleInWebsite: boolean, filterableInDashboard: boolean, filterableInWebsite: boolean, inputType: AttributeInputTypeEnum | null, valueRequired: boolean };
+
+export type AttributeDetailsFragment = { __typename: 'Attribute', inputType: AttributeInputTypeEnum | null, entryType: AttributeEntryTypeEnum | null, valueRequired: boolean, id: string, name: string | null, slug: string | null, type: AttributeTypeEnum | null, visibleInWebsite: boolean, filterableInDashboard: boolean, filterableInWebsite: boolean };
+
+export type AttributeValueListFragment = { __typename: 'AttributeValueCountableConnection', pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null }, edges: Array<{ __typename: 'AttributeValueCountableEdge', cursor: string, node: { __typename: 'AttributeValue', plainText: string | null, id: string, name: string | null, slug: string | null, boolean: boolean | null, date: any | null, dateTime: any | null, value: string | null, file: { __typename: 'File', url: string } | null } }> };
+
+export type AvailableAttributeFragment = { __typename: 'Attribute', id: string, name: string | null, slug: string | null };
 
 export type UserFragment = { __typename: 'User', id: string, email: string, firstName: string | null, lastName: string | null, isStaff: boolean | null };
 

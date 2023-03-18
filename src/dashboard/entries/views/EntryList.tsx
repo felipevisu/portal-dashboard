@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { useParams, useSearchParams } from "react-router-dom";
 
 import { Delete } from "@mui/icons-material";
@@ -8,7 +9,6 @@ import { DEFAULT_INITIAL_SEARCH_DATA } from "@portal/config";
 import EntryListPage from "@portal/dashboard/entries/components/EntryListPage";
 import {
   EntryBulkDeleteMutation,
-  EntryTypeEnum,
   useEntriesQuery,
   useEntryBulkDeleteMutation,
 } from "@portal/graphql";
@@ -30,6 +30,7 @@ export const VehicleList = () => {
   const { isSelected, listElements, toggle, toggleAll, reset } = useBulkActions(
     []
   );
+  const { t } = useTranslation();
 
   const { isOpen, openModal, closeModal } = useModal();
 
@@ -98,13 +99,11 @@ export const VehicleList = () => {
           vehicleBulkDelete({ variables: { ids: listElements } })
         }
         open={isOpen}
-        title={"Excluir veículos"}
+        title={t("entry.deleteDialogList.title")}
         variant="delete"
       >
         <DialogContentText>
-          Tem certeza que deseja excluir {listElements.length} veículos?
-          <br />
-          Lembre-se esta ação não é reversível
+          {t("entry.deleteDialogList.description")}
         </DialogContentText>
       </ActionDialog>
     </>
