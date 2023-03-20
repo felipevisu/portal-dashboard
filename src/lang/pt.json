@@ -8,7 +8,9 @@
 		"create": "Adicionar Atributo",
 		"delete": "Excluir Atributo",
 		"values": {
-			"title": "Valores do atributo"
+			"title": "Valores do atributo",
+			"add": "Adicionar valor",
+			"delete": "Excluir valor"
 		},
 		"deleteDialog": {
 			"title": "Excluir Atributo",
@@ -18,16 +20,35 @@
 			"title": "Excluir Atributos",
 			"description": "Deseja mesmo excluir estes atributos? Lembre-se esta ação não é reversível."
 		},
+		"enums": {
+			"type": {
+				"document": "Documento",
+				"entry": "Veículo ou fornecedor"
+			},
+			"inputType": {
+				"dropdown": "Seleção",
+				"multiselect": "Múltipla seleção",
+				"plainText": "Texto",
+				"date": "Data",
+				"boolean": "Booleano"
+			},
+			"entryType": {
+				"vehicle": "Veículo",
+				"provider": "Fornecedor",
+				"vehicleAndProvider": "Veículo e Fornecedor"
+			}
+		},
 		"fields": {
 			"name": "Nome",
 			"slug": "Código",
-			"type": "Tipo de Atribuição",
+			"type": "Tipo de atribuição",
 			"entryType": "Tipo de cadastro",
 			"inputType": "Tipo de campo",
 			"visibleInWebsite": "Visível no site",
-			"valueRequired": "Obrigatório"
+			"valueRequired": "Valor obrigatório"
 		},
 		"helpers": {
+			"inputType": "Este campo não pode ser alterado após a criação do atributo.",
 			"slug": "Não utilize espaços ou caracteres especiais.",
 			"valueRequired": "Se o campo for obrigatório um objeto somente poderá ser criado se o campo estiver preenchido.",
 			"visibleInWebsite": "Visitantes poderão visualizar e filtar items por este atributo."

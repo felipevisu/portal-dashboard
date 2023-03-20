@@ -9,32 +9,11 @@ import { AttributeFragment } from "@portal/graphql";
 import { useLinks } from "@portal/hooks";
 import { renderCollection } from "@portal/misc";
 
+import { mapInputType, mapType } from "../utils";
+
 interface AttributeListProps {
   attributes: AttributeFragment[];
 }
-
-export const mapType = {
-  ENTRY: "Veículo/Fornecedor",
-  DOCUMENT: "Documento",
-};
-
-export const mapEntryType = {
-  VEHICLE: "Veículo",
-  PROVIDER: "Fornecedor",
-  VEHICLE_AND_PROVIDER: "Verículo e Fornecedor",
-};
-
-export const mapInputType = {
-  DROPDOWN: "Seleção",
-  MULTISELECT: "Multipla seleção",
-  FILE: "Arquivo",
-  NUMERIC: "Numérico",
-  PLAIN_TEXT: "Texto",
-  SWATCH: "swatch",
-  BOOLEAN: "Booleano",
-  DATE: "Data",
-  DATE_TIME: "Data e hora",
-};
 
 export const AttributeList = ({ attributes }: AttributeListProps) => {
   const { t } = useTranslation();
@@ -60,8 +39,8 @@ export const AttributeList = ({ attributes }: AttributeListProps) => {
               href={attributeDetails(attribute.id)}
             >
               <TableCell>{attribute.name}</TableCell>
-              <TableCell>{mapType[attribute.type]}</TableCell>
-              <TableCell>{mapInputType[attribute.inputType]}</TableCell>
+              <TableCell>{mapType(t)[attribute.type]}</TableCell>
+              <TableCell>{mapInputType(t)[attribute.inputType]}</TableCell>
               <TableCell>
                 {attribute.visibleInWebsite
                   ? t("boolean.yes")

@@ -13,14 +13,12 @@ import { FilterOpts, PaginateListProps, SearchPageProps } from "@portal/types";
 import { AttributeList } from "./AttributeList";
 
 interface AttributeListPage extends SearchPageProps, PaginateListProps {
-  disabled: boolean;
   attributes: AttributeFragment[];
   onSearch: (search: string) => void;
   filterOpts: FilterOpts[];
 }
 
 export const AttributeListPage = ({
-  disabled,
   attributes,
   onSearchChange,
   search,

@@ -19,7 +19,7 @@ export const ValueDeleteDialog = ({
 
   return (
     <ActionDialog
-      title={t("attribute.value.delete")}
+      title={t("attribute.values.delete")}
       onClose={onClose}
       onConfirm={onConfirm}
       open={isOpen}

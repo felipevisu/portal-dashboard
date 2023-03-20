@@ -124,13 +124,13 @@ export const AttributeDetails = () => {
         onClose={closeModal}
         onConfirm={handleAttributeDelete}
         open={isOpen}
-        title={t("attribute.delete")}
+        title={t("attribute.deleteDialog.title")}
         variant="delete"
       >
         <DialogContentText>
-          Tem certeza que deseja excluir o atributo?
-          <br />
-          Lembre-se esta ação não é reversível
+          {t("attribute.deleteDialog.description", {
+            name: data.attribute.name,
+          })}
         </DialogContentText>
       </ActionDialog>
     </>

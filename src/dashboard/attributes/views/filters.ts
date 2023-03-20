@@ -4,32 +4,34 @@ import { FilterOpts } from "@portal/types";
 
 export function getFilterOpts(): FilterOpts[] {
   const { t } = i18n;
+  const yes = t("boolean.yes");
+  const no = t("boolean.yes");
 
   return [
     {
-      name: "Valor obrigatório",
+      name: t("attribute.fields.valueRequired"),
       slug: "valueRequired",
       choices: [
-        { value: "true", label: "Sim" },
-        { value: "false", label: "Não" },
+        { value: "true", label: yes },
+        { value: "false", label: no },
       ],
       type: "radio",
     },
     {
-      name: "Visível no site",
+      name: t("attribute.fields.visibleInWebsite"),
       slug: "visibleInWebsite",
       choices: [
-        { value: "true", label: "Sim" },
-        { value: "false", label: "Não" },
+        { value: "true", label: yes },
+        { value: "false", label: no },
       ],
       type: "radio",
     },
     {
-      name: "Tipo",
+      name: t("attribute.fields.type"),
       slug: "type",
       choices: [
-        { value: "ENTRY", label: "Veículo ou fornecedor" },
-        { value: "DOCUMENT", label: "Document" },
+        { value: "ENTRY", label: t("attribute.enums.type.entry") },
+        { value: "DOCUMENT", label: t("attribute.enums.type.document") },
       ],
       type: "radio",
     },

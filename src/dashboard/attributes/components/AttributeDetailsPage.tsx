@@ -8,11 +8,9 @@ import { Form } from "@portal/components/Form";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
 import {
-  AttributeDetailsFragment,
   AttributeDetailsQueryResult,
   AttributeInputTypeEnum,
   AttributeUpdateInput,
-  AttributeUpdateMutation,
   ErrorFragment,
 } from "@portal/graphql";
 import { useLinks } from "@portal/hooks";
@@ -97,6 +95,7 @@ export const AttributeDetailsPage = ({
             <Savebar
               onSubmit={submit}
               onCancel={() => navigate(attributeList())}
+              onDelete={onDelete}
               loading={loading}
             />
           </>

@@ -31,7 +31,6 @@ export const AttributeList = () => {
 
   return (
     <AttributeListPage
-      disabled={loading}
       search={search}
       attributes={mapEdgesToItems(data?.attributes)}
       onSearchChange={handleSearch}

@@ -14,13 +14,11 @@ import {
 } from "@mui/material";
 import ControlledCheckbox from "@portal/components/ControlledCheckbox";
 import FormSpacer from "@portal/components/FormSpacer";
-import {
-  AttributeDetailsFragment,
-  AttributeInputTypeEnum,
-  ErrorFragment,
-} from "@portal/graphql";
+import { AttributeDetailsFragment, ErrorFragment } from "@portal/graphql";
 import { ChangeEvent } from "@portal/types";
 import { getFormErrors } from "@portal/utils/errors";
+
+import { getInputTypeList } from "../utils";
 
 interface AttributeInfosProps {
   data: AttributeDetailsFragment;
@@ -75,7 +73,7 @@ export const AttributeInfos = ({
         <FormSpacer />
         <FormControl fullWidth>
           <InputLabel error={formErrors.inputType && true}>
-            Tipo de campo
+            {t("attribute.fields.inputType")}
           </InputLabel>
           <Select
             fullWidth
@@ -86,28 +84,7 @@ export const AttributeInfos = ({
             error={formErrors.inputType && true}
             disabled={!!instance}
           >
-            {[
-              {
-                value: AttributeInputTypeEnum.DROPDOWN,
-                label: "Dropdown",
-              },
-              {
-                value: AttributeInputTypeEnum.MULTISELECT,
-                label: "Multipla seleção",
-              },
-              {
-                value: AttributeInputTypeEnum.PLAIN_TEXT,
-                label: "Texto",
-              },
-              {
-                value: AttributeInputTypeEnum.DATE,
-                label: "Data",
-              },
-              {
-                value: AttributeInputTypeEnum.BOOLEAN,
-                label: "Checkbox",
-              },
-            ].map((type) => (
+            {getInputTypeList(t).map((type) => (
               <MenuItem key={type.value} value={type.value}>
                 {type.label}
               </MenuItem>
@@ -116,6 +93,7 @@ export const AttributeInfos = ({
           <FormHelperText error={formErrors.inputType && true}>
             {formErrors.inputType?.message}
           </FormHelperText>
+          <FormHelperText>{t("attribute.helpers.inputType")}</FormHelperText>
         </FormControl>
         <FormSpacer />
         <FormControl fullWidth>

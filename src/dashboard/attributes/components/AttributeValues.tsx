@@ -57,7 +57,7 @@ export const AttributeValues = ({
         title={t("attribute.values.title")}
         action={
           <Button onClick={onCreateValue} color="primary" variant="outlined">
-            Adicionar valor
+            {t("attribute.values.add")}
           </Button>
         }
       />

@@ -48,7 +48,7 @@ export const ValueCreateDialog = ({
 
   return (
     <ActionDialog
-      title={t("attribute.value.create")}
+      title={t("attribute.values.add")}
       onClose={handleClose}
       onConfirm={handleConfirm}
       open={isOpen}

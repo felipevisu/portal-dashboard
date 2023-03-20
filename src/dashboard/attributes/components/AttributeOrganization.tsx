@@ -21,19 +21,19 @@ import FormSpacer from "@portal/components/FormSpacer";
 import {
   AttributeCreateInput,
   AttributeDetailsFragment,
-  AttributeEntryTypeEnum,
   AttributeTypeEnum,
   ErrorFragment,
 } from "@portal/graphql";
+import { ChangeEvent } from "@portal/types";
 import { getFormErrors } from "@portal/utils/errors";
 
-import { mapEntryType, mapType } from "./AttributeList";
+import { getEntryTypeList, mapEntryType, mapType } from "../utils";
 
 interface AttributeOrganizationProps {
   data: AttributeCreateInput;
   instance?: AttributeDetailsFragment;
   errors: ErrorFragment[];
-  onChange: (e: any) => void;
+  onChange: (e: ChangeEvent) => void;
 }
 
 export const AttributeOrganization = ({
@@ -53,12 +53,13 @@ export const AttributeOrganization = ({
           <>
             {instance.type !== AttributeTypeEnum.ENTRY && (
               <Typography>
-                Tipo de atribuição: {mapType[instance.type]}
+                {t("attribute.fields.type")}: {mapType(t)[instance.type]}
               </Typography>
             )}
             {instance.type === AttributeTypeEnum.ENTRY && (
               <Typography>
-                Tipo de cadastro: {mapEntryType[instance.entryType]}
+                {t("attribute.fields.entryType")}:{" "}
+                {mapEntryType(t)[instance.entryType]}
               </Typography>
             )}
           </>
@@ -70,12 +71,12 @@ export const AttributeOrganization = ({
               <FormControlLabel
                 value={AttributeTypeEnum.ENTRY}
                 control={<Radio />}
-                label="Cadastro"
+                label={t("attribute.enums.type.entry")}
               />
               <FormControlLabel
                 value={AttributeTypeEnum.DOCUMENT}
                 control={<Radio />}
-                label="Documento"
+                label={t("attribute.enums.type.document")}
               />
             </RadioGroup>
           </FormControl>
@@ -95,20 +96,7 @@ export const AttributeOrganization = ({
                 onChange={onChange}
                 error={formErrors.entryType && true}
               >
-                {[
-                  {
-                    value: AttributeEntryTypeEnum.VEHICLE_AND_PROVIDER,
-                    label: "Veículo e Fornecedor",
-                  },
-                  {
-                    value: AttributeEntryTypeEnum.PROVIDER,
-                    label: "Fornecedor",
-                  },
-                  {
-                    value: AttributeEntryTypeEnum.VEHICLE,
-                    label: "Veículo",
-                  },
-                ].map((type) => (
+                {getEntryTypeList(t).map((type) => (
                   <MenuItem key={type.value} value={type.value}>
                     {type.label}
                   </MenuItem>
