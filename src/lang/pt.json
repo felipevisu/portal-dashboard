@@ -7,6 +7,9 @@
 		"plural": "Atributos",
 		"create": "Adicionar Atributo",
 		"delete": "Excluir Atributo",
+		"values": {
+			"title": "Valores do atributo"
+		},
 		"deleteDialog": {
 			"title": "Excluir Atributo",
 			"description": "Deseja mesmo excluir o atributo {{ name }}? Lembre-se esta ação não é reversível."
@@ -17,10 +20,17 @@
 		},
 		"fields": {
 			"name": "Nome",
-			"type": "Atribuição",
+			"slug": "Código",
+			"type": "Tipo de Atribuição",
+			"entryType": "Tipo de cadastro",
 			"inputType": "Tipo de campo",
 			"visibleInWebsite": "Visível no site",
 			"valueRequired": "Obrigatório"
+		},
+		"helpers": {
+			"slug": "Não utilize espaços ou caracteres especiais.",
+			"valueRequired": "Se o campo for obrigatório um objeto somente poderá ser criado se o campo estiver preenchido.",
+			"visibleInWebsite": "Visitantes poderão visualizar e filtar items por este atributo."
 		}
 	},
 	"back": "Voltar",

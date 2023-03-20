@@ -88,7 +88,7 @@ export const CategoryForm = ({ errors, data, onChange }: CategoryFormProps) => {
                 error={formErrors.type && true}
               >
                 {[
-                  { value: "VEHICLE", label: t("vehicle.title") },
+                  { value: "VEHICLE", label: t("vehicles.title") },
                   { value: "PROVIDER", label: t("providers.title") },
                 ].map((category) => (
                   <MenuItem key={category.value} value={category.value}>

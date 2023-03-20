@@ -445,16 +445,151 @@ export function useAttributeDeleteMutation(baseOptions?: Apollo.MutationHookOpti
 export type AttributeDeleteMutationHookResult = ReturnType<typeof useAttributeDeleteMutation>;
 export type AttributeDeleteMutationResult = Apollo.MutationResult<Types.AttributeDeleteMutation>;
 export type AttributeDeleteMutationOptions = Apollo.BaseMutationOptions<Types.AttributeDeleteMutation, Types.AttributeDeleteMutationVariables>;
+export const AttributeValueDeleteDocument = gql`
+    mutation AttributeValueDelete($id: ID!, $first: Int, $after: String, $last: Int, $before: String) {
+  attributeValueDelete(id: $id) {
+    attribute {
+      id
+      choices(first: $first, after: $after, last: $last, before: $before) {
+        ...AttributeValueList
+      }
+    }
+    errors {
+      ...Error
+    }
+  }
+}
+    ${AttributeValueListFragmentDoc}
+${ErrorFragmentDoc}`;
+export type AttributeValueDeleteMutationFn = Apollo.MutationFunction<Types.AttributeValueDeleteMutation, Types.AttributeValueDeleteMutationVariables>;
+
+/**
+ * __useAttributeValueDeleteMutation__
+ *
+ * To run a mutation, you first call `useAttributeValueDeleteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAttributeValueDeleteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [attributeValueDeleteMutation, { data, loading, error }] = useAttributeValueDeleteMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      first: // value for 'first'
+ *      after: // value for 'after'
+ *      last: // value for 'last'
+ *      before: // value for 'before'
+ *   },
+ * });
+ */
+export function useAttributeValueDeleteMutation(baseOptions?: Apollo.MutationHookOptions<Types.AttributeValueDeleteMutation, Types.AttributeValueDeleteMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Types.AttributeValueDeleteMutation, Types.AttributeValueDeleteMutationVariables>(AttributeValueDeleteDocument, options);
+      }
+export type AttributeValueDeleteMutationHookResult = ReturnType<typeof useAttributeValueDeleteMutation>;
+export type AttributeValueDeleteMutationResult = Apollo.MutationResult<Types.AttributeValueDeleteMutation>;
+export type AttributeValueDeleteMutationOptions = Apollo.BaseMutationOptions<Types.AttributeValueDeleteMutation, Types.AttributeValueDeleteMutationVariables>;
+export const AttributeValueUpdateDocument = gql`
+    mutation AttributeValueUpdate($id: ID!, $input: AttributeValueUpdateInput!, $first: Int, $after: String, $last: Int, $before: String) {
+  attributeValueUpdate(id: $id, input: $input) {
+    attribute {
+      id
+      choices(first: $first, after: $after, last: $last, before: $before) {
+        ...AttributeValueList
+      }
+    }
+    errors {
+      ...Error
+    }
+  }
+}
+    ${AttributeValueListFragmentDoc}
+${ErrorFragmentDoc}`;
+export type AttributeValueUpdateMutationFn = Apollo.MutationFunction<Types.AttributeValueUpdateMutation, Types.AttributeValueUpdateMutationVariables>;
+
+/**
+ * __useAttributeValueUpdateMutation__
+ *
+ * To run a mutation, you first call `useAttributeValueUpdateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAttributeValueUpdateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [attributeValueUpdateMutation, { data, loading, error }] = useAttributeValueUpdateMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      input: // value for 'input'
+ *      first: // value for 'first'
+ *      after: // value for 'after'
+ *      last: // value for 'last'
+ *      before: // value for 'before'
+ *   },
+ * });
+ */
+export function useAttributeValueUpdateMutation(baseOptions?: Apollo.MutationHookOptions<Types.AttributeValueUpdateMutation, Types.AttributeValueUpdateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Types.AttributeValueUpdateMutation, Types.AttributeValueUpdateMutationVariables>(AttributeValueUpdateDocument, options);
+      }
+export type AttributeValueUpdateMutationHookResult = ReturnType<typeof useAttributeValueUpdateMutation>;
+export type AttributeValueUpdateMutationResult = Apollo.MutationResult<Types.AttributeValueUpdateMutation>;
+export type AttributeValueUpdateMutationOptions = Apollo.BaseMutationOptions<Types.AttributeValueUpdateMutation, Types.AttributeValueUpdateMutationVariables>;
+export const AttributeValueCreateDocument = gql`
+    mutation AttributeValueCreate($id: ID!, $input: AttributeValueCreateInput!, $first: Int, $after: String, $last: Int, $before: String) {
+  attributeValueCreate(attribute: $id, input: $input) {
+    attribute {
+      id
+      choices(first: $first, after: $after, last: $last, before: $before) {
+        ...AttributeValueList
+      }
+    }
+    errors {
+      ...Error
+    }
+  }
+}
+    ${AttributeValueListFragmentDoc}
+${ErrorFragmentDoc}`;
+export type AttributeValueCreateMutationFn = Apollo.MutationFunction<Types.AttributeValueCreateMutation, Types.AttributeValueCreateMutationVariables>;
+
+/**
+ * __useAttributeValueCreateMutation__
+ *
+ * To run a mutation, you first call `useAttributeValueCreateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAttributeValueCreateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [attributeValueCreateMutation, { data, loading, error }] = useAttributeValueCreateMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      input: // value for 'input'
+ *      first: // value for 'first'
+ *      after: // value for 'after'
+ *      last: // value for 'last'
+ *      before: // value for 'before'
+ *   },
+ * });
+ */
+export function useAttributeValueCreateMutation(baseOptions?: Apollo.MutationHookOptions<Types.AttributeValueCreateMutation, Types.AttributeValueCreateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Types.AttributeValueCreateMutation, Types.AttributeValueCreateMutationVariables>(AttributeValueCreateDocument, options);
+      }
+export type AttributeValueCreateMutationHookResult = ReturnType<typeof useAttributeValueCreateMutation>;
+export type AttributeValueCreateMutationResult = Apollo.MutationResult<Types.AttributeValueCreateMutation>;
+export type AttributeValueCreateMutationOptions = Apollo.BaseMutationOptions<Types.AttributeValueCreateMutation, Types.AttributeValueCreateMutationVariables>;
 export const AttributeDetailsDocument = gql`
-    query AttributeDetails($id: ID!, $firstValues: Int, $afterValues: String, $lastValues: Int, $beforeValues: String) {
+    query AttributeDetails($id: ID!, $first: Int, $after: String, $last: Int, $before: String) {
   attribute(id: $id) {
     ...AttributeDetails
-    choices(
-      first: $firstValues
-      after: $afterValues
-      last: $lastValues
-      before: $beforeValues
-    ) {
+    choices(first: $first, after: $after, last: $last, before: $before) {
       ...AttributeValueList
     }
   }
@@ -475,10 +610,10 @@ ${AttributeValueListFragmentDoc}`;
  * const { data, loading, error } = useAttributeDetailsQuery({
  *   variables: {
  *      id: // value for 'id'
- *      firstValues: // value for 'firstValues'
- *      afterValues: // value for 'afterValues'
- *      lastValues: // value for 'lastValues'
- *      beforeValues: // value for 'beforeValues'
+ *      first: // value for 'first'
+ *      after: // value for 'after'
+ *      last: // value for 'last'
+ *      before: // value for 'before'
  *   },
  * });
  */

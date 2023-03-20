@@ -3,19 +3,14 @@ import { gql } from "@apollo/client";
 export const attributeDetailsQuery = gql`
   query AttributeDetails(
     $id: ID!
-    $firstValues: Int
-    $afterValues: String
-    $lastValues: Int
-    $beforeValues: String
+    $first: Int
+    $after: String
+    $last: Int
+    $before: String
   ) {
     attribute(id: $id) {
       ...AttributeDetails
-      choices(
-        first: $firstValues
-        after: $afterValues
-        last: $lastValues
-        before: $beforeValues
-      ) {
+      choices(first: $first, after: $after, last: $last, before: $before) {
         ...AttributeValueList
       }
     }

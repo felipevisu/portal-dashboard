@@ -13,14 +13,20 @@ interface AttributeListProps {
   attributes: AttributeFragment[];
 }
 
-const mapType = {
+export const mapType = {
   ENTRY: "Veículo/Fornecedor",
-  DOCUMENT: "Document",
+  DOCUMENT: "Documento",
 };
 
-const mapInputType = {
+export const mapEntryType = {
+  VEHICLE: "Veículo",
+  PROVIDER: "Fornecedor",
+  VEHICLE_AND_PROVIDER: "Verículo e Fornecedor",
+};
+
+export const mapInputType = {
   DROPDOWN: "Seleção",
-  MULTISELECT: "Multi seleção",
+  MULTISELECT: "Multipla seleção",
   FILE: "Arquivo",
   NUMERIC: "Numérico",
   PLAIN_TEXT: "Texto",
