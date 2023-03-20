@@ -53,8 +53,7 @@ export const AttributeCreatePage = ({
     entryType: AttributeEntryTypeEnum.VEHICLE_AND_PROVIDER,
     inputType: AttributeInputTypeEnum.DROPDOWN,
     valueRequired: false,
-    visibleInWebsite: false,
-    filterableInDashboard: true,
+    visibleInWebsite: false
   };
 
   return (
