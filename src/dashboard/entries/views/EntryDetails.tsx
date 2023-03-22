@@ -11,7 +11,6 @@ import { DEFAULT_INITIAL_SEARCH_DATA } from "@portal/config";
 import { EntryDetailsPage } from "@portal/dashboard/entries/components/EntryDetailsPage";
 import {
   EntryInput,
-  EntryTypeEnum,
   EntryUpdateMutation,
   useEntryDeleteMutation,
   useEntryDetailsQuery,
@@ -54,7 +53,11 @@ export const VehicleDetails = () => {
     await deleteVehicle({ variables: { id } });
   };
 
-  const { result: searchCategoryOpts } = useCategorySearch({
+  const {
+    loadMore: loadMoreCategories,
+    search: searchCategory,
+    result: searchCategoryOpts,
+  } = useCategorySearch({
     variables: {
       ...DEFAULT_INITIAL_SEARCH_DATA,
       type: mapType[type],
@@ -64,6 +67,12 @@ export const VehicleDetails = () => {
   const { data, loading, refetch } = useEntryDetailsQuery({
     variables: { id: id, ...paginator.pagination },
   });
+
+  const fetchMoreCategories = {
+    hasMore: searchCategoryOpts.data?.search?.pageInfo?.hasNextPage,
+    loading: searchCategoryOpts.loading,
+    onFetchMore: loadMoreCategories,
+  };
 
   useEffect(() => {
     if (data?.entry) {
@@ -89,6 +98,8 @@ export const VehicleDetails = () => {
         loading={updateVehicleResult.loading}
         categories={mapEdgesToItems(searchCategoryOpts?.data?.search) || []}
         paginator={paginator}
+        fetchCategories={searchCategory}
+        fetchMoreCategories={fetchMoreCategories}
       />
       <ActionDialog
         onClose={closeModal}

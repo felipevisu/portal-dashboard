@@ -30,7 +30,7 @@ export function getFilterOpts(): FilterOpts[] {
       name: t("attribute.fields.type"),
       slug: "type",
       choices: [
-        { value: "ENTRY", label: t("attribute.enums.type.entry") },
+        { value: "VEHICLE", label: t("attribute.enums.type.vehicle") },
         { value: "DOCUMENT", label: t("attribute.enums.type.document") },
       ],
       type: "radio",

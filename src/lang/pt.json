@@ -23,7 +23,9 @@
 		"enums": {
 			"type": {
 				"document": "Documento",
-				"entry": "Veículo ou fornecedor"
+				"vehicleAndProvider": "Veículo ou fornecedor",
+				"vehicle": "Veículo",
+				"provider": "Provider"
 			},
 			"inputType": {
 				"dropdown": "Seleção",
@@ -31,18 +33,12 @@
 				"plainText": "Texto",
 				"date": "Data",
 				"boolean": "Booleano"
-			},
-			"entryType": {
-				"vehicle": "Veículo",
-				"provider": "Fornecedor",
-				"vehicleAndProvider": "Veículo e Fornecedor"
 			}
 		},
 		"fields": {
 			"name": "Nome",
 			"slug": "Código",
 			"type": "Tipo de atribuição",
-			"entryType": "Tipo de cadastro",
 			"inputType": "Tipo de campo",
 			"visibleInWebsite": "Visível no site",
 			"valueRequired": "Valor obrigatório"

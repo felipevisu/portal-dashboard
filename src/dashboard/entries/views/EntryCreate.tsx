@@ -35,7 +35,7 @@ export const VehicleCreate = () => {
 
   const handleSubmit = async (data: EntryInput) => {
     await createVehicle({
-      variables: { type: mapType[type], input: { ...data } },
+      variables: { input: { ...data, type: mapType[type] } },
     });
   };
 
@@ -50,12 +50,20 @@ export const VehicleCreate = () => {
     },
   });
 
+  const fetchMoreCategories = {
+    hasMore: searchCategoryOpts.data?.search?.pageInfo?.hasNextPage,
+    loading: searchCategoryOpts.loading,
+    onFetchMore: loadMoreCategories,
+  };
+
   return (
     <EntryCreatePage
       onSubmit={handleSubmit}
       errors={createVehicleResult.data?.entryCreate.errors || []}
       loading={createVehicleResult.loading}
       categories={mapEdgesToItems(searchCategoryOpts?.data?.search) || []}
+      fetchCategories={searchCategory}
+      fetchMoreCategories={fetchMoreCategories}
     />
   );
 };

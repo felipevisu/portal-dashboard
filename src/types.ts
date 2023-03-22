@@ -70,3 +70,11 @@ export type Paginator = {
   handlePreviousPage: (value: string) => void;
   pagination: PaginationState;
 };
+
+
+export interface FetchMoreProps {
+  loading: boolean;
+  hasMore: boolean;
+  totalCount?: number;
+  onFetchMore: () => void;
+}

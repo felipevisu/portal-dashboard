@@ -15,12 +15,13 @@ import {
 } from "@portal/graphql";
 import { useLinks } from "@portal/hooks";
 import { SubmitPromise } from "@portal/hooks/useForm";
-import { Paginator, RelayToFlat } from "@portal/types";
+import { FetchMoreProps, Paginator, RelayToFlat } from "@portal/types";
 import { getChoices } from "@portal/utils/data";
 import { mapEdgesToItems } from "@portal/utils/maps";
 
 import DocumentList from "./DocumentList";
-import { EntryFormInfos, EntryFormStatus, FormProps } from "./EntryForm";
+import { EntryFormInfos, FormProps } from "./EntryForm";
+import { EntryOrganization } from "./EntryOrganization";
 
 interface EntryDetailsPageProps {
   entry: EntryDetailsQuery["entry"];
@@ -30,6 +31,8 @@ interface EntryDetailsPageProps {
   loading: boolean;
   categories: RelayToFlat<SearchCategoriesQuery["search"]>;
   paginator: Paginator;
+  fetchCategories: (data: string) => void;
+  fetchMoreCategories: FetchMoreProps;
 }
 
 export const EntryDetailsPage = ({
@@ -40,6 +43,8 @@ export const EntryDetailsPage = ({
   loading,
   categories: categoryChoiceList,
   paginator,
+  fetchCategories,
+  fetchMoreCategories,
 }: EntryDetailsPageProps) => {
   const navigate = useNavigate();
   const initialData: FormProps = {
@@ -85,11 +90,13 @@ export const EntryDetailsPage = ({
                 />
               </Grid>
               <Grid item xs={4}>
-                <EntryFormStatus
+                <EntryOrganization
                   errors={errors}
                   onChange={change}
                   data={data}
                   categories={categories}
+                  fetchCategories={fetchCategories}
+                  fetchMoreCategories={fetchMoreCategories}
                 />
               </Grid>
             </Grid>

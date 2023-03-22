@@ -7,12 +7,8 @@ import {
   CardHeader,
   FormControl,
   FormHelperText,
-  InputLabel,
-  MenuItem,
-  Select,
   TextField,
 } from "@mui/material";
-import ControlledCheckbox from "@portal/components/ControlledCheckbox";
 import FormSpacer from "@portal/components/FormSpacer";
 import { ErrorFragment } from "@portal/graphql";
 import { ChangeEvent } from "@portal/types";
@@ -102,56 +98,6 @@ export const EntryFormInfos = ({ errors, data, onChange }: EntryFormProps) => {
             helperText={formErrors.email?.message}
           />
           <FormHelperText>{t("helperText.email")}</FormHelperText>
-        </FormControl>
-      </CardContent>
-    </Card>
-  );
-};
-
-export const EntryFormStatus = ({
-  errors,
-  data,
-  categories,
-  onChange,
-}: EntryFormProps) => {
-  const { t } = useTranslation();
-  const formErrors = getFormErrors(["category", "isPublished"], errors);
-
-  return (
-    <Card>
-      <CardHeader title={t("visibility")} />
-      <CardContent>
-        <FormControl fullWidth>
-          <InputLabel error={formErrors.category && true}>
-            {t("category.title")}
-          </InputLabel>
-          <Select
-            fullWidth
-            name="category"
-            label={t("category.title")}
-            value={data.category}
-            onChange={onChange}
-            error={formErrors.category && true}
-          >
-            {categories.map((category) => (
-              <MenuItem key={category.value} value={category.value}>
-                {category.label}
-              </MenuItem>
-            ))}
-          </Select>
-          <FormHelperText error={formErrors.category && true}>
-            {formErrors.category?.message}
-          </FormHelperText>
-        </FormControl>
-        <FormSpacer />
-        <FormControl>
-          <ControlledCheckbox
-            label={t("published")}
-            name="isPublished"
-            checked={data.isPublished}
-            onChange={onChange}
-          />
-          <FormHelperText>{t("helperText.isPublished")}</FormHelperText>
         </FormControl>
       </CardContent>
     </Card>

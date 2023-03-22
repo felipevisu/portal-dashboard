@@ -1,7 +1,4 @@
-import {
-  AttributeEntryTypeEnum,
-  AttributeInputTypeEnum,
-} from "@portal/graphql";
+import { AttributeInputTypeEnum, AttributeTypeEnum } from "@portal/graphql";
 
 export const getInputTypeList = (t) => {
   return [
@@ -28,26 +25,32 @@ export const getInputTypeList = (t) => {
   ];
 };
 
-export const getEntryTypeList = (t) => {
+export const getTypeList = (t) => {
   return [
     {
-      value: AttributeEntryTypeEnum.VEHICLE_AND_PROVIDER,
-      label: t("attribute.enums.entryType.vehicleAndProvider"),
+      value: AttributeTypeEnum.VEHICLE_AND_PROVIDER,
+      label: t("attribute.enums.type.vehicleAndProvider"),
     },
     {
-      value: AttributeEntryTypeEnum.PROVIDER,
-      label: t("attribute.enums.entryType.provider"),
+      value: AttributeTypeEnum.PROVIDER,
+      label: t("attribute.enums.type.provider"),
     },
     {
-      value: AttributeEntryTypeEnum.VEHICLE,
-      label: t("attribute.enums.entryType.vehicle"),
+      value: AttributeTypeEnum.VEHICLE,
+      label: t("attribute.enums.type.vehicle"),
+    },
+    {
+      value: AttributeTypeEnum.DOCUMENT,
+      label: t("attribute.enums.type.document"),
     },
   ];
 };
 
 export const mapType = (t) => {
   return {
-    ENTRY: t("attribute.enums.type.entry"),
+    VEHICLE_AND_PROVIDER: t("attribute.enums.type.vehicleAndProvider"),
+    VEHICLE: t("attribute.enums.type.vehicle"),
+    PROVIDER: t("attribute.enums.type.provider"),
     DOCUMENT: t("attribute.enums.type.docoument"),
   };
 };
@@ -59,13 +62,5 @@ export const mapInputType = (t) => {
     PLAIN_TEXT: t("attribute.enums.inputType.plainText"),
     BOOLEAN: t("attribute.enums.inputType.boolean"),
     DATE: t("attribute.enums.inputType.date"),
-  };
-};
-
-export const mapEntryType = (t) => {
-  return {
-    VEHICLE: t("attribute.enums.entryType.vehicle"),
-    PROVIDER: t("attribute.enums.entryType.provider"),
-    VEHICLE_AND_PROVIDER: t("attribute.enums.entryType.vehicleAndProvider"),
   };
 };

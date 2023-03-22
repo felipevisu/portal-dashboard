@@ -9,7 +9,6 @@ import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
 import {
   AttributeCreateInput,
-  AttributeEntryTypeEnum,
   AttributeInputTypeEnum,
   AttributeTypeEnum,
   AttributeValueCreateInput,
@@ -49,8 +48,7 @@ export const AttributeCreatePage = ({
   const initialData = {
     name: "",
     slug: "",
-    type: AttributeTypeEnum.ENTRY,
-    entryType: AttributeEntryTypeEnum.VEHICLE_AND_PROVIDER,
+    type: AttributeTypeEnum.VEHICLE_AND_PROVIDER,
     inputType: AttributeInputTypeEnum.DROPDOWN,
     valueRequired: false,
     visibleInWebsite: false,
@@ -59,11 +57,6 @@ export const AttributeCreatePage = ({
   return (
     <Form initial={initialData} onSubmit={onSubmit}>
       {({ change, submit, data }) => {
-        useEffect(() => {
-          if (data.type === AttributeTypeEnum.DOCUMENT)
-            change({ name: "entryType", value: null });
-        }, [data]);
-
         return (
           <>
             <Backlink href={attributeList()}>{t("back")}</Backlink>

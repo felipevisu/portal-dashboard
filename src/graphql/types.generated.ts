@@ -59,7 +59,6 @@ export type AttributeChoicesSortingInput = {
 };
 
 export type AttributeCreateInput = {
-  entryType?: InputMaybe<AttributeEntryTypeEnum>;
   filterableInDashboard?: InputMaybe<Scalars['Boolean']>;
   filterableInWebsite?: InputMaybe<Scalars['Boolean']>;
   inputType?: InputMaybe<AttributeInputTypeEnum>;
@@ -70,13 +69,6 @@ export type AttributeCreateInput = {
   values?: InputMaybe<Array<AttributeValueCreateInput>>;
   visibleInWebsite?: InputMaybe<Scalars['Boolean']>;
 };
-
-/** An enumeration. */
-export enum AttributeEntryTypeEnum {
-  PROVIDER = 'PROVIDER',
-  VEHICLE = 'VEHICLE',
-  VEHICLE_AND_PROVIDER = 'VEHICLE_AND_PROVIDER'
-}
 
 export type AttributeFilterInput = {
   filterableInDashboard?: InputMaybe<Scalars['Boolean']>;
@@ -127,7 +119,9 @@ export type AttributeSortingInput = {
 /** An enumeration. */
 export enum AttributeTypeEnum {
   DOCUMENT = 'DOCUMENT',
-  ENTRY = 'ENTRY'
+  PROVIDER = 'PROVIDER',
+  VEHICLE = 'VEHICLE',
+  VEHICLE_AND_PROVIDER = 'VEHICLE_AND_PROVIDER'
 }
 
 export type AttributeUpdateInput = {
@@ -151,6 +145,26 @@ export type AttributeValueCreateInput = {
 export type AttributeValueFilterInput = {
   ids?: InputMaybe<Array<Scalars['ID']>>;
   search?: InputMaybe<Scalars['String']>;
+};
+
+export type AttributeValueInput = {
+  boolean?: InputMaybe<Scalars['Boolean']>;
+  contentType?: InputMaybe<Scalars['String']>;
+  date?: InputMaybe<Scalars['Date']>;
+  dateTime?: InputMaybe<Scalars['DateTime']>;
+  dropdown?: InputMaybe<AttributeValueSelectableTypeInput>;
+  file?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
+  multiselect?: InputMaybe<Array<AttributeValueSelectableTypeInput>>;
+  numeric?: InputMaybe<Scalars['String']>;
+  plainText?: InputMaybe<Scalars['String']>;
+  swatch?: InputMaybe<AttributeValueSelectableTypeInput>;
+  values?: InputMaybe<Array<Scalars['String']>>;
+};
+
+export type AttributeValueSelectableTypeInput = {
+  id?: InputMaybe<Scalars['ID']>;
+  value?: InputMaybe<Scalars['String']>;
 };
 
 export type AttributeValueUpdateInput = {
@@ -262,6 +276,7 @@ export type EntryFilterInput = {
 
 export type EntryInput = {
   address?: InputMaybe<Scalars['String']>;
+  attributes?: InputMaybe<Array<AttributeValueInput>>;
   category?: InputMaybe<Scalars['ID']>;
   documentNumber?: InputMaybe<Scalars['String']>;
   email?: InputMaybe<Scalars['String']>;
@@ -270,6 +285,7 @@ export type EntryInput = {
   phone?: InputMaybe<Scalars['String']>;
   publicationDate?: InputMaybe<Scalars['Date']>;
   slug?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<EntryTypeEnum>;
 };
 
 export enum EntrySortField {
@@ -417,7 +433,7 @@ export type AttributeCreateMutationVariables = Exact<{
 }>;
 
 
-export type AttributeCreateMutation = { __typename: 'Mutation', attributeCreate: { __typename: 'AttributeCreate', attribute: { __typename: 'Attribute', inputType: AttributeInputTypeEnum | null, entryType: AttributeEntryTypeEnum | null, valueRequired: boolean, id: string, name: string | null, slug: string | null, type: AttributeTypeEnum | null, visibleInWebsite: boolean, filterableInDashboard: boolean, filterableInWebsite: boolean } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+export type AttributeCreateMutation = { __typename: 'Mutation', attributeCreate: { __typename: 'AttributeCreate', attribute: { __typename: 'Attribute', inputType: AttributeInputTypeEnum | null, valueRequired: boolean, id: string, name: string | null, slug: string | null, type: AttributeTypeEnum | null, visibleInWebsite: boolean, filterableInDashboard: boolean, filterableInWebsite: boolean } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
 
 export type AttributeUpdateMutationVariables = Exact<{
   id?: InputMaybe<Scalars['ID']>;
@@ -425,7 +441,7 @@ export type AttributeUpdateMutationVariables = Exact<{
 }>;
 
 
-export type AttributeUpdateMutation = { __typename: 'Mutation', attributeUpdate: { __typename: 'AttributeUpdate', attribute: { __typename: 'Attribute', inputType: AttributeInputTypeEnum | null, entryType: AttributeEntryTypeEnum | null, valueRequired: boolean, id: string, name: string | null, slug: string | null, type: AttributeTypeEnum | null, visibleInWebsite: boolean, filterableInDashboard: boolean, filterableInWebsite: boolean } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+export type AttributeUpdateMutation = { __typename: 'Mutation', attributeUpdate: { __typename: 'AttributeUpdate', attribute: { __typename: 'Attribute', inputType: AttributeInputTypeEnum | null, valueRequired: boolean, id: string, name: string | null, slug: string | null, type: AttributeTypeEnum | null, visibleInWebsite: boolean, filterableInDashboard: boolean, filterableInWebsite: boolean } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
 
 export type AttributeDeleteMutationVariables = Exact<{
   id: Scalars['ID'];
@@ -478,7 +494,7 @@ export type AttributeDetailsQueryVariables = Exact<{
 }>;
 
 
-export type AttributeDetailsQuery = { __typename: 'Query', attribute: { __typename: 'Attribute', inputType: AttributeInputTypeEnum | null, entryType: AttributeEntryTypeEnum | null, valueRequired: boolean, id: string, name: string | null, slug: string | null, type: AttributeTypeEnum | null, visibleInWebsite: boolean, filterableInDashboard: boolean, filterableInWebsite: boolean, choices: { __typename: 'AttributeValueCountableConnection', pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null }, edges: Array<{ __typename: 'AttributeValueCountableEdge', cursor: string, node: { __typename: 'AttributeValue', plainText: string | null, id: string, name: string | null, slug: string | null, boolean: boolean | null, date: any | null, dateTime: any | null, value: string | null, file: { __typename: 'File', url: string } | null } }> } | null } | null };
+export type AttributeDetailsQuery = { __typename: 'Query', attribute: { __typename: 'Attribute', inputType: AttributeInputTypeEnum | null, valueRequired: boolean, id: string, name: string | null, slug: string | null, type: AttributeTypeEnum | null, visibleInWebsite: boolean, filterableInDashboard: boolean, filterableInWebsite: boolean, choices: { __typename: 'AttributeValueCountableConnection', pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null }, edges: Array<{ __typename: 'AttributeValueCountableEdge', cursor: string, node: { __typename: 'AttributeValue', plainText: string | null, id: string, name: string | null, slug: string | null, boolean: boolean | null, date: any | null, dateTime: any | null, value: string | null, file: { __typename: 'File', url: string } | null } }> } | null } | null };
 
 export type AttributesQueryVariables = Exact<{
   filter?: InputMaybe<AttributeFilterInput>;
@@ -635,7 +651,6 @@ export type DocumentsQueryVariables = Exact<{
 export type DocumentsQuery = { __typename: 'Query', documents: { __typename: 'DocumentCountableConnection', edges: Array<{ __typename: 'DocumentCountableEdge', node: { __typename: 'Document', id: string, name: string, created: any | null, isPublished: boolean | null, expired: boolean | null, expires: boolean | null, defaultFile: { __typename: 'DocumentFile', id: string, beginDate: any | null, expirationDate: any | null } | null, entry: { __typename: 'Entry', id: string, name: string, type: EntryTypeEnum | null } | null } }>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
 
 export type EntryCreateMutationVariables = Exact<{
-  type: EntryTypeEnum;
   input: EntryInput;
 }>;
 
@@ -835,7 +850,7 @@ export type AttributeValueDetailsFragment = { __typename: 'AttributeValue', plai
 
 export type AttributeFragment = { __typename: 'Attribute', id: string, name: string | null, slug: string | null, type: AttributeTypeEnum | null, visibleInWebsite: boolean, filterableInDashboard: boolean, filterableInWebsite: boolean, inputType: AttributeInputTypeEnum | null, valueRequired: boolean };
 
-export type AttributeDetailsFragment = { __typename: 'Attribute', inputType: AttributeInputTypeEnum | null, entryType: AttributeEntryTypeEnum | null, valueRequired: boolean, id: string, name: string | null, slug: string | null, type: AttributeTypeEnum | null, visibleInWebsite: boolean, filterableInDashboard: boolean, filterableInWebsite: boolean };
+export type AttributeDetailsFragment = { __typename: 'Attribute', inputType: AttributeInputTypeEnum | null, valueRequired: boolean, id: string, name: string | null, slug: string | null, type: AttributeTypeEnum | null, visibleInWebsite: boolean, filterableInDashboard: boolean, filterableInWebsite: boolean };
 
 export type AttributeValueListFragment = { __typename: 'AttributeValueCountableConnection', pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null }, edges: Array<{ __typename: 'AttributeValueCountableEdge', cursor: string, node: { __typename: 'AttributeValue', plainText: string | null, id: string, name: string | null, slug: string | null, boolean: boolean | null, date: any | null, dateTime: any | null, value: string | null, file: { __typename: 'File', url: string } | null } }> };
 

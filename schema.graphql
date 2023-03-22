@@ -7,7 +7,6 @@ type Attribute implements Node {
   choices(after: String, before: String, filter: AttributeValueFilterInput, first: Int, last: Int, sortBy: AttributeChoicesSortingInput): AttributeValueCountableConnection
   documents(after: String, before: String, first: Int, last: Int): DocumentCountableConnection!
   entries(after: String, before: String, first: Int, last: Int): EntryCountableConnection!
-  entryType: AttributeEntryTypeEnum
   filterableInDashboard: Boolean!
   filterableInWebsite: Boolean!
   id: ID!
@@ -59,7 +58,6 @@ type AttributeCreate {
 }
 
 input AttributeCreateInput {
-  entryType: AttributeEntryTypeEnum
   filterableInDashboard: Boolean
   filterableInWebsite: Boolean
   inputType: AttributeInputTypeEnum
@@ -74,13 +72,6 @@ input AttributeCreateInput {
 type AttributeDelete {
   attribute: Attribute
   errors: [Error!]!
-}
-
-"""An enumeration."""
-enum AttributeEntryTypeEnum {
-  PROVIDER
-  VEHICLE
-  VEHICLE_AND_PROVIDER
 }
 
 input AttributeFilterInput {
@@ -138,7 +129,9 @@ input AttributeSortingInput {
 """An enumeration."""
 enum AttributeTypeEnum {
   DOCUMENT
-  ENTRY
+  PROVIDER
+  VEHICLE
+  VEHICLE_AND_PROVIDER
 }
 
 type AttributeUpdate {
@@ -210,6 +203,26 @@ type AttributeValueDelete {
 input AttributeValueFilterInput {
   ids: [ID!]
   search: String
+}
+
+input AttributeValueInput {
+  boolean: Boolean
+  contentType: String
+  date: Date
+  dateTime: DateTime
+  dropdown: AttributeValueSelectableTypeInput
+  file: String
+  id: ID
+  multiselect: [AttributeValueSelectableTypeInput!]
+  numeric: String
+  plainText: String
+  swatch: AttributeValueSelectableTypeInput
+  values: [String!]
+}
+
+input AttributeValueSelectableTypeInput {
+  id: ID
+  value: String
 }
 
 type AttributeValueUpdate {
@@ -607,6 +620,7 @@ input EntryFilterInput {
 
 input EntryInput {
   address: String
+  attributes: [AttributeValueInput!]
   category: ID
   documentNumber: String
   email: String
@@ -615,6 +629,7 @@ input EntryInput {
   phone: String
   publicationDate: Date
   slug: String
+  type: EntryTypeEnum
 }
 
 enum EntrySortField {
@@ -883,7 +898,7 @@ type Mutation {
     """List of entries IDs to delete."""
     ids: [ID!]!
   ): EntryBulkDelete
-  entryCreate(input: EntryInput!, type: EntryTypeEnum): EntryCreate
+  entryCreate(input: EntryInput!): EntryCreate
   entryDelete(id: ID): EntryDelete
   entryUpdate(id: ID, input: EntryInput!): EntryUpdate
 

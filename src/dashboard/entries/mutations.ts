@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const entryCreateMutation = gql`
-  mutation EntryCreate($type: EntryTypeEnum!, $input: EntryInput!) {
-    entryCreate(type: $type, input: $input) {
+  mutation EntryCreate($input: EntryInput!) {
+    entryCreate(input: $input) {
       entry {
         ...EntryDetails
       }

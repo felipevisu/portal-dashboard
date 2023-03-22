@@ -6,13 +6,9 @@ import {
   CardContent,
   CardHeader,
   FormControl,
-  FormControlLabel,
   FormHelperText,
-  FormLabel,
   InputLabel,
   MenuItem,
-  Radio,
-  RadioGroup,
   Select,
   Typography,
 } from "@mui/material";
@@ -21,13 +17,12 @@ import FormSpacer from "@portal/components/FormSpacer";
 import {
   AttributeCreateInput,
   AttributeDetailsFragment,
-  AttributeTypeEnum,
   ErrorFragment,
 } from "@portal/graphql";
 import { ChangeEvent } from "@portal/types";
 import { getFormErrors } from "@portal/utils/errors";
 
-import { getEntryTypeList, mapEntryType, mapType } from "../utils";
+import { getTypeList, mapType } from "../utils";
 
 interface AttributeOrganizationProps {
   data: AttributeCreateInput;
@@ -43,7 +38,7 @@ export const AttributeOrganization = ({
   onChange,
 }: AttributeOrganizationProps) => {
   const { t } = useTranslation();
-  const formErrors = getFormErrors(["type", "entryType"], errors);
+  const formErrors = getFormErrors(["type"], errors);
 
   return (
     <Card>
@@ -51,59 +46,34 @@ export const AttributeOrganization = ({
       <CardContent>
         {instance && (
           <>
-            {instance.type !== AttributeTypeEnum.ENTRY && (
-              <Typography>
-                {t("attribute.fields.type")}: {mapType(t)[instance.type]}
-              </Typography>
-            )}
-            {instance.type === AttributeTypeEnum.ENTRY && (
-              <Typography>
-                {t("attribute.fields.entryType")}:{" "}
-                {mapEntryType(t)[instance.entryType]}
-              </Typography>
-            )}
+            <Typography>
+              {t("attribute.fields.type")}: {mapType(t)[instance.type]}
+            </Typography>
           </>
         )}
         {!instance && (
-          <FormControl>
-            <FormLabel>{t("attribute.fields.type")}</FormLabel>
-            <RadioGroup value={data.type} name="type" onChange={onChange}>
-              <FormControlLabel
-                value={AttributeTypeEnum.ENTRY}
-                control={<Radio />}
-                label={t("attribute.enums.type.entry")}
-              />
-              <FormControlLabel
-                value={AttributeTypeEnum.DOCUMENT}
-                control={<Radio />}
-                label={t("attribute.enums.type.document")}
-              />
-            </RadioGroup>
-          </FormControl>
-        )}
-        {!instance && data.type === AttributeTypeEnum.ENTRY && (
           <>
             <FormSpacer />
             <FormControl fullWidth>
-              <InputLabel error={formErrors.entryType && true}>
-                {t("attribute.fields.entryType")}
+              <InputLabel error={formErrors.type && true}>
+                {t("attribute.fields.type")}
               </InputLabel>
               <Select
                 fullWidth
-                name="entryType"
-                label={t("attribute.fields.entryType")}
-                value={data.entryType}
+                name="type"
+                label={t("attribute.fields.type")}
+                value={data.type}
                 onChange={onChange}
-                error={formErrors.entryType && true}
+                error={formErrors.type && true}
               >
-                {getEntryTypeList(t).map((type) => (
+                {getTypeList(t).map((type) => (
                   <MenuItem key={type.value} value={type.value}>
                     {type.label}
                   </MenuItem>
                 ))}
               </Select>
-              <FormHelperText error={formErrors.entryType && true}>
-                {formErrors.entryType?.message}
+              <FormHelperText error={formErrors.type && true}>
+                {formErrors.type?.message}
               </FormHelperText>
             </FormControl>
           </>

@@ -15,16 +15,19 @@ import {
 } from "@portal/graphql";
 import { useLinks } from "@portal/hooks";
 import { SubmitPromise } from "@portal/hooks/useForm";
-import { RelayToFlat } from "@portal/types";
+import { FetchMoreProps, RelayToFlat } from "@portal/types";
 import { getChoices } from "@portal/utils/data";
 
-import { EntryFormInfos, EntryFormStatus, FormProps } from "./EntryForm";
+import { EntryFormInfos, FormProps } from "./EntryForm";
+import { EntryOrganization } from "./EntryOrganization";
 
 interface EntryCreatePageProps {
   onSubmit: (data: EntryInput) => SubmitPromise;
   errors: ErrorFragment[];
   loading: boolean;
   categories: RelayToFlat<SearchCategoriesQuery["search"]>;
+  fetchCategories: (data: string) => void;
+  fetchMoreCategories: FetchMoreProps;
 }
 
 export const EntryCreatePage = ({
@@ -32,6 +35,8 @@ export const EntryCreatePage = ({
   errors,
   loading,
   categories: categoryChoiceList,
+  fetchCategories,
+  fetchMoreCategories,
 }: EntryCreatePageProps) => {
   const navigate = useNavigate();
   const initialData: FormProps = {
@@ -72,11 +77,13 @@ export const EntryCreatePage = ({
                 />
               </Grid>
               <Grid item xs={4}>
-                <EntryFormStatus
+                <EntryOrganization
                   errors={errors}
                   onChange={change}
                   data={data}
                   categories={categories}
+                  fetchCategories={fetchCategories}
+                  fetchMoreCategories={fetchMoreCategories}
                 />
               </Grid>
             </Grid>

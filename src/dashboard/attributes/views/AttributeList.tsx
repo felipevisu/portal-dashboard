@@ -21,13 +21,15 @@ export const AttributeList = () => {
     [searchParams]
   );
 
-  const { data, loading } = useAttributesQuery({
+  const { data, loading, error } = useAttributesQuery({
     fetchPolicy: "network-only",
     variables: {
       ...pagination,
       filter: { ...queryParameters },
     },
   });
+
+  console.log(error);
 
   return (
     <AttributeListPage

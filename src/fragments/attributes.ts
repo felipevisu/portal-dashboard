@@ -41,7 +41,6 @@ export const attributeDetailsFragment = gql`
   fragment AttributeDetails on Attribute {
     ...Attribute
     inputType
-    entryType
     valueRequired
   }
 `;

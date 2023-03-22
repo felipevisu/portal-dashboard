@@ -20,7 +20,6 @@ export const AttributeDetailsFragmentDoc = gql`
     fragment AttributeDetails on Attribute {
   ...Attribute
   inputType
-  entryType
   valueRequired
 }
     ${AttributeFragmentDoc}`;
@@ -1414,8 +1413,8 @@ export type DocumentsQueryHookResult = ReturnType<typeof useDocumentsQuery>;
 export type DocumentsLazyQueryHookResult = ReturnType<typeof useDocumentsLazyQuery>;
 export type DocumentsQueryResult = Apollo.QueryResult<Types.DocumentsQuery, Types.DocumentsQueryVariables>;
 export const EntryCreateDocument = gql`
-    mutation EntryCreate($type: EntryTypeEnum!, $input: EntryInput!) {
-  entryCreate(type: $type, input: $input) {
+    mutation EntryCreate($input: EntryInput!) {
+  entryCreate(input: $input) {
     entry {
       ...EntryDetails
     }
@@ -1441,7 +1440,6 @@ export type EntryCreateMutationFn = Apollo.MutationFunction<Types.EntryCreateMut
  * @example
  * const [entryCreateMutation, { data, loading, error }] = useEntryCreateMutation({
  *   variables: {
- *      type: // value for 'type'
  *      input: // value for 'input'
  *   },
  * });
