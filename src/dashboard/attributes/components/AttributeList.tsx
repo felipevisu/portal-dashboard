@@ -38,7 +38,7 @@ export const AttributeList = ({ attributes }: AttributeListProps) => {
               sx={{ cursor: "pointer" }}
               href={attributeDetails(attribute.id)}
             >
-              <TableCell>{attribute.name}</TableCell>
+              <TableCell sx={{ paddingLeft: 3 }}>{attribute.name}</TableCell>
               <TableCell>{mapType(t)[attribute.type]}</TableCell>
               <TableCell>{mapInputType(t)[attribute.inputType]}</TableCell>
               <TableCell>

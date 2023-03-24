@@ -60,7 +60,7 @@ export const AttributeDetailsPage = ({
         return (
           <>
             <Backlink href={attributeList()}>{t("back")}</Backlink>
-            <PageHeader title={t(`attribute.create`)} />
+            <PageHeader title={`Atributo: ${attribute.name}`} />
             <Grid container spacing={2}>
               <Grid item xs={8}>
                 <AttributeInfos

@@ -11,7 +11,9 @@ import {
   useEntryCreateMutation,
 } from "@portal/graphql";
 import { useLinks } from "@portal/hooks";
+import useAttributeSearch from "@portal/searches/useAttributeSearch";
 import useCategorySearch from "@portal/searches/useCategorySearch";
+import useAttributeValueSearchHandler from "@portal/utils/handlers/attributeValueSearchHandler";
 import { mapEdgesToItems } from "@portal/utils/maps";
 
 import { mapType } from "./utils";
@@ -35,7 +37,7 @@ export const VehicleCreate = () => {
 
   const handleSubmit = async (data: EntryInput) => {
     await createVehicle({
-      variables: { input: { ...data, type: mapType[type] } },
+      variables: { input: { ...data } },
     });
   };
 
@@ -50,10 +52,31 @@ export const VehicleCreate = () => {
     },
   });
 
+  const { result: searchAttributeOpts } = useAttributeSearch({
+    variables: {
+      ...DEFAULT_INITIAL_SEARCH_DATA,
+      type: mapType[type],
+    },
+  });
+
+  const {
+    loadMore: loadMoreAttributeValues,
+    search: searchAttributeValues,
+    result: searchAttributeValuesOpts,
+    reset: searchAttributeReset,
+  } = useAttributeValueSearchHandler(DEFAULT_INITIAL_SEARCH_DATA);
+
   const fetchMoreCategories = {
     hasMore: searchCategoryOpts.data?.search?.pageInfo?.hasNextPage,
     loading: searchCategoryOpts.loading,
     onFetchMore: loadMoreCategories,
+  };
+  const fetchMoreAttributeValues = {
+    hasMore:
+      !!searchAttributeValuesOpts.data?.attribute?.choices?.pageInfo
+        ?.hasNextPage,
+    loading: !!searchAttributeValuesOpts.loading,
+    onFetchMore: loadMoreAttributeValues,
   };
 
   return (
@@ -64,6 +87,9 @@ export const VehicleCreate = () => {
       categories={mapEdgesToItems(searchCategoryOpts?.data?.search) || []}
       fetchCategories={searchCategory}
       fetchMoreCategories={fetchMoreCategories}
+      attributes={mapEdgesToItems(searchAttributeOpts?.data?.search) || []}
+      fetchAttributeValues={searchAttributeValues}
+      fetchMoreAttributeValues={fetchMoreAttributeValues}
     />
   );
 };

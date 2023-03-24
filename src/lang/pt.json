@@ -23,7 +23,7 @@
 		"enums": {
 			"type": {
 				"document": "Documento",
-				"vehicleAndProvider": "Veículo ou fornecedor",
+				"vehicleAndProvider": "Veículo e fornecedor",
 				"vehicle": "Veículo",
 				"provider": "Provider"
 			},

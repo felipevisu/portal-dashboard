@@ -196,6 +196,17 @@ export const EntryDetailsFragmentDoc = gql`
   email
   phone
   address
+  attributes {
+    attribute {
+      id
+      name
+      inputType
+    }
+    values {
+      id
+      name
+    }
+  }
 }
     `;
 export const ErrorFragmentDoc = gql`
@@ -2384,6 +2395,105 @@ export function useSessionDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type SessionDetailsQueryHookResult = ReturnType<typeof useSessionDetailsQuery>;
 export type SessionDetailsLazyQueryHookResult = ReturnType<typeof useSessionDetailsLazyQuery>;
 export type SessionDetailsQueryResult = Apollo.QueryResult<Types.SessionDetailsQuery, Types.SessionDetailsQueryVariables>;
+export const SearchAttributesDocument = gql`
+    query SearchAttributes($after: String, $first: Int!, $query: String!, $type: AttributeTypeEnum!) {
+  search: attributes(
+    after: $after
+    first: $first
+    filter: {search: $query, type: $type}
+  ) {
+    edges {
+      node {
+        ...Attribute
+      }
+    }
+    pageInfo {
+      ...PageInfo
+    }
+  }
+}
+    ${AttributeFragmentDoc}
+${PageInfoFragmentDoc}`;
+
+/**
+ * __useSearchAttributesQuery__
+ *
+ * To run a query within a React component, call `useSearchAttributesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSearchAttributesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSearchAttributesQuery({
+ *   variables: {
+ *      after: // value for 'after'
+ *      first: // value for 'first'
+ *      query: // value for 'query'
+ *      type: // value for 'type'
+ *   },
+ * });
+ */
+export function useSearchAttributesQuery(baseOptions: Apollo.QueryHookOptions<Types.SearchAttributesQuery, Types.SearchAttributesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<Types.SearchAttributesQuery, Types.SearchAttributesQueryVariables>(SearchAttributesDocument, options);
+      }
+export function useSearchAttributesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.SearchAttributesQuery, Types.SearchAttributesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<Types.SearchAttributesQuery, Types.SearchAttributesQueryVariables>(SearchAttributesDocument, options);
+        }
+export type SearchAttributesQueryHookResult = ReturnType<typeof useSearchAttributesQuery>;
+export type SearchAttributesLazyQueryHookResult = ReturnType<typeof useSearchAttributesLazyQuery>;
+export type SearchAttributesQueryResult = Apollo.QueryResult<Types.SearchAttributesQuery, Types.SearchAttributesQueryVariables>;
+export const SearchAttributeValuesDocument = gql`
+    query SearchAttributeValues($id: ID, $after: String, $first: Int!, $query: String!) {
+  attribute(id: $id) {
+    id
+    choices(after: $after, first: $first, filter: {search: $query}) {
+      edges {
+        node {
+          ...AttributeValueDetails
+        }
+      }
+      pageInfo {
+        ...PageInfo
+      }
+    }
+  }
+}
+    ${AttributeValueDetailsFragmentDoc}
+${PageInfoFragmentDoc}`;
+
+/**
+ * __useSearchAttributeValuesQuery__
+ *
+ * To run a query within a React component, call `useSearchAttributeValuesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSearchAttributeValuesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSearchAttributeValuesQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *      after: // value for 'after'
+ *      first: // value for 'first'
+ *      query: // value for 'query'
+ *   },
+ * });
+ */
+export function useSearchAttributeValuesQuery(baseOptions: Apollo.QueryHookOptions<Types.SearchAttributeValuesQuery, Types.SearchAttributeValuesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<Types.SearchAttributeValuesQuery, Types.SearchAttributeValuesQueryVariables>(SearchAttributeValuesDocument, options);
+      }
+export function useSearchAttributeValuesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.SearchAttributeValuesQuery, Types.SearchAttributeValuesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<Types.SearchAttributeValuesQuery, Types.SearchAttributeValuesQueryVariables>(SearchAttributeValuesDocument, options);
+        }
+export type SearchAttributeValuesQueryHookResult = ReturnType<typeof useSearchAttributeValuesQuery>;
+export type SearchAttributeValuesLazyQueryHookResult = ReturnType<typeof useSearchAttributeValuesLazyQuery>;
+export type SearchAttributeValuesQueryResult = Apollo.QueryResult<Types.SearchAttributeValuesQuery, Types.SearchAttributeValuesQueryVariables>;
 export const SearchCategoriesDocument = gql`
     query SearchCategories($after: String, $first: Int!, $query: String!, $type: EntryTypeEnum) {
   search: categories(

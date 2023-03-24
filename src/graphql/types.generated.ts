@@ -655,7 +655,7 @@ export type EntryCreateMutationVariables = Exact<{
 }>;
 
 
-export type EntryCreateMutation = { __typename: 'Mutation', entryCreate: { __typename: 'EntryCreate', entry: { __typename: 'Entry', id: string, name: string, slug: string | null, documentNumber: string | null, isPublished: boolean | null, email: string | null, phone: string | null, address: string | null, category: { __typename: 'Category', id: string, name: string } | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+export type EntryCreateMutation = { __typename: 'Mutation', entryCreate: { __typename: 'EntryCreate', entry: { __typename: 'Entry', id: string, name: string, slug: string | null, documentNumber: string | null, isPublished: boolean | null, email: string | null, phone: string | null, address: string | null, category: { __typename: 'Category', id: string, name: string } | null, attributes: Array<{ __typename: 'SelectedAttribute', attribute: { __typename: 'Attribute', id: string, name: string | null, inputType: AttributeInputTypeEnum | null }, values: Array<{ __typename: 'AttributeValue', id: string, name: string | null }> }> } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
 
 export type EntryUpdateMutationVariables = Exact<{
   id?: InputMaybe<Scalars['ID']>;
@@ -663,7 +663,7 @@ export type EntryUpdateMutationVariables = Exact<{
 }>;
 
 
-export type EntryUpdateMutation = { __typename: 'Mutation', entryUpdate: { __typename: 'EntryUpdate', entry: { __typename: 'Entry', id: string, name: string, slug: string | null, documentNumber: string | null, isPublished: boolean | null, email: string | null, phone: string | null, address: string | null, category: { __typename: 'Category', id: string, name: string } | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+export type EntryUpdateMutation = { __typename: 'Mutation', entryUpdate: { __typename: 'EntryUpdate', entry: { __typename: 'Entry', id: string, name: string, slug: string | null, documentNumber: string | null, isPublished: boolean | null, email: string | null, phone: string | null, address: string | null, category: { __typename: 'Category', id: string, name: string } | null, attributes: Array<{ __typename: 'SelectedAttribute', attribute: { __typename: 'Attribute', id: string, name: string | null, inputType: AttributeInputTypeEnum | null }, values: Array<{ __typename: 'AttributeValue', id: string, name: string | null }> }> } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
 
 export type EntryDeleteMutationVariables = Exact<{
   id: Scalars['ID'];
@@ -697,7 +697,7 @@ export type EntryDetailsQueryVariables = Exact<{
 }>;
 
 
-export type EntryDetailsQuery = { __typename: 'Query', entry: { __typename: 'Entry', id: string, name: string, slug: string | null, documentNumber: string | null, isPublished: boolean | null, email: string | null, phone: string | null, address: string | null, documents: { __typename: 'DocumentCountableConnection', edges: Array<{ __typename: 'DocumentCountableEdge', node: { __typename: 'Document', id: string, name: string, created: any | null, isPublished: boolean | null, expired: boolean | null, expires: boolean | null, defaultFile: { __typename: 'DocumentFile', id: string, beginDate: any | null, expirationDate: any | null } | null, entry: { __typename: 'Entry', id: string, name: string, type: EntryTypeEnum | null } | null } }>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null, category: { __typename: 'Category', id: string, name: string } | null } | null };
+export type EntryDetailsQuery = { __typename: 'Query', entry: { __typename: 'Entry', id: string, name: string, slug: string | null, documentNumber: string | null, isPublished: boolean | null, email: string | null, phone: string | null, address: string | null, documents: { __typename: 'DocumentCountableConnection', edges: Array<{ __typename: 'DocumentCountableEdge', node: { __typename: 'Document', id: string, name: string, created: any | null, isPublished: boolean | null, expired: boolean | null, expires: boolean | null, defaultFile: { __typename: 'DocumentFile', id: string, beginDate: any | null, expirationDate: any | null } | null, entry: { __typename: 'Entry', id: string, name: string, type: EntryTypeEnum | null } | null } }>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null, category: { __typename: 'Category', id: string, name: string } | null, attributes: Array<{ __typename: 'SelectedAttribute', attribute: { __typename: 'Attribute', id: string, name: string | null, inputType: AttributeInputTypeEnum | null }, values: Array<{ __typename: 'AttributeValue', id: string, name: string | null }> }> } | null };
 
 export type InvestmentBulkDeleteMutationVariables = Exact<{
   ids: Array<Scalars['ID']> | Scalars['ID'];
@@ -870,7 +870,7 @@ export type DocumentDetailsFragment = { __typename: 'Document', id: string, name
 
 export type EntryFragment = { __typename: 'Entry', id: string, name: string, slug: string | null, isPublished: boolean | null, category: { __typename: 'Category', id: string, name: string } | null, documents: { __typename: 'DocumentCountableConnection', totalCount: number | null } | null };
 
-export type EntryDetailsFragment = { __typename: 'Entry', id: string, name: string, slug: string | null, documentNumber: string | null, isPublished: boolean | null, email: string | null, phone: string | null, address: string | null, category: { __typename: 'Category', id: string, name: string } | null };
+export type EntryDetailsFragment = { __typename: 'Entry', id: string, name: string, slug: string | null, documentNumber: string | null, isPublished: boolean | null, email: string | null, phone: string | null, address: string | null, category: { __typename: 'Category', id: string, name: string } | null, attributes: Array<{ __typename: 'SelectedAttribute', attribute: { __typename: 'Attribute', id: string, name: string | null, inputType: AttributeInputTypeEnum | null }, values: Array<{ __typename: 'AttributeValue', id: string, name: string | null }> }> };
 
 export type ErrorFragment = { __typename: 'Error', code: string | null, field: string | null, message: string | null };
 
@@ -901,6 +901,26 @@ export type PluginsDetailsFragment = { __typename: 'Plugin', id: string, name: s
 export type SessionFragment = { __typename: 'Session', id: string, name: string, slug: string | null, date: any | null, isPublished: boolean | null };
 
 export type SessionDetailsFragment = { __typename: 'Session', id: string, name: string, slug: string | null, content: any | null, date: any | null, isPublished: boolean | null };
+
+export type SearchAttributesQueryVariables = Exact<{
+  after?: InputMaybe<Scalars['String']>;
+  first: Scalars['Int'];
+  query: Scalars['String'];
+  type: AttributeTypeEnum;
+}>;
+
+
+export type SearchAttributesQuery = { __typename: 'Query', search: { __typename: 'AttributeCountableConnection', edges: Array<{ __typename: 'AttributeCountableEdge', node: { __typename: 'Attribute', id: string, name: string | null, slug: string | null, type: AttributeTypeEnum | null, visibleInWebsite: boolean, filterableInDashboard: boolean, filterableInWebsite: boolean, inputType: AttributeInputTypeEnum | null, valueRequired: boolean } }>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
+
+export type SearchAttributeValuesQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['ID']>;
+  after?: InputMaybe<Scalars['String']>;
+  first: Scalars['Int'];
+  query: Scalars['String'];
+}>;
+
+
+export type SearchAttributeValuesQuery = { __typename: 'Query', attribute: { __typename: 'Attribute', id: string, choices: { __typename: 'AttributeValueCountableConnection', edges: Array<{ __typename: 'AttributeValueCountableEdge', node: { __typename: 'AttributeValue', plainText: string | null, id: string, name: string | null, slug: string | null, boolean: boolean | null, date: any | null, dateTime: any | null, value: string | null, file: { __typename: 'File', url: string } | null } }>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null } | null };
 
 export type SearchCategoriesQueryVariables = Exact<{
   after?: InputMaybe<Scalars['String']>;

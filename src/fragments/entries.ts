@@ -30,5 +30,16 @@ export const entryDetailsFragment = gql`
     email
     phone
     address
+    attributes {
+      attribute {
+        id
+        name
+        inputType
+      }
+      values {
+        id
+        name
+      }
+    }
   }
 `;

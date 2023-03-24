@@ -563,6 +563,7 @@ type DocumentUpdate {
 
 type Entry implements Node {
   address: String
+  attributes: [SelectedAttribute!]!
   category: Category
   documentNumber: String
   documents(after: String, before: String, first: Int, last: Int): DocumentCountableConnection
@@ -1137,6 +1138,12 @@ type RequestPasswordReset {
 type RestoreDocumentFile {
   documentFile: DocumentFile
   errors: [Error!]!
+}
+
+"""Represents a custom attribute."""
+type SelectedAttribute {
+  attribute: Attribute!
+  values: [AttributeValue!]!
 }
 
 type Session implements Node {

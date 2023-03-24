@@ -37,10 +37,11 @@ export const DocumentList = ({
   const { t } = useTranslation();
   const { entry: type } = useParams();
   const { documentCreate, documentDetails } = useLinks();
+
   return (
     <Card>
       <CardHeader
-        title={t("document.title")}
+        title={t("document.plural")}
         action={
           <Button variant="outlined" href={documentCreate(type, entryId)}>
             {t("add")}

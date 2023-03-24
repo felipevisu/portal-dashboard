@@ -29,6 +29,7 @@ interface EntryOrganizationProps {
   };
   categories: SingleAutocompleteChoiceType[];
   onChange: (e: ChangeEvent) => void;
+  onCategoryChange: (event: ChangeEvent) => void;
   fetchCategories: (query: string) => void;
   fetchMoreCategories: FetchMoreProps;
 }
@@ -38,6 +39,7 @@ export const EntryOrganization = ({
   data,
   categories,
   onChange,
+  onCategoryChange,
   fetchCategories,
   fetchMoreCategories,
 }: EntryOrganizationProps) => {
@@ -57,7 +59,7 @@ export const EntryOrganization = ({
             name="category"
             label={t("category.title")}
             value={data.category}
-            onChange={onChange}
+            onChange={onCategoryChange}
             error={formErrors.category && true}
           >
             {categories.map((category) => (

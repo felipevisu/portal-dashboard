@@ -29,8 +29,6 @@ export const AttributeList = () => {
     },
   });
 
-  console.log(error);
-
   return (
     <AttributeListPage
       search={search}

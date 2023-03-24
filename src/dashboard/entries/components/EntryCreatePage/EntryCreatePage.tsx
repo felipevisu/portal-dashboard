@@ -5,21 +5,25 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Grid } from "@mui/material";
 import { Backlink } from "@portal/components/Backlink";
 import ContactInfosForm from "@portal/components/ContactInfosForm";
-import { Form } from "@portal/components/Form";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
 import {
   EntryInput,
   ErrorFragment,
+  SearchAttributesQuery,
   SearchCategoriesQuery,
 } from "@portal/graphql";
 import { useLinks } from "@portal/hooks";
 import { SubmitPromise } from "@portal/hooks/useForm";
+import useStateFromProps from "@portal/hooks/useStateFromProps";
 import { FetchMoreProps, RelayToFlat } from "@portal/types";
 import { getChoices } from "@portal/utils/data";
 
-import { EntryFormInfos, FormProps } from "./EntryForm";
-import { EntryOrganization } from "./EntryOrganization";
+import { mapType } from "../../views/utils";
+import { EntryFormInfos, FormProps } from "../EntryForm";
+import { EntryOrganization } from "../EntryOrganization";
+
+import EntryCreateForm, { EntryCreateFormData } from "./form";
 
 interface EntryCreatePageProps {
   onSubmit: (data: EntryInput) => SubmitPromise;
@@ -28,6 +32,9 @@ interface EntryCreatePageProps {
   categories: RelayToFlat<SearchCategoriesQuery["search"]>;
   fetchCategories: (data: string) => void;
   fetchMoreCategories: FetchMoreProps;
+  attributes: RelayToFlat<SearchAttributesQuery["search"]>;
+  fetchAttributeValues: (query: string, attributeId: string) => void;
+  fetchMoreAttributeValues?: FetchMoreProps;
 }
 
 export const EntryCreatePage = ({
@@ -37,27 +44,26 @@ export const EntryCreatePage = ({
   categories: categoryChoiceList,
   fetchCategories,
   fetchMoreCategories,
+  attributes,
+  fetchAttributeValues,
+  fetchMoreAttributeValues,
 }: EntryCreatePageProps) => {
   const navigate = useNavigate();
-  const initialData: FormProps = {
-    name: "",
-    slug: "",
-    documentNumber: "",
-    category: "",
-    isPublished: false,
-    email: "",
-    phone: "",
-    address: "",
-  };
-
+  const [selectedCategory, setSelectedCategory] = useStateFromProps("");
   const categories = getChoices(categoryChoiceList);
   const { entry: type } = useParams();
   const { entryList } = useLinks();
   const { t } = useTranslation();
 
   return (
-    <Form initial={initialData} onSubmit={onSubmit}>
-      {({ change, submit, data }) => {
+    <EntryCreateForm
+      onSubmit={onSubmit}
+      loading={loading}
+      categories={categories}
+      attributes={attributes}
+      setSelectedCategory={setSelectedCategory}
+    >
+      {({ change, submit, data, handlers }) => {
         return (
           <>
             <Backlink href={entryList(type)}>{t("back")}</Backlink>
@@ -82,6 +88,7 @@ export const EntryCreatePage = ({
                   onChange={change}
                   data={data}
                   categories={categories}
+                  onCategoryChange={handlers.selectCategory}
                   fetchCategories={fetchCategories}
                   fetchMoreCategories={fetchMoreCategories}
                 />
@@ -95,6 +102,8 @@ export const EntryCreatePage = ({
           </>
         );
       }}
-    </Form>
+    </EntryCreateForm>
   );
 };
+
+export default EntryCreatePage;

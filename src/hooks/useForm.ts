@@ -1,3 +1,4 @@
+import { useState } from "react";
 import isEqual from "lodash/isEqual";
 
 import { ChangeEvent } from "@portal/types";
@@ -5,6 +6,22 @@ import { ChangeEvent } from "@portal/types";
 import useStateFromProps from "./useStateFromProps";
 
 export type SubmitPromise<TData = any> = Promise<TData>;
+
+export interface CommonUseFormResult<TData> {
+  data: TData;
+  change: FormChange;
+  submit: (dataOrEvent?: any) => SubmitPromise<any[]>;
+}
+
+export interface CommonUseFormResultWithHandlers<TData, THandlers>
+  extends CommonUseFormResult<TData> {
+  handlers: THandlers;
+}
+
+export type FormChange<T = any> = (
+  event: ChangeEvent<T>,
+  cb?: () => void
+) => void;
 
 export type FormErrors<T> = {
   [field in keyof T]?: string | React.ReactNode;
@@ -29,6 +46,7 @@ export const useForm = <T extends FormData, TErrors>(
   initialData: T,
   onSubmit?: (data: T) => SubmitPromise<TErrors[]> | void
 ) => {
+  const [errors, setErrors] = useState<FormErrors<T>>({});
   const [data, setData] = useStateFromProps(initialData, {
     mergeFunc: merge,
   });
