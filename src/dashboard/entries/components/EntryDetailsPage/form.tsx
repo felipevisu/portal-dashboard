@@ -1,5 +1,4 @@
 import React from "react";
-import { useParams } from "react-router-dom";
 
 import { AttributeInputData } from "@portal/components/Attributes/Attributes";
 import {
@@ -10,7 +9,7 @@ import {
 import {
   AttributeFragment,
   AttributeValueInput,
-  EntryTypeEnum,
+  EntryDetailsFragment,
 } from "@portal/graphql";
 import useForm, {
   CommonUseFormResultWithHandlers,
@@ -20,68 +19,63 @@ import useForm, {
 import useFormset from "@portal/hooks/useFormset";
 import {
   getAttributeInputFromAttributes,
+  getAttributeInputFromEntry,
   SingleAutocompleteChoiceType,
 } from "@portal/utils/data";
 import createSingleAutocompleteSelectHandler from "@portal/utils/handlers/singleAutocompleteSelectChangeHandler";
 
-import { mapType } from "../../views/utils";
-
-export interface UseEntryCreateFormOpts {
-  attributes: AttributeFragment[];
+export interface UseEntryUpdateFormOpts {
   categories: SingleAutocompleteChoiceType[];
   setSelectedCategory: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export interface EntryCreateFormData {
+export interface EntryUpdateFormData {
   name: string;
   slug: string;
   category: string;
   email: string;
   documentNumber: string;
   isPublished: boolean;
-  type: EntryTypeEnum;
 }
 
-export interface EntryCreateData extends EntryCreateFormData {
+export interface EntryUpdateData extends EntryUpdateFormData {
   attributes: AttributeValueInput[];
 }
 
-export interface EntryCreateFormProps extends UseEntryCreateFormOpts {
+export interface EntryUpdateFormProps extends UseEntryUpdateFormOpts {
   children: (props: any) => React.ReactNode;
-  initial?: Partial<EntryCreateFormData>;
-  onSubmit: (data: EntryCreateData) => SubmitPromise;
+  entry: EntryDetailsFragment;
+  onSubmit: (data: EntryUpdateData) => SubmitPromise;
   loading: boolean;
 }
 
-export type EntryCreateHandlers = Record<"selectCategory", FormChange>;
+export type EntryUpdateHandlers = Record<"selectCategory", FormChange>;
 
-export type UseEntryCreateFormOutput = CommonUseFormResultWithHandlers<
-  EntryCreateData,
-  EntryCreateHandlers
+export type UseEntryUpdateFormOutput = CommonUseFormResultWithHandlers<
+  EntryUpdateData,
+  EntryUpdateHandlers
 >;
 
-const useEntryCreateForm = (
-  initial: Partial<EntryCreateFormData>,
-  onSubmit: (data: EntryCreateData) => SubmitPromise,
+const useEntryUpdateForm = (
+  entry: EntryDetailsFragment,
+  onSubmit: (data: EntryUpdateData) => SubmitPromise,
   loading: boolean,
-  opts: UseEntryCreateFormOpts
-): UseEntryCreateFormOutput => {
-  const { entry: type } = useParams();
+  opts: UseEntryUpdateFormOpts
+): UseEntryUpdateFormOutput => {
   const initialData = {
-    name: "",
-    slug: "",
-    documentNumber: "",
-    category: "",
-    isPublished: false,
-    email: "",
-    type: mapType[type],
+    name: entry.name,
+    slug: entry.slug,
+    documentNumber: entry.documentNumber,
+    category: entry.category.id,
+    isPublished: entry.isPublished,
+    email: entry.email,
   };
 
   const form = useForm(initialData, onSubmit);
   const { change, data: formData } = form;
 
   const attributes = useFormset<AttributeInputData>(
-    opts.attributes ? getAttributeInputFromAttributes(opts.attributes) : []
+    getAttributeInputFromEntry(entry) || []
   );
 
   const handleCategorySelect = createSingleAutocompleteSelectHandler(
@@ -96,12 +90,12 @@ const useEntryCreateForm = (
     attributes.data
   );
 
-  const data: EntryCreateData = {
+  const data: EntryUpdateData = {
     ...formData,
     attributes: attributes.data,
   };
 
-  const getData = (): EntryCreateData => ({
+  const getData = (): EntryUpdateData => ({
     ...data,
     attributes: prepareAttributesInput({
       attributes: attributes.data,
@@ -125,22 +119,17 @@ const useEntryCreateForm = (
   };
 };
 
-const EntryCreateForm = ({
+const EntryUpdateForm = ({
+  entry,
   children,
-  initial,
   onSubmit,
   loading,
   ...rest
-}: EntryCreateFormProps) => {
-  const { ...props } = useEntryCreateForm(
-    initial || {},
-    onSubmit,
-    loading,
-    rest
-  );
+}: EntryUpdateFormProps) => {
+  const { ...props } = useEntryUpdateForm(entry, onSubmit, loading, rest);
 
   // eslint-disable-next-line react/prop-types
   return <form onSubmit={props.submit}>{children(props)}</form>;
 };
 
-export default EntryCreateForm;
+export default EntryUpdateForm;

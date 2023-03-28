@@ -8,7 +8,6 @@ import ActionDialog from "@portal/components/ActionDialog";
 import CircularLoading from "@portal/components/Circular";
 import NotFound from "@portal/components/NotFound";
 import { DEFAULT_INITIAL_SEARCH_DATA } from "@portal/config";
-import { EntryDetailsPage } from "@portal/dashboard/entries/components/EntryDetailsPage";
 import {
   EntryInput,
   EntryUpdateMutation,
@@ -18,8 +17,12 @@ import {
 } from "@portal/graphql";
 import { usePaginator } from "@portal/hooks";
 import useModal from "@portal/hooks/useModal";
+import useAttributeSearch from "@portal/searches/useAttributeSearch";
 import useCategorySearch from "@portal/searches/useCategorySearch";
+import useAttributeValueSearchHandler from "@portal/utils/handlers/attributeValueSearchHandler";
 import { mapEdgesToItems } from "@portal/utils/maps";
+
+import { EntryDetailsPage } from "../components/EntryDetailsPage";
 
 import { mapType } from "./utils";
 
@@ -31,18 +34,20 @@ export const VehicleDetails = () => {
   const { isOpen, openModal, closeModal } = useModal();
   const paginator = usePaginator();
 
-  const handleUpdateVehicle = (data: EntryUpdateMutation) => {
+  const handleUpdateEntry = (data: EntryUpdateMutation) => {
+    console.log(data);
     if (!data?.entryUpdate.errors.length) {
       toast(t("messages.update.success"), { type: toast.TYPE.SUCCESS });
     }
   };
 
-  const [updateVehicle, updateVehicleResult] = useEntryUpdateMutation({
-    onCompleted: handleUpdateVehicle,
+  const [updateEntry, updateEntryResult] = useEntryUpdateMutation({
+    onCompleted: handleUpdateEntry,
   });
 
   const handleSubmit = async (data: EntryInput) => {
-    await updateVehicle({ variables: { id: id, input: { ...data } } });
+    console.log(data);
+    await updateEntry({ variables: { id: id, input: { ...data } } });
   };
 
   const [deleteVehicle] = useEntryDeleteMutation({
@@ -68,10 +73,24 @@ export const VehicleDetails = () => {
     variables: { id: id, ...paginator.pagination },
   });
 
+  const {
+    loadMore: loadMoreAttributeValues,
+    search: searchAttributeValues,
+    result: searchAttributeValuesOpts,
+    reset: searchAttributeReset,
+  } = useAttributeValueSearchHandler(DEFAULT_INITIAL_SEARCH_DATA);
+
   const fetchMoreCategories = {
     hasMore: searchCategoryOpts.data?.search?.pageInfo?.hasNextPage,
     loading: searchCategoryOpts.loading,
     onFetchMore: loadMoreCategories,
+  };
+  const fetchMoreAttributeValues = {
+    hasMore:
+      !!searchAttributeValuesOpts.data?.attribute?.choices?.pageInfo
+        ?.hasNextPage,
+    loading: !!searchAttributeValuesOpts.loading,
+    onFetchMore: loadMoreAttributeValues,
   };
 
   useEffect(() => {
@@ -94,12 +113,19 @@ export const VehicleDetails = () => {
         entry={vehicle}
         onSubmit={handleSubmit}
         onDelete={openModal}
-        errors={updateVehicleResult.data?.entryUpdate.errors || []}
-        loading={updateVehicleResult.loading}
+        errors={updateEntryResult.data?.entryUpdate.errors || []}
+        loading={updateEntryResult.loading}
         categories={mapEdgesToItems(searchCategoryOpts?.data?.search) || []}
         paginator={paginator}
         fetchCategories={searchCategory}
         fetchMoreCategories={fetchMoreCategories}
+        attributeValues={
+          mapEdgesToItems(searchAttributeValuesOpts?.data?.attribute.choices) ||
+          []
+        }
+        fetchAttributeValues={searchAttributeValues}
+        fetchMoreAttributeValues={fetchMoreAttributeValues}
+        onAttributeSelectBlur={searchAttributeReset}
       />
       <ActionDialog
         onClose={closeModal}

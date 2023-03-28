@@ -32,13 +32,10 @@ export const entryDetailsFragment = gql`
     address
     attributes {
       attribute {
-        id
-        name
-        inputType
+        ...Attribute
       }
       values {
-        id
-        name
+        ...AttributeValue
       }
     }
   }

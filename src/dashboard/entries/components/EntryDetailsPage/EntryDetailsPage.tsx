@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 
 import { Box, Grid, Tab, Tabs, Typography } from "@mui/material";
+import Attributes from "@portal/components/Attributes/Attributes";
 import { Backlink } from "@portal/components/Backlink";
 import ContactInfosForm from "@portal/components/ContactInfosForm";
 import { Form } from "@portal/components/Form";
@@ -11,18 +12,22 @@ import { Savebar } from "@portal/components/Savebar";
 import {
   EntryDetailsQuery,
   EntryErrorWithAttributesFragment,
-  ErrorFragment,
+  SearchAttributesQuery,
+  SearchAttributeValuesQuery,
   SearchCategoriesQuery,
 } from "@portal/graphql";
 import { useLinks } from "@portal/hooks";
 import { SubmitPromise } from "@portal/hooks/useForm";
+import useStateFromProps from "@portal/hooks/useStateFromProps";
 import { FetchMoreProps, Paginator, RelayToFlat } from "@portal/types";
 import { getChoices } from "@portal/utils/data";
 import { mapEdgesToItems } from "@portal/utils/maps";
 
-import DocumentList from "./DocumentList";
-import { EntryFormInfos, FormProps } from "./EntryForm";
-import { EntryOrganization } from "./EntryOrganization";
+import DocumentList from "../DocumentList";
+import { EntryFormInfos, FormProps } from "../EntryForm";
+import { EntryOrganization } from "../EntryOrganization";
+
+import EntryUpdateForm from "./form";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -67,6 +72,12 @@ interface EntryDetailsPageProps {
   paginator: Paginator;
   fetchCategories: (data: string) => void;
   fetchMoreCategories: FetchMoreProps;
+  attributeValues: RelayToFlat<
+    SearchAttributeValuesQuery["attribute"]["choices"]
+  >;
+  fetchAttributeValues: (query: string, attributeId: string) => void;
+  fetchMoreAttributeValues?: FetchMoreProps;
+  onAttributeSelectBlur: () => void;
 }
 
 export const EntryDetailsPage = ({
@@ -79,6 +90,10 @@ export const EntryDetailsPage = ({
   paginator,
   fetchCategories,
   fetchMoreCategories,
+  attributeValues,
+  fetchAttributeValues,
+  fetchMoreAttributeValues,
+  onAttributeSelectBlur,
 }: EntryDetailsPageProps) => {
   const navigate = useNavigate();
   const initialData: FormProps = {
@@ -97,6 +112,9 @@ export const EntryDetailsPage = ({
   const { entryList } = useLinks();
   const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
+  const [selectedCategory, setSelectedCategory] = useStateFromProps(
+    entry.category.id
+  );
 
   const [value, setValue] = React.useState(
     parseInt(searchParams.get("tab")) || 0
@@ -108,8 +126,14 @@ export const EntryDetailsPage = ({
   };
 
   return (
-    <Form initial={initialData} onSubmit={onSubmit}>
-      {({ change, submit, data }) => {
+    <EntryUpdateForm
+      entry={entry}
+      onSubmit={onSubmit}
+      loading={loading}
+      categories={categories}
+      setSelectedCategory={setSelectedCategory}
+    >
+      {({ change, submit, data, handlers }) => {
         return (
           <>
             <Backlink href={entryList(type)}>{t("back")}</Backlink>
@@ -140,10 +164,16 @@ export const EntryDetailsPage = ({
                     data={data}
                     categories={categories}
                   />
-                  <ContactInfosForm<FormProps>
+                  <Attributes
+                    attributes={data.attributes}
+                    attributeValues={attributeValues}
+                    loading={loading}
                     errors={errors}
-                    onChange={change}
-                    data={data}
+                    onChange={handlers.selectAttribute}
+                    onMultiChange={handlers.selectAttributeMultiple}
+                    fetchAttributeValues={fetchAttributeValues}
+                    fetchMoreAttributeValues={fetchMoreAttributeValues}
+                    onAttributeSelectBlur={onAttributeSelectBlur}
                   />
                 </Grid>
                 <Grid item xs={4}>
@@ -175,6 +205,8 @@ export const EntryDetailsPage = ({
           </>
         );
       }}
-    </Form>
+    </EntryUpdateForm>
   );
 };
+
+export default EntryDetailsPage;

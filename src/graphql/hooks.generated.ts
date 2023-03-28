@@ -43,6 +43,7 @@ export const AttributeValueFragmentDoc = gql`
   date
   dateTime
   value
+  plainText
 }
     `;
 export const AttributeValueDetailsFragmentDoc = gql`
@@ -198,17 +199,15 @@ export const EntryDetailsFragmentDoc = gql`
   address
   attributes {
     attribute {
-      id
-      name
-      inputType
+      ...Attribute
     }
     values {
-      id
-      name
+      ...AttributeValue
     }
   }
 }
-    `;
+    ${AttributeFragmentDoc}
+${AttributeValueFragmentDoc}`;
 export const ErrorFragmentDoc = gql`
     fragment Error on Error {
   code
