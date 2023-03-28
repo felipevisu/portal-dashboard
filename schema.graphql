@@ -603,12 +603,31 @@ type EntryCountableEdge {
 
 type EntryCreate {
   entry: Entry
-  errors: [Error!]!
+  errors: [EntryError!]!
 }
 
 type EntryDelete {
   entry: Entry
   errors: [Error!]!
+}
+
+type EntryError {
+  """List of attributes IDs which causes the error."""
+  attributes: [ID!]
+
+  """The error code."""
+  code: String
+
+  """
+  Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field.
+  """
+  field: String
+
+  """The error message."""
+  message: String
+
+  """List of attribute values IDs which causes the error."""
+  values: [ID!]
 }
 
 input EntryFilterInput {
@@ -656,7 +675,7 @@ enum EntryTypeEnum {
 
 type EntryUpdate {
   entry: Entry
-  errors: [Error!]!
+  errors: [EntryError!]!
 }
 
 """Represents an error in the input of a mutation."""

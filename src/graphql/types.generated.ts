@@ -655,7 +655,7 @@ export type EntryCreateMutationVariables = Exact<{
 }>;
 
 
-export type EntryCreateMutation = { __typename: 'Mutation', entryCreate: { __typename: 'EntryCreate', entry: { __typename: 'Entry', id: string, name: string, slug: string | null, documentNumber: string | null, isPublished: boolean | null, email: string | null, phone: string | null, address: string | null, category: { __typename: 'Category', id: string, name: string } | null, attributes: Array<{ __typename: 'SelectedAttribute', attribute: { __typename: 'Attribute', id: string, name: string | null, inputType: AttributeInputTypeEnum | null }, values: Array<{ __typename: 'AttributeValue', id: string, name: string | null }> }> } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+export type EntryCreateMutation = { __typename: 'Mutation', entryCreate: { __typename: 'EntryCreate', entry: { __typename: 'Entry', id: string, name: string, slug: string | null, documentNumber: string | null, isPublished: boolean | null, email: string | null, phone: string | null, address: string | null, category: { __typename: 'Category', id: string, name: string } | null, attributes: Array<{ __typename: 'SelectedAttribute', attribute: { __typename: 'Attribute', id: string, name: string | null, inputType: AttributeInputTypeEnum | null }, values: Array<{ __typename: 'AttributeValue', id: string, name: string | null }> }> } | null, errors: Array<{ __typename: 'EntryError', attributes: Array<string> | null, code: string | null, field: string | null, message: string | null }> } | null };
 
 export type EntryUpdateMutationVariables = Exact<{
   id?: InputMaybe<Scalars['ID']>;
@@ -663,7 +663,7 @@ export type EntryUpdateMutationVariables = Exact<{
 }>;
 
 
-export type EntryUpdateMutation = { __typename: 'Mutation', entryUpdate: { __typename: 'EntryUpdate', entry: { __typename: 'Entry', id: string, name: string, slug: string | null, documentNumber: string | null, isPublished: boolean | null, email: string | null, phone: string | null, address: string | null, category: { __typename: 'Category', id: string, name: string } | null, attributes: Array<{ __typename: 'SelectedAttribute', attribute: { __typename: 'Attribute', id: string, name: string | null, inputType: AttributeInputTypeEnum | null }, values: Array<{ __typename: 'AttributeValue', id: string, name: string | null }> }> } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+export type EntryUpdateMutation = { __typename: 'Mutation', entryUpdate: { __typename: 'EntryUpdate', entry: { __typename: 'Entry', id: string, name: string, slug: string | null, documentNumber: string | null, isPublished: boolean | null, email: string | null, phone: string | null, address: string | null, category: { __typename: 'Category', id: string, name: string } | null, attributes: Array<{ __typename: 'SelectedAttribute', attribute: { __typename: 'Attribute', id: string, name: string | null, inputType: AttributeInputTypeEnum | null }, values: Array<{ __typename: 'AttributeValue', id: string, name: string | null }> }> } | null, errors: Array<{ __typename: 'EntryError', attributes: Array<string> | null, code: string | null, field: string | null, message: string | null }> } | null };
 
 export type EntryDeleteMutationVariables = Exact<{
   id: Scalars['ID'];
@@ -875,6 +875,10 @@ export type EntryDetailsFragment = { __typename: 'Entry', id: string, name: stri
 export type ErrorFragment = { __typename: 'Error', code: string | null, field: string | null, message: string | null };
 
 export type BulkItemErrorFragment = { __typename: 'BulkItemError', code: string | null, field: string | null, message: string | null, index: number | null };
+
+export type EntryErrorFragment = { __typename: 'EntryError', code: string | null, field: string | null, message: string | null };
+
+export type EntryErrorWithAttributesFragment = { __typename: 'EntryError', attributes: Array<string> | null, code: string | null, field: string | null, message: string | null };
 
 export type EventFragment = { __typename: 'Event', id: string, date: any | null, type: EventTypesEnum | null, user: { __typename: 'User', id: string, email: string, firstName: string | null, lastName: string | null, isStaff: boolean | null } | null };
 

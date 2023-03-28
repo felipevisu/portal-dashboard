@@ -16,3 +16,18 @@ export const bulkItemErrorFragment = gql`
     index
   }
 `;
+
+export const entryErrorFragment = gql`
+  fragment EntryError on EntryError {
+    code
+    field
+    message
+  }
+`;
+
+export const entryErrorWithAttributesFragment = gql`
+  fragment EntryErrorWithAttributes on EntryError {
+    ...EntryError
+    attributes
+  }
+`;

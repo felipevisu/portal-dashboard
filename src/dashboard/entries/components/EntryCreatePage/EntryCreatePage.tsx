@@ -3,14 +3,15 @@ import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { Grid } from "@mui/material";
+import Attributes from "@portal/components/Attributes/Attributes";
 import { Backlink } from "@portal/components/Backlink";
-import ContactInfosForm from "@portal/components/ContactInfosForm";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
 import {
+  EntryErrorWithAttributesFragment,
   EntryInput,
-  ErrorFragment,
   SearchAttributesQuery,
+  SearchAttributeValuesQuery,
   SearchCategoriesQuery,
 } from "@portal/graphql";
 import { useLinks } from "@portal/hooks";
@@ -19,22 +20,25 @@ import useStateFromProps from "@portal/hooks/useStateFromProps";
 import { FetchMoreProps, RelayToFlat } from "@portal/types";
 import { getChoices } from "@portal/utils/data";
 
-import { mapType } from "../../views/utils";
-import { EntryFormInfos, FormProps } from "../EntryForm";
+import { EntryFormInfos } from "../EntryForm";
 import { EntryOrganization } from "../EntryOrganization";
 
-import EntryCreateForm, { EntryCreateFormData } from "./form";
+import EntryCreateForm from "./form";
 
 interface EntryCreatePageProps {
   onSubmit: (data: EntryInput) => SubmitPromise;
-  errors: ErrorFragment[];
+  errors: EntryErrorWithAttributesFragment[];
   loading: boolean;
   categories: RelayToFlat<SearchCategoriesQuery["search"]>;
   fetchCategories: (data: string) => void;
   fetchMoreCategories: FetchMoreProps;
   attributes: RelayToFlat<SearchAttributesQuery["search"]>;
+  attributeValues: RelayToFlat<
+    SearchAttributeValuesQuery["attribute"]["choices"]
+  >;
   fetchAttributeValues: (query: string, attributeId: string) => void;
   fetchMoreAttributeValues?: FetchMoreProps;
+  onAttributeSelectBlur: () => void;
 }
 
 export const EntryCreatePage = ({
@@ -45,8 +49,10 @@ export const EntryCreatePage = ({
   fetchCategories,
   fetchMoreCategories,
   attributes,
+  attributeValues,
   fetchAttributeValues,
   fetchMoreAttributeValues,
+  onAttributeSelectBlur,
 }: EntryCreatePageProps) => {
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useStateFromProps("");
@@ -76,10 +82,16 @@ export const EntryCreatePage = ({
                   data={data}
                   categories={categories}
                 />
-                <ContactInfosForm<FormProps>
+                <Attributes
+                  attributes={data.attributes}
+                  attributeValues={attributeValues}
+                  loading={loading}
                   errors={errors}
-                  onChange={change}
-                  data={data}
+                  onChange={handlers.selectAttribute}
+                  onMultiChange={handlers.selectAttributeMultiple}
+                  fetchAttributeValues={fetchAttributeValues}
+                  fetchMoreAttributeValues={fetchMoreAttributeValues}
+                  onAttributeSelectBlur={onAttributeSelectBlur}
                 />
               </Grid>
               <Grid item xs={4}>

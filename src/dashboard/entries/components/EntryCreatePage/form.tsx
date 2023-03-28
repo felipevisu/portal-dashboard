@@ -1,14 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 
-import {
-  AttributeInput,
-  AttributeInputData,
-} from "@portal/components/Attributes/Attributes";
-import {
-  getAttributesDisplayData,
-  mergeAttributes,
-} from "@portal/dashboard/attributes/utils/data";
+import { AttributeInputData } from "@portal/components/Attributes/Attributes";
 import {
   createAttributeChangeHandler,
   createAttributeMultiChangeHandler,

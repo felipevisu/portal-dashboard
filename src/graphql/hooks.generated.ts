@@ -224,6 +224,19 @@ export const BulkItemErrorFragmentDoc = gql`
   index
 }
     `;
+export const EntryErrorFragmentDoc = gql`
+    fragment EntryError on EntryError {
+  code
+  field
+  message
+}
+    `;
+export const EntryErrorWithAttributesFragmentDoc = gql`
+    fragment EntryErrorWithAttributes on EntryError {
+  ...EntryError
+  attributes
+}
+    ${EntryErrorFragmentDoc}`;
 export const EventDetailsFragmentDoc = gql`
     fragment EventDetails on Event {
   id
@@ -1430,12 +1443,12 @@ export const EntryCreateDocument = gql`
       ...EntryDetails
     }
     errors {
-      ...Error
+      ...EntryErrorWithAttributes
     }
   }
 }
     ${EntryDetailsFragmentDoc}
-${ErrorFragmentDoc}`;
+${EntryErrorWithAttributesFragmentDoc}`;
 export type EntryCreateMutationFn = Apollo.MutationFunction<Types.EntryCreateMutation, Types.EntryCreateMutationVariables>;
 
 /**
@@ -1469,12 +1482,12 @@ export const EntryUpdateDocument = gql`
       ...EntryDetails
     }
     errors {
-      ...Error
+      ...EntryErrorWithAttributes
     }
   }
 }
     ${EntryDetailsFragmentDoc}
-${ErrorFragmentDoc}`;
+${EntryErrorWithAttributesFragmentDoc}`;
 export type EntryUpdateMutationFn = Apollo.MutationFunction<Types.EntryUpdateMutation, Types.EntryUpdateMutationVariables>;
 
 /**

@@ -16,13 +16,13 @@ import { Box } from "@mui/system";
 import { Button } from "@portal/components/Button";
 import ControlledCheckbox from "@portal/components/ControlledCheckbox";
 import FormSpacer from "@portal/components/FormSpacer";
-import { ErrorFragment } from "@portal/graphql";
+import { EntryErrorWithAttributesFragment } from "@portal/graphql";
 import { ChangeEvent, FetchMoreProps } from "@portal/types";
 import { SingleAutocompleteChoiceType } from "@portal/utils/data";
 import { getFormErrors } from "@portal/utils/errors";
 
 interface EntryOrganizationProps {
-  errors: ErrorFragment[];
+  errors: EntryErrorWithAttributesFragment[];
   data: {
     category: string;
     isPublished: boolean;

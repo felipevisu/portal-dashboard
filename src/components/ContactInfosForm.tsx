@@ -9,7 +9,10 @@ import {
   FormHelperText,
   TextField,
 } from "@mui/material";
-import { ErrorFragment } from "@portal/graphql";
+import {
+  EntryErrorWithAttributesFragment,
+  ErrorFragment,
+} from "@portal/graphql";
 import { ChangeEvent } from "@portal/types";
 import { getFormErrors } from "@portal/utils/errors";
 
@@ -23,7 +26,7 @@ type DataProps = {
 
 interface ContactInfosFormProps<D> {
   data: D & DataProps;
-  errors: ErrorFragment[];
+  errors: EntryErrorWithAttributesFragment[];
   onChange: (e: ChangeEvent) => void;
 }
 

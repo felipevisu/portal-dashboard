@@ -7,7 +7,7 @@ export const entryCreateMutation = gql`
         ...EntryDetails
       }
       errors {
-        ...Error
+        ...EntryErrorWithAttributes
       }
     }
   }
@@ -20,7 +20,7 @@ export const entryUpdateMutation = gql`
         ...EntryDetails
       }
       errors {
-        ...Error
+        ...EntryErrorWithAttributes
       }
     }
   }

@@ -10,6 +10,7 @@ import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
 import {
   EntryDetailsQuery,
+  EntryErrorWithAttributesFragment,
   ErrorFragment,
   SearchCategoriesQuery,
 } from "@portal/graphql";
@@ -60,7 +61,7 @@ interface EntryDetailsPageProps {
   entry: EntryDetailsQuery["entry"];
   onSubmit: (data: FormProps) => SubmitPromise;
   onDelete: () => void;
-  errors: ErrorFragment[];
+  errors: EntryErrorWithAttributesFragment[];
   loading: boolean;
   categories: RelayToFlat<SearchCategoriesQuery["search"]>;
   paginator: Paginator;

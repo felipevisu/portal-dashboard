@@ -10,7 +10,7 @@ import {
   TextField,
 } from "@mui/material";
 import FormSpacer from "@portal/components/FormSpacer";
-import { ErrorFragment } from "@portal/graphql";
+import { EntryErrorWithAttributesFragment } from "@portal/graphql";
 import { ChangeEvent } from "@portal/types";
 import { SingleAutocompleteChoiceType } from "@portal/utils/data";
 import { getFormErrors } from "@portal/utils/errors";
@@ -29,7 +29,7 @@ export type FormProps = {
 interface EntryFormProps
   extends Record<"categories", SingleAutocompleteChoiceType[]> {
   data?: FormProps;
-  errors: ErrorFragment[];
+  errors: EntryErrorWithAttributesFragment[];
   onChange: (e: ChangeEvent) => void;
 }
 

@@ -88,8 +88,13 @@ export const VehicleCreate = () => {
       fetchCategories={searchCategory}
       fetchMoreCategories={fetchMoreCategories}
       attributes={mapEdgesToItems(searchAttributeOpts?.data?.search) || []}
+      attributeValues={
+        mapEdgesToItems(searchAttributeValuesOpts?.data?.attribute.choices) ||
+        []
+      }
       fetchAttributeValues={searchAttributeValues}
       fetchMoreAttributeValues={fetchMoreAttributeValues}
+      onAttributeSelectBlur={searchAttributeReset}
     />
   );
 };
