@@ -19,13 +19,19 @@ export function createAttributeChangeHandler(
 export function createAttributeMultiChangeHandler(
   changeAttributeData: FormsetChange<string[]>,
   attributes: FormsetData<AttributeInputData, string[]>
-): FormsetChange<string[]> {
-  return (attributeId: string, value: string[]) => {
+): FormsetChange<string> {
+  return (attributeId: string, value: string) => {
     const attribute = attributes.find(
       (attribute) => attribute.id === attributeId
     );
 
-    changeAttributeData(attributeId, value);
+    const newAttributeValues = toggle(
+      value,
+      attribute.value,
+      (a, b) => a === b
+    );
+
+    changeAttributeData(attributeId, newAttributeValues);
   };
 }
 

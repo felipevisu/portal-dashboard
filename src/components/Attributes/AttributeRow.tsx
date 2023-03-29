@@ -7,11 +7,17 @@ import {
   EntryErrorWithAttributesFragment,
 } from "@portal/graphql";
 
+import MultiAutocompleteSelectField from "../MultiAutocompleteSelectField";
 import MultiSelectField from "../MultiSelectField";
+import SingleSelectField from "../SingleSelectField";
 
 import { AttributeInput, AttributeRowHandlers } from "./Attributes";
 import BasicAttributeRow from "./BasicAttributeRow";
-import { getMultiChoices } from "./utils";
+import {
+  getMultiChoices,
+  getMultiDisplayValue,
+  getSingleDisplayValue,
+} from "./utils";
 
 export interface AttributeRowProps extends AttributeRowHandlers {
   attribute: AttributeInput;
@@ -33,21 +39,42 @@ export const AttributeRow: React.FC<AttributeRowProps> = ({
   onAttributeSelectBlur,
 }) => {
   switch (attribute.data.inputType) {
+    case AttributeInputTypeEnum.DROPDOWN:
+      return (
+        <BasicAttributeRow label={attribute.label}>
+          <SingleSelectField
+            choices={getMultiChoices(attributeValues)}
+            displayValue={getSingleDisplayValue(attribute, attributeValues)}
+            disabled={loading}
+            error={!!error}
+            name={`attribute:${attribute.label}`}
+            value={attribute.value[0]}
+            onChange={(event) => onChange(attribute.id, event.target.value)}
+            onFocus={() => fetchAttributeValues("", attribute.id)}
+            onBlur={onAttributeSelectBlur}
+            label={"Selecione"}
+          />
+        </BasicAttributeRow>
+      );
     case AttributeInputTypeEnum.MULTISELECT:
       return (
         <BasicAttributeRow label={attribute.label}>
-          <MultiSelectField
+          <MultiAutocompleteSelectField
             choices={getMultiChoices(attributeValues)}
+            displayValues={getMultiDisplayValue(attribute, attributeValues)}
             disabled={loading}
             error={!!error}
+            label={"Selecione"}
             name={`attribute:${attribute.label}`}
             value={attribute.value}
             onChange={(event) =>
               onMultiChange(attribute.id, event.target.value)
             }
-            onFocus={() => fetchAttributeValues("", attribute.id)}
+            allowCustomValues={true}
+            fetchOnFocus={true}
+            fetchChoices={(value) => fetchAttributeValues(value, attribute.id)}
             onBlur={onAttributeSelectBlur}
-            label={"Selecione"}
+            {...fetchMoreAttributeValues}
           />
         </BasicAttributeRow>
       );

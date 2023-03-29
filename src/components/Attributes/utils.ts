@@ -1,4 +1,8 @@
-import { AttributeValueFragment } from "@portal/graphql";
+import {
+  AttributeInputTypeEnum,
+  AttributeValueFragment,
+  EntryDetailsFragment,
+} from "@portal/graphql";
 
 import { AttributeInput } from "./Attributes";
 
@@ -15,6 +19,19 @@ export function getMultiChoices(
     label: value.name,
     value: value.slug,
   }));
+}
+
+export function getSingleDisplayValue(
+  attribute: AttributeInput,
+  attributeValues: AttributeValueFragment[]
+): string {
+  return (
+    attributeValues.find((value) => value.slug === attribute.value[0])?.name ||
+    attribute.data.values.find((value) => value.slug === attribute.value[0])
+      ?.name ||
+    attribute.value[0] ||
+    ""
+  );
 }
 
 export function getMultiDisplayValue(
@@ -45,4 +62,28 @@ export function getMultiDisplayValue(
       value: attributeValue,
     };
   });
+}
+
+export function getSelectedAttributeValues(
+  attribute: EntryDetailsFragment["attributes"][0]
+) {
+  switch (attribute.attribute.inputType) {
+    case AttributeInputTypeEnum.PLAIN_TEXT:
+      return [attribute.values[0]?.plainText];
+
+    case AttributeInputTypeEnum.NUMERIC:
+      return [attribute.values[0]?.name];
+
+    case AttributeInputTypeEnum.BOOLEAN:
+      return [attribute.values[0]?.boolean ?? "false"];
+
+    case AttributeInputTypeEnum.DATE:
+      return [attribute.values[0]?.date];
+
+    case AttributeInputTypeEnum.DATE_TIME:
+      return [attribute.values[0]?.dateTime];
+
+    default:
+      return attribute.values.map((value) => value.slug);
+  }
 }

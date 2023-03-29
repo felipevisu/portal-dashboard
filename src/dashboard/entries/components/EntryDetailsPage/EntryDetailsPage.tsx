@@ -5,14 +5,11 @@ import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { Box, Grid, Tab, Tabs, Typography } from "@mui/material";
 import Attributes from "@portal/components/Attributes/Attributes";
 import { Backlink } from "@portal/components/Backlink";
-import ContactInfosForm from "@portal/components/ContactInfosForm";
-import { Form } from "@portal/components/Form";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
 import {
   EntryDetailsQuery,
   EntryErrorWithAttributesFragment,
-  SearchAttributesQuery,
   SearchAttributeValuesQuery,
   SearchCategoriesQuery,
 } from "@portal/graphql";
@@ -96,16 +93,6 @@ export const EntryDetailsPage = ({
   onAttributeSelectBlur,
 }: EntryDetailsPageProps) => {
   const navigate = useNavigate();
-  const initialData: FormProps = {
-    name: entry.name,
-    slug: entry.slug,
-    documentNumber: entry.documentNumber,
-    category: entry.category.id,
-    isPublished: entry.isPublished,
-    email: entry.email,
-    phone: entry.phone,
-    address: entry.address,
-  };
 
   const categories = getChoices(categoryChoiceList);
   const { entry: type } = useParams();

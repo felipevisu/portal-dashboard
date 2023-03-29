@@ -35,7 +35,6 @@ export const VehicleDetails = () => {
   const paginator = usePaginator();
 
   const handleUpdateEntry = (data: EntryUpdateMutation) => {
-    console.log(data);
     if (!data?.entryUpdate.errors.length) {
       toast(t("messages.update.success"), { type: toast.TYPE.SUCCESS });
     }
@@ -46,7 +45,6 @@ export const VehicleDetails = () => {
   });
 
   const handleSubmit = async (data: EntryInput) => {
-    console.log(data);
     await updateEntry({ variables: { id: id, input: { ...data } } });
   };
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { ChangeEvent } from "@portal/types";
@@ -7,6 +7,10 @@ import Checkbox from "../Checkbox";
 
 interface MultiSelectFieldProps {
   choices: Array<{
+    value: string;
+    label: string;
+  }>;
+  displayValues?: Array<{
     value: string;
     label: string;
   }>;
@@ -26,6 +30,7 @@ export const MultiSelectField: React.FC<MultiSelectFieldProps> = (props) => {
     error,
     label,
     choices,
+    displayValues,
     value,
     onChange,
     onFocus,
