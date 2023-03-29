@@ -8,6 +8,7 @@ import { EntryCreatePage } from "@portal/dashboard/entries/components/EntryCreat
 import {
   EntryCreateMutation,
   EntryInput,
+  useAttributesQuery,
   useEntryCreateMutation,
 } from "@portal/graphql";
 import { useLinks } from "@portal/hooks";
@@ -52,10 +53,10 @@ export const VehicleCreate = () => {
     },
   });
 
-  const { result: searchAttributeOpts } = useAttributeSearch({
+  const { data: searchAttributeOpts } = useAttributesQuery({
     variables: {
       ...DEFAULT_INITIAL_SEARCH_DATA,
-      type: mapType[type],
+      filter: { type: mapType[type] },
     },
   });
 
@@ -87,7 +88,7 @@ export const VehicleCreate = () => {
       categories={mapEdgesToItems(searchCategoryOpts?.data?.search) || []}
       fetchCategories={searchCategory}
       fetchMoreCategories={fetchMoreCategories}
-      attributes={mapEdgesToItems(searchAttributeOpts?.data?.search) || []}
+      attributes={mapEdgesToItems(searchAttributeOpts?.attributes) || []}
       attributeValues={
         mapEdgesToItems(searchAttributeValuesOpts?.data?.attribute.choices) ||
         []

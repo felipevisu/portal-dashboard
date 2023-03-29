@@ -192,24 +192,6 @@ const MultiAutocompleteSelectFieldContent: React.FC<
             </Box>
           </>
         )}
-        {choices.length > maxMenuItems && (
-          <Box
-            sx={{
-              alignItems: "center",
-              background: "gray",
-              bottom: 0,
-              display: "flex",
-              height: 30,
-              justifyContent: "center",
-              opacity: 1,
-              position: "absolute",
-              transition: "all ease 300ms",
-              width: "100%",
-            }}
-          >
-            <div> / </div>
-          </Box>
-        )}
       </Paper>
     </>
   );
