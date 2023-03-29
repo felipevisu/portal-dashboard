@@ -1,7 +1,7 @@
 import React from "react";
 import { GetItemPropsOptions } from "downshift";
 
-import { AddIcCallOutlined } from "@mui/icons-material";
+import { Add, AddIcCallOutlined } from "@mui/icons-material";
 import {
   Box,
   CircularProgress,
@@ -126,7 +126,18 @@ const MultiAutocompleteSelectFieldContent: React.FC<
                   <Typography color="primary">{add.label}</Typography>
                 </MenuItem>
               )}
-
+              {displayCustomValue && (
+                <MenuItem
+                  key="customValue"
+                  component="div"
+                  {...getItemProps({
+                    item: inputValue,
+                  })}
+                >
+                  <Add color="primary" />
+                  Add new value: {inputValue}
+                </MenuItem>
+              )}
               {(choices.length > 0 || displayValues?.length > 0) &&
                 displayCustomValue && <Divider />}
               {displayValues?.map((value) => (
