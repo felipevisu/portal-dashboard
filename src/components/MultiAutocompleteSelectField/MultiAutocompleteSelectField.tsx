@@ -1,16 +1,14 @@
 import React from "react";
 import Downshift, { ControllerStateAndHelpers } from "downshift";
 
-import { Close } from "@mui/icons-material";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import {
   Box,
   Chip,
-  IconButton,
   Popper,
   PopperPlacementType,
   Stack,
   TextField,
-  Typography,
 } from "@mui/material";
 import { FetchMoreProps } from "@portal/types";
 
@@ -39,7 +37,6 @@ export interface MultiAutocompleteSelectFieldProps
   onChange: (event: React.ChangeEvent<any>) => void;
   onBlur?: () => void;
   fetchOnFocus?: boolean;
-  endAdornment?: React.ReactNode;
   popperPlacement?: PopperPlacementType;
 }
 
@@ -68,7 +65,6 @@ export const MultiAutocompleteSelectField = (
     onBlur,
     onFetchMore,
     fetchOnFocus,
-    endAdornment,
     popperPlacement = "bottom-end",
     ...rest
   } = props;
@@ -128,17 +124,12 @@ export const MultiAutocompleteSelectField = (
                   <TextField
                     InputProps={{
                       endAdornment: (
-                        <Box {...getToggleButtonProps()}>
-                          {endAdornment}
-                          <svg
-                            className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiSelect-icon MuiSelect-iconOutlined css-hfutr2-MuiSvgIcon-root-MuiSelect-icon"
-                            focusable="false"
-                            aria-hidden="true"
-                            viewBox="0 0 24 24"
-                            data-testid="ArrowDropDownIcon"
-                          >
-                            <path d="M7 10l5 5 5-5z"></path>
-                          </svg>
+                        <Box
+                          {...getToggleButtonProps()}
+                          color="#757575"
+                          sx={{ marginTop: 1, marginRight: -1 }}
+                        >
+                          <ArrowDropDownIcon />
                         </Box>
                       ),
                       ref: anchor,

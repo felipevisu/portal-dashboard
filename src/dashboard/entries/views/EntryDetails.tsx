@@ -15,9 +15,8 @@ import {
   useEntryDetailsQuery,
   useEntryUpdateMutation,
 } from "@portal/graphql";
-import { usePaginator } from "@portal/hooks";
+import { useLinks, usePaginator } from "@portal/hooks";
 import useModal from "@portal/hooks/useModal";
-import useAttributeSearch from "@portal/searches/useAttributeSearch";
 import useCategorySearch from "@portal/searches/useCategorySearch";
 import useAttributeValueSearchHandler from "@portal/utils/handlers/attributeValueSearchHandler";
 import { mapEdgesToItems } from "@portal/utils/maps";
@@ -33,6 +32,7 @@ export const VehicleDetails = () => {
   const navigate = useNavigate();
   const { isOpen, openModal, closeModal } = useModal();
   const paginator = usePaginator();
+  const { entryList } = useLinks();
 
   const handleUpdateEntry = (data: EntryUpdateMutation) => {
     if (!data?.entryUpdate.errors.length) {
@@ -49,7 +49,7 @@ export const VehicleDetails = () => {
   };
 
   const [deleteVehicle] = useEntryDeleteMutation({
-    onCompleted: () => navigate("/vehicles"),
+    onCompleted: () => navigate(entryList(type)),
   });
 
   const handleVehicleDelete = async () => {

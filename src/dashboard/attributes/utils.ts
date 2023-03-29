@@ -14,14 +14,6 @@ export const getInputTypeList = (t) => {
       value: AttributeInputTypeEnum.PLAIN_TEXT,
       label: t("attribute.enums.inputType.plainText"),
     },
-    {
-      value: AttributeInputTypeEnum.DATE,
-      label: t("attribute.enums.inputType.date"),
-    },
-    {
-      value: AttributeInputTypeEnum.BOOLEAN,
-      label: t("attribute.enums.inputType.boolean"),
-    },
   ];
 };
 
@@ -39,10 +31,6 @@ export const getTypeList = (t) => {
       value: AttributeTypeEnum.VEHICLE,
       label: t("attribute.enums.type.vehicle"),
     },
-    {
-      value: AttributeTypeEnum.DOCUMENT,
-      label: t("attribute.enums.type.document"),
-    },
   ];
 };
 
@@ -51,7 +39,6 @@ export const mapType = (t) => {
     VEHICLE_AND_PROVIDER: t("attribute.enums.type.vehicleAndProvider"),
     VEHICLE: t("attribute.enums.type.vehicle"),
     PROVIDER: t("attribute.enums.type.provider"),
-    DOCUMENT: t("attribute.enums.type.docoument"),
   };
 };
 

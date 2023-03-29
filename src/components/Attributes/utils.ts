@@ -4,12 +4,23 @@ import {
   EntryDetailsFragment,
 } from "@portal/graphql";
 
+import { SingleAutocompleteChoiceType } from "../SingleAutocompleteSelectField";
+
 import { AttributeInput } from "./Attributes";
 
 export interface MultiAutocompleteChoiceType {
   label: string;
   value: any;
   disabled?: boolean;
+}
+
+export function getSingleChoices(
+  values: AttributeValueFragment[]
+): SingleAutocompleteChoiceType[] {
+  return values.map((value) => ({
+    label: value.name,
+    value: value.slug,
+  }));
 }
 
 export function getMultiChoices(

@@ -9,6 +9,7 @@ import {
 
 import MultiAutocompleteSelectField from "../MultiAutocompleteSelectField";
 import MultiSelectField from "../MultiSelectField";
+import SingleAutocompleteSelectField from "../SingleAutocompleteSelectField";
 import SingleSelectField from "../SingleSelectField";
 
 import { AttributeInput, AttributeRowHandlers } from "./Attributes";
@@ -16,6 +17,7 @@ import BasicAttributeRow from "./BasicAttributeRow";
 import {
   getMultiChoices,
   getMultiDisplayValue,
+  getSingleChoices,
   getSingleDisplayValue,
 } from "./utils";
 
@@ -42,17 +44,21 @@ export const AttributeRow: React.FC<AttributeRowProps> = ({
     case AttributeInputTypeEnum.DROPDOWN:
       return (
         <BasicAttributeRow label={attribute.label}>
-          <SingleSelectField
-            choices={getMultiChoices(attributeValues)}
-            displayValue={getSingleDisplayValue(attribute, attributeValues)}
+          <SingleAutocompleteSelectField
+            choices={getSingleChoices(attributeValues)}
             disabled={loading}
+            displayValue={getSingleDisplayValue(attribute, attributeValues)}
+            emptyOption={!attribute.data.isRequired}
             error={!!error}
             name={`attribute:${attribute.label}`}
+            label={"Selecione"}
             value={attribute.value[0]}
             onChange={(event) => onChange(attribute.id, event.target.value)}
-            onFocus={() => fetchAttributeValues("", attribute.id)}
+            allowCustomValues={true}
+            fetchOnFocus={true}
+            fetchChoices={(value) => fetchAttributeValues(value, attribute.id)}
             onBlur={onAttributeSelectBlur}
-            label={"Selecione"}
+            {...fetchMoreAttributeValues}
           />
         </BasicAttributeRow>
       );
