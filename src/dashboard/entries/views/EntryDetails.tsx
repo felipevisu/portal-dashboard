@@ -25,7 +25,7 @@ import { EntryDetailsPage } from "../components/EntryDetailsPage";
 
 import { mapType } from "./utils";
 
-export const VehicleDetails = () => {
+export const EntryDetails = () => {
   const [vehicle, setVehicle] = useState(null);
   const { entry: type, id } = useParams();
   const { t } = useTranslation();
@@ -142,4 +142,4 @@ export const VehicleDetails = () => {
   );
 };
 
-export default VehicleDetails;
+export default EntryDetails;

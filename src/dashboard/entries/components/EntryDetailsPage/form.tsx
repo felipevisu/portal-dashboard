@@ -6,11 +6,7 @@ import {
   createAttributeMultiChangeHandler,
   prepareAttributesInput,
 } from "@portal/dashboard/attributes/utils/handlers";
-import {
-  AttributeFragment,
-  AttributeValueInput,
-  EntryDetailsFragment,
-} from "@portal/graphql";
+import { AttributeValueInput, EntryDetailsFragment } from "@portal/graphql";
 import useForm, {
   CommonUseFormResultWithHandlers,
   FormChange,
@@ -18,7 +14,6 @@ import useForm, {
 } from "@portal/hooks/useForm";
 import useFormset from "@portal/hooks/useFormset";
 import {
-  getAttributeInputFromAttributes,
   getAttributeInputFromEntry,
   SingleAutocompleteChoiceType,
 } from "@portal/utils/data";

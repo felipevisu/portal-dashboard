@@ -171,7 +171,7 @@ export const EntryDetailsPage = ({
                     categories={categories}
                     fetchCategories={fetchCategories}
                     fetchMoreCategories={fetchMoreCategories}
-                    onCategoryChange={() => undefined}
+                    onCategoryChange={handlers.selectCategory}
                   />
                 </Grid>
               </Grid>
