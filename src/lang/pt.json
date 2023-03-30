@@ -25,7 +25,7 @@
 				"document": "Documento",
 				"vehicleAndProvider": "Veículo e fornecedor",
 				"vehicle": "Veículo",
-				"provider": "Provider"
+				"provider": "Fornecedor"
 			},
 			"inputType": {
 				"dropdown": "Seleção",
