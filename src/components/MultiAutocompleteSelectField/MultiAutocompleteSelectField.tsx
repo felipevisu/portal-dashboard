@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Downshift, { ControllerStateAndHelpers } from "downshift";
 
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
@@ -42,6 +42,21 @@ export interface MultiAutocompleteSelectFieldProps
 
 const DebounceAutocomplete: React.ComponentType<DebounceProps<string>> =
   Debounce;
+
+interface SelectedValueProps {
+  value: MultiAutocompleteChoiceType;
+  onDelete: () => void;
+}
+
+const SelectedValue = ({ value, onDelete }: SelectedValueProps) => {
+  const [label, setLabel] = useState(value.label);
+
+  useEffect(() => {
+    if (value.label !== value.value) setLabel(value.label);
+  }, [value]);
+
+  return <Chip key={value.value} label={label} onDelete={onDelete} />;
+};
 
 export const MultiAutocompleteSelectField = (
   props: MultiAutocompleteSelectFieldProps
@@ -195,9 +210,9 @@ export const MultiAutocompleteSelectField = (
       </DebounceAutocomplete>
       <Stack direction="row" flexWrap={"wrap"} sx={{ gap: 1, marginTop: 1 }}>
         {displayValues.map((value) => (
-          <Chip
+          <SelectedValue
             key={value.value}
-            label={value.label}
+            value={value}
             onDelete={() => handleSelect(value.value)}
           />
         ))}
