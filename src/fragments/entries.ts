@@ -38,5 +38,8 @@ export const entryDetailsFragment = gql`
         ...AttributeValue
       }
     }
+    consult {
+      ...Consult
+    }
   }
 `;

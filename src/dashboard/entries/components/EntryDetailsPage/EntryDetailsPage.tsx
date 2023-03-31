@@ -20,6 +20,7 @@ import { FetchMoreProps, Paginator, RelayToFlat } from "@portal/types";
 import { getChoices } from "@portal/utils/data";
 import { mapEdgesToItems } from "@portal/utils/maps";
 
+import ConsultList from "../ConsultList";
 import DocumentList from "../DocumentList";
 import { EntryFormInfos, FormProps } from "../EntryForm";
 import { EntryOrganization } from "../EntryOrganization";
@@ -75,6 +76,7 @@ interface EntryDetailsPageProps {
   fetchAttributeValues: (query: string, attributeId: string) => void;
   fetchMoreAttributeValues?: FetchMoreProps;
   onAttributeSelectBlur: () => void;
+  onConsultDocument: () => void;
 }
 
 export const EntryDetailsPage = ({
@@ -91,6 +93,7 @@ export const EntryDetailsPage = ({
   fetchAttributeValues,
   fetchMoreAttributeValues,
   onAttributeSelectBlur,
+  onConsultDocument,
 }: EntryDetailsPageProps) => {
   const navigate = useNavigate();
 
@@ -139,7 +142,8 @@ export const EntryDetailsPage = ({
                   }
                   {...a11yProps(0)}
                 />
-                <Tab label="Documentos" {...a11yProps(1)} />
+                <Tab label={t("document.plural")} {...a11yProps(1)} />
+                <Tab label={t("consult.plural")} {...a11yProps(2)} />
               </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
@@ -187,6 +191,12 @@ export const EntryDetailsPage = ({
                 documents={mapEdgesToItems(entry.documents)}
                 paginator={paginator}
                 pageInfo={entry.documents.pageInfo}
+              />
+            </TabPanel>
+            <TabPanel value={value} index={2}>
+              <ConsultList
+                consults={entry.consult}
+                onConsultDocument={onConsultDocument}
               />
             </TabPanel>
           </>

@@ -9,8 +9,10 @@ import CircularLoading from "@portal/components/Circular";
 import NotFound from "@portal/components/NotFound";
 import { DEFAULT_INITIAL_SEARCH_DATA } from "@portal/config";
 import {
+  ConsultDocumentMutation,
   EntryInput,
   EntryUpdateMutation,
+  useConsultDocumentMutation,
   useEntryDeleteMutation,
   useEntryDetailsQuery,
   useEntryUpdateMutation,
@@ -34,18 +36,42 @@ export const EntryDetails = () => {
   const paginator = usePaginator();
   const { entryList } = useLinks();
 
-  const handleUpdateEntry = (data: EntryUpdateMutation) => {
+  const { data, loading, refetch } = useEntryDetailsQuery({
+    variables: { id: id, ...paginator.pagination },
+  });
+
+  const handleUpdateEntryResult = (data: EntryUpdateMutation) => {
     if (!data?.entryUpdate.errors.length) {
       toast(t("messages.update.success"), { type: toast.TYPE.SUCCESS });
     }
   };
 
   const [updateEntry, updateEntryResult] = useEntryUpdateMutation({
-    onCompleted: handleUpdateEntry,
+    onCompleted: handleUpdateEntryResult,
   });
 
   const handleSubmit = async (data: EntryInput) => {
     await updateEntry({ variables: { id: id, input: { ...data } } });
+  };
+
+  const handleConsultDocumentResult = (data: ConsultDocumentMutation) => {
+    if (!data?.consultDocument?.errors.length) {
+      toast(t("consult.success"), { type: toast.TYPE.SUCCESS });
+      refetch();
+    }
+    if (data?.consultDocument?.errors.length) {
+      toast(data.consultDocument.errors[0].message, {
+        type: toast.TYPE.ERROR,
+      });
+    }
+  };
+
+  const [consultDocument, consultDocumentResult] = useConsultDocumentMutation({
+    onCompleted: handleConsultDocumentResult,
+  });
+
+  const handleConsultDocument = async () => {
+    await consultDocument({ variables: { id } });
   };
 
   const [deleteVehicle] = useEntryDeleteMutation({
@@ -65,10 +91,6 @@ export const EntryDetails = () => {
       ...DEFAULT_INITIAL_SEARCH_DATA,
       type: mapType[type],
     },
-  });
-
-  const { data, loading, refetch } = useEntryDetailsQuery({
-    variables: { id: id, ...paginator.pagination },
   });
 
   const {
@@ -124,6 +146,7 @@ export const EntryDetails = () => {
         fetchAttributeValues={searchAttributeValues}
         fetchMoreAttributeValues={fetchMoreAttributeValues}
         onAttributeSelectBlur={searchAttributeReset}
+        onConsultDocument={handleConsultDocument}
       />
       <ActionDialog
         onClose={closeModal}

@@ -73,6 +73,14 @@
 	"confirmActionMessage": "Esta ação é irreversível, deseja mesmo continuar?",
 	"confirmDelete_one": "Tem certeza que deseja excluir este item? Lembre-se esta ação não é reversível",
 	"confirmDelete_other": "Tem certeza que deseja excluir estes {{ count }} itens? Lembre-se esta ação não é reversível",
+	"consult": {
+		"title": "Consulta",
+		"plural": "Consultas",
+		"action": "Consultar",
+		"new": "Neva consulta",
+		"info": "Permitido até 3 consultas por minuto. O sistema armazena até as últimas cinco consultas.",
+		"success": "Consulta realizada com sucesso"
+	},
 	"contactInfo": "Informações de contato",
 	"created": "Criado",
 	"dashboard": {

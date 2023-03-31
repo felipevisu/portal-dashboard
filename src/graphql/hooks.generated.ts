@@ -183,6 +183,14 @@ export const EntryFragmentDoc = gql`
   isPublished
 }
     `;
+export const ConsultFragmentDoc = gql`
+    fragment Consult on Consult {
+  id
+  created
+  plugin
+  response
+}
+    `;
 export const EntryDetailsFragmentDoc = gql`
     fragment EntryDetails on Entry {
   id
@@ -205,9 +213,13 @@ export const EntryDetailsFragmentDoc = gql`
       ...AttributeValue
     }
   }
+  consult {
+    ...Consult
+  }
 }
     ${AttributeFragmentDoc}
-${AttributeValueFragmentDoc}`;
+${AttributeValueFragmentDoc}
+${ConsultFragmentDoc}`;
 export const ErrorFragmentDoc = gql`
     fragment Error on Error {
   code
@@ -1584,6 +1596,42 @@ export function useEntryBulkDeleteMutation(baseOptions?: Apollo.MutationHookOpti
 export type EntryBulkDeleteMutationHookResult = ReturnType<typeof useEntryBulkDeleteMutation>;
 export type EntryBulkDeleteMutationResult = Apollo.MutationResult<Types.EntryBulkDeleteMutation>;
 export type EntryBulkDeleteMutationOptions = Apollo.BaseMutationOptions<Types.EntryBulkDeleteMutation, Types.EntryBulkDeleteMutationVariables>;
+export const ConsultDocumentDocument = gql`
+    mutation ConsultDocument($id: ID!) {
+  consultDocument(id: $id) {
+    errors {
+      message
+      field
+    }
+  }
+}
+    `;
+export type ConsultDocumentMutationFn = Apollo.MutationFunction<Types.ConsultDocumentMutation, Types.ConsultDocumentMutationVariables>;
+
+/**
+ * __useConsultDocumentMutation__
+ *
+ * To run a mutation, you first call `useConsultDocumentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useConsultDocumentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [consultDocumentMutation, { data, loading, error }] = useConsultDocumentMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useConsultDocumentMutation(baseOptions?: Apollo.MutationHookOptions<Types.ConsultDocumentMutation, Types.ConsultDocumentMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Types.ConsultDocumentMutation, Types.ConsultDocumentMutationVariables>(ConsultDocumentDocument, options);
+      }
+export type ConsultDocumentMutationHookResult = ReturnType<typeof useConsultDocumentMutation>;
+export type ConsultDocumentMutationResult = Apollo.MutationResult<Types.ConsultDocumentMutation>;
+export type ConsultDocumentMutationOptions = Apollo.BaseMutationOptions<Types.ConsultDocumentMutation, Types.ConsultDocumentMutationVariables>;
 export const EntriesDocument = gql`
     query Entries($first: Int, $last: Int, $after: String, $before: String, $filter: EntryFilterInput) {
   entries(

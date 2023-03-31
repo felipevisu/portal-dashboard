@@ -45,3 +45,14 @@ export const entryBulkDeleteMutation = gql`
     }
   }
 `;
+
+export const consultDocumentMutation = gql`
+  mutation ConsultDocument($id: ID!) {
+    consultDocument(id: $id) {
+      errors {
+        message
+        field
+      }
+    }
+  }
+`;

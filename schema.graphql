@@ -395,6 +395,19 @@ enum ConfigurationTypeFieldEnum {
   STRING
 }
 
+type Consult implements Node {
+  created: DateTime
+  entry: Entry
+  id: ID!
+  plugin: String
+  response: JSONString
+}
+
+type ConsultDocument {
+  entry: Entry
+  errors: [Error!]!
+}
+
 """Create JWT token."""
 type CreateToken {
   """CSRF token required to re-generate access token."""
@@ -565,6 +578,7 @@ type Entry implements Node {
   address: String
   attributes: [SelectedAttribute!]!
   category: Category
+  consult: [Consult!]
   documentNumber: String
   documents(after: String, before: String, first: Int, last: Int): DocumentCountableConnection
   email: String
@@ -902,6 +916,7 @@ type Mutation {
     id: ID!
   ): ChannelDelete
   channelUpdate(id: ID!, input: ChannelInput!): ChannelUpdate
+  consultDocument(id: ID!): ConsultDocument
 
   """Deletes segments."""
   documentBulkDelete(
