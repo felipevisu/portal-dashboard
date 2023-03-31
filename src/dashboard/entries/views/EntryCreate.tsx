@@ -54,6 +54,7 @@ export const VehicleCreate = () => {
   });
 
   const { data: searchAttributeOpts } = useAttributesQuery({
+    fetchPolicy: "network-only",
     variables: {
       ...DEFAULT_INITIAL_SEARCH_DATA,
       filter: { type: mapType[type] },
