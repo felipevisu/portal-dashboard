@@ -77,7 +77,7 @@
 		"title": "Consulta",
 		"plural": "Consultas",
 		"action": "Consultar",
-		"new": "Neva consulta",
+		"new": "Nova consulta",
 		"info": "Permitido até 3 consultas por minuto. O sistema armazena até as últimas cinco consultas.",
 		"success": "Consulta realizada com sucesso"
 	},
