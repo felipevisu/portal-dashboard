@@ -127,7 +127,7 @@ export const EntryDetailsPage = ({
         return (
           <>
             <Backlink href={entryList(type)}>{t("back")}</Backlink>
-            <PageHeader title={data.name} />
+            <PageHeader title={entry.name} />
             <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
               <Tabs
                 value={value}
@@ -154,6 +154,7 @@ export const EntryDetailsPage = ({
                     onChange={change}
                     data={data}
                     categories={categories}
+                    disabled={loading}
                   />
                   <Attributes
                     attributes={data.attributes}

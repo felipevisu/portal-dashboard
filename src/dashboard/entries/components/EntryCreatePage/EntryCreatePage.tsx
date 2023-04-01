@@ -81,6 +81,7 @@ export const EntryCreatePage = ({
                   onChange={change}
                   data={data}
                   categories={categories}
+                  disabled={loading}
                 />
                 <Attributes
                   attributes={data.attributes}

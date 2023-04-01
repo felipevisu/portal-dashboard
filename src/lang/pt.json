@@ -78,8 +78,13 @@
 		"plural": "Consultas",
 		"action": "Consultar",
 		"new": "Nova consulta",
-		"info": "Permitido até 3 consultas por minuto. O sistema armazena até as últimas cinco consultas.",
-		"success": "Consulta realizada com sucesso"
+		"info": "Permitido até três consultas por minuto (válido por IP). O sistema armazena até as últimas cinco consultas.",
+		"success": "Consulta realizada com sucesso",
+		"item": {
+			"title": "Consulta de CNPJ",
+			"user": "Usuário",
+			"date": "Data"
+		}
 	},
 	"contactInfo": "Informações de contato",
 	"created": "Criado",

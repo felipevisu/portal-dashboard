@@ -31,9 +31,15 @@ interface EntryFormProps
   data?: FormProps;
   errors: EntryErrorWithAttributesFragment[];
   onChange: (e: ChangeEvent) => void;
+  disabled: boolean;
 }
 
-export const EntryFormInfos = ({ errors, data, onChange }: EntryFormProps) => {
+export const EntryFormInfos = ({
+  errors,
+  data,
+  onChange,
+  disabled,
+}: EntryFormProps) => {
   const formErrors = getFormErrors(
     ["name", "slug", "documentNumber", "email"],
     errors
@@ -54,6 +60,7 @@ export const EntryFormInfos = ({ errors, data, onChange }: EntryFormProps) => {
             value={data.name}
             onChange={onChange}
             helperText={formErrors.name?.message}
+            disabled={disabled}
           />
           <FormHelperText>{t("helperText.name")}</FormHelperText>
         </FormControl>

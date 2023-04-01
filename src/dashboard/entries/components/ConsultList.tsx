@@ -3,11 +3,13 @@ import { useTranslation } from "react-i18next";
 import JSONPretty from "react-json-pretty";
 
 import {
+  Box,
   Card,
   CardActions,
   CardContent,
   CardHeader,
   Collapse,
+  Divider,
   Grid,
   Typography,
 } from "@mui/material";
@@ -26,26 +28,35 @@ interface ConsultItemProps {
 
 export const ConsultItem = ({ consult }: ConsultItemProps) => {
   const [expanded, setExpanded] = useState(false);
+  const { t } = useTranslation();
 
   const handleExpand = () => {
     setExpanded(!expanded);
   };
 
   return (
-    <Card sx={{ paddingBottom: 2 }}>
-      <CardHeader
-        title={formatDateTime(consult.created)}
-        action={
-          <Button variant="outlined" onClick={handleExpand}>
-            {expanded ? "Fechar" : "Abrir"}
-          </Button>
-        }
-      />
-      <Collapse in={expanded}>
-        <CardContent>
-          <JSONPretty id="json-pretty" data={consult.response}></JSONPretty>
-        </CardContent>
-      </Collapse>
+    <Card>
+      <CardContent>
+        <Box sx={{ display: "flex", paddingTop: 1 }}>
+          <Box sx={{ flexGrow: 1 }}>
+            <Typography fontWeight={700}>{t("consult.item.title")}</Typography>
+            <Typography>
+              {t("consult.item.date")}: {formatDateTime(consult.created)}
+            </Typography>
+          </Box>
+          <Box sx={{ alignSelf: "center" }}>
+            <Button variant="outlined" onClick={handleExpand}>
+              {expanded ? "Fechar" : "Abrir"}
+            </Button>
+          </Box>
+        </Box>
+        <Collapse in={expanded}>
+          <Box sx={{ paddingTop: 2 }}>
+            <Divider sx={{ marginBottom: 2 }} />
+            <JSONPretty id="json-pretty" data={consult.response}></JSONPretty>
+          </Box>
+        </Collapse>
+      </CardContent>
     </Card>
   );
 };
