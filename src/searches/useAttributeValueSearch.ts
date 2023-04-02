@@ -33,7 +33,6 @@ export default makeSearch<
   SearchAttributeValuesQuery,
   SearchAttributeValuesQueryVariables
 >(SearchAttributeValuesDocument, (result) => {
-  console.log(result);
   if (result.data?.attribute.choices.pageInfo.hasNextPage) {
     result.loadMore(
       (prev, next) => {

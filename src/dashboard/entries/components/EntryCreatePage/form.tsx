@@ -39,6 +39,7 @@ export interface EntryCreateFormData {
   email: string;
   documentNumber: string;
   isPublished: boolean;
+  active: boolean;
   type: EntryTypeEnum;
 }
 
@@ -72,7 +73,8 @@ const useEntryCreateForm = (
     slug: "",
     documentNumber: "",
     category: "",
-    isPublished: false,
+    isPublished: true,
+    active: true,
     email: "",
     type: mapType[type],
   };

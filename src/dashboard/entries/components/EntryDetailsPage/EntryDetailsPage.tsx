@@ -20,7 +20,7 @@ import { FetchMoreProps, Paginator, RelayToFlat } from "@portal/types";
 import { getChoices } from "@portal/utils/data";
 import { mapEdgesToItems } from "@portal/utils/maps";
 
-import ConsultList from "../ConsultList";
+import ConsultList from "../Consult/ConsultList";
 import DocumentList from "../DocumentList";
 import { EntryFormInfos, FormProps } from "../EntryForm";
 import { EntryOrganization } from "../EntryOrganization";

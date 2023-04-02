@@ -12,11 +12,15 @@ import {
   Collapse,
   Divider,
   Grid,
+  Menu,
+  MenuItem,
   Typography,
 } from "@mui/material";
 import { Button } from "@portal/components/Button";
 import { ConsultFragment } from "@portal/graphql";
 import { formatDateTime } from "@portal/utils/date";
+
+import FormatedConsult from "./FormatedConsult";
 
 interface ConsultListProps {
   consults: ConsultFragment[];
@@ -29,12 +33,19 @@ interface ConsultItemProps {
 }
 
 export const ConsultItem = ({ consult }: ConsultItemProps) => {
-  const [expanded, setExpanded] = useState(false);
-  const { t } = useTranslation();
+  const [type, setType] = useState<"FORMATED" | "JSON">("FORMATED");
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
 
-  const handleExpand = () => {
-    setExpanded(!expanded);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
   };
+  const handleChange = (value: "FORMATED" | "JSON") => {
+    setType(value);
+    setAnchorEl(null);
+  };
+
+  const { t } = useTranslation();
 
   return (
     <Card>
@@ -47,17 +58,42 @@ export const ConsultItem = ({ consult }: ConsultItemProps) => {
             </Typography>
           </Box>
           <Box sx={{ alignSelf: "center" }}>
-            <Button variant="outlined" onClick={handleExpand}>
-              {expanded ? "Fechar" : "Abrir"}
+            <Button
+              aria-controls={open ? "basic-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
+              onClick={handleClick}
+              variant="outlined"
+            >
+              {type === "FORMATED" ? "FORMATADO" : "JSON"}
             </Button>
+            <Menu
+              anchorEl={anchorEl}
+              open={open}
+              MenuListProps={{
+                "aria-labelledby": "basic-button",
+              }}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "left",
+              }}
+            >
+              <MenuItem onClick={() => handleChange("FORMATED")}>
+                FORMATADO
+              </MenuItem>
+              <MenuItem onClick={() => handleChange("JSON")}>JSON</MenuItem>
+            </Menu>
           </Box>
         </Box>
-        <Collapse in={expanded}>
-          <Box sx={{ paddingTop: 2 }}>
-            <Divider sx={{ marginBottom: 2 }} />
+        <Box sx={{ paddingTop: 2 }}>
+          <Divider sx={{ marginBottom: 2 }} />
+          {type === "FORMATED" && (
+            <FormatedConsult consult={JSON.parse(consult.response)} />
+          )}
+          {type === "JSON" && (
             <JSONPretty id="json-pretty" data={consult.response}></JSONPretty>
-          </Box>
-        </Collapse>
+          )}
+        </Box>
       </CardContent>
     </Card>
   );
@@ -90,9 +126,7 @@ export const ConsultList = ({
         </Card>
       </Grid>
       <Grid item xs={8}>
-        {consults.map((consult) => (
-          <ConsultItem key={consult.id} consult={consult} />
-        ))}
+        <ConsultItem consult={consults[0]} />
       </Grid>
     </Grid>
   );

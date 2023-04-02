@@ -78,7 +78,7 @@
 		"plural": "Consultas",
 		"action": "Consultar",
 		"new": "Nova consulta",
-		"info": "Permitido até três consultas por minuto (válido por IP). O sistema armazena até as últimas cinco consultas.",
+		"info": "Permitido até três consultas por minuto (válido por IP).",
 		"success": "Consulta realizada com sucesso",
 		"item": {
 			"title": "Consulta de CNPJ",
@@ -162,7 +162,8 @@
 		"expires": "Quando o documento expira o veículo/fornecedor é notificado solicitando um novo documento.",
 		"beginDate": "Início da validade do documento.",
 		"expirationDate": "Final da validade do documento. Quando próximo desta data o responsável pelo documento será notificado.",
-		"file": "O arquivo deve estar no formato .pdf e não deve conter mais do que 50MB de tamanho."
+		"file": "O arquivo deve estar no formato .pdf e não deve conter mais do que 50MB de tamanho.",
+		"active": "Indica se o veículo/fornecedor está em atividade. Quando inativo aparece na sessão 'Inativos' no site público."
 	},
 	"homepage": "Homepage",
 	"initialDate": "Data de início",

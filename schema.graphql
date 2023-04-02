@@ -16,6 +16,7 @@ type Attribute implements Node {
   type: AttributeTypeEnum
   valueRequired: Boolean!
   visibleInWebsite: Boolean!
+  withChoices: Boolean!
 }
 
 enum AttributeChoicesSortField {
@@ -575,6 +576,7 @@ type DocumentUpdate {
 }
 
 type Entry implements Node {
+  active: Boolean
   address: String
   attributes: [SelectedAttribute!]!
   category: Category
@@ -653,6 +655,7 @@ input EntryFilterInput {
 }
 
 input EntryInput {
+  active: Boolean
   address: String
   attributes: [AttributeValueInput!]
   category: ID
@@ -738,9 +741,15 @@ type EventCountableEdge {
 """An enumeration."""
 enum EventTypesEnum {
   DOCUMENT_APPROVED
+  DOCUMENT_CREATE
   DOCUMENT_DECLINED
+  DOCUMENT_DELETED
   DOCUMENT_RECEIVED
   DOCUMENT_REQUESTED
+  DOCUMENT_UPDATED
+  ENTRY_CREATED
+  ENTRY_DELETED
+  ENTRY_UPDATED
 }
 
 type File {
@@ -919,10 +928,7 @@ type Mutation {
   consultDocument(id: ID!): ConsultDocument
 
   """Deletes segments."""
-  documentBulkDelete(
-    """List of documents IDs to delete."""
-    ids: [ID!]!
-  ): DocumentBulkDelete
+  documentBulkDelete(ids: [ID!]!): DocumentBulkDelete
   documentCreate(input: DocumentInput!): DocumentCreate
   documentDelete(id: ID): DocumentDelete
   documentFileDelete(id: ID): DocumentFileDelete

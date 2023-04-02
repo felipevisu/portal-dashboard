@@ -25,6 +25,7 @@ interface EntryOrganizationProps {
   data: {
     category: string;
     isPublished: boolean;
+    active: boolean;
   };
   categories: SingleAutocompleteChoiceType[];
   onChange: (e: ChangeEvent) => void;
@@ -95,6 +96,17 @@ export const EntryOrganization = ({
             disabled={disabled}
           />
           <FormHelperText>{t("helperText.isPublished")}</FormHelperText>
+        </FormControl>
+        <FormSpacer />
+        <FormControl>
+          <ControlledCheckbox
+            label={t("active")}
+            name="active"
+            checked={data.active}
+            onChange={onChange}
+            disabled={disabled}
+          />
+          <FormHelperText>{t("helperText.active")}</FormHelperText>
         </FormControl>
       </CardContent>
     </Card>

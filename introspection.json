@@ -402,6 +402,22 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "withChoices",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -4578,6 +4594,18 @@
         "description": null,
         "fields": [
           {
+            "name": "active",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "address",
             "description": null,
             "args": [],
@@ -5246,6 +5274,18 @@
         "fields": null,
         "inputFields": [
           {
+            "name": "active",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "address",
             "description": null,
             "type": {
@@ -5799,7 +5839,19 @@
             "deprecationReason": null
           },
           {
+            "name": "DOCUMENT_CREATE",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "DOCUMENT_DECLINED",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "DOCUMENT_DELETED",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -5812,6 +5864,30 @@
           },
           {
             "name": "DOCUMENT_REQUESTED",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "DOCUMENT_UPDATED",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ENTRY_CREATED",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ENTRY_DELETED",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ENTRY_UPDATED",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -7546,7 +7622,7 @@
             "args": [
               {
                 "name": "ids",
-                "description": "List of documents IDs to delete.",
+                "description": null,
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,

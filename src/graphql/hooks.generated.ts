@@ -181,6 +181,7 @@ export const EntryFragmentDoc = gql`
     totalCount
   }
   isPublished
+  active
 }
     `;
 export const ConsultFragmentDoc = gql`
@@ -198,6 +199,7 @@ export const EntryDetailsFragmentDoc = gql`
   slug
   documentNumber
   isPublished
+  active
   category {
     id
     name
