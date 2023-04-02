@@ -75,6 +75,7 @@ export const EntryFormInfos = ({
             value={data.slug}
             onChange={onChange}
             helperText={formErrors.slug?.message}
+            disabled={disabled}
           />
           <FormHelperText>{t("helperText.slug")}</FormHelperText>
         </FormControl>
@@ -89,6 +90,7 @@ export const EntryFormInfos = ({
             value={data.documentNumber}
             onChange={onChange}
             helperText={formErrors.documentNumber?.message}
+            disabled={disabled}
           />
           <FormHelperText>{t("helperText.documentNumber")}</FormHelperText>
         </FormControl>
@@ -103,6 +105,7 @@ export const EntryFormInfos = ({
             value={data.email}
             onChange={onChange}
             helperText={formErrors.email?.message}
+            disabled={disabled}
           />
           <FormHelperText>{t("helperText.email")}</FormHelperText>
         </FormControl>

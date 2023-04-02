@@ -177,6 +177,7 @@ export const EntryDetailsPage = ({
                     fetchCategories={fetchCategories}
                     fetchMoreCategories={fetchMoreCategories}
                     onCategoryChange={handlers.selectCategory}
+                    disabled={loading}
                   />
                 </Grid>
               </Grid>
@@ -198,6 +199,7 @@ export const EntryDetailsPage = ({
               <ConsultList
                 consults={entry.consult}
                 onConsultDocument={onConsultDocument}
+                loading={loading}
               />
             </TabPanel>
           </>

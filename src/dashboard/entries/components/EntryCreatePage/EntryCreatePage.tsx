@@ -104,6 +104,7 @@ export const EntryCreatePage = ({
                   onCategoryChange={handlers.selectCategory}
                   fetchCategories={fetchCategories}
                   fetchMoreCategories={fetchMoreCategories}
+                  disabled={loading}
                 />
               </Grid>
             </Grid>

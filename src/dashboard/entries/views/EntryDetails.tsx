@@ -134,7 +134,7 @@ export const EntryDetails = () => {
         onSubmit={handleSubmit}
         onDelete={openModal}
         errors={updateEntryResult.data?.entryUpdate.errors || []}
-        loading={updateEntryResult.loading}
+        loading={updateEntryResult.loading || consultDocumentResult.loading}
         categories={mapEdgesToItems(searchCategoryOpts?.data?.search) || []}
         paginator={paginator}
         fetchCategories={searchCategory}

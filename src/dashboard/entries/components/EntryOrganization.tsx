@@ -1,7 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import { LoadingButton } from "@mui/lab";
 import {
   Card,
   CardContent,
@@ -32,6 +31,7 @@ interface EntryOrganizationProps {
   onCategoryChange: (event: ChangeEvent) => void;
   fetchCategories: (query: string) => void;
   fetchMoreCategories: FetchMoreProps;
+  disabled: boolean;
 }
 
 export const EntryOrganization = ({
@@ -42,6 +42,7 @@ export const EntryOrganization = ({
   onCategoryChange,
   fetchCategories,
   fetchMoreCategories,
+  disabled,
 }: EntryOrganizationProps) => {
   const { t } = useTranslation();
   const formErrors = getFormErrors(["category", "isPublished"], errors);
@@ -61,6 +62,7 @@ export const EntryOrganization = ({
             value={data.category}
             onChange={onCategoryChange}
             error={formErrors.category && true}
+            disabled={disabled}
           >
             {categories.map((category) => (
               <MenuItem key={category.value} value={category.value}>
@@ -90,6 +92,7 @@ export const EntryOrganization = ({
             name="isPublished"
             checked={data.isPublished}
             onChange={onChange}
+            disabled={disabled}
           />
           <FormHelperText>{t("helperText.isPublished")}</FormHelperText>
         </FormControl>

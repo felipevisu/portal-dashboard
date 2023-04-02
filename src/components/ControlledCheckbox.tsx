@@ -7,6 +7,7 @@ interface ControlledCheckboxProps {
   name: string;
   checked: boolean;
   onChange: (e: any) => void;
+  disabled?: boolean;
 }
 
 export const ControlledCheckbox = ({
@@ -14,6 +15,7 @@ export const ControlledCheckbox = ({
   name,
   checked,
   onChange,
+  disabled,
 }: ControlledCheckboxProps) => {
   return (
     <FormControlLabel
@@ -23,6 +25,7 @@ export const ControlledCheckbox = ({
           target: { name: name, value: !checked },
         })
       }
+      disabled={disabled}
       control={<Checkbox name={name} checked={checked} />}
     />
   );

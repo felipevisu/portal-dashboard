@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import JSONPretty from "react-json-pretty";
 
+import { LoadingButton } from "@mui/lab";
 import {
   Box,
   Card,
@@ -19,6 +20,7 @@ import { formatDateTime } from "@portal/utils/date";
 
 interface ConsultListProps {
   consults: ConsultFragment[];
+  loading: boolean;
   onConsultDocument: () => void;
 }
 
@@ -63,6 +65,7 @@ export const ConsultItem = ({ consult }: ConsultItemProps) => {
 
 export const ConsultList = ({
   consults,
+  loading,
   onConsultDocument,
 }: ConsultListProps) => {
   const { t } = useTranslation();
@@ -75,9 +78,14 @@ export const ConsultList = ({
             <Typography>{t("consult.info")}</Typography>
           </CardContent>
           <CardActions>
-            <Button onClick={onConsultDocument} variant="contained" fullWidth>
+            <LoadingButton
+              loading={loading}
+              onClick={onConsultDocument}
+              variant="contained"
+              fullWidth
+            >
               {t("consult.action")}
-            </Button>
+            </LoadingButton>
           </CardActions>
         </Card>
       </Grid>
