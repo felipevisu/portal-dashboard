@@ -951,3 +951,10 @@ export type SearchCategoriesQueryVariables = Exact<{
 
 
 export type SearchCategoriesQuery = { __typename: 'Query', search: { __typename: 'CategoryCountableConnection', edges: Array<{ __typename: 'CategoryCountableEdge', node: { __typename: 'Category', id: string, name: string } }>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
+
+export type ValidateTokenMutationVariables = Exact<{
+  token: Scalars['String'];
+}>;
+
+
+export type ValidateTokenMutation = { __typename: 'Mutation', validateToken: { __typename: 'ValidateDocumentToken', document: { __typename: 'Document', id: string, name: string, expires: boolean | null, expired: boolean | null, defaultFile: { __typename: 'DocumentFile', beginDate: any | null, expirationDate: any | null } | null, entry: { __typename: 'Entry', name: string, type: EntryTypeEnum | null } | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };

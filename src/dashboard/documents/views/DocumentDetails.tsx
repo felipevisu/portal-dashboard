@@ -24,7 +24,8 @@ export const DocumentDetails = () => {
   const { entry: type, id, documentId } = useParams();
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { data, loading, refetch } = useDocumentDetailsQuery({
+  const { data, loading, error, refetch } = useDocumentDetailsQuery({
+    fetchPolicy: "network-only",
     variables: { id: documentId },
   });
   const deleteModal = useModal();

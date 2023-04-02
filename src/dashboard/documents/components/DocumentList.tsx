@@ -80,8 +80,10 @@ export const DocumentList = ({
               <TableCellWithStatus status={document.isPublished} />
               <TableCell>{formatDate(document.created)}</TableCell>
               <TableCell sx={{ color: document.expired ? "error.main" : "" }}>
-                {document.defaultFile.expirationDate
-                  ? formatDate(document.defaultFile.expirationDate)
+                {document.expires
+                  ? document.defaultFile?.expirationDate
+                    ? formatDate(document.defaultFile?.expirationDate)
+                    : "Não definido"
                   : "Não expirável"}
               </TableCell>
             </TableRowLink>

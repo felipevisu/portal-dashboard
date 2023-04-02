@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Box, Grid, Typography } from "@mui/material";
+import { formatDate } from "@portal/utils/date";
 
 interface FormatedConsultProps {
   consult: Record<string, any>;
@@ -39,7 +40,8 @@ export const FormatedConsult = ({ consult }: FormatedConsultProps) => {
         </Grid>
         <Grid item xs={6}>
           <FormatedItem title="Data de abertura">
-            {consult.estabelecimento?.data_inicio_atividade}
+            {consult.estabelecimento?.data_inicio_atividade &&
+              formatDate(consult.estabelecimento?.data_inicio_atividade)}
           </FormatedItem>
         </Grid>
         <Grid item xs={12}>
@@ -153,7 +155,8 @@ export const FormatedConsult = ({ consult }: FormatedConsultProps) => {
         </Grid>
         <Grid item xs={6}>
           <FormatedItem title="Data da situação cadastral">
-            {consult.estabelecimento?.data_situacao_cadastral}
+            {consult.estabelecimento?.data_situacao_cadastral &&
+              formatDate(consult.estabelecimento?.data_situacao_cadastral)}
           </FormatedItem>
         </Grid>
         <Grid item xs={12}>
@@ -168,7 +171,8 @@ export const FormatedConsult = ({ consult }: FormatedConsultProps) => {
         </Grid>
         <Grid item xs={6}>
           <FormatedItem title="Data da situação especial">
-            {consult.estabelecimento?.data_situacao_especial}
+            {consult.estabelecimento?.data_situacao_especial &&
+              formatDate(consult.estabelecimento?.data_situacao_especial)}
           </FormatedItem>
         </Grid>
       </Grid>

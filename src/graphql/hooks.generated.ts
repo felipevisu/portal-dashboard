@@ -2606,3 +2606,52 @@ export function useSearchCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookO
 export type SearchCategoriesQueryHookResult = ReturnType<typeof useSearchCategoriesQuery>;
 export type SearchCategoriesLazyQueryHookResult = ReturnType<typeof useSearchCategoriesLazyQuery>;
 export type SearchCategoriesQueryResult = Apollo.QueryResult<Types.SearchCategoriesQuery, Types.SearchCategoriesQueryVariables>;
+export const ValidateTokenDocument = gql`
+    mutation ValidateToken($token: String!) {
+  validateToken(token: $token) {
+    document {
+      id
+      name
+      expires
+      expired
+      defaultFile {
+        beginDate
+        expirationDate
+      }
+      entry {
+        name
+        type
+      }
+    }
+    errors {
+      ...Error
+    }
+  }
+}
+    ${ErrorFragmentDoc}`;
+export type ValidateTokenMutationFn = Apollo.MutationFunction<Types.ValidateTokenMutation, Types.ValidateTokenMutationVariables>;
+
+/**
+ * __useValidateTokenMutation__
+ *
+ * To run a mutation, you first call `useValidateTokenMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useValidateTokenMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [validateTokenMutation, { data, loading, error }] = useValidateTokenMutation({
+ *   variables: {
+ *      token: // value for 'token'
+ *   },
+ * });
+ */
+export function useValidateTokenMutation(baseOptions?: Apollo.MutationHookOptions<Types.ValidateTokenMutation, Types.ValidateTokenMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Types.ValidateTokenMutation, Types.ValidateTokenMutationVariables>(ValidateTokenDocument, options);
+      }
+export type ValidateTokenMutationHookResult = ReturnType<typeof useValidateTokenMutation>;
+export type ValidateTokenMutationResult = Apollo.MutationResult<Types.ValidateTokenMutation>;
+export type ValidateTokenMutationOptions = Apollo.BaseMutationOptions<Types.ValidateTokenMutation, Types.ValidateTokenMutationVariables>;

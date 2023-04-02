@@ -1281,8 +1281,8 @@ type User implements Node {
 }
 
 type ValidateDocumentToken {
+  document: Document
   errors: [Error!]!
-  success: Boolean
 }
 
 """Verify JWT token."""
