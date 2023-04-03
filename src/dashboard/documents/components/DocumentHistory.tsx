@@ -51,8 +51,8 @@ export const DocumentHistory = ({
         <TableHead>
           <TableRow>
             <TableCellHeader>{t("file.title")}</TableCellHeader>
-            <TableCellHeader>{t("created")}</TableCellHeader>
-            <TableCellHeader>{t("expired")}</TableCellHeader>
+            <TableCellHeader>Início</TableCellHeader>
+            <TableCellHeader>Término</TableCellHeader>
             <TableCellHeader>{t("status")}</TableCellHeader>
             <TableCellHeader align="right">{t("actions")}</TableCellHeader>
           </TableRow>
@@ -71,8 +71,8 @@ export const DocumentHistory = ({
                   {file.file.url.split("/").reverse()[0]}
                 </Link>
               </TableCell>
-              <TableCell>{formatDate(file.created)}</TableCell>
-              <TableCell>{formatDate(file.expirationDate)}</TableCell>
+              <TableCell>{file.beginDate && formatDate(file.beginDate)}</TableCell>
+              <TableCell>{file.expirationDate && formatDate(file.expirationDate)}</TableCell>
               <TableCell>
                 <Chip
                   label={label[file.status]}
