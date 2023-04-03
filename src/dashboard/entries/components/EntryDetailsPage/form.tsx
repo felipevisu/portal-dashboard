@@ -6,7 +6,11 @@ import {
   createAttributeMultiChangeHandler,
   prepareAttributesInput,
 } from "@portal/dashboard/attributes/utils/handlers";
-import { AttributeValueInput, EntryDetailsFragment } from "@portal/graphql";
+import {
+  AttributeFragment,
+  AttributeValueInput,
+  EntryDetailsFragment,
+} from "@portal/graphql";
 import useForm, {
   CommonUseFormResultWithHandlers,
   FormChange,
@@ -14,6 +18,7 @@ import useForm, {
 } from "@portal/hooks/useForm";
 import useFormset from "@portal/hooks/useFormset";
 import {
+  getAttributeInputFromAttributes,
   getAttributeInputFromEntry,
   SingleAutocompleteChoiceType,
 } from "@portal/utils/data";
@@ -21,6 +26,7 @@ import createSingleAutocompleteSelectHandler from "@portal/utils/handlers/single
 
 export interface UseEntryUpdateFormOpts {
   categories: SingleAutocompleteChoiceType[];
+  attributes: AttributeFragment[];
   setSelectedCategory: React.Dispatch<React.SetStateAction<string>>;
 }
 
@@ -71,8 +77,15 @@ const useEntryUpdateForm = (
   const form = useForm(initialData, onSubmit);
   const { change, data: formData } = form;
 
+  const currentAttributes = getAttributeInputFromEntry(entry);
+  let newAttributes = getAttributeInputFromAttributes(opts.attributes);
+
+  currentAttributes.forEach(
+    (attr) => (newAttributes = newAttributes.filter((at) => at.id !== attr.id))
+  );
+
   const attributes = useFormset<AttributeInputData>(
-    getAttributeInputFromEntry(entry) || []
+    [...currentAttributes, ...newAttributes] || []
   );
 
   const handleCategorySelect = createSingleAutocompleteSelectHandler(

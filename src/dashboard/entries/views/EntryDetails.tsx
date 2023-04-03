@@ -12,6 +12,7 @@ import {
   ConsultDocumentMutation,
   EntryInput,
   EntryUpdateMutation,
+  useAttributesQuery,
   useConsultDocumentMutation,
   useEntryDeleteMutation,
   useEntryDetailsQuery,
@@ -28,7 +29,6 @@ import { EntryDetailsPage } from "../components/EntryDetailsPage";
 import { mapType } from "./utils";
 
 export const EntryDetails = () => {
-  const [vehicle, setVehicle] = useState(null);
   const { entry: type, id } = useParams();
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -82,6 +82,14 @@ export const EntryDetails = () => {
     await deleteVehicle({ variables: { id } });
   };
 
+  const { data: searchAttributeOpts } = useAttributesQuery({
+    fetchPolicy: "network-only",
+    variables: {
+      ...DEFAULT_INITIAL_SEARCH_DATA,
+      filter: { type: mapType[type] },
+    },
+  });
+
   const {
     loadMore: loadMoreCategories,
     search: searchCategory,
@@ -114,23 +122,15 @@ export const EntryDetails = () => {
   };
 
   useEffect(() => {
-    if (data?.entry) {
-      setVehicle(data.entry);
-    }
-  }, [data]);
-
-  useEffect(() => {
     refetch();
   }, []);
 
-  if (loading && !vehicle) return <CircularLoading />;
-
-  if (!vehicle) return <NotFound />;
+  if (loading && !data?.entry) return <CircularLoading />;
 
   return (
     <>
       <EntryDetailsPage
-        entry={vehicle}
+        entry={data?.entry}
         onSubmit={handleSubmit}
         onDelete={openModal}
         errors={updateEntryResult.data?.entryUpdate.errors || []}
@@ -139,6 +139,7 @@ export const EntryDetails = () => {
         paginator={paginator}
         fetchCategories={searchCategory}
         fetchMoreCategories={fetchMoreCategories}
+        attributes={mapEdgesToItems(searchAttributeOpts?.attributes) || []}
         attributeValues={
           mapEdgesToItems(searchAttributeValuesOpts?.data?.attribute.choices) ||
           []

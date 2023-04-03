@@ -10,6 +10,7 @@ import { Savebar } from "@portal/components/Savebar";
 import {
   EntryDetailsQuery,
   EntryErrorWithAttributesFragment,
+  SearchAttributesQuery,
   SearchAttributeValuesQuery,
   SearchCategoriesQuery,
 } from "@portal/graphql";
@@ -70,6 +71,7 @@ interface EntryDetailsPageProps {
   paginator: Paginator;
   fetchCategories: (data: string) => void;
   fetchMoreCategories: FetchMoreProps;
+  attributes: RelayToFlat<SearchAttributesQuery["search"]>;
   attributeValues: RelayToFlat<
     SearchAttributeValuesQuery["attribute"]["choices"]
   >;
@@ -86,6 +88,7 @@ export const EntryDetailsPage = ({
   errors,
   loading,
   categories: categoryChoiceList,
+  attributes,
   paginator,
   fetchCategories,
   fetchMoreCategories,
@@ -121,6 +124,7 @@ export const EntryDetailsPage = ({
       onSubmit={onSubmit}
       loading={loading}
       categories={categories}
+      attributes={attributes}
       setSelectedCategory={setSelectedCategory}
     >
       {({ change, submit, data, handlers }) => {
