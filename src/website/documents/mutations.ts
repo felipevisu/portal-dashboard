@@ -23,3 +23,16 @@ export const validateTokenMutation = gql`
     }
   }
 `;
+
+export const documentUpdateByEntryMutation = gql`
+  mutation DocumentUpdateByEntry(
+    $token: String!
+    $input: DocumentUpdateByEntryInput!
+  ) {
+    documentUpdateByEntry(token: $token, input: $input) {
+      errors {
+        ...Error
+      }
+    }
+  }
+`;

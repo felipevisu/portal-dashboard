@@ -266,6 +266,12 @@ export type DocumentSortingInput = {
   field: DocumentSortField;
 };
 
+export type DocumentUpdateByEntryInput = {
+  beginDate?: InputMaybe<Scalars['Date']>;
+  expirationDate?: InputMaybe<Scalars['Date']>;
+  file: Scalars['Upload'];
+};
+
 export type EntryFilterInput = {
   categories?: InputMaybe<Array<Scalars['ID']>>;
   category?: InputMaybe<Scalars['ID']>;
@@ -958,3 +964,11 @@ export type ValidateTokenMutationVariables = Exact<{
 
 
 export type ValidateTokenMutation = { __typename: 'Mutation', validateToken: { __typename: 'ValidateDocumentToken', document: { __typename: 'Document', id: string, name: string, expires: boolean | null, expired: boolean | null, defaultFile: { __typename: 'DocumentFile', beginDate: any | null, expirationDate: any | null } | null, entry: { __typename: 'Entry', name: string, type: EntryTypeEnum | null } | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+
+export type DocumentUpdateByEntryMutationVariables = Exact<{
+  token: Scalars['String'];
+  input: DocumentUpdateByEntryInput;
+}>;
+
+
+export type DocumentUpdateByEntryMutation = { __typename: 'Mutation', documentUpdateByEntry: { __typename: 'DocumentUpdateByEntry', errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };

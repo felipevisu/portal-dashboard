@@ -32,7 +32,7 @@ const variant: Record<string, ChipProps["color"]> = {
 
 const label = {
   APPROVED: "Finalizado",
-  WAITING: "Aguardando",
+  WAITING: "Em aprovação",
   REFUSED: "Recusado",
 };
 

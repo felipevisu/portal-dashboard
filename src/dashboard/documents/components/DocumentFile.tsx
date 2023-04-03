@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 
 import { FileUpload, Loop } from "@mui/icons-material";
 import {
+  Alert,
   Box,
   Button,
   Card,
@@ -19,6 +20,7 @@ interface DocumentFileProps {
   fileName?: string;
   fileUrl?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  error?: string;
 }
 
 export const DocumentFile = ({
@@ -26,6 +28,7 @@ export const DocumentFile = ({
   fileName,
   fileUrl,
   onChange,
+  error,
 }: DocumentFileProps) => {
   const { t } = useTranslation();
   const fileRef = useRef<HTMLInputElement>();
@@ -41,6 +44,11 @@ export const DocumentFile = ({
         action={<Button onClick={handleClick}>{t("file.create")}</Button>}
       />
       <CardContent>
+        {error && (
+          <Alert color="error" icon={false} sx={{ marginBottom: 3 }}>
+            {error}
+          </Alert>
+        )}
         <input type="file" ref={fileRef} onChange={onChange} hidden />
         {file || fileName ? (
           <Stack direction="row" spacing={1}>

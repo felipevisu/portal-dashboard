@@ -230,5 +230,16 @@
 		"delete": "Excluir Veículo"
 	},
 	"visibility": "Visibilidade",
-	"year": "Ano"
+	"year": "Ano",
+	"documentUpdate": {
+		"title": "Atualização de Documento",
+		"record": "Cadastro",
+		"document": "Documento",
+		"submit": "Enviar",
+		"success": {
+			"title": "Obrigado!",
+			"body1": "Documento enviado com sucesso.",
+			"body2": "O arquivo está em análise e será aprovado pelo administrador da plataforma."
+		}
+	}
 }

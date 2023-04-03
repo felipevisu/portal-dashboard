@@ -2655,3 +2655,39 @@ export function useValidateTokenMutation(baseOptions?: Apollo.MutationHookOption
 export type ValidateTokenMutationHookResult = ReturnType<typeof useValidateTokenMutation>;
 export type ValidateTokenMutationResult = Apollo.MutationResult<Types.ValidateTokenMutation>;
 export type ValidateTokenMutationOptions = Apollo.BaseMutationOptions<Types.ValidateTokenMutation, Types.ValidateTokenMutationVariables>;
+export const DocumentUpdateByEntryDocument = gql`
+    mutation DocumentUpdateByEntry($token: String!, $input: DocumentUpdateByEntryInput!) {
+  documentUpdateByEntry(token: $token, input: $input) {
+    errors {
+      ...Error
+    }
+  }
+}
+    ${ErrorFragmentDoc}`;
+export type DocumentUpdateByEntryMutationFn = Apollo.MutationFunction<Types.DocumentUpdateByEntryMutation, Types.DocumentUpdateByEntryMutationVariables>;
+
+/**
+ * __useDocumentUpdateByEntryMutation__
+ *
+ * To run a mutation, you first call `useDocumentUpdateByEntryMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDocumentUpdateByEntryMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [documentUpdateByEntryMutation, { data, loading, error }] = useDocumentUpdateByEntryMutation({
+ *   variables: {
+ *      token: // value for 'token'
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useDocumentUpdateByEntryMutation(baseOptions?: Apollo.MutationHookOptions<Types.DocumentUpdateByEntryMutation, Types.DocumentUpdateByEntryMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Types.DocumentUpdateByEntryMutation, Types.DocumentUpdateByEntryMutationVariables>(DocumentUpdateByEntryDocument, options);
+      }
+export type DocumentUpdateByEntryMutationHookResult = ReturnType<typeof useDocumentUpdateByEntryMutation>;
+export type DocumentUpdateByEntryMutationResult = Apollo.MutationResult<Types.DocumentUpdateByEntryMutation>;
+export type DocumentUpdateByEntryMutationOptions = Apollo.BaseMutationOptions<Types.DocumentUpdateByEntryMutation, Types.DocumentUpdateByEntryMutationVariables>;

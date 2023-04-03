@@ -575,6 +575,16 @@ type DocumentUpdate {
   errors: [Error!]!
 }
 
+type DocumentUpdateByEntry {
+  errors: [Error!]!
+}
+
+input DocumentUpdateByEntryInput {
+  beginDate: Date
+  expirationDate: Date
+  file: Upload!
+}
+
 type Entry implements Node {
   active: Boolean
   address: String
@@ -933,6 +943,7 @@ type Mutation {
   documentDelete(id: ID): DocumentDelete
   documentFileDelete(id: ID): DocumentFileDelete
   documentUpdate(id: ID, input: DocumentInput!): DocumentUpdate
+  documentUpdateByEntry(input: DocumentUpdateByEntryInput, token: String): DocumentUpdateByEntry
 
   """Deletes entries."""
   entryBulkDelete(

@@ -31,7 +31,7 @@ export const DocumentEvents = ({ events }: DocumentEventsProps) => {
         }}
       >
         {events.map((event, index) => (
-          <TimelineItem key={event.id}>
+          <TimelineItem key={event.id} sx={{ minHeight: "50px" }}>
             <TimelineSeparator>
               <TimelineDot />
               {index < events.length - 1 && <TimelineConnector />}
