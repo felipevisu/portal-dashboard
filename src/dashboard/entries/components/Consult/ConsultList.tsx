@@ -105,6 +105,7 @@ export const ConsultList = ({
   onConsultDocument,
 }: ConsultListProps) => {
   const { t } = useTranslation();
+
   return (
     <Grid container spacing={2}>
       <Grid item xs={4}>
@@ -126,7 +127,7 @@ export const ConsultList = ({
         </Card>
       </Grid>
       <Grid item xs={8}>
-        <ConsultItem consult={consults[0]} />
+        {consults.length > 0 && <ConsultItem consult={consults[0]} />}
       </Grid>
     </Grid>
   );
