@@ -63,6 +63,7 @@ export const DocumentPublicUpdate = () => {
       file={file}
       setFile={setFile}
       onSubmit={handleSubmit}
+      loading={updateResult.loading}
     />
   );
 };

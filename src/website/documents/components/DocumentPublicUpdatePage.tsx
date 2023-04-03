@@ -29,6 +29,7 @@ interface DocumentPublicUpdatePageProps {
   errors: ErrorFragment[];
   setFile: (file: File) => void;
   onSubmit: (data: DocumentUpdateByEntryInput) => Promise<void>;
+  loading: boolean;
 }
 
 export const generateSubmitData = (
@@ -47,6 +48,7 @@ export const DocumentPublicUpdatePage = ({
   file,
   setFile,
   onSubmit,
+  loading,
 }: DocumentPublicUpdatePageProps) => {
   const { t } = useTranslation();
   const formErrors = getFormErrors(["file"], errors);
@@ -96,7 +98,12 @@ export const DocumentPublicUpdatePage = ({
                 error={formErrors.file?.message}
               />
               <Box sx={{ textAlign: "center" }}>
-                <LoadingButton fullWidth variant="contained" onClick={submit}>
+                <LoadingButton
+                  loading={loading}
+                  fullWidth
+                  variant="contained"
+                  onClick={submit}
+                >
                   {t("documentUpdate.submit")}
                 </LoadingButton>
               </Box>
