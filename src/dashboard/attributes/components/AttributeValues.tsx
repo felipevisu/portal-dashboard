@@ -16,11 +16,13 @@ import {
 import { Button } from "@portal/components/Button";
 import { Pagination } from "@portal/components/Pagination";
 import TableCellHeader from "@portal/components/TableCell";
+import TableRowLink from "@portal/components/TableRowLink";
 import { AttributeValueFragment, PageInfoFragment } from "@portal/graphql";
 
 interface AttributeValuesProps {
   onDeleteValue: () => void;
   onCreateValue: () => void;
+  onUpdateValue?: () => void;
   values: Partial<AttributeValueFragment>[];
   pageInfo?: PageInfoFragment;
   onNext?: (val: string) => void;
@@ -37,6 +39,7 @@ const defaultPageInfo: PageInfoFragment = {
 
 export const AttributeValues = ({
   onDeleteValue,
+  onUpdateValue,
   onCreateValue,
   values,
   pageInfo = defaultPageInfo,
@@ -49,6 +52,11 @@ export const AttributeValues = ({
   const handleValueDelete = (id: string) => {
     setSearchParams({ id });
     onDeleteValue();
+  };
+
+  const handleValueUpdate = (id: string) => {
+    setSearchParams({ id });
+    onUpdateValue();
   };
 
   return (
@@ -81,15 +89,25 @@ export const AttributeValues = ({
             </TableRow>
           )}
           {values.map((item, index) => (
-            <TableRow key={index}>
+            <TableRowLink
+              key={index}
+              hover={true}
+              sx={{ cursor: "pointer" }}
+              onClick={() => handleValueUpdate(item.id)}
+            >
               <TableCell sx={{ paddingLeft: 3 }}>{item.name}</TableCell>
               <TableCell>{item.slug}</TableCell>
               <TableCell align="right" sx={{ paddingRight: 3 }}>
-                <IconButton onClick={() => handleValueDelete(item.id)}>
+                <IconButton
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleValueDelete(item.id);
+                  }}
+                >
                   <Delete />
                 </IconButton>
               </TableCell>
-            </TableRow>
+            </TableRowLink>
           ))}
         </TableBody>
       </Table>

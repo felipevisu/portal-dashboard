@@ -1,4 +1,5 @@
 import React from "react";
+import { t } from "i18next";
 
 import {
   Timeline,
@@ -38,7 +39,7 @@ export const DocumentEvents = ({ events }: DocumentEventsProps) => {
             </TimelineSeparator>
             <TimelineContent>
               <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                <span>{event.type}</span>{" "}
+                <span>{t(`events.${event.type}`)}</span>{" "}
                 <span>{formatDateTime(event.date)}</span>
               </Box>
             </TimelineContent>

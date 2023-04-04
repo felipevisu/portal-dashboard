@@ -28,6 +28,7 @@ interface AttributeDetailsPageProps {
   loading: boolean;
   onDelete: () => void;
   onCreateValue: () => void;
+  onUpdateValue: () => void;
   onDeleteValue: () => void;
   onNext: (val: string) => void;
   onPrev: (val: string) => void;
@@ -40,6 +41,7 @@ export const AttributeDetailsPage = ({
   errors,
   loading,
   onCreateValue,
+  onUpdateValue,
   onDeleteValue,
   onNext,
   onPrev,
@@ -75,6 +77,7 @@ export const AttributeDetailsPage = ({
                 ].some((type) => type === attribute.inputType) && (
                   <AttributeValues
                     onCreateValue={onCreateValue}
+                    onUpdateValue={onUpdateValue}
                     onDeleteValue={onDeleteValue}
                     values={mapEdgesToItems(attribute.choices)}
                     onNext={onNext}

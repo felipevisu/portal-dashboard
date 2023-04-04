@@ -14,6 +14,7 @@ export interface TableRowLinkProps
   href?: string;
   className?: string;
   linkClassName?: string;
+  onClick?: () => void;
 }
 
 const TableRowLink = ({

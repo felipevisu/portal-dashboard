@@ -1,4 +1,7 @@
 import { AttributeInput } from "@portal/components/Attributes/Attributes";
+import { AttributeValueFragment } from "@portal/graphql";
+
+import { AttributeValueEditDialogFormData } from "../components/ValueUpdateDialog";
 
 export const getAttributesDisplayData = (attributes: AttributeInput[]) =>
   attributes.map((attribute) => {
@@ -15,3 +18,12 @@ export const mergeAttributes = (
       ...attributes,
     ];
   }, []);
+
+export function attributeValueFragmentToFormData(
+  data: AttributeValueFragment | null
+): AttributeValueEditDialogFormData {
+  return {
+    name: data?.name ?? "",
+    value: data?.value ?? "",
+  };
+}

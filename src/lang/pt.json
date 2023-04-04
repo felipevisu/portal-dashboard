@@ -1,7 +1,12 @@
 {
 	"active": "Ativo",
+	"inactive": "Inativo",
 	"add": "Adicionar",
 	"address": "Endereço",
+	"events": {
+		"DOCUMENT_REQUESTED": "Novo documento solicitado",
+		"DOCUMENT_RECEIVED": "Document recebido aguardando aprovação"
+	},
 	"attribute": {
 		"title": "Atributo",
 		"plural": "Atributos",
@@ -10,6 +15,7 @@
 		"values": {
 			"title": "Valores do atributo",
 			"add": "Adicionar valor",
+			"update": "Atualizar valor",
 			"delete": "Excluir valor"
 		},
 		"deleteDialog": {

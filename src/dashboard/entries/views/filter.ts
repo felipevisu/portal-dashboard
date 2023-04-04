@@ -16,11 +16,20 @@ export function getFilterOpts(
       type: "multiple",
     },
     {
-      name: t("status"),
+      name: t("visibility"),
       slug: "isPublished",
       choices: [
-        { value: "false", label: "Não publicado" },
-        { value: "true", label: "Publicado" },
+        { value: "true", label: t("published") },
+        { value: "false", label: t("unpublished") },
+      ],
+      type: "radio",
+    },
+    {
+      name: t("status"),
+      slug: "active",
+      choices: [
+        { value: "true", label: t("active") },
+        { value: "false", label: t("inactive") },
       ],
       type: "radio",
     },

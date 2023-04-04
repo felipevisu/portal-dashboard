@@ -11,17 +11,22 @@ import {
   AttributeUpdateInput,
   AttributeUpdateMutation,
   AttributeValueCreateInput,
+  AttributeValueUpdateInput,
+  AttributeValueUpdateMutation,
   useAttributeDeleteMutation,
   useAttributeDetailsQuery,
   useAttributeUpdateMutation,
   useAttributeValueCreateMutation,
   useAttributeValueDeleteMutation,
+  useAttributeValueUpdateMutation,
 } from "@portal/graphql";
 import { useLinks, useModal, usePaginator } from "@portal/hooks";
 
 import AttributeDetailsPage from "../components/AttributeDetailsPage";
 import ValueCreateDialog from "../components/ValueCreateDialog";
 import ValueDeleteDialog from "../components/ValueDeleteDialog";
+import ValueUpdateDialog from "../components/ValueUpdateDialog";
+import { attributeValueFragmentToFormData } from "../utils/data";
 
 export const AttributeDetails = () => {
   const { t } = useTranslation();
@@ -64,6 +69,7 @@ export const AttributeDetails = () => {
   };
 
   const createValueModal = useModal();
+  const updateValueModal = useModal();
   const deleteValueModal = useModal();
 
   const [createValue] = useAttributeValueCreateMutation({
@@ -71,6 +77,16 @@ export const AttributeDetails = () => {
       setSearchParams({});
       createValueModal.closeModal();
       refetch();
+    },
+  });
+
+  const [updateValue, updateValueResult] = useAttributeValueUpdateMutation({
+    onCompleted: (data: AttributeValueUpdateMutation) => {
+      if (!data.attributeValueUpdate.errors.length) {
+        setSearchParams({});
+        updateValueModal.closeModal();
+        refetch();
+      }
     },
   });
 
@@ -84,6 +100,13 @@ export const AttributeDetails = () => {
 
   const handleValueCreate = async (value: AttributeValueCreateInput) => {
     await createValue({ variables: { id: id, input: value, ...pagination } });
+  };
+
+  const handleValueUpdate = async (input: AttributeValueUpdateInput) => {
+    const valueId = searchParams.get("id");
+    await updateValue({
+      variables: { id: valueId, input: input, ...pagination },
+    });
   };
 
   const handleValueDelete = async () => {
@@ -105,6 +128,7 @@ export const AttributeDetails = () => {
         onSubmit={handleSubmit}
         onDelete={openModal}
         onCreateValue={createValueModal.openModal}
+        onUpdateValue={updateValueModal.openModal}
         onDeleteValue={deleteValueModal.openModal}
         loading={updateAttributeResult.loading}
         onNext={handleNextPage}
@@ -114,6 +138,17 @@ export const AttributeDetails = () => {
         isOpen={createValueModal.isOpen}
         onClose={createValueModal.closeModal}
         onConfirm={handleValueCreate}
+      />
+      <ValueUpdateDialog
+        attributeValue={attributeValueFragmentToFormData(
+          data?.attribute?.choices?.edges?.find(
+            (value) => searchParams.get("id") === value.node.id
+          )?.node ?? null
+        )}
+        errors={updateValueResult.data?.attributeValueUpdate?.errors || []}
+        isOpen={updateValueModal.isOpen}
+        onClose={updateValueModal.closeModal}
+        onConfirm={handleValueUpdate}
       />
       <ValueDeleteDialog
         isOpen={deleteValueModal.isOpen}

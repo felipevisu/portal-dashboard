@@ -46,6 +46,7 @@ export const EntryList = ({
         <TableCellHeader>{t("name")}</TableCellHeader>
         <TableCellHeader>{t("category.title")}</TableCellHeader>
         <TableCellHeader>{t("visibility")}</TableCellHeader>
+        <TableCellHeader>{t("status")}</TableCellHeader>
       </TableHead>
       <TableBody>
         {renderCollection(entries, (entry) => {
@@ -68,6 +69,10 @@ export const EntryList = ({
               <TableCell>{entry.name}</TableCell>
               <TableCell>{entry.category.name}</TableCell>
               <TableCellWithStatus status={entry.isPublished} />
+              <TableCellWithStatus
+                status={entry.active}
+                labels={{ published: t("active"), unPublished: t("inactive") }}
+              />
             </TableRowLink>
           );
         })}
