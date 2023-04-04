@@ -1,6 +1,7 @@
 import React from "react";
 
 import { AttributeInputData } from "@portal/components/Attributes/Attributes";
+import { mergeAttributes } from "@portal/components/Attributes/utils";
 import {
   createAttributeChangeHandler,
   createAttributeMultiChangeHandler,
@@ -78,15 +79,10 @@ const useEntryUpdateForm = (
   const { change, data: formData } = form;
 
   const currentAttributes = getAttributeInputFromEntry(entry);
-  let newAttributes = getAttributeInputFromAttributes(opts.attributes);
+  const newAttributes = getAttributeInputFromAttributes(opts.attributes);
+  const mergedAttributes = mergeAttributes(currentAttributes, newAttributes);
 
-  currentAttributes.forEach(
-    (attr) => (newAttributes = newAttributes.filter((at) => at.id !== attr.id))
-  );
-
-  const attributes = useFormset<AttributeInputData>(
-    [...currentAttributes, ...newAttributes] || []
-  );
+  const attributes = useFormset<AttributeInputData>(mergedAttributes || []);
 
   const handleCategorySelect = createSingleAutocompleteSelectHandler(
     change,

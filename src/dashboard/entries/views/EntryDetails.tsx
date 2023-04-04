@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -6,7 +6,6 @@ import { toast } from "react-toastify";
 import { DialogContentText } from "@mui/material";
 import ActionDialog from "@portal/components/ActionDialog";
 import CircularLoading from "@portal/components/Circular";
-import NotFound from "@portal/components/NotFound";
 import { DEFAULT_INITIAL_SEARCH_DATA } from "@portal/config";
 import {
   ConsultDocumentMutation,

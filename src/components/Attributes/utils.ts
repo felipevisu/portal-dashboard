@@ -98,3 +98,13 @@ export function getSelectedAttributeValues(
       return attribute.values.map((value) => value.slug);
   }
 }
+
+export const mergeAttributes = (
+  currentAttributes: AttributeInput[],
+  newAttributes: AttributeInput[]
+): AttributeInput[] => {
+  currentAttributes.forEach(
+    (attr) => (newAttributes = newAttributes.filter((at) => at.id !== attr.id))
+  );
+  return [...currentAttributes, ...newAttributes];
+};
