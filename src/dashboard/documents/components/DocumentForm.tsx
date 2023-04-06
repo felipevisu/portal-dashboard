@@ -114,6 +114,15 @@ export const DocumentForm = ({ data, errors, onChange }: DocumentFormProps) => {
                 `document.loadType.${DocumentLoadOptionsEnum.CONSULT_CORRECTIONAL_NEGATIVE_CERTIFICATE}`
               )}
             </MenuItem>
+            <MenuItem
+              value={
+                DocumentLoadOptionsEnum.CONSULT_LABOR_DEBIT_CLEARANCE_CERTIFIACATE
+              }
+            >
+              {t(
+                `document.loadType.${DocumentLoadOptionsEnum.CONSULT_LABOR_DEBIT_CLEARANCE_CERTIFIACATE}`
+              )}
+            </MenuItem>
           </Select>
         </FormControl>
       </CardContent>

@@ -563,6 +563,7 @@ input DocumentInput {
 """An enumeration."""
 enum DocumentLoadOptionsEnum {
   CONSULT_CORRECTIONAL_NEGATIVE_CERTIFICATE
+  CONSULT_LABOR_DEBIT_CLEARANCE_CERTIFIACATE
   EMPTY
 }
 

@@ -138,7 +138,8 @@
 		"loadType":{
 			"label": "Consulta otimizada",
 			"EMPTY": "Nenhuma",
-			"CONSULT_CORRECTIONAL_NEGATIVE_CERTIFICATE": "Certidão Negativa Correcional (CGU-PJ, CEIS, CNEP e CEPIM)"
+			"CONSULT_CORRECTIONAL_NEGATIVE_CERTIFICATE": "Certidão Negativa Correcional (CGU-PJ, CEIS, CNEP e CEPIM)",
+			"CONSULT_LABOR_DEBIT_CLEARANCE_CERTIFIACATE": "Tribunal Superior do Trabalho / CNDT"
 		}
 	},
 	"documentNumber": "CNPJ/CPF",
