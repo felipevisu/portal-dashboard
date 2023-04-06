@@ -250,10 +250,17 @@ export type DocumentInput = {
   expires?: InputMaybe<Scalars['Boolean']>;
   file?: InputMaybe<Scalars['Upload']>;
   isPublished?: InputMaybe<Scalars['Boolean']>;
+  loadType?: InputMaybe<DocumentLoadOptionsEnum>;
   name?: InputMaybe<Scalars['String']>;
   provider?: InputMaybe<Scalars['ID']>;
   publicationDate?: InputMaybe<Scalars['Date']>;
 };
+
+/** An enumeration. */
+export enum DocumentLoadOptionsEnum {
+  CONSULT_CORRECTIONAL_NEGATIVE_CERTIFICATE = 'CONSULT_CORRECTIONAL_NEGATIVE_CERTIFICATE',
+  EMPTY = 'EMPTY'
+}
 
 export enum DocumentSortField {
   CREATED = 'CREATED'
@@ -269,10 +276,11 @@ export type DocumentSortingInput = {
 export type DocumentUpdateByEntryInput = {
   beginDate?: InputMaybe<Scalars['Date']>;
   expirationDate?: InputMaybe<Scalars['Date']>;
-  file: Scalars['Upload'];
+  file?: InputMaybe<Scalars['Upload']>;
 };
 
 export type EntryFilterInput = {
+  active?: InputMaybe<Scalars['Boolean']>;
   categories?: InputMaybe<Array<Scalars['ID']>>;
   category?: InputMaybe<Scalars['ID']>;
   isPublished?: InputMaybe<Scalars['Boolean']>;
@@ -594,7 +602,7 @@ export type DocumentUpdateMutationVariables = Exact<{
 }>;
 
 
-export type DocumentUpdateMutation = { __typename: 'Mutation', documentUpdate: { __typename: 'DocumentUpdate', document: { __typename: 'Document', id: string, name: string, description: string | null, isPublished: boolean | null, expires: boolean | null, created: any | null, updated: any | null, defaultFile: { __typename: 'DocumentFile', id: string, created: any | null, beginDate: any | null, expirationDate: any | null, status: DocumentFileStatusEnum | null, file: { __typename: 'File', url: string } | null } | null, files: Array<{ __typename: 'DocumentFile', id: string, created: any | null, beginDate: any | null, expirationDate: any | null, status: DocumentFileStatusEnum | null, file: { __typename: 'File', url: string } | null }> | null, events: Array<{ __typename: 'Event', id: string, date: any | null, type: EventTypesEnum | null, user: { __typename: 'User', id: string, email: string, firstName: string | null, lastName: string | null, isStaff: boolean | null } | null }> | null, entry: { __typename: 'Entry', id: string, name: string, type: EntryTypeEnum | null } | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+export type DocumentUpdateMutation = { __typename: 'Mutation', documentUpdate: { __typename: 'DocumentUpdate', document: { __typename: 'Document', id: string, name: string, description: string | null, isPublished: boolean | null, expires: boolean | null, created: any | null, updated: any | null, loadType: DocumentLoadOptionsEnum | null, defaultFile: { __typename: 'DocumentFile', id: string, created: any | null, beginDate: any | null, expirationDate: any | null, status: DocumentFileStatusEnum | null, file: { __typename: 'File', url: string } | null } | null, files: Array<{ __typename: 'DocumentFile', id: string, created: any | null, beginDate: any | null, expirationDate: any | null, status: DocumentFileStatusEnum | null, file: { __typename: 'File', url: string } | null }> | null, events: Array<{ __typename: 'Event', id: string, date: any | null, type: EventTypesEnum | null, user: { __typename: 'User', id: string, email: string, firstName: string | null, lastName: string | null, isStaff: boolean | null } | null }> | null, entry: { __typename: 'Entry', id: string, name: string, type: EntryTypeEnum | null } | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
 
 export type DocumentDeleteMutationVariables = Exact<{
   id: Scalars['ID'];
@@ -645,12 +653,19 @@ export type RequestNewDocumentMutationVariables = Exact<{
 
 export type RequestNewDocumentMutation = { __typename: 'Mutation', requestNewDocument: { __typename: 'RequestNewDocument', errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
 
+export type LoadNewDocumentFromApiMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type LoadNewDocumentFromApiMutation = { __typename: 'Mutation', loadNewDocumentFromApi: { __typename: 'LoadNewDocumentFromAPI', errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+
 export type DocumentDetailsQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type DocumentDetailsQuery = { __typename: 'Query', document: { __typename: 'Document', id: string, name: string, description: string | null, isPublished: boolean | null, expires: boolean | null, created: any | null, updated: any | null, defaultFile: { __typename: 'DocumentFile', id: string, created: any | null, beginDate: any | null, expirationDate: any | null, status: DocumentFileStatusEnum | null, file: { __typename: 'File', url: string } | null } | null, files: Array<{ __typename: 'DocumentFile', id: string, created: any | null, beginDate: any | null, expirationDate: any | null, status: DocumentFileStatusEnum | null, file: { __typename: 'File', url: string } | null }> | null, events: Array<{ __typename: 'Event', id: string, date: any | null, type: EventTypesEnum | null, user: { __typename: 'User', id: string, email: string, firstName: string | null, lastName: string | null, isStaff: boolean | null } | null }> | null, entry: { __typename: 'Entry', id: string, name: string, type: EntryTypeEnum | null } | null } | null };
+export type DocumentDetailsQuery = { __typename: 'Query', document: { __typename: 'Document', id: string, name: string, description: string | null, isPublished: boolean | null, expires: boolean | null, created: any | null, updated: any | null, loadType: DocumentLoadOptionsEnum | null, defaultFile: { __typename: 'DocumentFile', id: string, created: any | null, beginDate: any | null, expirationDate: any | null, status: DocumentFileStatusEnum | null, file: { __typename: 'File', url: string } | null } | null, files: Array<{ __typename: 'DocumentFile', id: string, created: any | null, beginDate: any | null, expirationDate: any | null, status: DocumentFileStatusEnum | null, file: { __typename: 'File', url: string } | null }> | null, events: Array<{ __typename: 'Event', id: string, date: any | null, type: EventTypesEnum | null, user: { __typename: 'User', id: string, email: string, firstName: string | null, lastName: string | null, isStaff: boolean | null } | null }> | null, entry: { __typename: 'Entry', id: string, name: string, type: EntryTypeEnum | null } | null } | null };
 
 export type DocumentsQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']>;
@@ -888,7 +903,7 @@ export type DocumentFragment = { __typename: 'Document', id: string, name: strin
 
 export type DocumentFileFragment = { __typename: 'DocumentFile', id: string, created: any | null, beginDate: any | null, expirationDate: any | null, status: DocumentFileStatusEnum | null, file: { __typename: 'File', url: string } | null };
 
-export type DocumentDetailsFragment = { __typename: 'Document', id: string, name: string, description: string | null, isPublished: boolean | null, expires: boolean | null, created: any | null, updated: any | null, defaultFile: { __typename: 'DocumentFile', id: string, created: any | null, beginDate: any | null, expirationDate: any | null, status: DocumentFileStatusEnum | null, file: { __typename: 'File', url: string } | null } | null, files: Array<{ __typename: 'DocumentFile', id: string, created: any | null, beginDate: any | null, expirationDate: any | null, status: DocumentFileStatusEnum | null, file: { __typename: 'File', url: string } | null }> | null, events: Array<{ __typename: 'Event', id: string, date: any | null, type: EventTypesEnum | null, user: { __typename: 'User', id: string, email: string, firstName: string | null, lastName: string | null, isStaff: boolean | null } | null }> | null, entry: { __typename: 'Entry', id: string, name: string, type: EntryTypeEnum | null } | null };
+export type DocumentDetailsFragment = { __typename: 'Document', id: string, name: string, description: string | null, isPublished: boolean | null, expires: boolean | null, created: any | null, updated: any | null, loadType: DocumentLoadOptionsEnum | null, defaultFile: { __typename: 'DocumentFile', id: string, created: any | null, beginDate: any | null, expirationDate: any | null, status: DocumentFileStatusEnum | null, file: { __typename: 'File', url: string } | null } | null, files: Array<{ __typename: 'DocumentFile', id: string, created: any | null, beginDate: any | null, expirationDate: any | null, status: DocumentFileStatusEnum | null, file: { __typename: 'File', url: string } | null }> | null, events: Array<{ __typename: 'Event', id: string, date: any | null, type: EventTypesEnum | null, user: { __typename: 'User', id: string, email: string, firstName: string | null, lastName: string | null, isStaff: boolean | null } | null }> | null, entry: { __typename: 'Entry', id: string, name: string, type: EntryTypeEnum | null } | null };
 
 export type EntryFragment = { __typename: 'Entry', id: string, name: string, slug: string | null, isPublished: boolean | null, active: boolean | null, category: { __typename: 'Category', id: string, name: string } | null, documents: { __typename: 'DocumentCountableConnection', totalCount: number | null } | null };
 

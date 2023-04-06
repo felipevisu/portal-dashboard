@@ -151,6 +151,7 @@ export const DocumentDetailsFragmentDoc = gql`
   expires
   created
   updated
+  loadType
   defaultFile {
     ...DocumentFile
   }
@@ -1361,6 +1362,41 @@ export function useRequestNewDocumentMutation(baseOptions?: Apollo.MutationHookO
 export type RequestNewDocumentMutationHookResult = ReturnType<typeof useRequestNewDocumentMutation>;
 export type RequestNewDocumentMutationResult = Apollo.MutationResult<Types.RequestNewDocumentMutation>;
 export type RequestNewDocumentMutationOptions = Apollo.BaseMutationOptions<Types.RequestNewDocumentMutation, Types.RequestNewDocumentMutationVariables>;
+export const LoadNewDocumentFromApiDocument = gql`
+    mutation LoadNewDocumentFromAPI($id: ID!) {
+  loadNewDocumentFromApi(id: $id) {
+    errors {
+      ...Error
+    }
+  }
+}
+    ${ErrorFragmentDoc}`;
+export type LoadNewDocumentFromApiMutationFn = Apollo.MutationFunction<Types.LoadNewDocumentFromApiMutation, Types.LoadNewDocumentFromApiMutationVariables>;
+
+/**
+ * __useLoadNewDocumentFromApiMutation__
+ *
+ * To run a mutation, you first call `useLoadNewDocumentFromApiMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLoadNewDocumentFromApiMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [loadNewDocumentFromApiMutation, { data, loading, error }] = useLoadNewDocumentFromApiMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useLoadNewDocumentFromApiMutation(baseOptions?: Apollo.MutationHookOptions<Types.LoadNewDocumentFromApiMutation, Types.LoadNewDocumentFromApiMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Types.LoadNewDocumentFromApiMutation, Types.LoadNewDocumentFromApiMutationVariables>(LoadNewDocumentFromApiDocument, options);
+      }
+export type LoadNewDocumentFromApiMutationHookResult = ReturnType<typeof useLoadNewDocumentFromApiMutation>;
+export type LoadNewDocumentFromApiMutationResult = Apollo.MutationResult<Types.LoadNewDocumentFromApiMutation>;
+export type LoadNewDocumentFromApiMutationOptions = Apollo.BaseMutationOptions<Types.LoadNewDocumentFromApiMutation, Types.LoadNewDocumentFromApiMutationVariables>;
 export const DocumentDetailsDocument = gql`
     query DocumentDetails($id: ID!) {
   document(id: $id) {

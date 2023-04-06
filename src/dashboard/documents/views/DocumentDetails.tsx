@@ -10,10 +10,10 @@ import NotFound from "@portal/components/NotFound";
 import DocumentDetailsPage from "@portal/dashboard/documents/components/DocumentDetailsPage";
 import {
   DocumentInput,
-  DocumentUpdateMutation,
   useDocumentDeleteMutation,
   useDocumentDetailsQuery,
   useDocumentUpdateMutation,
+  useLoadNewDocumentFromApiMutation,
   useRequestNewDocumentMutation,
 } from "@portal/graphql";
 import { useLinks, useModal } from "@portal/hooks";
@@ -24,7 +24,7 @@ export const DocumentDetails = () => {
   const { entry: type, id, documentId } = useParams();
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { data, loading, error, refetch } = useDocumentDetailsQuery({
+  const { data, loading, refetch } = useDocumentDetailsQuery({
     fetchPolicy: "network-only",
     variables: { id: documentId },
   });
@@ -34,16 +34,14 @@ export const DocumentDetails = () => {
 
   const { entryDetails } = useLinks();
 
-  const handleUpdateDocument = (data: DocumentUpdateMutation) => {
-    if (!data?.documentUpdate.errors.length) {
-      toast(t("messages.update.success"), { type: toast.TYPE.SUCCESS });
-      setFile(null);
-      refetch();
-    }
-  };
-
   const [updateDocument, updateDocumentResult] = useDocumentUpdateMutation({
-    onCompleted: handleUpdateDocument,
+    onCompleted: (data) => {
+      if (!data?.documentUpdate.errors.length) {
+        toast(t("messages.update.success"), { type: toast.TYPE.SUCCESS });
+        setFile(null);
+        refetch();
+      }
+    },
   });
 
   const handleSubmit = async (data: DocumentInput) => {
@@ -53,6 +51,26 @@ export const DocumentDetails = () => {
   const [deleteDocument] = useDocumentDeleteMutation({
     onCompleted: () => navigate(entryDetails(type, id)),
   });
+
+  const handleDocumentDelete = async () => {
+    await deleteDocument({
+      variables: { id: documentId },
+    });
+  };
+
+  const [loadNewDocumentFromApi, loadNewDocumentFromApiResult] =
+    useLoadNewDocumentFromApiMutation({
+      onCompleted: (data) => {
+        if (!data?.loadNewDocumentFromApi?.errors?.length) {
+          toast(t("messages.update.success"), { type: toast.TYPE.SUCCESS });
+          refetch();
+        }
+      },
+    });
+
+  const handleLoadNewDocumentFromApi = async () => {
+    await loadNewDocumentFromApi({ variables: { id: documentId } });
+  };
 
   const [requestNewDocument, requestNewDocumentResult] =
     useRequestNewDocumentMutation({
@@ -67,19 +85,13 @@ export const DocumentDetails = () => {
       },
     });
 
-  const { handleAction } = useDocumentActions({ callback: refetch });
-
-  const handleDocumentDelete = async () => {
-    await deleteDocument({
-      variables: { id: documentId },
-    });
-  };
-
   const handleRequestNewDocument = async () => {
     await requestNewDocument({
       variables: { id: documentId },
     });
   };
+
+  const { handleAction } = useDocumentActions({ callback: refetch });
 
   if (loading) return <CircularLoading />;
 
@@ -94,8 +106,10 @@ export const DocumentDetails = () => {
         setFile={setFile}
         onDelete={deleteModal.openModal}
         onRequest={requestModal.openModal}
+        onLoadFromAPI={handleLoadNewDocumentFromApi}
         errors={updateDocumentResult.data?.documentUpdate.errors || []}
         loading={updateDocumentResult.loading}
+        loadingFromAPI={loadNewDocumentFromApiResult.loading}
         onFileAction={handleAction}
       />
       <ActionDialog

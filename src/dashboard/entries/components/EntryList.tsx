@@ -28,7 +28,7 @@ export const EntryList = ({
   selected,
   toolbar,
 }: EntryListProps) => {
-  const numberOfColumns = entries?.length === 0 ? 3 : 4;
+  const numberOfColumns = entries?.length === 0 ? 4 : 5;
   const { t } = useTranslation();
   const { entry: type } = useParams();
   const { entryDetails } = useLinks();

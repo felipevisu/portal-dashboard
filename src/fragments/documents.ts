@@ -43,6 +43,7 @@ export const documentDetailsFragment = gql`
     expires
     created
     updated
+    loadType
     defaultFile {
       ...DocumentFile
     }

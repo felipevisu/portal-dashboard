@@ -127,8 +127,18 @@
 		"requestCard": {
 			"title": "Novo Arquivo",
 			"description": "Solicite um novo arquivo ao fornecedor.",
-			"helper": "O responsável pelo documento será notificado por email com link para formulário onde poderá enviar um novo arquivo. O arquivo deve ser aprovado por um administrador da plataforma para então ser disponibilizado no site público.",
+			"helper": "O responsável pelo documento será notificado por email com link para formulário onde poderá enviar um novo arquivo.",
 			"button": "Solicite agora"
+		},
+		"loadCard": {
+			"title": "Consultar arquivo via API",
+			"description": "Pesquisar novo arquivo utilizando APIs conectadas a plataforma.",
+			"button": "Consultar agora"
+		},
+		"loadType":{
+			"label": "Consulta otimizada",
+			"EMPTY": "Nenhuma",
+			"CONSULT_CORRECTIONAL_NEGATIVE_CERTIFICATE": "Certidão Negativa Correcional (CGU-PJ, CEIS, CNEP e CEPIM)"
 		}
 	},
 	"documentNumber": "CNPJ/CPF",

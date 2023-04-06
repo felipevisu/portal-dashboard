@@ -95,3 +95,13 @@ export const requestNewDocumentMutation = gql`
     }
   }
 `;
+
+export const loadNewDocumentFromApiMutation = gql`
+  mutation LoadNewDocumentFromAPI($id: ID!) {
+    loadNewDocumentFromApi(id: $id) {
+      errors {
+        ...Error
+      }
+    }
+  }
+`;
