@@ -382,6 +382,50 @@ export const SessionDetailsFragmentDoc = gql`
   isPublished
 }
     `;
+export const CheckDocumentLoadStatusDocument = gql`
+    query CheckDocumentLoadStatus($id: ID!) {
+  documentLoad(id: $id) {
+    id
+    document {
+      id
+      name
+    }
+    documentFile {
+      id
+    }
+    status
+    errorMessage
+  }
+}
+    `;
+
+/**
+ * __useCheckDocumentLoadStatusQuery__
+ *
+ * To run a query within a React component, call `useCheckDocumentLoadStatusQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCheckDocumentLoadStatusQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCheckDocumentLoadStatusQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useCheckDocumentLoadStatusQuery(baseOptions: Apollo.QueryHookOptions<Types.CheckDocumentLoadStatusQuery, Types.CheckDocumentLoadStatusQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<Types.CheckDocumentLoadStatusQuery, Types.CheckDocumentLoadStatusQueryVariables>(CheckDocumentLoadStatusDocument, options);
+      }
+export function useCheckDocumentLoadStatusLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.CheckDocumentLoadStatusQuery, Types.CheckDocumentLoadStatusQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<Types.CheckDocumentLoadStatusQuery, Types.CheckDocumentLoadStatusQueryVariables>(CheckDocumentLoadStatusDocument, options);
+        }
+export type CheckDocumentLoadStatusQueryHookResult = ReturnType<typeof useCheckDocumentLoadStatusQuery>;
+export type CheckDocumentLoadStatusLazyQueryHookResult = ReturnType<typeof useCheckDocumentLoadStatusLazyQuery>;
+export type CheckDocumentLoadStatusQueryResult = Apollo.QueryResult<Types.CheckDocumentLoadStatusQuery, Types.CheckDocumentLoadStatusQueryVariables>;
 export const AttributeCreateDocument = gql`
     mutation AttributeCreate($input: AttributeCreateInput!) {
   attributeCreate(input: $input) {

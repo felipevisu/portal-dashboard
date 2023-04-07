@@ -458,6 +458,13 @@ export type SessionSortingInput = {
   field: SessionSortField;
 };
 
+export type CheckDocumentLoadStatusQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type CheckDocumentLoadStatusQuery = { __typename: 'Query', documentLoad: { __typename: 'DocumentLoad', id: string, status: DocumentLoadStatusEnum | null, errorMessage: string | null, document: { __typename: 'Document', id: string, name: string } | null, documentFile: { __typename: 'DocumentFile', id: string } | null } | null };
+
 export type AttributeCreateMutationVariables = Exact<{
   input: AttributeCreateInput;
 }>;

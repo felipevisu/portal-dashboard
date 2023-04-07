@@ -7,6 +7,7 @@ import { DialogContentText } from "@mui/material";
 import ActionDialog from "@portal/components/ActionDialog";
 import CircularLoading from "@portal/components/Circular";
 import NotFound from "@portal/components/NotFound";
+import { Task } from "@portal/containers/BackgroundTasks/types";
 import DocumentDetailsPage from "@portal/dashboard/documents/components/DocumentDetailsPage";
 import {
   DocumentInput,
@@ -17,6 +18,7 @@ import {
   useRequestNewDocumentMutation,
 } from "@portal/graphql";
 import { useLinks, useModal } from "@portal/hooks";
+import useBackgroundTask from "@portal/hooks/useBackgroundTask";
 
 import { useDocumentActions } from "./hooks";
 
@@ -30,6 +32,7 @@ export const DocumentDetails = () => {
   });
   const deleteModal = useModal();
   const requestModal = useModal();
+  const { queue } = useBackgroundTask();
   const [file, setFile] = useState<File | null>(null);
 
   const { entryDetails } = useLinks();
@@ -63,6 +66,11 @@ export const DocumentDetails = () => {
       onCompleted: (data) => {
         if (!data.loadNewDocumentFromApi?.errors?.length) {
           toast(t("document.messages.updating"), { type: toast.TYPE.WARNING });
+          queue(Task.DOCUMENT_LOAD, {
+            loadDocument: {
+              id: data.loadNewDocumentFromApi.documentLoad.id,
+            },
+          });
         } else {
           const message = data.loadNewDocumentFromApi?.errors[0]?.message;
           toast(message, { type: toast.TYPE.ERROR });

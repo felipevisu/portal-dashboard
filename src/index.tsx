@@ -11,6 +11,7 @@ import { BrowserTracing } from "@sentry/tracing";
 
 import { BacklinkProvider } from "./components/Backlink/context";
 import { SavebarProvider } from "./components/Savebar/context";
+import BackgroundTasksProvider from "./containers/BackgroundTasks/BackgroundTasksProvider";
 import client from "./graphql/client";
 import pt from "./lang/pt.json";
 import { DocumentPublicUpdate } from "./website/documents/views";
@@ -57,11 +58,13 @@ root.render(
   <ApolloProvider client={client}>
     <BrowserRouter>
       <ThemeProvider theme={theme}>
-        <BacklinkProvider>
-          <SavebarProvider>
-            <RoutesComponent />
-          </SavebarProvider>
-        </BacklinkProvider>
+        <BackgroundTasksProvider>
+          <BacklinkProvider>
+            <SavebarProvider>
+              <RoutesComponent />
+            </SavebarProvider>
+          </BacklinkProvider>
+        </BackgroundTasksProvider>
       </ThemeProvider>
     </BrowserRouter>
   </ApolloProvider>
