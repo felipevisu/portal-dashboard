@@ -61,9 +61,11 @@ export const DocumentDetails = () => {
   const [loadNewDocumentFromApi, loadNewDocumentFromApiResult] =
     useLoadNewDocumentFromApiMutation({
       onCompleted: (data) => {
-        if (!data?.loadNewDocumentFromApi?.errors?.length) {
-          toast(t("messages.update.success"), { type: toast.TYPE.SUCCESS });
-          refetch();
+        if (!data.loadNewDocumentFromApi?.errors?.length) {
+          toast(t("document.messages.updating"), { type: toast.TYPE.WARNING });
+        } else {
+          const message = data.loadNewDocumentFromApi?.errors[0]?.message;
+          toast(message, { type: toast.TYPE.ERROR });
         }
       },
     });

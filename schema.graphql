@@ -560,11 +560,26 @@ input DocumentInput {
   publicationDate: Date
 }
 
+type DocumentLoad implements Node {
+  document: Document
+  documentFile: DocumentFile
+  errorMessage: String
+  id: ID!
+  status: DocumentLoadStatusEnum
+}
+
 """An enumeration."""
 enum DocumentLoadOptionsEnum {
   CONSULT_CORRECTIONAL_NEGATIVE_CERTIFICATE
   CONSULT_LABOR_DEBIT_CLEARANCE_CERTIFIACATE
   EMPTY
+}
+
+"""An enumeration."""
+enum DocumentLoadStatusEnum {
+  ERROR
+  PENDING
+  SUCCESS
 }
 
 enum DocumentSortField {
@@ -765,6 +780,7 @@ enum EventTypesEnum {
   DOCUMENT_CREATE
   DOCUMENT_DECLINED
   DOCUMENT_DELETED
+  DOCUMENT_LOADED_FROM_API
   DOCUMENT_RECEIVED
   DOCUMENT_REQUESTED
   DOCUMENT_UPDATED
@@ -922,7 +938,7 @@ schema (one of the key benefits of GraphQL).
 scalar JSONString
 
 type LoadNewDocumentFromAPI {
-  document: Document
+  documentLoad: DocumentLoad
   errors: [Error!]!
 }
 
@@ -1162,6 +1178,9 @@ type Query {
   """List of all channels."""
   channels: [Channel!]
   document(id: ID): Document
+
+  "\n\nRequires one of the following permissions: MANAGE_DOCUMENTS."
+  documentLoad(id: ID): DocumentLoad
   documents(after: String, before: String, filter: DocumentFilterInput, first: Int, last: Int, sortBy: DocumentSortingInput): DocumentCountableConnection
   entries(after: String, before: String, filter: EntryFilterInput, first: Int, last: Int, sortBy: EntrySortingInput): EntryCountableConnection
   entry(id: ID, slug: String): Entry

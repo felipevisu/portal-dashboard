@@ -169,6 +169,20 @@ export const DocumentDetailsFragmentDoc = gql`
 }
     ${DocumentFileFragmentDoc}
 ${EventFragmentDoc}`;
+export const DocumentLoadFragmentDoc = gql`
+    fragment DocumentLoad on DocumentLoad {
+  id
+  document {
+    id
+    name
+  }
+  documentFile {
+    id
+  }
+  status
+  errorMessage
+}
+    `;
 export const EntryFragmentDoc = gql`
     fragment Entry on Entry {
   id
@@ -1368,9 +1382,13 @@ export const LoadNewDocumentFromApiDocument = gql`
     errors {
       ...Error
     }
+    documentLoad {
+      ...DocumentLoad
+    }
   }
 }
-    ${ErrorFragmentDoc}`;
+    ${ErrorFragmentDoc}
+${DocumentLoadFragmentDoc}`;
 export type LoadNewDocumentFromApiMutationFn = Apollo.MutationFunction<Types.LoadNewDocumentFromApiMutation, Types.LoadNewDocumentFromApiMutationVariables>;
 
 /**

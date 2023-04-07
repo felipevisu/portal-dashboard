@@ -102,6 +102,9 @@ export const loadNewDocumentFromApiMutation = gql`
       errors {
         ...Error
       }
+      documentLoad {
+        ...DocumentLoad
+      }
     }
   }
 `;

@@ -60,3 +60,18 @@ export const documentDetailsFragment = gql`
     }
   }
 `;
+
+export const documentLoadFragment = gql`
+  fragment DocumentLoad on DocumentLoad {
+    id
+    document {
+      id
+      name
+    }
+    documentFile {
+      id
+    }
+    status
+    errorMessage
+  }
+`;
