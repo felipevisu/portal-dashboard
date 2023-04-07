@@ -17,11 +17,16 @@ export interface OnCompletedTaskData {
   name?: string;
 }
 
+export interface TaskHandle {
+  status: TaskStatus;
+  name?: string;
+}
+
 export type OnCompletedTaskFn = (data: OnCompletedTaskData) => void;
 
 export interface QueuedTask {
   id: number;
-  handle: () => Promise<TaskStatus>;
+  handle: () => Promise<TaskHandle>;
   status: TaskStatus;
   onCompleted: OnCompletedTaskFn;
   onError: (error: Error) => void;
@@ -30,7 +35,7 @@ export interface QueuedTask {
 export interface TaskData {
   loadDocument?: DocumentLoadParams;
   id?: string;
-  handle?: () => Promise<TaskStatus>;
+  handle?: () => Promise<TaskHandle>;
   onCompleted?: OnCompletedTaskFn;
   onError?: () => void;
 }

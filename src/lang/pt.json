@@ -8,6 +8,12 @@
 		"DOCUMENT_RECEIVED": "Document recebido aguardando aprovação",
 		"DOCUMENT_LOADED_FROM_API": "Novo documento carregado pela API"
 	},
+	"tasks":{
+		"documentLoad": {
+			"success": "O document {{ name }} foi atualizado com sucesso",
+			"error": "Ocorreu um erro ao atualizar o document {{ name }}."
+		}
+	},
 	"attribute": {
 		"title": "Atributo",
 		"plural": "Atributos",

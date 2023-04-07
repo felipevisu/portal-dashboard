@@ -1,3 +1,4 @@
+import i18next from "i18next";
 import { toast } from "react-toastify";
 
 import { ApolloQueryResult } from "@apollo/client";
@@ -22,10 +23,12 @@ function getTaskStatus(status: DocumentLoadStatusEnum): TaskStatus {
 export async function handleTask(task: QueuedTask): Promise<TaskStatus> {
   let status = TaskStatus.PENDING;
   try {
-    status = await task.handle();
+    const data = await task.handle();
+    status = data.status;
     if (status !== TaskStatus.PENDING) {
       task.onCompleted({
         status,
+        name: data.name,
       });
     }
   } catch (error) {
@@ -48,19 +51,27 @@ export function queueDocumentLoad(
   tasks: React.MutableRefObject<QueuedTask[]>,
   fetch: () => Promise<ApolloQueryResult<CheckDocumentLoadStatusQuery>>
 ) {
+  const { t } = i18next;
   tasks.current = [
     ...tasks.current,
     {
       handle: async () => {
         const result = await fetch();
         const status = result.data.documentLoad.status;
-        return getTaskStatus(status);
+        return {
+          status: getTaskStatus(status),
+          name: result.data.documentLoad.document.name,
+        };
       },
       id,
       onCompleted: (data) => {
         data.status === TaskStatus.SUCCESS
-          ? toast("success", { type: toast.TYPE.SUCCESS })
-          : toast("error", { type: toast.TYPE.ERROR });
+          ? toast(t("tasks.documentLoad.success", { name: data.name }), {
+              type: toast.TYPE.SUCCESS,
+            })
+          : toast(t("tasks.documentLoad.error", { name: data.name }), {
+              type: toast.TYPE.ERROR,
+            });
       },
       onError: handleError,
       status: TaskStatus.PENDING,
