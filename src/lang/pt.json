@@ -5,13 +5,14 @@
 	"address": "Endereço",
 	"events": {
 		"DOCUMENT_REQUESTED": "Novo documento solicitado",
-		"DOCUMENT_RECEIVED": "Document recebido aguardando aprovação",
-		"DOCUMENT_LOADED_FROM_API": "Novo documento carregado pela API"
+		"DOCUMENT_RECEIVED": "Documento recebido aguardando aprovação",
+		"DOCUMENT_LOADED_FROM_API": "Documento atualizado via API",
+		"DOCUMENT_CREATED": "Documento criado"
 	},
 	"tasks":{
 		"documentLoad": {
-			"success": "O document {{ name }} foi atualizado com sucesso",
-			"error": "Ocorreu um erro ao atualizar o document {{ name }}."
+			"success": "O documento {{ name }} foi atualizado com sucesso",
+			"error": "Ocorreu um erro ao atualizar o documento {{ name }}."
 		}
 	},
 	"attribute": {
@@ -149,7 +150,8 @@
 			"label": "Consulta otimizada",
 			"EMPTY": "Nenhuma",
 			"CONSULT_CORRECTIONAL_NEGATIVE_CERTIFICATE": "Certidão Negativa Correcional (CGU-PJ, CEIS, CNEP e CEPIM)",
-			"CONSULT_LABOR_DEBIT_CLEARANCE_CERTIFIACATE": "Tribunal Superior do Trabalho / CNDT"
+			"CONSULT_LABOR_DEBIT_CLEARANCE_CERTIFIACATE": "Tribunal Superior do Trabalho / CNDT",
+			"CONSULT_EMPLOYER_REGULARITY_FGTS": "FGTS - Caixa Econômica Federal"
 		}
 	},
 	"documentNumber": "CNPJ/CPF",

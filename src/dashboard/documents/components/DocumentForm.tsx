@@ -123,6 +123,13 @@ export const DocumentForm = ({ data, errors, onChange }: DocumentFormProps) => {
                 `document.loadType.${DocumentLoadOptionsEnum.CONSULT_LABOR_DEBIT_CLEARANCE_CERTIFIACATE}`
               )}
             </MenuItem>
+            <MenuItem
+              value={DocumentLoadOptionsEnum.CONSULT_EMPLOYER_REGULARITY_FGTS}
+            >
+              {t(
+                `document.loadType.${DocumentLoadOptionsEnum.CONSULT_EMPLOYER_REGULARITY_FGTS}`
+              )}
+            </MenuItem>
           </Select>
         </FormControl>
       </CardContent>

@@ -4601,6 +4601,12 @@
             "deprecationReason": null
           },
           {
+            "name": "CONSULT_EMPLOYER_REGULARITY_FGTS",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "CONSULT_LABOR_DEBIT_CLEARANCE_CERTIFIACATE",
             "description": null,
             "isDeprecated": false,
@@ -6108,7 +6114,7 @@
             "deprecationReason": null
           },
           {
-            "name": "DOCUMENT_CREATE",
+            "name": "DOCUMENT_CREATED",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
