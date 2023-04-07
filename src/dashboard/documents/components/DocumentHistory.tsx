@@ -10,6 +10,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
 } from "@mui/material";
@@ -47,46 +48,48 @@ export const DocumentHistory = ({
   return (
     <Card>
       <CardHeader title={t("filesHistory")} />
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCellHeader>{t("file.title")}</TableCellHeader>
-            <TableCellHeader>Início</TableCellHeader>
-            <TableCellHeader>Término</TableCellHeader>
-            <TableCellHeader>{t("status")}</TableCellHeader>
-            <TableCellHeader align="right">{t("actions")}</TableCellHeader>
-          </TableRow>
-        </TableHead>
-        <TableBody
-          sx={{
-            ".MuiTableRow-root:last-of-type .MuiTableCell-root": {
-              border: "none",
-            },
-          }}
-        >
-          {files.map((file) => (
-            <TableRow key={file.id}>
-              <TableCell sx={{ paddingLeft: 3 }}>
-                <Link href={file.file.url} target="_blank" rel="noreferrer">
-                  {file.file.url.split("/").reverse()[0]}
-                </Link>
-              </TableCell>
-              <TableCell>{formatDate(file.beginDate)}</TableCell>
-              <TableCell>{formatDate(file.expirationDate)}</TableCell>
-              <TableCell>
-                <Chip
-                  label={label[file.status]}
-                  color={variant[file.status]}
-                  size="small"
-                />
-              </TableCell>
-              <TableCell align="right">
-                <FileMenu documentFile={file} onFileAction={onFileAction} />
-              </TableCell>
+      <TableContainer>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCellHeader>{t("file.title")}</TableCellHeader>
+              <TableCellHeader>Início</TableCellHeader>
+              <TableCellHeader>Término</TableCellHeader>
+              <TableCellHeader>{t("status")}</TableCellHeader>
+              <TableCellHeader align="right">{t("actions")}</TableCellHeader>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHead>
+          <TableBody
+            sx={{
+              ".MuiTableRow-root:last-of-type .MuiTableCell-root": {
+                border: "none",
+              },
+            }}
+          >
+            {files.map((file) => (
+              <TableRow key={file.id}>
+                <TableCell sx={{ paddingLeft: 3 }}>
+                  <Link href={file.file.url} target="_blank" rel="noreferrer">
+                    {file.file.url.split("/").reverse()[0]}
+                  </Link>
+                </TableCell>
+                <TableCell>{formatDate(file.beginDate)}</TableCell>
+                <TableCell>{formatDate(file.expirationDate)}</TableCell>
+                <TableCell>
+                  <Chip
+                    label={label[file.status]}
+                    color={variant[file.status]}
+                    size="small"
+                  />
+                </TableCell>
+                <TableCell align="right">
+                  <FileMenu documentFile={file} onFileAction={onFileAction} />
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </Card>
   );
 };

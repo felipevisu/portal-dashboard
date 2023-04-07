@@ -7,16 +7,7 @@ const spacing = (value = 1) => `${(value * 8) / 16}rem`;
 const theme = createTheme({
   spacing,
   palette: {
-    text: {
-      primary: "#28234a",
-      secondary: "rgba(40, 35, 74, 0.6)",
-    },
-    primary: {
-      main: "#056dff",
-    },
-    error: {
-      main: "#b63755",
-    },
+    mode: "light",
   },
   components: {
     MuiAccordion: {
@@ -83,7 +74,6 @@ const theme = createTheme({
       letterSpacing: "0.02rem",
     },
     body1: {
-      color: "#333",
       fontSize: "1rem",
     },
     body2: {

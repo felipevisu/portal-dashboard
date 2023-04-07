@@ -33,7 +33,7 @@ export const MenuItem = styled(Box, {
   marginBottom: theme.spacing(2),
   color: active ? theme.palette.primary.main : theme.palette.text.secondary,
   "&:hover": { color: theme.palette.primary.main },
-  background: active ? "white" : "",
+  background: active ? theme.palette.action.selected : "",
   borderRadius: "0 8px 8px 0",
   width: opened ? "320px" : "72px",
   transition: "all ease 300ms",
@@ -53,8 +53,6 @@ export const OpenClose = styled(IconButton)(({ theme }) => ({
   top: "16px",
   left: "16px",
   width: "40px",
-  background: theme.palette.primary.main,
-  color: "white",
+  background: theme.palette.action.selected,
   marginBottom: theme.spacing(2),
-  "&:hover": { background: theme.palette.primary.dark },
 }));

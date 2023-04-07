@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import { styled } from "@mui/material";
+import { Paper, styled } from "@mui/material";
 
 export const SettingsGrid = styled("div")(({ theme }) => ({
   display: "grid",
@@ -9,15 +9,10 @@ export const SettingsGrid = styled("div")(({ theme }) => ({
 }));
 
 export const SettingsLink = styled(Link)(() => ({
-  backgroundColor: "#fff",
   borderRadius: 8,
-  transition: "all ease 300ms",
-  "&:hover": {
-    boxShadow: "0px 7px 36px -20px rgba(0,0,0,0.4)",
-  },
 }));
 
-export const NavigationCard = styled("div")(({ theme }) => ({
+export const NavigationCard = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(3),
   display: "flex",
   alignItems: "center",

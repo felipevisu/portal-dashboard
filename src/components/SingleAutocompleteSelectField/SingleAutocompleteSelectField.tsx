@@ -164,7 +164,6 @@ export const SingleAutocompleteSelectField: React.FC<
               endAdornment: (
                 <Box
                   {...getToggleButtonProps()}
-                  color="#757575"
                   sx={{ marginTop: 1, marginRight: -1 }}
                 >
                   <ArrowDropDownIcon />
