@@ -24,6 +24,7 @@ interface DocumentOrganizationProps {
   errors: ErrorFragment[];
   expires: boolean;
   onChange: (e: ChangeEvent) => void;
+  disabled: boolean;
 }
 
 export const DocumentOrganization = ({
@@ -31,6 +32,7 @@ export const DocumentOrganization = ({
   onChange,
   expires,
   errors,
+  disabled,
 }: DocumentOrganizationProps) => {
   const formErrors = getFormErrors(
     ["isPublished", "expires", "beginDate", "expirationDate"],
@@ -48,6 +50,7 @@ export const DocumentOrganization = ({
             name="isPublished"
             checked={data.isPublished}
             onChange={onChange}
+            disabled={disabled}
           />
           <FormHelperText>{t("helperText.isPublished")}</FormHelperText>
         </FormControl>
@@ -60,6 +63,7 @@ export const DocumentOrganization = ({
                 name="expires"
                 checked={data.expires}
                 onChange={onChange}
+                disabled={disabled}
               />
               <FormHelperText>{t("helperText.expires")}</FormHelperText>
             </FormControl>
@@ -84,6 +88,7 @@ export const DocumentOrganization = ({
                 renderInput={(params) => (
                   <TextField {...params} error={!!formErrors.beginDate} />
                 )}
+                disabled={disabled}
               />
               <FormHelperText>{t("helperText.beginDate")}</FormHelperText>
             </FormControl>
@@ -108,6 +113,7 @@ export const DocumentOrganization = ({
                     helperText={formErrors.expirationDate?.message}
                   />
                 )}
+                disabled={disabled}
               />
               <FormHelperText>{t("helperText.expirationDate")}</FormHelperText>
             </FormControl>

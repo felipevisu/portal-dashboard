@@ -26,7 +26,7 @@ export const CategoryList = ({
   selected,
   toolbar,
 }: CategoryListProps) => {
-  const numberOfColumns = categories?.length === 0 ? 2 : 3;
+  const numberOfColumns = categories?.length === 0 ? 3 : 4;
   const { t } = useTranslation();
   const { categoryDetails } = useLinks();
 

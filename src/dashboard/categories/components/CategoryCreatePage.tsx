@@ -40,7 +40,12 @@ export const CategoryCreatePage = ({
           <>
             <Backlink href={categoryList()}>{t("back")}</Backlink>
             <PageHeader title={t("category.create")} />
-            <CategoryForm errors={errors} onChange={change} data={data} />
+            <CategoryForm
+              errors={errors}
+              onChange={change}
+              data={data}
+              disabled={loading}
+            />
             <Savebar
               onSubmit={submit}
               onCancel={() => navigate(categoryList())}

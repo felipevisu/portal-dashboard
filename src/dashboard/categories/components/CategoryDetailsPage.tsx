@@ -52,7 +52,12 @@ export const CategoryDetailsPage = ({
           <>
             <Backlink href={categoryList()}>{t("back")}</Backlink>
             <PageHeader title={`${t("category.title")}: ${category?.name}`} />
-            <CategoryForm errors={errors} onChange={change} data={data} />
+            <CategoryForm
+              errors={errors}
+              onChange={change}
+              data={data}
+              disabled={loading}
+            />
             <Savebar
               onSubmit={submit}
               onDelete={handleDelete}

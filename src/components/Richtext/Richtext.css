@@ -1,6 +1,5 @@
 .RichEditor-root {
-  background: #fff;
-  border: 1px solid #ccc;
+  border: 1px solid;
   border-radius: 4px;
   font-family: 'Inter', sans-serif;
   font-size: 16px;
@@ -8,7 +7,7 @@
 }
 
 .RichEditor-editor {
-  border-top: 1px solid #ccc;
+  border-top: 1px solid;
   cursor: text;
   font-size: 16px;
   margin-top: 10px;
@@ -42,8 +41,7 @@
 }
 
 .RichEditor-editor .RichEditor-blockquote {
-  border-left: 5px solid #eee;
-  color: #666;
+  border-left: 5px solid;
   font-family: 'Hoefler Text', 'Georgia', serif;
   font-style: italic;
   margin: 16px 0;
@@ -64,13 +62,8 @@
 }
 
 .RichEditor-styleButton {
-  color: #999;
   cursor: pointer;
   margin-right: 16px;
   padding: 2px 0;
   display: inline-block;
-}
-
-.RichEditor-activeButton {
-  color: #5890ff;
 }

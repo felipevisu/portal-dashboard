@@ -96,7 +96,12 @@ export const DocumentDetailsPage = ({
             />
             <Grid container spacing={2}>
               <Grid item xs={8}>
-                <DocumentForm data={data} errors={errors} onChange={change} />
+                <DocumentForm
+                  data={data}
+                  errors={errors}
+                  onChange={change}
+                  disabled={loading}
+                />
                 <DocumentFile
                   file={file}
                   fileName={document.defaultFile?.file?.url || ""}
@@ -127,7 +132,12 @@ export const DocumentDetailsPage = ({
                     </FormHelperText>
                   </CardContent>
                   <CardActions>
-                    <Button onClick={onRequest} variant="contained" fullWidth>
+                    <Button
+                      disabled={loading}
+                      onClick={onRequest}
+                      variant="contained"
+                      fullWidth
+                    >
                       {t("document.requestCard.button")}
                     </Button>
                   </CardActions>
@@ -142,6 +152,7 @@ export const DocumentDetailsPage = ({
                     </CardContent>
                     <CardActions>
                       <LoadingButton
+                        disabled={loading}
                         loading={loadingFromAPI}
                         onClick={onLoadFromAPI}
                         variant="contained"
@@ -157,6 +168,7 @@ export const DocumentDetailsPage = ({
                   onChange={change}
                   data={data}
                   expires={false}
+                  disabled={loading}
                 />
               </Grid>
             </Grid>

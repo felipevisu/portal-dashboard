@@ -1,13 +1,17 @@
 import React, { useMemo } from "react";
 
 import { KeyboardArrowDown } from "@mui/icons-material";
-import { Box, Button, MenuItem } from "@mui/material";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
+import { Box, Button, MenuItem, Typography } from "@mui/material";
 import { useUser } from "@portal/dashboard/auth";
+import useThemeToggle from "@portal/hooks/useThemeToggle";
 
 import { StyledMenu } from "./styles";
 
 export const UserMenu = () => {
   const { user, logout } = useUser();
+  const { toggleColorMode, mode } = useThemeToggle();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -46,6 +50,19 @@ export const UserMenu = () => {
         onClose={handleClose}
       >
         <MenuItem onClick={logout}>Logout</MenuItem>
+        <MenuItem onClick={toggleColorMode}>
+          {mode === "dark" ? (
+            <>
+              <Brightness7Icon sx={{ marginRight: 1 }} />
+              <Typography>Modo claro</Typography>
+            </>
+          ) : (
+            <>
+              <Brightness4Icon sx={{ marginRight: 1 }} />
+              <Typography>Modo escuro</Typography>
+            </>
+          )}
+        </MenuItem>
       </StyledMenu>
     </Box>
   );

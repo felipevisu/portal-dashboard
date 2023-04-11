@@ -59,7 +59,12 @@ export const DocumentCreatePage = ({
             <PageHeader title={t("document.create")} />
             <Grid container spacing={2}>
               <Grid item xs={8}>
-                <DocumentForm errors={errors} onChange={change} data={data} />
+                <DocumentForm
+                  errors={errors}
+                  onChange={change}
+                  data={data}
+                  disabled={loading}
+                />
                 <DocumentFile
                   file={file}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -73,6 +78,7 @@ export const DocumentCreatePage = ({
                   onChange={change}
                   data={data}
                   expires={true}
+                  disabled={loading}
                 />
               </Grid>
             </Grid>

@@ -5,7 +5,7 @@ import { initReactI18next } from "react-i18next";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import { ApolloProvider } from "@apollo/client";
-import { ThemeProvider } from "@mui/material";
+import { CssBaseline } from "@mui/material";
 import * as Sentry from "@sentry/react";
 import { BrowserTracing } from "@sentry/tracing";
 
@@ -16,7 +16,7 @@ import client from "./graphql/client";
 import pt from "./lang/pt.json";
 import { DocumentPublicUpdate } from "./website/documents/views";
 import Dashboard from "./dashboard";
-import theme from "./theme";
+import { ColorModeProvider } from "./theme";
 
 import "react-toastify/dist/ReactToastify.css";
 import "./styles.css";
@@ -57,7 +57,8 @@ const RoutesComponent = () => {
 root.render(
   <ApolloProvider client={client}>
     <BrowserRouter>
-      <ThemeProvider theme={theme}>
+      <ColorModeProvider>
+        <CssBaseline />
         <BackgroundTasksProvider>
           <BacklinkProvider>
             <SavebarProvider>
@@ -65,7 +66,7 @@ root.render(
             </SavebarProvider>
           </BacklinkProvider>
         </BackgroundTasksProvider>
-      </ThemeProvider>
+      </ColorModeProvider>
     </BrowserRouter>
   </ApolloProvider>
 );

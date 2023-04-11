@@ -25,12 +25,18 @@ export type FormProps = {
 };
 
 interface CategoryFormProps {
+  disabled: boolean;
   data?: FormProps;
   errors: ErrorFragment[];
   onChange: (e: ChangeEvent) => void;
 }
 
-export const CategoryForm = ({ errors, data, onChange }: CategoryFormProps) => {
+export const CategoryForm = ({
+  errors,
+  data,
+  disabled,
+  onChange,
+}: CategoryFormProps) => {
   const formErrors = getFormErrors(["name", "slug", "type"], errors);
   const { t } = useTranslation();
 
@@ -50,6 +56,7 @@ export const CategoryForm = ({ errors, data, onChange }: CategoryFormProps) => {
                 value={data.name}
                 onChange={onChange}
                 helperText={formErrors.name?.message}
+                disabled={disabled}
               />
               <FormHelperText>{t("helperText.name")}</FormHelperText>
             </FormControl>
@@ -64,6 +71,7 @@ export const CategoryForm = ({ errors, data, onChange }: CategoryFormProps) => {
                 value={data.slug}
                 onChange={onChange}
                 helperText={formErrors.slug?.message}
+                disabled={disabled}
               />
               <FormHelperText>{t("helperText.slug")}</FormHelperText>
             </FormControl>
@@ -86,6 +94,7 @@ export const CategoryForm = ({ errors, data, onChange }: CategoryFormProps) => {
                 value={data.type}
                 onChange={onChange}
                 error={formErrors.type && true}
+                disabled={disabled}
               >
                 {[
                   { value: "VEHICLE", label: t("vehicles.title") },

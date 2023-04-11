@@ -149,9 +149,9 @@
 		"loadType":{
 			"label": "Consulta otimizada",
 			"EMPTY": "Nenhuma",
-			"CONSULT_CORRECTIONAL_NEGATIVE_CERTIFICATE": "Certidão Negativa Correcional (CGU-PJ, CEIS, CNEP e CEPIM)",
+			"CONSULT_CORRECTIONAL_NEGATIVE_CERTIFICATE": "Certidão Negativa Correcional / (CGU-PJ, CEIS, CNEP e CEPIM)",
 			"CONSULT_LABOR_DEBIT_CLEARANCE_CERTIFIACATE": "Tribunal Superior do Trabalho / CNDT",
-			"CONSULT_EMPLOYER_REGULARITY_FGTS": "FGTS - Caixa Econômica Federal"
+			"CONSULT_EMPLOYER_REGULARITY_FGTS": "Caixa Econômica Federal / FGTS"
 		}
 	},
 	"documentNumber": "CNPJ/CPF",

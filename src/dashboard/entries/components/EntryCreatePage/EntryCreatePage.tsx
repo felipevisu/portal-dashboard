@@ -83,17 +83,19 @@ export const EntryCreatePage = ({
                   categories={categories}
                   disabled={loading}
                 />
-                <Attributes
-                  attributes={data.attributes}
-                  attributeValues={attributeValues}
-                  loading={loading}
-                  errors={errors}
-                  onChange={handlers.selectAttribute}
-                  onMultiChange={handlers.selectAttributeMultiple}
-                  fetchAttributeValues={fetchAttributeValues}
-                  fetchMoreAttributeValues={fetchMoreAttributeValues}
-                  onAttributeSelectBlur={onAttributeSelectBlur}
-                />
+                {data.attributes.length && (
+                  <Attributes
+                    attributes={data.attributes}
+                    attributeValues={attributeValues}
+                    loading={loading}
+                    errors={errors}
+                    onChange={handlers.selectAttribute}
+                    onMultiChange={handlers.selectAttributeMultiple}
+                    fetchAttributeValues={fetchAttributeValues}
+                    fetchMoreAttributeValues={fetchMoreAttributeValues}
+                    onAttributeSelectBlur={onAttributeSelectBlur}
+                  />
+                )}
               </Grid>
               <Grid item xs={4}>
                 <EntryOrganization

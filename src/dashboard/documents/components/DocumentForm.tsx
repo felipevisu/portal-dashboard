@@ -36,6 +36,7 @@ interface DocumentFormProps {
   data?: FormProps;
   errors: ErrorFragment[];
   onChange: (e: ChangeEvent) => void;
+  disabled: boolean;
 }
 
 export const generateSubmitData = (data: FormProps) => {
@@ -52,7 +53,12 @@ export const generateSubmitData = (data: FormProps) => {
   return submit;
 };
 
-export const DocumentForm = ({ data, errors, onChange }: DocumentFormProps) => {
+export const DocumentForm = ({
+  data,
+  errors,
+  disabled,
+  onChange,
+}: DocumentFormProps) => {
   const formErrors = getFormErrors(
     ["name", "description", "beginDate", "expirationDate", "loadType"],
     errors
@@ -73,6 +79,7 @@ export const DocumentForm = ({ data, errors, onChange }: DocumentFormProps) => {
             value={data.name}
             onChange={onChange}
             helperText={formErrors.name?.message}
+            disabled={disabled}
           />
           <FormHelperText>{t("helperText.name")}</FormHelperText>
         </FormControl>
@@ -87,6 +94,7 @@ export const DocumentForm = ({ data, errors, onChange }: DocumentFormProps) => {
             value={data.description}
             onChange={onChange}
             helperText={formErrors.description?.message || "(Opcional)"}
+            disabled={disabled}
           />
         </FormControl>
         <FormSpacer />
@@ -101,6 +109,7 @@ export const DocumentForm = ({ data, errors, onChange }: DocumentFormProps) => {
             value={data.loadType || ""}
             onChange={onChange}
             error={formErrors.loadType && true}
+            disabled={disabled}
           >
             <MenuItem value={DocumentLoadOptionsEnum.EMPTY}>
               {t(`document.loadType.${DocumentLoadOptionsEnum.EMPTY}`)}
