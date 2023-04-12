@@ -18,6 +18,10 @@ export const getInputTypeList = (t) => {
       value: AttributeInputTypeEnum.DATE,
       label: t("attribute.enums.inputType.date"),
     },
+    {
+      value: AttributeInputTypeEnum.BOOLEAN,
+      label: t("attribute.enums.inputType.boolean"),
+    },
   ];
 };
 

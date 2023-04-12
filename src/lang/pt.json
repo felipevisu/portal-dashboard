@@ -46,7 +46,7 @@
 				"multiselect": "Múltipla seleção",
 				"plainText": "Texto",
 				"date": "Data",
-				"boolean": "Booleano",
+				"boolean": "Boleano",
 				"numeric": "Numérico"
 			}
 		},

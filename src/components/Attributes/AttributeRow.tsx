@@ -10,6 +10,7 @@ import {
   EntryErrorWithAttributesFragment,
 } from "@portal/graphql";
 
+import Checkbox from "../Checkbox";
 import MultiAutocompleteSelectField from "../MultiAutocompleteSelectField";
 import SingleAutocompleteSelectField from "../SingleAutocompleteSelectField";
 
@@ -117,6 +118,22 @@ export const AttributeRow: React.FC<AttributeRowProps> = ({
               disabled={loading}
             />
           </LocalizationProvider>
+        </BasicAttributeRow>
+      );
+    case AttributeInputTypeEnum.BOOLEAN:
+      return (
+        <BasicAttributeRow label={attribute.label}>
+          <div>
+            <Checkbox
+              disabled={loading}
+              name={`attribute:${attribute.label}`}
+              onChange={(event) =>
+                onChange(attribute.id, JSON.stringify(event.target.checked))
+              }
+              checked={JSON.parse(attribute.value[0] ?? "false")}
+              error={!!error}
+            />
+          </div>
         </BasicAttributeRow>
       );
   }
