@@ -1,6 +1,9 @@
 import React from "react";
+import dayjs, { Dayjs } from "dayjs";
 
 import { TextField } from "@mui/material";
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import {
   AttributeInputTypeEnum,
   AttributeValueFragment,
@@ -8,9 +11,7 @@ import {
 } from "@portal/graphql";
 
 import MultiAutocompleteSelectField from "../MultiAutocompleteSelectField";
-import MultiSelectField from "../MultiSelectField";
 import SingleAutocompleteSelectField from "../SingleAutocompleteSelectField";
-import SingleSelectField from "../SingleSelectField";
 
 import { AttributeInput, AttributeRowHandlers } from "./Attributes";
 import BasicAttributeRow from "./BasicAttributeRow";
@@ -97,6 +98,25 @@ export const AttributeRow: React.FC<AttributeRowProps> = ({
             type="text"
             value={attribute.value[0] || ""}
           />
+        </BasicAttributeRow>
+      );
+    case AttributeInputTypeEnum.DATE:
+      return (
+        <BasicAttributeRow label={attribute.label}>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              inputFormat="DD/MM/YYYY"
+              value={attribute.value[0] || ""}
+              label={"Valor"}
+              onChange={(value) => {
+                onChange(attribute.id, dayjs(value).format("YYYY-MM-DD"));
+              }}
+              renderInput={(params) => (
+                <TextField {...params} error={!!error} fullWidth />
+              )}
+              disabled={loading}
+            />
+          </LocalizationProvider>
         </BasicAttributeRow>
       );
   }

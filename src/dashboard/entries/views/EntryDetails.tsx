@@ -51,6 +51,7 @@ export const EntryDetails = () => {
   });
 
   const handleSubmit = async (data: EntryInput) => {
+    console.log(data);
     await updateEntry({ variables: { id: id, input: { ...data } } });
   };
 

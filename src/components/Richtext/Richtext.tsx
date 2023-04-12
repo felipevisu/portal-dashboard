@@ -3,6 +3,7 @@ import { Editor, EditorState, RichUtils } from "draft-js";
 
 import BlockStyleControls from "./BlockStyleControls";
 import InlineStyleControls from "./InlineStyleControls";
+import { RichtextRoot } from "./styles";
 
 import "./Richtext.css";
 
@@ -40,7 +41,7 @@ export const RichTextEditor = ({
   };
 
   return (
-    <div className="RichEditor-root">
+    <RichtextRoot>
       <BlockStyleControls
         editorState={editorState}
         onToggle={toggleBlockType}
@@ -52,7 +53,7 @@ export const RichTextEditor = ({
       <div className="RichEditor-editor">
         <Editor editorState={editorState} onChange={handleChange} />
       </div>
-    </div>
+    </RichtextRoot>
   );
 };
 

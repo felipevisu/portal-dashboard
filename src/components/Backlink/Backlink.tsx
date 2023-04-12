@@ -29,7 +29,7 @@ export const BacklinkComponent = <T extends React.ElementType>({
 
   return (
     <Portal container={anchor.current}>
-      <LayoutButton disabled={disabled} onClick={onClick} {...props}>
+      <LayoutButton disabled={disabled || false} onClick={onClick} {...props}>
         <ArrowBack />
         {children}
       </LayoutButton>

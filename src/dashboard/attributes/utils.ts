@@ -14,6 +14,10 @@ export const getInputTypeList = (t) => {
       value: AttributeInputTypeEnum.PLAIN_TEXT,
       label: t("attribute.enums.inputType.plainText"),
     },
+    {
+      value: AttributeInputTypeEnum.DATE,
+      label: t("attribute.enums.inputType.date"),
+    },
   ];
 };
 

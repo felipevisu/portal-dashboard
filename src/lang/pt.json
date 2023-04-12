@@ -46,7 +46,8 @@
 				"multiselect": "Múltipla seleção",
 				"plainText": "Texto",
 				"date": "Data",
-				"boolean": "Booleano"
+				"boolean": "Booleano",
+				"numeric": "Numérico"
 			}
 		},
 		"fields": {
@@ -181,6 +182,7 @@
 	"filesHistory": "Histórico de arquivos",
 	"filters": "Filtros",
 	"generalInfo": "Informações gerais",
+	"content": "Conteúdo",
 	"helperText": {
 		"name": "Este valor será utilizado para identificar este item dentro da plataforma e no site público.",
 		"slug": "Este campo será utilizado para gerar a URL deste item no site e não pode conter caracteres especiais. Deixe em branco durante a criação para o sistema gerá-lo automaticamente.",
