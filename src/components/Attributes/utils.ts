@@ -82,17 +82,11 @@ export function getSelectedAttributeValues(
     case AttributeInputTypeEnum.PLAIN_TEXT:
       return [attribute.values[0]?.plainText];
 
-    case AttributeInputTypeEnum.NUMERIC:
-      return [attribute.values[0]?.name];
-
     case AttributeInputTypeEnum.BOOLEAN:
       return [attribute.values[0]?.boolean ?? "false"];
 
     case AttributeInputTypeEnum.DATE:
       return [attribute.values[0]?.date];
-
-    case AttributeInputTypeEnum.DATE_TIME:
-      return [attribute.values[0]?.dateTime];
 
     default:
       return attribute.values.map((value) => value.slug);

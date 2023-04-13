@@ -5,6 +5,7 @@ import { AttributeInputData } from "@portal/components/Attributes/Attributes";
 import {
   createAttributeChangeHandler,
   createAttributeMultiChangeHandler,
+  createAttributeReferenceChangeHandler,
   prepareAttributesInput,
 } from "@portal/dashboard/attributes/utils/handlers";
 import {

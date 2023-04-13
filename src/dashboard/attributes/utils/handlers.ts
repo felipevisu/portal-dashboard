@@ -35,6 +35,14 @@ export function createAttributeMultiChangeHandler(
   };
 }
 
+export function createAttributeReferenceChangeHandler(
+  changeAttributeData: FormsetChange<string[]>
+): FormsetChange<string[]> {
+  return (attributeId: string, values: string[]) => {
+    changeAttributeData(attributeId, values);
+  };
+}
+
 function getBooleanInput(attribute: AttributeInput) {
   return {
     id: attribute.id,
@@ -90,13 +98,6 @@ export const prepareAttributesInput = ({
       attrInput.push({
         id: attr.id,
         date: attr.value[0],
-      });
-      return attrInput;
-    }
-    if (inputType === AttributeInputTypeEnum.DATE_TIME) {
-      attrInput.push({
-        id: attr.id,
-        dateTime: attr.value[0],
       });
       return attrInput;
     }

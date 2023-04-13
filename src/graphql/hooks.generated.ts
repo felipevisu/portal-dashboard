@@ -13,6 +13,7 @@ export const AttributeFragmentDoc = gql`
   filterableInDashboard
   filterableInWebsite
   inputType
+  entityType
   valueRequired
 }
     `;
@@ -41,9 +42,9 @@ export const AttributeValueFragmentDoc = gql`
   }
   boolean
   date
-  dateTime
   value
   plainText
+  reference
 }
     `;
 export const AttributeValueDetailsFragmentDoc = gql`

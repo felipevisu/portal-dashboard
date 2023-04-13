@@ -10,9 +10,9 @@ export const attributeValueFragment = gql`
     }
     boolean
     date
-    dateTime
     value
     plainText
+    reference
   }
 `;
 
@@ -34,6 +34,7 @@ export const attributeFragment = gql`
     filterableInDashboard
     filterableInWebsite
     inputType
+    entityType
     valueRequired
   }
 `;

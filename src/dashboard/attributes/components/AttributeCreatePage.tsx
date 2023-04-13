@@ -9,6 +9,7 @@ import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
 import {
   AttributeCreateInput,
+  AttributeEntityTypeEnum,
   AttributeInputTypeEnum,
   AttributeTypeEnum,
   AttributeValueCreateInput,
@@ -34,6 +35,16 @@ interface AttributeCreatePageProps {
   onDeleteValue: () => void;
 }
 
+export interface AttributePageFormData {
+  name: string;
+  slug: string;
+  type: AttributeTypeEnum;
+  inputType: AttributeInputTypeEnum;
+  entityType: AttributeEntityTypeEnum | null;
+  valueRequired: boolean;
+  visibleInWebsite: boolean;
+}
+
 export const AttributeCreatePage = ({
   onSubmit,
   errors,
@@ -45,10 +56,12 @@ export const AttributeCreatePage = ({
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { attributeList } = useLinks();
-  const initialData = {
+
+  const initialData: AttributePageFormData = {
     name: "",
     slug: "",
     type: AttributeTypeEnum.VEHICLE_AND_PROVIDER,
+    entityType: null,
     inputType: AttributeInputTypeEnum.DROPDOWN,
     valueRequired: false,
     visibleInWebsite: false,

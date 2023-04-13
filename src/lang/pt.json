@@ -46,8 +46,9 @@
 				"multiselect": "Múltipla seleção",
 				"plainText": "Texto",
 				"date": "Data",
-				"boolean": "Boleano",
-				"numeric": "Numérico"
+				"boolean": "Booleano",
+				"numeric": "Numérico",
+				"reference": "Referência"
 			}
 		},
 		"fields": {
@@ -56,7 +57,8 @@
 			"type": "Tipo de atribuição",
 			"inputType": "Tipo de campo",
 			"visibleInWebsite": "Visível no site",
-			"valueRequired": "Valor obrigatório"
+			"valueRequired": "Valor obrigatório",
+			"entityType": "Tipo de referência"
 		},
 		"helpers": {
 			"inputType": "Este campo não pode ser alterado após a criação do atributo.",

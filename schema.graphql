@@ -6,6 +6,7 @@ type ApproveDocumentFile {
 type Attribute implements Node {
   choices(after: String, before: String, filter: AttributeValueFilterInput, first: Int, last: Int, sortBy: AttributeChoicesSortingInput): AttributeValueCountableConnection
   documents(after: String, before: String, first: Int, last: Int): DocumentCountableConnection!
+  entityType: AttributeEntityTypeEnum
   entries(after: String, before: String, first: Int, last: Int): EntryCountableConnection!
   filterableInDashboard: Boolean!
   filterableInWebsite: Boolean!
@@ -59,6 +60,7 @@ type AttributeCreate {
 }
 
 input AttributeCreateInput {
+  entityType: AttributeEntityTypeEnum
   filterableInDashboard: Boolean
   filterableInWebsite: Boolean
   inputType: AttributeInputTypeEnum
@@ -73,6 +75,12 @@ input AttributeCreateInput {
 type AttributeDelete {
   attribute: Attribute
   errors: [Error!]!
+}
+
+"""An enumeration."""
+enum AttributeEntityTypeEnum {
+  PROVIDER
+  VEHICLE
 }
 
 input AttributeFilterInput {
@@ -90,12 +98,11 @@ input AttributeFilterInput {
 enum AttributeInputTypeEnum {
   BOOLEAN
   DATE
-  DATE_TIME
   DROPDOWN
   FILE
   MULTISELECT
-  NUMERIC
   PLAIN_TEXT
+  REFERENCE
   SWATCH
 }
 
@@ -154,12 +161,12 @@ input AttributeUpdateInput {
 type AttributeValue implements Node {
   boolean: Boolean
   date: Date
-  dateTime: DateTime
   file: File
   id: ID!
   inputType: AttributeInputTypeEnum
   name: String
   plainText: String
+  reference: ID
   slug: String
   value: String
 }
@@ -210,14 +217,15 @@ input AttributeValueInput {
   boolean: Boolean
   contentType: String
   date: Date
-  dateTime: DateTime
   dropdown: AttributeValueSelectableTypeInput
   file: String
   id: ID
   multiselect: [AttributeValueSelectableTypeInput!]
   numeric: String
   plainText: String
-  swatch: AttributeValueSelectableTypeInput
+
+  """List of entity IDs that will be used as references."""
+  references: [ID!]
   values: [String!]
 }
 

@@ -1,4 +1,8 @@
-import { AttributeInputTypeEnum, AttributeTypeEnum } from "@portal/graphql";
+import {
+  AttributeEntityTypeEnum,
+  AttributeInputTypeEnum,
+  AttributeTypeEnum,
+} from "@portal/graphql";
 
 export const getInputTypeList = (t) => {
   return [
@@ -21,6 +25,23 @@ export const getInputTypeList = (t) => {
     {
       value: AttributeInputTypeEnum.BOOLEAN,
       label: t("attribute.enums.inputType.boolean"),
+    },
+    {
+      value: AttributeInputTypeEnum.REFERENCE,
+      label: t("attribute.enums.inputType.reference"),
+    },
+  ];
+};
+
+export const getEntityTypeList = (t) => {
+  return [
+    {
+      value: AttributeEntityTypeEnum.PROVIDER,
+      label: t("providers.plural"),
+    },
+    {
+      value: AttributeEntityTypeEnum.VEHICLE,
+      label: t("vehicles.plural"),
     },
   ];
 };

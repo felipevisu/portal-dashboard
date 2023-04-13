@@ -1,7 +1,7 @@
 import React from "react";
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 
-import { TextField } from "@mui/material";
+import { Switch, TextField } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import {
@@ -10,7 +10,6 @@ import {
   EntryErrorWithAttributesFragment,
 } from "@portal/graphql";
 
-import Checkbox from "../Checkbox";
 import MultiAutocompleteSelectField from "../MultiAutocompleteSelectField";
 import SingleAutocompleteSelectField from "../SingleAutocompleteSelectField";
 
@@ -124,14 +123,14 @@ export const AttributeRow: React.FC<AttributeRowProps> = ({
       return (
         <BasicAttributeRow label={attribute.label}>
           <div>
-            <Checkbox
+            <Switch
               disabled={loading}
               name={`attribute:${attribute.label}`}
               onChange={(event) =>
                 onChange(attribute.id, JSON.stringify(event.target.checked))
               }
               checked={JSON.parse(attribute.value[0] ?? "false")}
-              error={!!error}
+              inputProps={{ "aria-label": "controlled" }}
             />
           </div>
         </BasicAttributeRow>
