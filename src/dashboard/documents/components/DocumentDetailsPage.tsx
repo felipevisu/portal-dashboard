@@ -89,7 +89,9 @@ export const DocumentDetailsPage = ({
       {({ change, submit, data }) => {
         return (
           <>
-            <Backlink href={entryDetails(type, entryId)}>{t("back")}</Backlink>
+            <Backlink href={entryDetails(type, entryId) + "?tab=1"}>
+              {t("back")}
+            </Backlink>
             <PageHeader
               title={`${t("document.title")}: ${document.name}`}
               limitText={document.entry.name}
