@@ -7,6 +7,7 @@
 		"DOCUMENT_REQUESTED": "Novo documento solicitado",
 		"DOCUMENT_RECEIVED": "Documento recebido aguardando aprovação",
 		"DOCUMENT_LOADED_FROM_API": "Documento atualizado via API",
+		"DOCUMENT_LOADED_FAIL": "Atualização do documento via API falhou",
 		"DOCUMENT_CREATED": "Documento criado"
 	},
 	"tasks":{

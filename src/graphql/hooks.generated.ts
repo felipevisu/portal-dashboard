@@ -138,6 +138,7 @@ export const EventFragmentDoc = gql`
   id
   date
   type
+  message
   user {
     ...User
   }
@@ -271,6 +272,7 @@ export const EventDetailsFragmentDoc = gql`
   id
   date
   type
+  message
   user {
     ...User
   }

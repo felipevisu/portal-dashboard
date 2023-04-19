@@ -6001,6 +6001,18 @@
             "deprecationReason": null
           },
           {
+            "name": "message",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "parameters",
             "description": null,
             "args": [],
@@ -6182,6 +6194,12 @@
           },
           {
             "name": "DOCUMENT_DELETED",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "DOCUMENT_LOADED_FAIL",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null

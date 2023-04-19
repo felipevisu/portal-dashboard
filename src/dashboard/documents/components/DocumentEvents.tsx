@@ -10,7 +10,7 @@ import {
   timelineItemClasses,
   TimelineSeparator,
 } from "@mui/lab";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { EventFragment } from "@portal/graphql";
 import { formatDateTime } from "@portal/utils/date";
 
@@ -39,8 +39,13 @@ export const DocumentEvents = ({ events }: DocumentEventsProps) => {
             </TimelineSeparator>
             <TimelineContent>
               <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                <span>{t(`events.${event.type}`)}</span>{" "}
-                <span>{formatDateTime(event.date)}</span>
+                <div>
+                  <Typography>{t(`events.${event.type}`)}</Typography>
+                  {event.message && (
+                    <Typography fontSize="small">{event.message}</Typography>
+                  )}
+                </div>{" "}
+                <div>{formatDateTime(event.date)}</div>
               </Box>
             </TimelineContent>
           </TimelineItem>
