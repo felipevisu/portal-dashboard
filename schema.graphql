@@ -578,10 +578,13 @@ type DocumentLoad implements Node {
 
 """An enumeration."""
 enum DocumentLoadOptionsEnum {
-  CONSULT_CORRECTIONAL_NEGATIVE_CERTIFICATE
-  CONSULT_EMPLOYER_REGULARITY_FGTS
-  CONSULT_LABOR_DEBIT_CLEARANCE_CERTIFIACATE
+  CND
+  CNDT
+  CNEP
   EMPTY
+  FGTS
+  SEFAZ_MG
+  SEFAZ_SP
 }
 
 """An enumeration."""

@@ -4632,25 +4632,43 @@
         "interfaces": null,
         "enumValues": [
           {
-            "name": "CONSULT_CORRECTIONAL_NEGATIVE_CERTIFICATE",
+            "name": "CND",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "CONSULT_EMPLOYER_REGULARITY_FGTS",
+            "name": "CNDT",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "CONSULT_LABOR_DEBIT_CLEARANCE_CERTIFIACATE",
+            "name": "CNEP",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "EMPTY",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "FGTS",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "SEFAZ_MG",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "SEFAZ_SP",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null

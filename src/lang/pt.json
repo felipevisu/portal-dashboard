@@ -152,9 +152,12 @@
 		"loadType":{
 			"label": "Consulta otimizada",
 			"EMPTY": "Nenhuma",
-			"CONSULT_CORRECTIONAL_NEGATIVE_CERTIFICATE": "Certidão Negativa Correcional / (CGU-PJ, CEIS, CNEP e CEPIM)",
-			"CONSULT_LABOR_DEBIT_CLEARANCE_CERTIFIACATE": "Tribunal Superior do Trabalho / CNDT",
-			"CONSULT_EMPLOYER_REGULARITY_FGTS": "Caixa Econômica Federal / FGTS"
+			"CNEP": "Certidão Negativa Correcional (CGU-PJ, CEIS, CNEP e CEPIM)",
+			"CND": "Receita Federal / PGFN (CND Federal)",
+			"CNDT": "Tribunal Superior do Trabalho / CNDT",
+			"FGTS": "Caixa / Regularidade do Empregador (FGTS)",
+			"SEFAZ_MG": "SEFAZ / MG / Certidão Negativa de Débitos",
+			"SEFAZ_SP": "SEFAZ / SP / Certidão Negativa de Débitos"
 		}
 	},
 	"documentNumber": "CNPJ/CPF",

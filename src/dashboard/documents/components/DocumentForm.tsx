@@ -114,30 +114,23 @@ export const DocumentForm = ({
             <MenuItem value={DocumentLoadOptionsEnum.EMPTY}>
               {t(`document.loadType.${DocumentLoadOptionsEnum.EMPTY}`)}
             </MenuItem>
-            <MenuItem
-              value={
-                DocumentLoadOptionsEnum.CONSULT_CORRECTIONAL_NEGATIVE_CERTIFICATE
-              }
-            >
-              {t(
-                `document.loadType.${DocumentLoadOptionsEnum.CONSULT_CORRECTIONAL_NEGATIVE_CERTIFICATE}`
-              )}
+            <MenuItem value={DocumentLoadOptionsEnum.CND}>
+              {t(`document.loadType.${DocumentLoadOptionsEnum.CND}`)}
             </MenuItem>
-            <MenuItem
-              value={
-                DocumentLoadOptionsEnum.CONSULT_LABOR_DEBIT_CLEARANCE_CERTIFIACATE
-              }
-            >
-              {t(
-                `document.loadType.${DocumentLoadOptionsEnum.CONSULT_LABOR_DEBIT_CLEARANCE_CERTIFIACATE}`
-              )}
+            <MenuItem value={DocumentLoadOptionsEnum.CNDT}>
+              {t(`document.loadType.${DocumentLoadOptionsEnum.CNDT}`)}
             </MenuItem>
-            <MenuItem
-              value={DocumentLoadOptionsEnum.CONSULT_EMPLOYER_REGULARITY_FGTS}
-            >
-              {t(
-                `document.loadType.${DocumentLoadOptionsEnum.CONSULT_EMPLOYER_REGULARITY_FGTS}`
-              )}
+            <MenuItem value={DocumentLoadOptionsEnum.CNEP}>
+              {t(`document.loadType.${DocumentLoadOptionsEnum.CNEP}`)}
+            </MenuItem>
+            <MenuItem value={DocumentLoadOptionsEnum.FGTS}>
+              {t(`document.loadType.${DocumentLoadOptionsEnum.FGTS}`)}
+            </MenuItem>
+            <MenuItem value={DocumentLoadOptionsEnum.SEFAZ_MG}>
+              {t(`document.loadType.${DocumentLoadOptionsEnum.SEFAZ_MG}`)}
+            </MenuItem>
+            <MenuItem value={DocumentLoadOptionsEnum.SEFAZ_SP}>
+              {t(`document.loadType.${DocumentLoadOptionsEnum.SEFAZ_SP}`)}
             </MenuItem>
           </Select>
         </FormControl>
