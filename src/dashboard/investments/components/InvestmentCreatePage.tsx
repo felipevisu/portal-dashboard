@@ -45,7 +45,12 @@ export const InvestmentCreatePage = ({
           <>
             <Backlink href="/investments">{t("back")}</Backlink>
             <PageHeader title={t("investment.create")} />
-            <InvestmentForm errors={errors} onChange={change} data={data} />
+            <InvestmentForm
+              errors={errors}
+              onChange={change}
+              data={data}
+              disabled={loading}
+            />
             <InvestmentItems
               tollbar={tollbar}
               items={items}

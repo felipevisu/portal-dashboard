@@ -10,6 +10,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
 } from "@mui/material";
@@ -69,48 +70,50 @@ export const AttributeValues = ({
           </Button>
         }
       />
-      <Table size="small">
-        <TableHead>
-          <TableRow>
-            <TableCellHeader>{t("name")}</TableCellHeader>
-            <TableCellHeader>{t("value")}</TableCellHeader>
-            <TableCellHeader align="right">{t("delete")}</TableCellHeader>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {!values.length && (
+      <TableContainer>
+        <Table size="small">
+          <TableHead>
             <TableRow>
-              <TableCell
-                colSpan={3}
-                sx={{ textAlign: "center", height: "64px" }}
-              >
-                {t("empty")}
-              </TableCell>
+              <TableCellHeader>{t("name")}</TableCellHeader>
+              <TableCellHeader>{t("value")}</TableCellHeader>
+              <TableCellHeader align="right">{t("delete")}</TableCellHeader>
             </TableRow>
-          )}
-          {values.map((item, index) => (
-            <TableRowLink
-              key={index}
-              hover={true}
-              sx={{ cursor: "pointer" }}
-              onClick={() => handleValueUpdate(item.id)}
-            >
-              <TableCell sx={{ paddingLeft: 3 }}>{item.name}</TableCell>
-              <TableCell>{item.slug}</TableCell>
-              <TableCell align="right" sx={{ paddingRight: 3 }}>
-                <IconButton
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleValueDelete(item.id);
-                  }}
+          </TableHead>
+          <TableBody>
+            {!values.length && (
+              <TableRow>
+                <TableCell
+                  colSpan={3}
+                  sx={{ textAlign: "center", height: "64px" }}
                 >
-                  <Delete />
-                </IconButton>
-              </TableCell>
-            </TableRowLink>
-          ))}
-        </TableBody>
-      </Table>
+                  {t("empty")}
+                </TableCell>
+              </TableRow>
+            )}
+            {values.map((item, index) => (
+              <TableRowLink
+                key={index}
+                hover={true}
+                sx={{ cursor: "pointer" }}
+                onClick={() => handleValueUpdate(item.id)}
+              >
+                <TableCell sx={{ paddingLeft: 3 }}>{item.name}</TableCell>
+                <TableCell>{item.slug}</TableCell>
+                <TableCell align="right" sx={{ paddingRight: 3 }}>
+                  <IconButton
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleValueDelete(item.id);
+                    }}
+                  >
+                    <Delete />
+                  </IconButton>
+                </TableCell>
+              </TableRowLink>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
       <Pagination
         pageInfo={pageInfo}
         onClickNextPage={onNext}

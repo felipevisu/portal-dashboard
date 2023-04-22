@@ -54,7 +54,12 @@ export const InvestmentDetailsPage = ({
             <PageHeader
               title={`${toMonthName(investment.month)} de ${investment.year}`}
             />
-            <InvestmentForm errors={errors} onChange={change} data={data} />
+            <InvestmentForm
+              errors={errors}
+              onChange={change}
+              data={data}
+              disabled={loading}
+            />
             <InvestmentItems
               tollbar={tollbar}
               onDeleteItem={onDeleteItem}

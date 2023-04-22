@@ -90,15 +90,15 @@ export const PluginsDetailsPage = ({
           <>
             <Backlink href={"/plugins"}>{t("back")}</Backlink>
             <PageHeader title={plugin.name} />
-            <Grid container spacing={2}>
-              <Grid item xs={4}>
+            <Grid container spacing={{ xs: 0, md: 2 }}>
+              <Grid item xs={12} md={4}>
                 <PluginDetailsChannelsCard
                   plugin={plugin}
                   selectedChannelId={selectedChannelId}
                   setSelectedChannelId={setSelectedChannelId}
                 />
               </Grid>
-              <Grid item xs={8}>
+              <Grid item xs={12} md={8}>
                 <PluginInfo
                   data={data}
                   description={plugin?.description || ""}

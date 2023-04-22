@@ -62,7 +62,12 @@ export const SessionDetailsPage = ({
           <>
             <Backlink href="/sessions">{t("back")}</Backlink>
             <PageHeader title={session.name} />
-            <SessionForm errors={errors} onChange={change} data={data} />
+            <SessionForm
+              errors={errors}
+              onChange={change}
+              data={data}
+              disabled={loading}
+            />
             <Savebar
               onSubmit={submit}
               onCancel={() => navigate("/sessions")}

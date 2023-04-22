@@ -49,12 +49,12 @@ export const FormatedConsult = ({ consult }: FormatedConsultProps) => {
             {consult.razao_social}
           </FormatedItem>
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={12} md={8}>
           <FormatedItem title="Nome fantasia">
             {consult.estabelecimento?.nome_fantasia}
           </FormatedItem>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12} md={4}>
           <FormatedItem title="Porte">{consult.porte?.descricao}</FormatedItem>
         </Grid>
         <Grid item xs={12}>
@@ -108,7 +108,7 @@ export const FormatedConsult = ({ consult }: FormatedConsultProps) => {
             {consult.estabelecimento?.numero}
           </FormatedItem>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12} md={4}>
           <FormatedItem title="Complemento">
             {consult.estabelecimento?.complemento}
           </FormatedItem>
@@ -118,12 +118,12 @@ export const FormatedConsult = ({ consult }: FormatedConsultProps) => {
             {consult.estabelecimento?.cep}
           </FormatedItem>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12} md={4}>
           <FormatedItem title="Bairro/Distrito">
             {consult.estabelecimento?.bairro}
           </FormatedItem>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12} md={4}>
           <FormatedItem title="Município">
             {consult.estabelecimento?.cidade?.nome}
           </FormatedItem>

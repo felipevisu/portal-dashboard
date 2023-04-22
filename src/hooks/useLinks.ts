@@ -15,8 +15,7 @@ export const useLinks = () => {
   const documentList = () => "/documents";
   const documentCreate = (type: string, entryId: string) =>
     `/entries/${type}/details/${entryId}/documents/create`;
-  const documentDetails = (type: string, entryId: string, id: string) =>
-    `/entries/${type}/details/${entryId}/documents/${id}/details`;
+  const documentDetails = (id: string) => `/documents/${id}/details`;
 
   return {
     homepage,

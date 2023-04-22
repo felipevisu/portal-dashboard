@@ -1,10 +1,8 @@
 import React from "react";
-import { t } from "i18next";
 import { useTranslation } from "react-i18next";
 
-import { TableBody, TableCell } from "@mui/material";
+import { Table, TableBody, TableCell, TableContainer } from "@mui/material";
 import Checkbox from "@portal/components/Checkbox";
-import ResponsiveTable from "@portal/components/ResponsiveTable";
 import TableCellHeader from "@portal/components/TableCell";
 import TableCellWithStatus from "@portal/components/TableCellWithStatus";
 import TableHead from "@portal/components/TableHead";
@@ -32,45 +30,47 @@ export const SessionList = ({
   const numberOfColumns = sessions?.length === 0 ? 3 : 4;
 
   return (
-    <ResponsiveTable>
-      <TableHead
-        colSpan={numberOfColumns}
-        selected={selected}
-        disabled={disabled}
-        items={sessions}
-        toggleAll={toggleAll}
-        toolbar={toolbar}
-      >
-        <TableCellHeader>{t("name")}</TableCellHeader>
-        <TableCellHeader>{t("date")}</TableCellHeader>
-        <TableCellHeader>{t("visibility")}</TableCellHeader>
-      </TableHead>
-      <TableBody>
-        {renderCollection(sessions, (session) => {
-          const isSelected = sessions ? isChecked(session.id) : false;
-          return (
-            <TableRowLink
-              key={session ? session.id : "skeleton"}
-              sx={{ cursor: "pointer" }}
-              selected={isSelected}
-              href={`details/${session.id}/`}
-            >
-              <TableCell padding="checkbox">
-                <Checkbox
-                  checked={isSelected}
-                  disabled={disabled}
-                  disableClickPropagation
-                  onChange={() => toggle(session.id)}
-                />
-              </TableCell>
-              <TableCell>{session.name}</TableCell>
-              <TableCell>{formatDate(session.date)}</TableCell>
-              <TableCellWithStatus status={session.isPublished} />
-            </TableRowLink>
-          );
-        })}
-      </TableBody>
-    </ResponsiveTable>
+    <TableContainer>
+      <Table>
+        <TableHead
+          colSpan={numberOfColumns}
+          selected={selected}
+          disabled={disabled}
+          items={sessions}
+          toggleAll={toggleAll}
+          toolbar={toolbar}
+        >
+          <TableCellHeader>{t("name")}</TableCellHeader>
+          <TableCellHeader>{t("date")}</TableCellHeader>
+          <TableCellHeader>{t("visibility")}</TableCellHeader>
+        </TableHead>
+        <TableBody>
+          {renderCollection(sessions, (session) => {
+            const isSelected = sessions ? isChecked(session.id) : false;
+            return (
+              <TableRowLink
+                key={session ? session.id : "skeleton"}
+                sx={{ cursor: "pointer" }}
+                selected={isSelected}
+                href={`details/${session.id}/`}
+              >
+                <TableCell padding="checkbox">
+                  <Checkbox
+                    checked={isSelected}
+                    disabled={disabled}
+                    disableClickPropagation
+                    onChange={() => toggle(session.id)}
+                  />
+                </TableCell>
+                <TableCell>{session.name}</TableCell>
+                <TableCell>{formatDate(session.date)}</TableCell>
+                <TableCellWithStatus status={session.isPublished} />
+              </TableRowLink>
+            );
+          })}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 };
 

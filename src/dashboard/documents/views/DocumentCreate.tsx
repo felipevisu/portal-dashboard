@@ -12,7 +12,6 @@ import {
 import { useLinks } from "@portal/hooks";
 
 export const DocumentCreate = () => {
-  const { entry: type, id } = useParams();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [file, setFile] = useState<File | null>(null);
@@ -22,7 +21,7 @@ export const DocumentCreate = () => {
   const handleCreateDocument = (data: DocumentCreateMutation) => {
     if (!data?.documentCreate?.errors?.length) {
       toast(t("messages.create.success"), { type: toast.TYPE.SUCCESS });
-      navigate(documentDetails(type, id, data?.documentCreate.document.id));
+      navigate(documentDetails(data?.documentCreate.document.id));
     }
   };
 

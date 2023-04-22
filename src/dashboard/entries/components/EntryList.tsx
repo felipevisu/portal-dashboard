@@ -2,9 +2,8 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
-import { TableBody, TableCell } from "@mui/material";
+import { Table, TableBody, TableCell, TableContainer } from "@mui/material";
 import Checkbox from "@portal/components/Checkbox";
-import ResponsiveTable from "@portal/components/ResponsiveTable";
 import TableCellHeader from "@portal/components/TableCell";
 import TableCellWithStatus from "@portal/components/TableCellWithStatus";
 import TableHead from "@portal/components/TableHead";
@@ -34,50 +33,55 @@ export const EntryList = ({
   const { entryDetails } = useLinks();
 
   return (
-    <ResponsiveTable>
-      <TableHead
-        colSpan={numberOfColumns}
-        selected={selected}
-        disabled={disabled}
-        items={entries}
-        toggleAll={toggleAll}
-        toolbar={toolbar}
-      >
-        <TableCellHeader>{t("name")}</TableCellHeader>
-        <TableCellHeader>{t("category.title")}</TableCellHeader>
-        <TableCellHeader>{t("visibility")}</TableCellHeader>
-        <TableCellHeader>{t("status")}</TableCellHeader>
-      </TableHead>
-      <TableBody>
-        {renderCollection(entries, (entry) => {
-          const isSelected = entry ? isChecked(entry.id) : false;
-          return (
-            <TableRowLink
-              key={entry ? entry.id : "skeleton"}
-              sx={{ cursor: "pointer" }}
-              selected={isSelected}
-              href={entryDetails(type, entry.id)}
-            >
-              <TableCell padding="checkbox">
-                <Checkbox
-                  checked={isSelected}
-                  disabled={disabled}
-                  disableClickPropagation
-                  onChange={() => toggle(entry.id)}
+    <TableContainer>
+      <Table>
+        <TableHead
+          colSpan={numberOfColumns}
+          selected={selected}
+          disabled={disabled}
+          items={entries}
+          toggleAll={toggleAll}
+          toolbar={toolbar}
+        >
+          <TableCellHeader>{t("name")}</TableCellHeader>
+          <TableCellHeader>{t("category.title")}</TableCellHeader>
+          <TableCellHeader>{t("visibility")}</TableCellHeader>
+          <TableCellHeader>{t("status")}</TableCellHeader>
+        </TableHead>
+        <TableBody>
+          {renderCollection(entries, (entry) => {
+            const isSelected = entry ? isChecked(entry.id) : false;
+            return (
+              <TableRowLink
+                key={entry ? entry.id : "skeleton"}
+                sx={{ cursor: "pointer" }}
+                selected={isSelected}
+                href={entryDetails(type, entry.id)}
+              >
+                <TableCell padding="checkbox">
+                  <Checkbox
+                    checked={isSelected}
+                    disabled={disabled}
+                    disableClickPropagation
+                    onChange={() => toggle(entry.id)}
+                  />
+                </TableCell>
+                <TableCell>{entry.name}</TableCell>
+                <TableCell>{entry.category.name}</TableCell>
+                <TableCellWithStatus status={entry.isPublished} />
+                <TableCellWithStatus
+                  status={entry.active}
+                  labels={{
+                    published: t("active"),
+                    unPublished: t("inactive"),
+                  }}
                 />
-              </TableCell>
-              <TableCell>{entry.name}</TableCell>
-              <TableCell>{entry.category.name}</TableCell>
-              <TableCellWithStatus status={entry.isPublished} />
-              <TableCellWithStatus
-                status={entry.active}
-                labels={{ published: t("active"), unPublished: t("inactive") }}
-              />
-            </TableRowLink>
-          );
-        })}
-      </TableBody>
-    </ResponsiveTable>
+              </TableRowLink>
+            );
+          })}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 };
 

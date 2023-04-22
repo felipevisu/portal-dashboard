@@ -64,7 +64,7 @@ export const DocumentList = ({
             <TableRowLink
               key={document.id}
               sx={{ cursor: "pointer" }}
-              href={documentDetails(type, entryId, document.id)}
+              href={documentDetails(document.id)}
             >
               <TableCell sx={{ paddingLeft: 3 }}>{document.name}</TableCell>
               <TableCellWithStatus status={document.isPublished} />

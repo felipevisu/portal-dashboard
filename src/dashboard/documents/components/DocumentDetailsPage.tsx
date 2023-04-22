@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useMemo } from "react";
 import dayjs from "dayjs";
 import { useTranslation } from "react-i18next";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { LoadingButton } from "@mui/lab";
 import {
@@ -60,7 +60,6 @@ export const DocumentDetailsPage = ({
   onFileAction,
 }: DocumentDetailsPageProps) => {
   const { t } = useTranslation();
-  const { entry: type, id: entryId } = useParams();
   const { entryDetails } = useLinks();
   const navigate = useNavigate();
 
@@ -81,23 +80,26 @@ export const DocumentDetailsPage = ({
   const handleSubmit = (data: FormProps) => {
     const submitData = generateSubmitData(data);
     if (file) submitData.file = file;
-    onSubmit({ ...submitData, entry: entryId });
+    onSubmit({ ...submitData });
   };
+
+  const entryDetailsURL = useMemo(() => {
+    const type = document.entry.type === "VEHICLE" ? "vehicles" : "providers";
+    return entryDetails(type, document.entry.id) + "?tab=1";
+  }, [document]);
 
   return (
     <Form initial={initialData} onSubmit={handleSubmit}>
       {({ change, submit, data }) => {
         return (
           <>
-            <Backlink href={entryDetails(type, entryId) + "?tab=1"}>
-              {t("back")}
-            </Backlink>
+            <Backlink href={entryDetailsURL}>{t("back")}</Backlink>
             <PageHeader
               title={`${t("document.title")}: ${document.name}`}
               limitText={document.entry.name}
             />
-            <Grid container spacing={2}>
-              <Grid item xs={8}>
+            <Grid container spacing={{ xs: 0, md: 2 }}>
+              <Grid item xs={12} md={8}>
                 <DocumentForm
                   data={data}
                   errors={errors}
@@ -120,9 +122,8 @@ export const DocumentDetailsPage = ({
                     onFileAction={onFileAction}
                   />
                 )}
-                <DocumentEvents events={document.events} />
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={12} md={4}>
                 <Card>
                   <CardHeader title={t("document.requestCard.title")} />
                   <CardContent>
@@ -174,9 +175,14 @@ export const DocumentDetailsPage = ({
                 />
               </Grid>
             </Grid>
+            <Grid container>
+              <Grid item xs={12} md={8}>
+                <DocumentEvents events={document.events} />
+              </Grid>
+            </Grid>
             <Savebar
               onSubmit={submit}
-              onCancel={() => navigate(entryDetails(type, entryId))}
+              onCancel={() => navigate(entryDetailsURL)}
               onDelete={onDelete}
               loading={loading}
             />

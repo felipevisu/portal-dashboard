@@ -2,7 +2,6 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 
 import DocumentCreate from "../documents/views/DocumentCreate";
-import DocumentDetails from "../documents/views/DocumentDetails";
 
 import EntryCreate from "./views/EntryCreate";
 import EntryDetails from "./views/EntryDetails";
@@ -17,10 +16,6 @@ export const Entries = () => {
       <Route
         path="/details/:id/documents/create"
         element={<DocumentCreate />}
-      />
-      <Route
-        path="/details/:id/documents/:documentId/details"
-        element={<DocumentDetails />}
       />
     </Routes>
   );

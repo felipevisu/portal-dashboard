@@ -14,8 +14,8 @@ import {
 import { Button } from "@portal/components/Button";
 import TableCellHeader from "@portal/components/TableCell";
 import TableRowLink from "@portal/components/TableRowLink";
-import { buildLink } from "@portal/dashboard/documents/components/DocumentList";
 import { DocumentFragment } from "@portal/graphql";
+import { useLinks } from "@portal/hooks";
 import { formatDate } from "@portal/utils/date";
 
 interface DocumentListProps {
@@ -26,6 +26,7 @@ interface DocumentListProps {
 
 export const DocumentList = ({ title, documents, href }: DocumentListProps) => {
   const { t } = useTranslation();
+  const { documentDetails } = useLinks();
 
   return (
     <Card>
@@ -45,7 +46,7 @@ export const DocumentList = ({ title, documents, href }: DocumentListProps) => {
             <TableRowLink
               key={document.id}
               sx={{ cursor: "pointer" }}
-              href={buildLink(document)}
+              href={documentDetails(document.id)}
             >
               <TableCell sx={{ paddingLeft: 3 }}>{document.name}</TableCell>
               <TableCell>{document.entry.name}</TableCell>

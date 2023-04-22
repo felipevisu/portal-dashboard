@@ -29,12 +29,14 @@ interface InvestmentFormProps {
   data: FormProps;
   errors: ErrorFragment[];
   onChange: (e: ChangeEvent) => void;
+  disabled: boolean;
 }
 
 export const InvestmentForm = ({
   errors,
   data,
   onChange,
+  disabled,
 }: InvestmentFormProps) => {
   const { t } = useTranslation();
   const formErrors = getFormErrors(["month", "year", "isPublished"], errors);
@@ -43,7 +45,7 @@ export const InvestmentForm = ({
     <Card>
       <CardHeader title={t("generalInfo")} />
       <CardContent>
-        <Grid container spacing={2}>
+        <Grid container spacing={{ xs: 0, md: 2 }}>
           <Grid item xs={6}>
             <FormControl fullWidth error={formErrors.month && true}>
               <InputLabel>Mês</InputLabel>
@@ -52,6 +54,7 @@ export const InvestmentForm = ({
                 label={t("month")}
                 name="month"
                 onChange={onChange}
+                disabled={disabled}
               >
                 <MenuItem value="1">Janeiro</MenuItem>
                 <MenuItem value="2">Fevereiro</MenuItem>
@@ -79,6 +82,7 @@ export const InvestmentForm = ({
                 value={data.year || ""}
                 onChange={onChange}
                 helperText={formErrors.year?.message}
+                disabled={disabled}
               />
             </FormControl>
           </Grid>
@@ -90,6 +94,7 @@ export const InvestmentForm = ({
             name="isPublished"
             checked={data.isPublished}
             onChange={onChange}
+            disabled={disabled}
           />
         </FormControl>
       </CardContent>

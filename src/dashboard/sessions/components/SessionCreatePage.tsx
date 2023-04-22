@@ -50,7 +50,12 @@ export const SessionCreatePage = ({
           <>
             <Backlink href="/sessions">{t("back")}</Backlink>
             <PageHeader title={t("session.create")} />
-            <SessionForm errors={errors} onChange={change} data={data} />
+            <SessionForm
+              errors={errors}
+              onChange={change}
+              data={data}
+              disabled={loading}
+            />
             <Savebar
               onSubmit={submit}
               onCancel={() => navigate("/sessions")}

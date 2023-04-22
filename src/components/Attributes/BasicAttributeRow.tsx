@@ -11,11 +11,11 @@ const BasicAttributeRow: React.FC<BasicAttributeRowProps> = ({
   children,
 }) => {
   return (
-    <Grid container spacing={2} py={2}>
-      <Grid item xs={4}>
+    <Grid container spacing={{ xs: 0, md: 2 }} py={2}>
+      <Grid item xs={12} md={4}>
         <Typography>{label}</Typography>
       </Grid>
-      <Grid item xs={8}>
+      <Grid item xs={12} md={8}>
         {children}
       </Grid>
     </Grid>

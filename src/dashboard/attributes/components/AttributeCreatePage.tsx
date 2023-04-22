@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
@@ -74,8 +74,8 @@ export const AttributeCreatePage = ({
           <>
             <Backlink href={attributeList()}>{t("back")}</Backlink>
             <PageHeader title={t(`attribute.create`)} />
-            <Grid container spacing={2}>
-              <Grid item xs={8}>
+            <Grid container spacing={{ xs: 0, md: 2 }}>
+              <Grid item xs={12} md={8}>
                 <AttributeInfos errors={errors} onChange={change} data={data} />
                 {[
                   AttributeInputTypeEnum.DROPDOWN,
@@ -88,7 +88,7 @@ export const AttributeCreatePage = ({
                   />
                 )}
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={12} md={4}>
                 <AttributeOrganization
                   errors={errors}
                   onChange={change}

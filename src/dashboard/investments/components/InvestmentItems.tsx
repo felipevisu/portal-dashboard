@@ -10,6 +10,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
 } from "@mui/material";
@@ -40,38 +41,40 @@ export const InvestmentItems = ({
   return (
     <Card>
       <CardHeader title={t("investment.plural")} action={tollbar} />
-      <Table size="small">
-        <TableHead>
-          <TableRow>
-            <TableCellHeader>{t("name")}</TableCellHeader>
-            <TableCellHeader>{t("value")}</TableCellHeader>
-            <TableCellHeader align="right">{t("delete")}</TableCellHeader>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {!items.length && (
+      <TableContainer>
+        <Table size="small">
+          <TableHead>
             <TableRow>
-              <TableCell
-                colSpan={3}
-                sx={{ textAlign: "center", height: "64px" }}
-              >
-                {t("empty")}
-              </TableCell>
+              <TableCellHeader>{t("name")}</TableCellHeader>
+              <TableCellHeader>{t("value")}</TableCellHeader>
+              <TableCellHeader align="right">{t("delete")}</TableCellHeader>
             </TableRow>
-          )}
-          {items.map((item, index) => (
-            <TableRow key={index}>
-              <TableCell sx={{ paddingLeft: 3 }}>{item.name}</TableCell>
-              <TableCell>{formatMoney(item.value)}</TableCell>
-              <TableCell align="right" sx={{ paddingRight: 3 }}>
-                <IconButton onClick={() => handleItemDelete(item.id)}>
-                  <Delete />
-                </IconButton>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHead>
+          <TableBody>
+            {!items.length && (
+              <TableRow>
+                <TableCell
+                  colSpan={3}
+                  sx={{ textAlign: "center", height: "64px" }}
+                >
+                  {t("empty")}
+                </TableCell>
+              </TableRow>
+            )}
+            {items.map((item, index) => (
+              <TableRow key={index}>
+                <TableCell sx={{ paddingLeft: 3 }}>{item.name}</TableCell>
+                <TableCell>{formatMoney(item.value)}</TableCell>
+                <TableCell align="right" sx={{ paddingRight: 3 }}>
+                  <IconButton onClick={() => handleItemDelete(item.id)}>
+                    <Delete />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
       <Pagination
         pageInfo={{
           __typename: "PageInfo",

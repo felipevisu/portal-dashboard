@@ -151,8 +151,8 @@ export const EntryDetailsPage = ({
               </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
-              <Grid container spacing={2}>
-                <Grid item xs={8}>
+              <Grid container spacing={{ xs: 0, md: 2 }}>
+                <Grid item xs={12} md={8}>
                   <EntryFormInfos
                     errors={errors}
                     onChange={change}
@@ -174,7 +174,7 @@ export const EntryDetailsPage = ({
                     />
                   )}
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={12} md={4}>
                   <EntryOrganization
                     errors={errors}
                     onChange={change}

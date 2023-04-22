@@ -22,7 +22,7 @@ export const DocumentEvents = ({ events }: DocumentEventsProps) => {
   if (!events.length) return null;
 
   return (
-    <Box sx={{ marginTop: 3 }}>
+    <Box>
       <Timeline
         sx={{
           [`& .${timelineItemClasses.root}:before`]: {

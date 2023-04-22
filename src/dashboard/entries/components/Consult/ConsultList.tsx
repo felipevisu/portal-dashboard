@@ -107,8 +107,8 @@ export const ConsultList = ({
   const { t } = useTranslation();
 
   return (
-    <Grid container spacing={2}>
-      <Grid item xs={4}>
+    <Grid container spacing={{ xs: 0, md: 2 }}>
+      <Grid item xs={12} md={4}>
         <Card>
           <CardHeader title={t("consult.new")} />
           <CardContent>
@@ -126,7 +126,7 @@ export const ConsultList = ({
           </CardActions>
         </Card>
       </Grid>
-      <Grid item xs={8}>
+      <Grid item xs={12} md={8}>
         {consults.length > 0 && <ConsultItem consult={consults[0]} />}
       </Grid>
     </Grid>

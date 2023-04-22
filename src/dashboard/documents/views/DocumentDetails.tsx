@@ -23,12 +23,12 @@ import useBackgroundTask from "@portal/hooks/useBackgroundTask";
 import { useDocumentActions } from "./hooks";
 
 export const DocumentDetails = () => {
-  const { entry: type, id, documentId } = useParams();
+  const { id } = useParams();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { data, loading, refetch } = useDocumentDetailsQuery({
     fetchPolicy: "network-only",
-    variables: { id: documentId },
+    variables: { id: id },
   });
   const deleteModal = useModal();
   const requestModal = useModal();
@@ -48,16 +48,17 @@ export const DocumentDetails = () => {
   });
 
   const handleSubmit = async (data: DocumentInput) => {
-    await updateDocument({ variables: { id: documentId, input: data } });
+    await updateDocument({ variables: { id, input: data } });
   };
 
   const [deleteDocument] = useDocumentDeleteMutation({
-    onCompleted: () => navigate(entryDetails(type, id)),
+    onCompleted: () =>
+      navigate(entryDetails(data.document.entry.type.toLowerCase(), id)),
   });
 
   const handleDocumentDelete = async () => {
     await deleteDocument({
-      variables: { id: documentId },
+      variables: { id },
     });
   };
 
@@ -79,7 +80,7 @@ export const DocumentDetails = () => {
     });
 
   const handleLoadNewDocumentFromApi = async () => {
-    await loadNewDocumentFromApi({ variables: { id: documentId } });
+    await loadNewDocumentFromApi({ variables: { id } });
   };
 
   const [requestNewDocument, requestNewDocumentResult] =
@@ -97,7 +98,7 @@ export const DocumentDetails = () => {
 
   const handleRequestNewDocument = async () => {
     await requestNewDocument({
-      variables: { id: documentId },
+      variables: { id },
     });
   };
 

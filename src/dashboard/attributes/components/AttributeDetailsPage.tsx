@@ -63,8 +63,8 @@ export const AttributeDetailsPage = ({
           <>
             <Backlink href={attributeList()}>{t("back")}</Backlink>
             <PageHeader title={`Atributo: ${attribute.name}`} />
-            <Grid container spacing={2}>
-              <Grid item xs={8}>
+            <Grid container spacing={{ xs: 0, md: 2 }}>
+              <Grid item xs={12} md={8}>
                 <AttributeInfos
                   errors={errors}
                   onChange={change}
@@ -86,7 +86,7 @@ export const AttributeDetailsPage = ({
                   />
                 )}
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={12} md={4}>
                 <AttributeOrganization
                   errors={errors}
                   onChange={change}

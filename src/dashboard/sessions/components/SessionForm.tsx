@@ -33,16 +33,22 @@ interface SessionFormProps {
   data?: FormProps;
   errors: ErrorFragment[];
   onChange: (e: ChangeEvent) => void;
+  disabled: boolean;
 }
 
-export const SessionForm = ({ errors, data, onChange }: SessionFormProps) => {
+export const SessionForm = ({
+  errors,
+  data,
+  onChange,
+  disabled,
+}: SessionFormProps) => {
   const { t } = useTranslation();
   const formErrors = getFormErrors(["name", "slug", "content", "date"], errors);
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Grid container spacing={2}>
-        <Grid item xs={8}>
+      <Grid container spacing={{ xs: 0, md: 2 }}>
+        <Grid item xs={12} md={8}>
           <Card>
             <CardHeader title="Informações gerais" />
             <CardContent>
@@ -56,6 +62,7 @@ export const SessionForm = ({ errors, data, onChange }: SessionFormProps) => {
                   value={data.name}
                   onChange={onChange}
                   helperText={formErrors.name?.message}
+                  disabled={disabled}
                 />
               </FormControl>
               <FormSpacer />
@@ -69,6 +76,7 @@ export const SessionForm = ({ errors, data, onChange }: SessionFormProps) => {
                   value={data.slug}
                   onChange={onChange}
                   helperText={formErrors.slug?.message}
+                  disabled={disabled}
                 />
               </FormControl>
             </CardContent>
@@ -84,7 +92,7 @@ export const SessionForm = ({ errors, data, onChange }: SessionFormProps) => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12} md={4}>
           <Card>
             <CardHeader title={t("visibility")} />
             <CardContent>
@@ -93,6 +101,7 @@ export const SessionForm = ({ errors, data, onChange }: SessionFormProps) => {
                   label={t("date")}
                   inputFormat="DD/MM/YYYY - HH:mm"
                   value={data.date}
+                  disabled={disabled}
                   onChange={(value) =>
                     onChange({ target: { name: "date", value } })
                   }
@@ -112,6 +121,7 @@ export const SessionForm = ({ errors, data, onChange }: SessionFormProps) => {
                   name="isPublished"
                   checked={data.isPublished}
                   onChange={onChange}
+                  disabled={disabled}
                 />
               </FormControl>
             </CardContent>
