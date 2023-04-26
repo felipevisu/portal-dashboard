@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 import { LoadingButton } from "@mui/lab";
 import {
+  Box,
   Card,
   CardActions,
   CardContent,
@@ -117,6 +118,9 @@ export const DocumentDetailsPage = ({
                     onFileAction={onFileAction}
                   />
                 )}
+                <Box sx={{ display: { xs: "none", md: "block" } }}>
+                  <DocumentEvents events={document.events} />
+                </Box>
               </Grid>
               <Grid item xs={12} md={4}>
                 <Card>
@@ -170,7 +174,7 @@ export const DocumentDetailsPage = ({
                 />
               </Grid>
             </Grid>
-            <Grid container>
+            <Grid container sx={{ display: { xs: "block", md: "none" } }}>
               <Grid item xs={12} md={8}>
                 <DocumentEvents events={document.events} />
               </Grid>

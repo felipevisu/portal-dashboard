@@ -158,7 +158,8 @@
 			"CNDT": "Tribunal Superior do Trabalho / CNDT",
 			"FGTS": "Caixa / Regularidade do Empregador (FGTS)",
 			"SEFAZ_MG": "SEFAZ / MG / Certidão Negativa de Débitos",
-			"SEFAZ_SP": "SEFAZ / SP / Certidão Negativa de Débitos"
+			"SEFAZ_SP": "SEFAZ / SP / Certidão Negativa de Débitos",
+			"TCU": "TCU / Certidão Negativa de Processo"
 		}
 	},
 	"documentNumber": "CNPJ/CPF",

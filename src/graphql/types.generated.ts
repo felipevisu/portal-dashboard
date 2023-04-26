@@ -270,7 +270,8 @@ export enum DocumentLoadOptionsEnum {
   EMPTY = 'EMPTY',
   FGTS = 'FGTS',
   SEFAZ_MG = 'SEFAZ_MG',
-  SEFAZ_SP = 'SEFAZ_SP'
+  SEFAZ_SP = 'SEFAZ_SP',
+  TCU = 'TCU'
 }
 
 /** An enumeration. */

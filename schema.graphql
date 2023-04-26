@@ -585,6 +585,7 @@ enum DocumentLoadOptionsEnum {
   FGTS
   SEFAZ_MG
   SEFAZ_SP
+  TCU
 }
 
 """An enumeration."""

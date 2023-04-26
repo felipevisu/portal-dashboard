@@ -132,6 +132,9 @@ export const DocumentForm = ({
             <MenuItem value={DocumentLoadOptionsEnum.SEFAZ_SP}>
               {t(`document.loadType.${DocumentLoadOptionsEnum.SEFAZ_SP}`)}
             </MenuItem>
+            <MenuItem value={DocumentLoadOptionsEnum.TCU}>
+              {t(`document.loadType.${DocumentLoadOptionsEnum.TCU}`)}
+            </MenuItem>
           </Select>
         </FormControl>
       </CardContent>
