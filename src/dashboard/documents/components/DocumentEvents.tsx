@@ -44,6 +44,11 @@ export const DocumentEvents = ({ events }: DocumentEventsProps) => {
                   {event.message && (
                     <Typography fontSize="small">{event.message}</Typography>
                   )}
+                  {event.user && (
+                    <Typography fontSize="small">
+                      Usuário: {event.user.email}
+                    </Typography>
+                  )}
                 </div>{" "}
                 <div>{formatDateTime(event.date)}</div>
               </Box>

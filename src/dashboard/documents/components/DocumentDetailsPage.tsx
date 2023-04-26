@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import dayjs from "dayjs";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
@@ -24,7 +24,6 @@ import {
   DocumentLoadOptionsEnum,
   ErrorFragment,
 } from "@portal/graphql";
-import { useLinks } from "@portal/hooks";
 
 import DocumentEvents from "./DocumentEvents";
 import DocumentFile from "./DocumentFile";
@@ -44,6 +43,7 @@ interface DocumentDetailsPageProps {
   file?: File;
   setFile: (file: File) => void;
   onFileAction: (id: string, actionName: string) => Promise<void>;
+  returnURL: string;
 }
 
 export const DocumentDetailsPage = ({
@@ -58,9 +58,9 @@ export const DocumentDetailsPage = ({
   loading,
   loadingFromAPI,
   onFileAction,
+  returnURL,
 }: DocumentDetailsPageProps) => {
   const { t } = useTranslation();
-  const { entryDetails } = useLinks();
   const navigate = useNavigate();
 
   const initialData: FormProps = {
@@ -83,17 +83,12 @@ export const DocumentDetailsPage = ({
     onSubmit({ ...submitData });
   };
 
-  const entryDetailsURL = useMemo(() => {
-    const type = document.entry.type === "VEHICLE" ? "vehicles" : "providers";
-    return entryDetails(type, document.entry.id) + "?tab=1";
-  }, [document]);
-
   return (
     <Form initial={initialData} onSubmit={handleSubmit}>
       {({ change, submit, data }) => {
         return (
           <>
-            <Backlink href={entryDetailsURL}>{t("back")}</Backlink>
+            <Backlink href={returnURL}>{t("back")}</Backlink>
             <PageHeader
               title={`${t("document.title")}: ${document.name}`}
               limitText={document.entry.name}
@@ -182,7 +177,7 @@ export const DocumentDetailsPage = ({
             </Grid>
             <Savebar
               onSubmit={submit}
-              onCancel={() => navigate(entryDetailsURL)}
+              onCancel={() => navigate(returnURL)}
               onDelete={onDelete}
               loading={loading}
             />

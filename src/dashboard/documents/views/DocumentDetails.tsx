@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -51,9 +51,14 @@ export const DocumentDetails = () => {
     await updateDocument({ variables: { id, input: data } });
   };
 
+  const entryDetailsURL = useMemo(() => {
+    const type =
+      data?.document.entry.type === "VEHICLE" ? "vehicles" : "providers";
+    return entryDetails(type, data?.document.entry.id) + "?tab=1";
+  }, [data]);
+
   const [deleteDocument] = useDocumentDeleteMutation({
-    onCompleted: () =>
-      navigate(entryDetails(data.document.entry.type.toLowerCase(), id)),
+    onCompleted: () => navigate(entryDetailsURL),
   });
 
   const handleDocumentDelete = async () => {
@@ -122,6 +127,7 @@ export const DocumentDetails = () => {
         loading={updateDocumentResult.loading}
         loadingFromAPI={loadNewDocumentFromApiResult.loading}
         onFileAction={handleAction}
+        returnURL={entryDetailsURL}
       />
       <ActionDialog
         onClose={deleteModal.closeModal}
