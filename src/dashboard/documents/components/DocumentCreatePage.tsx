@@ -79,6 +79,7 @@ export const DocumentCreatePage = ({
                   data={data}
                   expires={true}
                   disabled={loading}
+                  displayDates={data.expires && !!file}
                 />
               </Grid>
             </Grid>

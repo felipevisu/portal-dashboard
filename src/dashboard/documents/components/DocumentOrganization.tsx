@@ -25,6 +25,7 @@ interface DocumentOrganizationProps {
   expires: boolean;
   onChange: (e: ChangeEvent) => void;
   disabled: boolean;
+  displayDates?: boolean;
 }
 
 export const DocumentOrganization = ({
@@ -33,6 +34,7 @@ export const DocumentOrganization = ({
   expires,
   errors,
   disabled,
+  displayDates,
 }: DocumentOrganizationProps) => {
   const formErrors = getFormErrors(
     ["isPublished", "expires", "beginDate", "expirationDate"],
@@ -69,7 +71,7 @@ export const DocumentOrganization = ({
             </FormControl>
           </>
         )}
-        {data.expires && (
+        {displayDates && (
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <FormSpacer />
             <FormControl fullWidth>

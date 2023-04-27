@@ -73,7 +73,9 @@ export const DocumentHistory = ({
                     {file.file.url.split("/").reverse()[0]}
                   </Link>
                 </TableCell>
-                <TableCell>{formatDate(file.beginDate)}</TableCell>
+                <TableCell>
+                  {formatDate(file.beginDate || file.created)}
+                </TableCell>
                 <TableCell>{formatDate(file.expirationDate)}</TableCell>
                 <TableCell>
                   <Chip

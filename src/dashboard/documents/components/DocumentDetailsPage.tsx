@@ -84,6 +84,8 @@ export const DocumentDetailsPage = ({
     onSubmit({ ...submitData });
   };
 
+  console.log(document);
+
   return (
     <Form initial={initialData} onSubmit={handleSubmit}>
       {({ change, submit, data }) => {
@@ -171,6 +173,7 @@ export const DocumentDetailsPage = ({
                   data={data}
                   expires={false}
                   disabled={loading}
+                  displayDates={document.expires}
                 />
               </Grid>
             </Grid>
