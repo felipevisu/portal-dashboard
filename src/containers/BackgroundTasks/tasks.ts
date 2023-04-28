@@ -66,16 +66,14 @@ export function queueDocumentLoad(
       },
       id,
       onCompleted: (data) => {
-        if (data.status === TaskStatus.SUCCESS) {
-          toast(t("tasks.documentLoad.success", { name: data.name }), {
-            type: toast.TYPE.SUCCESS,
-          });
-          if (callback) callback();
-        } else {
-          toast(t("tasks.documentLoad.error", { name: data.name }), {
-            type: toast.TYPE.ERROR,
-          });
-        }
+        if (callback) callback();
+        data.status === TaskStatus.SUCCESS
+          ? toast(t("tasks.documentLoad.success", { name: data.name }), {
+              type: toast.TYPE.SUCCESS,
+            })
+          : toast(t("tasks.documentLoad.error", { name: data.name }), {
+              type: toast.TYPE.ERROR,
+            });
       },
       onError: handleError,
       status: TaskStatus.PENDING,

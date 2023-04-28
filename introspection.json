@@ -4662,6 +4662,18 @@
             "deprecationReason": null
           },
           {
+            "name": "JUCESP",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "MEI",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "SEFAZ_MG",
             "description": null,
             "isDeprecated": false,

@@ -269,6 +269,8 @@ export enum DocumentLoadOptionsEnum {
   CNEP = 'CNEP',
   EMPTY = 'EMPTY',
   FGTS = 'FGTS',
+  JUCESP = 'JUCESP',
+  MEI = 'MEI',
   SEFAZ_MG = 'SEFAZ_MG',
   SEFAZ_SP = 'SEFAZ_SP',
   TCU = 'TCU'

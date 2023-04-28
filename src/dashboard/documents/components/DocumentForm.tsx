@@ -135,6 +135,12 @@ export const DocumentForm = ({
             <MenuItem value={DocumentLoadOptionsEnum.TCU}>
               {t(`document.loadType.${DocumentLoadOptionsEnum.TCU}`)}
             </MenuItem>
+            <MenuItem value={DocumentLoadOptionsEnum.MEI}>
+              {t(`document.loadType.${DocumentLoadOptionsEnum.MEI}`)}
+            </MenuItem>
+            <MenuItem value={DocumentLoadOptionsEnum.JUCESP}>
+              {t(`document.loadType.${DocumentLoadOptionsEnum.JUCESP}`)}
+            </MenuItem>
           </Select>
         </FormControl>
       </CardContent>

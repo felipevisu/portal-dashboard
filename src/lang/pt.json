@@ -159,7 +159,9 @@
 			"FGTS": "Caixa / Regularidade do Empregador (FGTS)",
 			"SEFAZ_MG": "SEFAZ / MG / Certidão Negativa de Débitos",
 			"SEFAZ_SP": "SEFAZ / SP / Certidão Negativa de Débitos",
-			"TCU": "TCU / Certidão Negativa de Processo"
+			"TCU": "TCU / Certidão Negativa de Processo",
+			"MEI": "Receita Federal / MEI",
+			"JUCESP": "Junta Comercial / SP / Certidão Simplificada"
 		}
 	},
 	"documentNumber": "CNPJ/CPF",
