@@ -72,11 +72,15 @@ export const DocumentDetails = () => {
       onCompleted: (data) => {
         if (!data.loadNewDocumentFromApi?.errors?.length) {
           toast(t("document.messages.updating"), { type: toast.TYPE.WARNING });
-          queue(Task.DOCUMENT_LOAD, {
-            loadDocument: {
-              id: data.loadNewDocumentFromApi.documentLoad.id,
+          queue(
+            Task.DOCUMENT_LOAD,
+            {
+              loadDocument: {
+                id: data.loadNewDocumentFromApi.documentLoad.id,
+              },
             },
-          });
+            refetch
+          );
         } else {
           const message = data.loadNewDocumentFromApi?.errors[0]?.message;
           toast(message, { type: toast.TYPE.ERROR });

@@ -52,18 +52,22 @@ export function useBackgroundTasks(
     tasks.current = tasks.current.filter((task) => task.id !== id);
   }
 
-  const queue = (type: Task, data?: TaskData) => {
+  const queue = (type: Task, data?: TaskData, callback?: () => void) => {
     idCounter.current += 1;
     switch (type) {
       case Task.DOCUMENT_LOAD:
-        queueDocumentLoad(idCounter.current, tasks, () =>
-          apolloClient.query({
-            fetchPolicy: "network-only",
-            query: checkDocumentLoadStatus,
-            variables: {
-              id: data.loadDocument.id,
-            },
-          })
+        queueDocumentLoad(
+          idCounter.current,
+          tasks,
+          () =>
+            apolloClient.query({
+              fetchPolicy: "network-only",
+              query: checkDocumentLoadStatus,
+              variables: {
+                id: data.loadDocument.id,
+              },
+            }),
+          callback
         );
     }
   };

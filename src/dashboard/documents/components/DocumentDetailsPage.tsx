@@ -171,9 +171,8 @@ export const DocumentDetailsPage = ({
                   errors={errors}
                   onChange={change}
                   data={data}
-                  expires={false}
                   disabled={loading}
-                  displayDates={document.expires}
+                  displayDates={data.expires}
                 />
               </Grid>
             </Grid>

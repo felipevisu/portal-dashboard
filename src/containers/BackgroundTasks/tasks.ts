@@ -49,7 +49,8 @@ export function handleError(error: Error) {
 export function queueDocumentLoad(
   id: number,
   tasks: React.MutableRefObject<QueuedTask[]>,
-  fetch: () => Promise<ApolloQueryResult<CheckDocumentLoadStatusQuery>>
+  fetch: () => Promise<ApolloQueryResult<CheckDocumentLoadStatusQuery>>,
+  callback?: () => void
 ) {
   const { t } = i18next;
   tasks.current = [
@@ -65,13 +66,16 @@ export function queueDocumentLoad(
       },
       id,
       onCompleted: (data) => {
-        data.status === TaskStatus.SUCCESS
-          ? toast(t("tasks.documentLoad.success", { name: data.name }), {
-              type: toast.TYPE.SUCCESS,
-            })
-          : toast(t("tasks.documentLoad.error", { name: data.name }), {
-              type: toast.TYPE.ERROR,
-            });
+        if (data.status === TaskStatus.SUCCESS) {
+          toast(t("tasks.documentLoad.success", { name: data.name }), {
+            type: toast.TYPE.SUCCESS,
+          });
+          if (callback) callback();
+        } else {
+          toast(t("tasks.documentLoad.error", { name: data.name }), {
+            type: toast.TYPE.ERROR,
+          });
+        }
       },
       onError: handleError,
       status: TaskStatus.PENDING,

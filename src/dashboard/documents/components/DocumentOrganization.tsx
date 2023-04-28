@@ -22,7 +22,6 @@ import { FormProps } from "./DocumentForm";
 interface DocumentOrganizationProps {
   data?: FormProps;
   errors: ErrorFragment[];
-  expires: boolean;
   onChange: (e: ChangeEvent) => void;
   disabled: boolean;
   displayDates?: boolean;
@@ -31,7 +30,6 @@ interface DocumentOrganizationProps {
 export const DocumentOrganization = ({
   data,
   onChange,
-  expires,
   errors,
   disabled,
   displayDates,
@@ -56,21 +54,17 @@ export const DocumentOrganization = ({
           />
           <FormHelperText>{t("helperText.isPublished")}</FormHelperText>
         </FormControl>
-        {expires && (
-          <>
-            <FormSpacer />
-            <FormControl fullWidth>
-              <ControlledCheckbox
-                label={t("expires")}
-                name="expires"
-                checked={data.expires}
-                onChange={onChange}
-                disabled={disabled}
-              />
-              <FormHelperText>{t("helperText.expires")}</FormHelperText>
-            </FormControl>
-          </>
-        )}
+        <FormSpacer />
+        <FormControl fullWidth>
+          <ControlledCheckbox
+            label={t("expires")}
+            name="expires"
+            checked={data.expires}
+            onChange={onChange}
+            disabled={disabled}
+          />
+          <FormHelperText>{t("helperText.expires")}</FormHelperText>
+        </FormControl>
         {displayDates && (
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <FormSpacer />

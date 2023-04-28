@@ -42,5 +42,5 @@ export interface TaskData {
 
 export interface BackgroundTasksContextType {
   cancel: (id: number) => void;
-  queue: (type: Task, data?: TaskData) => void;
+  queue: (type: Task, data?: TaskData, callback?: () => void) => void;
 }

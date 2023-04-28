@@ -77,7 +77,6 @@ export const DocumentCreatePage = ({
                   errors={errors}
                   onChange={change}
                   data={data}
-                  expires={true}
                   disabled={loading}
                   displayDates={data.expires && !!file}
                 />
