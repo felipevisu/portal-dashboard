@@ -6,49 +6,45 @@ import { Backlink } from "@portal/components/Backlink";
 import { Form } from "@portal/components/Form";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
-import {
-  CategoryFragment,
-  CategoryInput,
-  ErrorFragment,
-} from "@portal/graphql";
+import { CategoryInput, ChannelFragment, ErrorFragment } from "@portal/graphql";
 import { useLinks } from "@portal/hooks";
 import { SubmitPromise } from "@portal/hooks/useForm";
 
-import CategoryForm, { FormProps } from "./CategoryForm";
+import ChannelForm, { FormProps } from "./ChannelForm";
 
-interface CategoryDetailsPageProps {
-  category: CategoryFragment;
+interface ChannelDetailsPageProps {
+  channel: ChannelFragment;
   onSubmit: (data: CategoryInput) => SubmitPromise;
   onDelete: () => void;
   errors: ErrorFragment[];
   loading: boolean;
 }
 
-export const CategoryDetailsPage = ({
-  category,
+export const ChannelDetailsPage = ({
+  channel,
   onSubmit,
   onDelete,
   errors,
   loading,
-}: CategoryDetailsPageProps) => {
+}: ChannelDetailsPageProps) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { categoryList } = useLinks();
+  const { channelList } = useLinks();
 
   const initialData: FormProps = {
-    name: category.name,
-    slug: category.slug,
-    type: category.type,
+    name: channel.name,
+    slug: channel.slug,
+    isActive: channel.isActive,
   };
 
   return (
     <Form initial={initialData} onSubmit={onSubmit}>
-      {({ change, data, submit }) => {
+      {({ change, submit, data }) => {
         return (
           <>
-            <Backlink href={categoryList()}>{t("back")}</Backlink>
-            <PageHeader title={`${t("category.title")}: ${category?.name}`} />
-            <CategoryForm
+            <Backlink href={channelList()}>{t("back")}</Backlink>
+            <PageHeader title={t("channel.create")} />
+            <ChannelForm
               errors={errors}
               onChange={change}
               data={data}
@@ -56,8 +52,8 @@ export const CategoryDetailsPage = ({
             />
             <Savebar
               onSubmit={submit}
+              onCancel={() => navigate(channelList())}
               onDelete={() => onDelete()}
-              onCancel={() => navigate(categoryList())}
               loading={loading}
             />
           </>

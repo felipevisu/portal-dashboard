@@ -164,6 +164,7 @@
 			"JUCESP": "Junta Comercial / SP / Certidão Simplificada"
 		}
 	},
+	"isActive": "Ativo",
 	"documentNumber": "CNPJ/CPF",
 	"email": "Email",
 	"empty": "Nenhum item cadastrado",

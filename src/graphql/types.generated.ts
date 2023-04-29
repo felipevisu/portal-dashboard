@@ -619,6 +619,40 @@ export type CategoryDetailsQueryVariables = Exact<{
 
 export type CategoryDetailsQuery = { __typename: 'Query', category: { __typename: 'Category', id: string, name: string, slug: string | null, type: EntryTypeEnum | null, entries: { __typename: 'EntryCountableConnection', totalCount: number | null } | null } | null };
 
+export type ChannelCreateMutationVariables = Exact<{
+  input: ChannelInput;
+}>;
+
+
+export type ChannelCreateMutation = { __typename: 'Mutation', channelCreate: { __typename: 'ChannelCreate', channel: { __typename: 'Channel', id: string, name: string, slug: string, isActive: boolean } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+
+export type ChannelUpdateMutationVariables = Exact<{
+  id: Scalars['ID'];
+  input: ChannelInput;
+}>;
+
+
+export type ChannelUpdateMutation = { __typename: 'Mutation', channelUpdate: { __typename: 'ChannelUpdate', channel: { __typename: 'Channel', id: string, name: string, slug: string, isActive: boolean } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+
+export type ChannelDeleteMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type ChannelDeleteMutation = { __typename: 'Mutation', channelDelete: { __typename: 'ChannelDelete', errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+
+export type ChannelsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ChannelsQuery = { __typename: 'Query', channels: Array<{ __typename: 'Channel', id: string, name: string, slug: string, isActive: boolean }> | null };
+
+export type ChannelDetailsQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type ChannelDetailsQuery = { __typename: 'Query', channel: { __typename: 'Channel', id: string, name: string, slug: string, isActive: boolean } | null };
+
 export type DocumentCreateMutationVariables = Exact<{
   input: DocumentInput;
 }>;
@@ -926,6 +960,8 @@ export type UserFragment = { __typename: 'User', id: string, email: string, firs
 export type UserBaseFragment = { __typename: 'User', id: string, firstName: string | null, lastName: string | null };
 
 export type CategoryFragment = { __typename: 'Category', id: string, name: string, slug: string | null, type: EntryTypeEnum | null, entries: { __typename: 'EntryCountableConnection', totalCount: number | null } | null };
+
+export type ChannelFragment = { __typename: 'Channel', id: string, name: string, slug: string, isActive: boolean };
 
 export type ConsultFragment = { __typename: 'Consult', id: string, created: any | null, plugin: string | null, response: any | null };
 

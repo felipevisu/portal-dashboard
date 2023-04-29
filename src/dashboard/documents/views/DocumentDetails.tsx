@@ -8,7 +8,6 @@ import ActionDialog from "@portal/components/ActionDialog";
 import CircularLoading from "@portal/components/Circular";
 import NotFound from "@portal/components/NotFound";
 import { Task } from "@portal/containers/BackgroundTasks/types";
-import DocumentDetailsPage from "@portal/dashboard/documents/components/DocumentDetailsPage";
 import {
   DocumentInput,
   useDocumentDeleteMutation,
@@ -19,6 +18,8 @@ import {
 } from "@portal/graphql";
 import { useLinks, useModal } from "@portal/hooks";
 import useBackgroundTask from "@portal/hooks/useBackgroundTask";
+
+import DocumentDetailsPage from "../components/DocumentDetailsPage";
 
 import { useDocumentActions } from "./hooks";
 

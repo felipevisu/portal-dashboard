@@ -16,6 +16,9 @@ export const useLinks = () => {
   const documentCreate = (type: string, entryId: string) =>
     `/entries/${type}/details/${entryId}/documents/create`;
   const documentDetails = (id: string) => `/documents/${id}/details`;
+  const channelList = () => "/channels";
+  const channelCreate = () => "/channels/create";
+  const channelDetails = (id: string) => `/channels/details/${id}`;
 
   return {
     homepage,
@@ -33,6 +36,9 @@ export const useLinks = () => {
     documentList,
     documentCreate,
     documentDetails,
+    channelList,
+    channelCreate,
+    channelDetails,
   };
 };
 

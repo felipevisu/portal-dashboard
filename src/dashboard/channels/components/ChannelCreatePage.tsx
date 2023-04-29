@@ -6,49 +6,41 @@ import { Backlink } from "@portal/components/Backlink";
 import { Form } from "@portal/components/Form";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
-import {
-  CategoryFragment,
-  CategoryInput,
-  ErrorFragment,
-} from "@portal/graphql";
+import { ChannelInput, ErrorFragment } from "@portal/graphql";
 import { useLinks } from "@portal/hooks";
 import { SubmitPromise } from "@portal/hooks/useForm";
 
-import CategoryForm, { FormProps } from "./CategoryForm";
+import ChannelForm from "./ChannelForm";
 
-interface CategoryDetailsPageProps {
-  category: CategoryFragment;
-  onSubmit: (data: CategoryInput) => SubmitPromise;
-  onDelete: () => void;
+interface ChannelCreatePageProps {
+  onSubmit: (data: ChannelInput) => SubmitPromise;
   errors: ErrorFragment[];
   loading: boolean;
 }
 
-export const CategoryDetailsPage = ({
-  category,
+export const ChannelCreatePage = ({
   onSubmit,
-  onDelete,
   errors,
   loading,
-}: CategoryDetailsPageProps) => {
+}: ChannelCreatePageProps) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { categoryList } = useLinks();
+  const { channelList } = useLinks();
 
-  const initialData: FormProps = {
-    name: category.name,
-    slug: category.slug,
-    type: category.type,
+  const initialData = {
+    name: "",
+    slug: "",
+    isActive: false,
   };
 
   return (
     <Form initial={initialData} onSubmit={onSubmit}>
-      {({ change, data, submit }) => {
+      {({ change, submit, data }) => {
         return (
           <>
-            <Backlink href={categoryList()}>{t("back")}</Backlink>
-            <PageHeader title={`${t("category.title")}: ${category?.name}`} />
-            <CategoryForm
+            <Backlink href={channelList()}>{t("back")}</Backlink>
+            <PageHeader title={t("channel.create")} />
+            <ChannelForm
               errors={errors}
               onChange={change}
               data={data}
@@ -56,8 +48,7 @@ export const CategoryDetailsPage = ({
             />
             <Savebar
               onSubmit={submit}
-              onDelete={() => onDelete()}
-              onCancel={() => navigate(categoryList())}
+              onCancel={() => navigate(channelList())}
               loading={loading}
             />
           </>
@@ -66,3 +57,5 @@ export const CategoryDetailsPage = ({
     </Form>
   );
 };
+
+export default ChannelCreatePage;

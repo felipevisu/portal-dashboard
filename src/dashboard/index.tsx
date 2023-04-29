@@ -8,6 +8,7 @@ import AuthProvider from "./auth/authProvider";
 import Attributes from "./attributes";
 import Auth, { useUser } from "./auth";
 import Categories from "./categories";
+import Channels from "./channels";
 import Documents from "./documents";
 import Entries from "./entries";
 import Home from "./home";
@@ -34,6 +35,7 @@ const RoutesComponent = () => {
           <Route path="/settings/*" element={<Settings />} />
           <Route path="/plugins/*" element={<Plugins />} />
           <Route path="/attributes/*" element={<Attributes />} />
+          <Route path="/channels/*" element={<Channels />} />
         </Routes>
       </AppLayout>
     );

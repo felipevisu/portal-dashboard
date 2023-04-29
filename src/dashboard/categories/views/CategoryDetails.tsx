@@ -14,6 +14,7 @@ import {
   useCategoryDetailsQuery,
   useCategoryUpdateMutation,
 } from "@portal/graphql";
+import { useLinks } from "@portal/hooks";
 import useModal from "@portal/hooks/useModal";
 
 import { CategoryDetailsPage } from "../components/CategoryDetailsPage";
@@ -22,7 +23,7 @@ export const CategoryDetails = () => {
   const { t } = useTranslation();
   const { id } = useParams();
   const navigate = useNavigate();
-
+  const { categoryList } = useLinks();
   const { isOpen, openModal, closeModal } = useModal();
 
   const { data, loading } = useCategoryDetailsQuery({
@@ -39,7 +40,7 @@ export const CategoryDetails = () => {
   });
 
   const [deleteCategory] = useCategoryDeleteMutation({
-    onCompleted: () => navigate("/categories"),
+    onCompleted: () => navigate(categoryList()),
   });
 
   const handleCategoryDelete = async () => {
@@ -69,14 +70,13 @@ export const CategoryDetails = () => {
         onClose={closeModal}
         onConfirm={handleCategoryDelete}
         open={isOpen}
-        title={t("category.delete")}
+        title={t("category.deleteDialog.title")}
         variant="delete"
       >
         <DialogContentText>
-          Tem certeza que deseja excluir a categoria{" "}
-          <b>{data?.category?.name}</b>
-          <br />
-          Lembre-se esta ação não é reversível
+          {t("category.deleteDialog.description", {
+            name: data.category.name,
+          })}
         </DialogContentText>
       </ActionDialog>
     </>

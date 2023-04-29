@@ -156,13 +156,13 @@ export const EntryDetails = () => {
         onClose={closeModal}
         onConfirm={handleVehicleDelete}
         open={isOpen}
-        title="Excluir veículo"
+        title={t("entry.deleteDialog.title")}
         variant="delete"
       >
         <DialogContentText>
-          Tem certeza que deseja excluir o veículo <b>{data?.entry?.name}</b>
-          <br />
-          Lembre-se esta ação não é reversível
+          {t("channel.deleteDialog.description", {
+            name: data.entry.name,
+          })}
         </DialogContentText>
       </ActionDialog>
     </>
