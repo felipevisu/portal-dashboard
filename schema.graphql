@@ -335,17 +335,10 @@ type CategoryUpdate {
   errors: [Error!]!
 }
 
-"""Represents channel."""
 type Channel implements Node {
   id: ID!
-
-  """Whether the channel is active."""
   isActive: Boolean!
-
-  """Name of the channel."""
   name: String!
-
-  """Slug of the channel."""
   slug: String!
 }
 
@@ -626,20 +619,22 @@ input DocumentUpdateByEntryInput {
 }
 
 type Entry implements Node {
-  active: Boolean
-  address: String
   attributes: [SelectedAttribute!]!
   category: Category
+  channel: String
+
+  "\n\nRequires one of the following permissions: MANAGE_ENTRIES."
+  channelListings: [EntryChannelListing!]
   consult: [Consult!]
+  created: DateTime
   documentNumber: String
   documents(after: String, before: String, first: Int, last: Int): DocumentCountableConnection
   email: String
   id: ID!
-  isPublished: Boolean
   name: String!
-  phone: String
   slug: String
   type: EntryTypeEnum
+  updated: DateTime
 }
 
 """Deletes entries."""
@@ -647,6 +642,45 @@ type EntryBulkDelete {
   """Returns how many objects were affected."""
   count: Int!
   errors: [Error!]!
+}
+
+type EntryChannelListing implements Node {
+  channel: Channel!
+  id: ID!
+  isActive: Boolean!
+  isPublished: Boolean!
+}
+
+type EntryChannelListingError {
+  """List of attributes IDs which causes the error."""
+  attributes: [ID!]
+
+  """List of channels IDs which causes the error."""
+  channels: [ID!]
+
+  """The error code."""
+  code: String
+
+  """
+  Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field.
+  """
+  field: String
+
+  """The error message."""
+  message: String
+
+  """List of attribute values IDs which causes the error."""
+  values: [ID!]
+}
+
+type EntryChannelListingUpdate {
+  entry: Entry
+  errors: [EntryChannelListingError!]!
+}
+
+input EntryChannelListingUpdateInput {
+  removeChannels: [ID!]
+  updateChannels: [PublishableChannelListingInput!]
 }
 
 type EntryCountableConnection {
@@ -697,10 +731,9 @@ type EntryError {
 }
 
 input EntryFilterInput {
-  active: Boolean
   categories: [ID!]
   category: ID
-  isPublished: Boolean
+  channel: String
   search: String
   type: EntryTypeEnum
 }
@@ -999,6 +1032,7 @@ type Mutation {
     """List of entries IDs to delete."""
     ids: [ID!]!
   ): EntryBulkDelete
+  entryChannelListingUpdate(id: ID!, input: EntryChannelListingUpdateInput!): EntryChannelListingUpdate
   entryCreate(input: EntryInput!): EntryCreate
   entryDelete(id: ID): EntryDelete
   entryUpdate(id: ID, input: EntryInput!): EntryUpdate
@@ -1177,6 +1211,12 @@ input PluginUpdateInput {
   configuration: [ConfigurationItemInput!]
 }
 
+input PublishableChannelListingInput {
+  channelId: ID!
+  isActive: Boolean
+  isPublished: Boolean
+}
+
 type Query {
   attribute(id: ID, slug: String): Attribute
   attributes(after: String, before: String, filter: AttributeFilterInput, first: Int, last: Int, search: String, sortBy: AttributeSortingInput): AttributeCountableConnection
@@ -1199,8 +1239,8 @@ type Query {
   "\n\nRequires one of the following permissions: MANAGE_DOCUMENTS."
   documentLoad(id: ID): DocumentLoad
   documents(after: String, before: String, filter: DocumentFilterInput, first: Int, last: Int, sortBy: DocumentSortingInput): DocumentCountableConnection
-  entries(after: String, before: String, filter: EntryFilterInput, first: Int, last: Int, sortBy: EntrySortingInput): EntryCountableConnection
-  entry(id: ID, slug: String): Entry
+  entries(after: String, before: String, channel: String, filter: EntryFilterInput, first: Int, last: Int, sortBy: EntrySortingInput): EntryCountableConnection
+  entry(channel: String, id: ID, slug: String): Entry
 
   "\n\nRequires one of the following permissions: MANAGE_EVENTS."
   events(after: String, before: String, first: Int, last: Int): EventCountableConnection

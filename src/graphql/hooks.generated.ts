@@ -193,22 +193,31 @@ export const DocumentLoadFragmentDoc = gql`
   errorMessage
 }
     `;
+export const ChannelListingEntryFragmentDoc = gql`
+    fragment ChannelListingEntry on EntryChannelListing {
+  isPublished
+  isActive
+  channel {
+    id
+    name
+  }
+}
+    `;
 export const EntryFragmentDoc = gql`
     fragment Entry on Entry {
   id
   name
   slug
+  updated
   category {
     id
     name
   }
-  documents {
-    totalCount
+  channelListings {
+    ...ChannelListingEntry
   }
-  isPublished
-  active
 }
-    `;
+    ${ChannelListingEntryFragmentDoc}`;
 export const ConsultFragmentDoc = gql`
     fragment Consult on Consult {
   id
@@ -223,15 +232,11 @@ export const EntryDetailsFragmentDoc = gql`
   name
   slug
   documentNumber
-  isPublished
-  active
   category {
     id
     name
   }
   email
-  phone
-  address
   attributes {
     attribute {
       ...Attribute
@@ -243,10 +248,14 @@ export const EntryDetailsFragmentDoc = gql`
   consult {
     ...Consult
   }
+  channelListings {
+    ...ChannelListingEntry
+  }
 }
     ${AttributeFragmentDoc}
 ${AttributeValueFragmentDoc}
-${ConsultFragmentDoc}`;
+${ConsultFragmentDoc}
+${ChannelListingEntryFragmentDoc}`;
 export const ErrorFragmentDoc = gql`
     fragment Error on Error {
   code

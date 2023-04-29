@@ -1,19 +1,29 @@
 import { gql } from "@apollo/client";
 
+export const channelListingEntryFragment = gql`
+  fragment ChannelListingEntry on EntryChannelListing {
+    isPublished
+    isActive
+    channel {
+      id
+      name
+    }
+  }
+`;
+
 export const entryFragment = gql`
   fragment Entry on Entry {
     id
     name
     slug
+    updated
     category {
       id
       name
     }
-    documents {
-      totalCount
+    channelListings {
+      ...ChannelListingEntry
     }
-    isPublished
-    active
   }
 `;
 
@@ -23,15 +33,11 @@ export const entryDetailsFragment = gql`
     name
     slug
     documentNumber
-    isPublished
-    active
     category {
       id
       name
     }
     email
-    phone
-    address
     attributes {
       attribute {
         ...Attribute
@@ -42,6 +48,9 @@ export const entryDetailsFragment = gql`
     }
     consult {
       ...Consult
+    }
+    channelListings {
+      ...ChannelListingEntry
     }
   }
 `;

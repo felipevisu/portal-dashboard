@@ -20,10 +20,7 @@ export type FormProps = {
   slug: string;
   documentNumber: string;
   category: string;
-  isPublished: boolean;
   email?: string;
-  phone?: string;
-  address?: string;
 };
 
 interface EntryFormProps

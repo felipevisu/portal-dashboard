@@ -13,8 +13,6 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { Button } from "@portal/components/Button";
-import ControlledCheckbox from "@portal/components/ControlledCheckbox";
-import FormSpacer from "@portal/components/FormSpacer";
 import { EntryErrorWithAttributesFragment } from "@portal/graphql";
 import { ChangeEvent, FetchMoreProps } from "@portal/types";
 import { SingleAutocompleteChoiceType } from "@portal/utils/data";
@@ -24,8 +22,6 @@ interface EntryOrganizationProps {
   errors: EntryErrorWithAttributesFragment[];
   data: {
     category: string;
-    isPublished: boolean;
-    active: boolean;
   };
   categories: SingleAutocompleteChoiceType[];
   onChange: (e: ChangeEvent) => void;
@@ -46,7 +42,7 @@ export const EntryOrganization = ({
   disabled,
 }: EntryOrganizationProps) => {
   const { t } = useTranslation();
-  const formErrors = getFormErrors(["category", "isPublished"], errors);
+  const formErrors = getFormErrors(["category"], errors);
 
   return (
     <Card>
@@ -85,28 +81,6 @@ export const EntryOrganization = ({
           <FormHelperText error={formErrors.category && true}>
             {formErrors.category?.message}
           </FormHelperText>
-        </FormControl>
-        <FormSpacer />
-        <FormControl>
-          <ControlledCheckbox
-            label={t("published")}
-            name="isPublished"
-            checked={data.isPublished}
-            onChange={onChange}
-            disabled={disabled}
-          />
-          <FormHelperText>{t("helperText.isPublished")}</FormHelperText>
-        </FormControl>
-        <FormSpacer />
-        <FormControl>
-          <ControlledCheckbox
-            label={t("active")}
-            name="active"
-            checked={data.active}
-            onChange={onChange}
-            disabled={disabled}
-          />
-          <FormHelperText>{t("helperText.active")}</FormHelperText>
         </FormControl>
       </CardContent>
     </Card>

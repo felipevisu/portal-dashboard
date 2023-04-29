@@ -5,7 +5,6 @@ import { AttributeInputData } from "@portal/components/Attributes/Attributes";
 import {
   createAttributeChangeHandler,
   createAttributeMultiChangeHandler,
-  createAttributeReferenceChangeHandler,
   prepareAttributesInput,
 } from "@portal/dashboard/attributes/utils/handlers";
 import {
@@ -39,8 +38,6 @@ export interface EntryCreateFormData {
   category: string;
   email: string;
   documentNumber: string;
-  isPublished: boolean;
-  active: boolean;
   type: EntryTypeEnum;
 }
 
@@ -74,8 +71,6 @@ const useEntryCreateForm = (
     slug: "",
     documentNumber: "",
     category: "",
-    isPublished: true,
-    active: true,
     email: "",
     type: mapType[type],
   };

@@ -37,8 +37,6 @@ export interface EntryUpdateFormData {
   category: string;
   email: string;
   documentNumber: string;
-  isPublished: boolean;
-  active: boolean;
 }
 
 export interface EntryUpdateData extends EntryUpdateFormData {
@@ -70,8 +68,6 @@ const useEntryUpdateForm = (
     slug: entry.slug,
     documentNumber: entry.documentNumber,
     category: entry.category.id,
-    isPublished: entry.isPublished,
-    active: entry.active,
     email: entry.email,
   };
 
