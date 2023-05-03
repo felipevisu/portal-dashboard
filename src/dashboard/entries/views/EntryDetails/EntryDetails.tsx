@@ -5,18 +5,16 @@ import { toast } from "react-toastify";
 
 import { DialogContentText } from "@mui/material";
 import ActionDialog from "@portal/components/ActionDialog";
+import useAppChannel from "@portal/components/AppLayout/AppChannelContext";
 import CircularLoading from "@portal/components/Circular";
 import NotFound from "@portal/components/NotFound";
 import { DEFAULT_INITIAL_SEARCH_DATA } from "@portal/config";
 import {
   ConsultDocumentMutation,
-  EntryInput,
-  EntryUpdateMutation,
   useAttributesQuery,
   useConsultDocumentMutation,
   useEntryDeleteMutation,
   useEntryDetailsQuery,
-  useEntryUpdateMutation,
 } from "@portal/graphql";
 import { useLinks, usePaginator } from "@portal/hooks";
 import useModal from "@portal/hooks/useModal";
@@ -24,9 +22,10 @@ import useCategorySearch from "@portal/searches/useCategorySearch";
 import useAttributeValueSearchHandler from "@portal/utils/handlers/attributeValueSearchHandler";
 import { mapEdgesToItems } from "@portal/utils/maps";
 
-import { EntryDetailsPage } from "../components/EntryDetailsPage";
+import { EntryDetailsPage } from "../../components/EntryDetailsPage";
+import { mapType } from "../utils";
 
-import { mapType } from "./utils";
+import { useEntryUpdateHandler } from "./handler";
 
 export const EntryDetails = () => {
   const { entry: type, id } = useParams();
@@ -40,20 +39,9 @@ export const EntryDetails = () => {
     variables: { id: id, ...paginator.pagination },
   });
 
-  const handleUpdateEntryResult = (data: EntryUpdateMutation) => {
-    if (!data?.entryUpdate.errors.length) {
-      toast(t("messages.update.success"), { type: toast.TYPE.SUCCESS });
-    }
-  };
+  const { availableChannels } = useAppChannel();
 
-  const [updateEntry, updateEntryResult] = useEntryUpdateMutation({
-    onCompleted: handleUpdateEntryResult,
-  });
-
-  const handleSubmit = async (data: EntryInput) => {
-    console.log(data);
-    await updateEntry({ variables: { id: id, input: { ...data } } });
-  };
+  const [updateEntry, updateEntryResult] = useEntryUpdateHandler(data?.entry);
 
   const handleConsultDocumentResult = (data: ConsultDocumentMutation) => {
     if (!data?.consultDocument?.errors.length) {
@@ -133,10 +121,12 @@ export const EntryDetails = () => {
   return (
     <>
       <EntryDetailsPage
+        channels={availableChannels}
+        channelsErrors={[]}
         entry={data?.entry}
-        onSubmit={handleSubmit}
+        onSubmit={updateEntry}
         onDelete={openModal}
-        errors={updateEntryResult.data?.entryUpdate.errors || []}
+        errors={updateEntryResult.errors}
         loading={updateEntryResult.loading || consultDocumentResult.loading}
         categories={mapEdgesToItems(searchCategoryOpts?.data?.search) || []}
         paginator={paginator}

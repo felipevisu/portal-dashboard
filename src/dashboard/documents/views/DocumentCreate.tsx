@@ -30,7 +30,6 @@ export const DocumentCreate = () => {
   });
 
   const handleSubmit = async (data: DocumentInput) => {
-    console.log(data);
     await createDocument({ variables: { input: data } });
   };
 

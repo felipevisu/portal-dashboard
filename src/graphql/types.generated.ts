@@ -651,6 +651,11 @@ export type ChannelDeleteMutationVariables = Exact<{
 
 export type ChannelDeleteMutation = { __typename: 'Mutation', channelDelete: { __typename: 'ChannelDelete', errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
 
+export type BaseChannelsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type BaseChannelsQuery = { __typename: 'Query', channels: Array<{ __typename: 'Channel', id: string, name: string, slug: string, isActive: boolean }> | null };
+
 export type ChannelsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -787,6 +792,14 @@ export type ConsultDocumentMutationVariables = Exact<{
 
 
 export type ConsultDocumentMutation = { __typename: 'Mutation', consultDocument: { __typename: 'ConsultDocument', errors: Array<{ __typename: 'Error', message: string | null, field: string | null }> } | null };
+
+export type EntryChannelListingUpdateMutationVariables = Exact<{
+  id: Scalars['ID'];
+  input: EntryChannelListingUpdateInput;
+}>;
+
+
+export type EntryChannelListingUpdateMutation = { __typename: 'Mutation', entryChannelListingUpdate: { __typename: 'EntryChannelListingUpdate', errors: Array<{ __typename: 'EntryChannelListingError', code: string | null, field: string | null, message: string | null, attributes: Array<string> | null, values: Array<string> | null, channels: Array<string> | null }> } | null };
 
 export type EntriesQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']>;
@@ -996,6 +1009,8 @@ export type BulkItemErrorFragment = { __typename: 'BulkItemError', code: string 
 export type EntryErrorFragment = { __typename: 'EntryError', code: string | null, field: string | null, message: string | null };
 
 export type EntryErrorWithAttributesFragment = { __typename: 'EntryError', attributes: Array<string> | null, code: string | null, field: string | null, message: string | null };
+
+export type EntryChannelListingErrorFragment = { __typename: 'EntryChannelListingError', code: string | null, field: string | null, message: string | null, attributes: Array<string> | null, values: Array<string> | null, channels: Array<string> | null };
 
 export type EventFragment = { __typename: 'Event', id: string, date: any | null, type: EventTypesEnum | null, message: string | null, user: { __typename: 'User', id: string, email: string, firstName: string | null, lastName: string | null, isStaff: boolean | null } | null };
 

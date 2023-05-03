@@ -5,11 +5,16 @@ import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { Box, Grid, Tab, Tabs, Typography } from "@mui/material";
 import Attributes from "@portal/components/Attributes/Attributes";
 import { Backlink } from "@portal/components/Backlink";
+import { ChannelsAvailabilityCard } from "@portal/components/ChannelsAvailabilityCard";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
+import { ChannelData } from "@portal/dashboard/channels/utils";
 import {
+  ChannelFragment,
+  EntryChannelListingErrorFragment,
   EntryDetailsQuery,
   EntryErrorWithAttributesFragment,
+  PublishableChannelListingInput,
   SearchAttributesQuery,
   SearchAttributeValuesQuery,
   SearchCategoriesQuery,
@@ -23,10 +28,11 @@ import { mapEdgesToItems } from "@portal/utils/maps";
 
 import ConsultList from "../Consult/ConsultList";
 import DocumentList from "../DocumentList";
-import { EntryFormInfos, FormProps } from "../EntryForm";
+import { EntryFormInfos } from "../EntryForm";
 import { EntryOrganization } from "../EntryOrganization";
 
-import EntryUpdateForm from "./form";
+import EntryChannelsListingsDialog from "./EntryChannelsListingsDialog";
+import EntryUpdateForm, { EntryUpdateData } from "./form";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -62,8 +68,10 @@ function a11yProps(index: number) {
 }
 
 interface EntryDetailsPageProps {
+  channels: ChannelFragment[];
+  channelsErrors: EntryChannelListingErrorFragment[];
   entry: EntryDetailsQuery["entry"];
-  onSubmit: (data: FormProps) => SubmitPromise;
+  onSubmit: (data: EntryUpdateData) => SubmitPromise;
   onDelete: () => void;
   errors: EntryErrorWithAttributesFragment[];
   loading: boolean;
@@ -82,6 +90,8 @@ interface EntryDetailsPageProps {
 }
 
 export const EntryDetailsPage = ({
+  channels,
+  channelsErrors,
   entry,
   onSubmit,
   onDelete,
@@ -99,15 +109,13 @@ export const EntryDetailsPage = ({
   onConsultDocument,
 }: EntryDetailsPageProps) => {
   const navigate = useNavigate();
-
+  const [channelPickerOpen, setChannelPickerOpen] = React.useState(false);
   const categories = getChoices(categoryChoiceList);
   const { entry: type } = useParams();
   const { entryList } = useLinks();
   const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [selectedCategory, setSelectedCategory] = useStateFromProps(
-    entry.category.id
-  );
+  const [, setSelectedCategory] = useStateFromProps(entry.category.id);
 
   const [value, setValue] = React.useState(
     parseInt(searchParams.get("tab")) || 0
@@ -128,6 +136,17 @@ export const EntryDetailsPage = ({
       setSelectedCategory={setSelectedCategory}
     >
       {({ change, submit, data, handlers }) => {
+        const listings: ChannelData[] = data.channels.updateChannels.map(
+          (listing: PublishableChannelListingInput) => {
+            const channel = channels?.find((ac) => ac.id === listing.channelId);
+            return {
+              id: listing.channelId,
+              ...channel,
+              ...listing,
+            };
+          }
+        );
+
         return (
           <>
             <Backlink href={entryList(type)}>{t("back")}</Backlink>
@@ -185,6 +204,14 @@ export const EntryDetailsPage = ({
                     onCategoryChange={handlers.selectCategory}
                     disabled={loading}
                   />
+                  <ChannelsAvailabilityCard
+                    errors={channelsErrors}
+                    allChannelsCount={channels?.length}
+                    disabled={loading}
+                    onChange={handlers.changeChannels}
+                    openModal={() => setChannelPickerOpen(true)}
+                    channels={listings}
+                  />
                 </Grid>
               </Grid>
               <Savebar
@@ -208,6 +235,13 @@ export const EntryDetailsPage = ({
                 loading={loading}
               />
             </TabPanel>
+            <EntryChannelsListingsDialog
+              channels={channels}
+              data={data}
+              onClose={() => setChannelPickerOpen(false)}
+              open={channelPickerOpen}
+              onConfirm={handlers.updateChannelList}
+            />
           </>
         );
       }}

@@ -284,6 +284,16 @@ export const EntryErrorWithAttributesFragmentDoc = gql`
   attributes
 }
     ${EntryErrorFragmentDoc}`;
+export const EntryChannelListingErrorFragmentDoc = gql`
+    fragment EntryChannelListingError on EntryChannelListingError {
+  code
+  field
+  message
+  attributes
+  values
+  channels
+}
+    `;
 export const EventDetailsFragmentDoc = gql`
     fragment EventDetails on Event {
   id
@@ -1230,6 +1240,40 @@ export function useChannelDeleteMutation(baseOptions?: Apollo.MutationHookOption
 export type ChannelDeleteMutationHookResult = ReturnType<typeof useChannelDeleteMutation>;
 export type ChannelDeleteMutationResult = Apollo.MutationResult<Types.ChannelDeleteMutation>;
 export type ChannelDeleteMutationOptions = Apollo.BaseMutationOptions<Types.ChannelDeleteMutation, Types.ChannelDeleteMutationVariables>;
+export const BaseChannelsDocument = gql`
+    query BaseChannels {
+  channels {
+    ...Channel
+  }
+}
+    ${ChannelFragmentDoc}`;
+
+/**
+ * __useBaseChannelsQuery__
+ *
+ * To run a query within a React component, call `useBaseChannelsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useBaseChannelsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useBaseChannelsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useBaseChannelsQuery(baseOptions?: Apollo.QueryHookOptions<Types.BaseChannelsQuery, Types.BaseChannelsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<Types.BaseChannelsQuery, Types.BaseChannelsQueryVariables>(BaseChannelsDocument, options);
+      }
+export function useBaseChannelsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.BaseChannelsQuery, Types.BaseChannelsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<Types.BaseChannelsQuery, Types.BaseChannelsQueryVariables>(BaseChannelsDocument, options);
+        }
+export type BaseChannelsQueryHookResult = ReturnType<typeof useBaseChannelsQuery>;
+export type BaseChannelsLazyQueryHookResult = ReturnType<typeof useBaseChannelsLazyQuery>;
+export type BaseChannelsQueryResult = Apollo.QueryResult<Types.BaseChannelsQuery, Types.BaseChannelsQueryVariables>;
 export const ChannelsDocument = gql`
     query Channels {
   channels {
@@ -1935,6 +1979,42 @@ export function useConsultDocumentMutation(baseOptions?: Apollo.MutationHookOpti
 export type ConsultDocumentMutationHookResult = ReturnType<typeof useConsultDocumentMutation>;
 export type ConsultDocumentMutationResult = Apollo.MutationResult<Types.ConsultDocumentMutation>;
 export type ConsultDocumentMutationOptions = Apollo.BaseMutationOptions<Types.ConsultDocumentMutation, Types.ConsultDocumentMutationVariables>;
+export const EntryChannelListingUpdateDocument = gql`
+    mutation EntryChannelListingUpdate($id: ID!, $input: EntryChannelListingUpdateInput!) {
+  entryChannelListingUpdate(id: $id, input: $input) {
+    errors {
+      ...EntryChannelListingError
+    }
+  }
+}
+    ${EntryChannelListingErrorFragmentDoc}`;
+export type EntryChannelListingUpdateMutationFn = Apollo.MutationFunction<Types.EntryChannelListingUpdateMutation, Types.EntryChannelListingUpdateMutationVariables>;
+
+/**
+ * __useEntryChannelListingUpdateMutation__
+ *
+ * To run a mutation, you first call `useEntryChannelListingUpdateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEntryChannelListingUpdateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [entryChannelListingUpdateMutation, { data, loading, error }] = useEntryChannelListingUpdateMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useEntryChannelListingUpdateMutation(baseOptions?: Apollo.MutationHookOptions<Types.EntryChannelListingUpdateMutation, Types.EntryChannelListingUpdateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Types.EntryChannelListingUpdateMutation, Types.EntryChannelListingUpdateMutationVariables>(EntryChannelListingUpdateDocument, options);
+      }
+export type EntryChannelListingUpdateMutationHookResult = ReturnType<typeof useEntryChannelListingUpdateMutation>;
+export type EntryChannelListingUpdateMutationResult = Apollo.MutationResult<Types.EntryChannelListingUpdateMutation>;
+export type EntryChannelListingUpdateMutationOptions = Apollo.BaseMutationOptions<Types.EntryChannelListingUpdateMutation, Types.EntryChannelListingUpdateMutationVariables>;
 export const EntriesDocument = gql`
     query Entries($first: Int, $last: Int, $after: String, $before: String, $filter: EntryFilterInput) {
   entries(

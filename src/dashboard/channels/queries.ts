@@ -1,5 +1,13 @@
 import { gql } from "@apollo/client";
 
+export const channelsListBase = gql`
+  query BaseChannels {
+    channels {
+      ...Channel
+    }
+  }
+`;
+
 export const channelsQuery = gql`
   query Channels {
     channels {

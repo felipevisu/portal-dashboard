@@ -84,8 +84,6 @@ export const DocumentDetailsPage = ({
     onSubmit({ ...submitData });
   };
 
-  console.log(document);
-
   return (
     <Form initial={initialData} onSubmit={handleSubmit}>
       {({ change, submit, data }) => {

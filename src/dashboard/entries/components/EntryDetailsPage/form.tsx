@@ -10,6 +10,7 @@ import {
 import {
   AttributeFragment,
   AttributeValueInput,
+  EntryChannelListingUpdateInput,
   EntryDetailsFragment,
 } from "@portal/graphql";
 import useForm, {
@@ -24,6 +25,8 @@ import {
   SingleAutocompleteChoiceType,
 } from "@portal/utils/data";
 import createSingleAutocompleteSelectHandler from "@portal/utils/handlers/singleAutocompleteSelectChangeHandler";
+
+import { useEntryChannelListingsForm } from "./formChannels";
 
 export interface UseEntryUpdateFormOpts {
   categories: SingleAutocompleteChoiceType[];
@@ -41,6 +44,7 @@ export interface EntryUpdateFormData {
 
 export interface EntryUpdateData extends EntryUpdateFormData {
   attributes: AttributeValueInput[];
+  channels: EntryChannelListingUpdateInput;
 }
 
 export interface EntryUpdateFormProps extends UseEntryUpdateFormOpts {
@@ -80,6 +84,13 @@ const useEntryUpdateForm = (
 
   const attributes = useFormset<AttributeInputData>(mergedAttributes || []);
 
+  const {
+    channels,
+    handleChannelChange,
+    handleChannelListUpdate,
+    touched: touchedChannels,
+  } = useEntryChannelListingsForm(entry);
+
   const handleCategorySelect = createSingleAutocompleteSelectHandler(
     change,
     opts.setSelectedCategory,
@@ -95,6 +106,7 @@ const useEntryUpdateForm = (
   const data: EntryUpdateData = {
     ...formData,
     attributes: attributes.data,
+    channels,
   };
 
   const getData = (): EntryUpdateData => ({
@@ -111,6 +123,8 @@ const useEntryUpdateForm = (
     selectCategory: handleCategorySelect,
     selectAttributeMultiple: handleAttributeMultiChange,
     selectAttribute: handleAttributeChange,
+    changeChannels: handleChannelChange,
+    updateChannelList: handleChannelListUpdate,
   };
 
   return {

@@ -31,3 +31,14 @@ export const entryErrorWithAttributesFragment = gql`
     attributes
   }
 `;
+
+export const entryChannelListingErrorFragment = gql`
+  fragment EntryChannelListingError on EntryChannelListingError {
+    code
+    field
+    message
+    attributes
+    values
+    channels
+  }
+`;

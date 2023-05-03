@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 
 import AppLayout from "@portal/components/AppLayout";
+import { AppChannelProvider } from "@portal/components/AppLayout/AppChannelContext";
 import CircularLoading from "@portal/components/Circular";
 
 import AuthProvider from "./auth/authProvider";
@@ -47,7 +48,9 @@ const RoutesComponent = () => {
 export const Dashboard = () => {
   return (
     <AuthProvider>
-      <RoutesComponent />
+      <AppChannelProvider>
+        <RoutesComponent />
+      </AppChannelProvider>
     </AuthProvider>
   );
 };

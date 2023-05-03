@@ -56,3 +56,16 @@ export const consultDocumentMutation = gql`
     }
   }
 `;
+
+export const EntryChannelListingUpdateMutation = gql`
+  mutation EntryChannelListingUpdate(
+    $id: ID!
+    $input: EntryChannelListingUpdateInput!
+  ) {
+    entryChannelListingUpdate(id: $id, input: $input) {
+      errors {
+        ...EntryChannelListingError
+      }
+    }
+  }
+`;
