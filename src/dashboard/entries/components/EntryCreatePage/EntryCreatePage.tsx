@@ -23,6 +23,7 @@ import { getChoices } from "@portal/utils/data";
 import { EntryFormInfos } from "../EntryForm";
 import { EntryOrganization } from "../EntryOrganization";
 
+import Channels from "./Channels";
 import EntryCreateForm from "./form";
 
 interface EntryCreatePageProps {
@@ -108,6 +109,7 @@ export const EntryCreatePage = ({
                   fetchMoreCategories={fetchMoreCategories}
                   disabled={loading}
                 />
+                <Channels />
               </Grid>
             </Grid>
             <Savebar

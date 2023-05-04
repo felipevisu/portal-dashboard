@@ -1,21 +1,7 @@
 {
 	"active": "Ativo",
-	"inactive": "Inativo",
 	"add": "Adicionar",
 	"address": "Endereço",
-	"events": {
-		"DOCUMENT_REQUESTED": "Novo documento solicitado",
-		"DOCUMENT_RECEIVED": "Documento recebido aguardando aprovação",
-		"DOCUMENT_LOADED_FROM_API": "Documento atualizado via API",
-		"DOCUMENT_LOADED_FAIL": "Atualização do documento via API falhou",
-		"DOCUMENT_CREATED": "Documento criado"
-	},
-	"tasks":{
-		"documentLoad": {
-			"success": "O documento {{ name }} foi atualizado com sucesso",
-			"error": "Ocorreu um erro ao atualizar o documento {{ name }}."
-		}
-	},
 	"attribute": {
 		"title": "Atributo",
 		"plural": "Atributos",
@@ -87,7 +73,8 @@
 		"dialog": {
 			"title": "Vincule o cadastro aos canais disponíveis."
 		},
-		"availability": "Disponível em {{ available }} de {{ total }} canais."
+		"availability": "Disponível em {{ available }} de {{ total }} canais.",
+		"createMessage": "Primeiro salve o cadastro para depoius vinculá-lo aos canais disponíveis."
 	},
 	"clickHere": "Clique aqui",
 	"configurationType": "Tipo de configuração",
@@ -109,6 +96,7 @@
 		}
 	},
 	"contactInfo": "Informações de contato",
+	"content": "Conteúdo",
 	"created": "Criado",
 	"dashboard": {
 		"home": {
@@ -154,7 +142,7 @@
 			"description": "Pesquisar novo arquivo utilizando APIs conectadas a plataforma.",
 			"button": "Consultar agora"
 		},
-		"loadType":{
+		"loadType": {
 			"label": "Consulta otimizada",
 			"EMPTY": "Nenhuma",
 			"CNEP": "Certidão Negativa Correcional (CGU-PJ, CEIS, CNEP e CEPIM)",
@@ -168,9 +156,18 @@
 			"JUCESP": "Junta Comercial / SP / Certidão Simplificada"
 		}
 	},
-	"manage": "Gerenciar",
-	"isActive": "Ativo",
 	"documentNumber": "CNPJ/CPF",
+	"documentUpdate": {
+		"title": "Atualização de Documento",
+		"record": "Cadastro",
+		"document": "Documento",
+		"submit": "Enviar",
+		"success": {
+			"title": "Obrigado!",
+			"body1": "Documento enviado com sucesso.",
+			"body2": "O arquivo está em análise e será aprovado pelo administrador da plataforma."
+		}
+	},
 	"email": "Email",
 	"empty": "Nenhum item cadastrado",
 	"entry": {
@@ -184,6 +181,13 @@
 		}
 	},
 	"entryTypes": "Veículo/Fornecedor",
+	"events": {
+		"DOCUMENT_REQUESTED": "Novo documento solicitado",
+		"DOCUMENT_RECEIVED": "Documento recebido aguardando aprovação",
+		"DOCUMENT_LOADED_FROM_API": "Documento atualizado via API",
+		"DOCUMENT_LOADED_FAIL": "Atualização do documento via API falhou",
+		"DOCUMENT_CREATED": "Documento criado"
+	},
 	"expirationDate": "Data de expiração",
 	"expired": "Expirado",
 	"expires": "Expirável",
@@ -197,7 +201,6 @@
 	"filesHistory": "Histórico de arquivos",
 	"filters": "Filtros",
 	"generalInfo": "Informações gerais",
-	"content": "Conteúdo",
 	"helperText": {
 		"name": "Este valor será utilizado para identificar este item dentro da plataforma e no site público.",
 		"slug": "Este campo será utilizado para gerar a URL deste item no site e não pode conter caracteres especiais. Deixe em branco durante a criação para o sistema gerá-lo automaticamente.",
@@ -212,6 +215,7 @@
 		"active": "Indica se o veículo/fornecedor está em atividade. Quando inativo aparece na sessão 'Inativos' no site público."
 	},
 	"homepage": "Homepage",
+	"inactive": "Inativo",
 	"initialDate": "Data de início",
 	"investment": {
 		"title": "Investimento",
@@ -219,6 +223,8 @@
 		"create": "Adicionar investimento",
 		"delete": "Excluir investimento"
 	},
+	"isActive": "Ativo",
+	"manage": "Gerenciar",
 	"messages": {
 		"create": {
 			"success": "Criado com sucesso."
@@ -263,6 +269,12 @@
 	"slug": "Atalho",
 	"status": "Status",
 	"submit": "Enviar",
+	"tasks": {
+		"documentLoad": {
+			"success": "O documento {{ name }} foi atualizado com sucesso",
+			"error": "Ocorreu um erro ao atualizar o documento {{ name }}."
+		}
+	},
 	"total": "Total",
 	"type": "Tipo",
 	"unpublished": "Despublicado",
@@ -276,16 +288,5 @@
 		"delete": "Excluir Veículo"
 	},
 	"visibility": "Visibilidade",
-	"year": "Ano",
-	"documentUpdate": {
-		"title": "Atualização de Documento",
-		"record": "Cadastro",
-		"document": "Documento",
-		"submit": "Enviar",
-		"success": {
-			"title": "Obrigado!",
-			"body1": "Documento enviado com sucesso.",
-			"body2": "O arquivo está em análise e será aprovado pelo administrador da plataforma."
-		}
-	}
+	"year": "Ano"
 }
