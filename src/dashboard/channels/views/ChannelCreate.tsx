@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
+import useAppChannel from "@portal/components/AppLayout/AppChannelContext";
 import {
   ChannelCreateMutation,
   ChannelInput,
@@ -16,9 +17,11 @@ export const ChannelCreate = () => {
   const { t } = useTranslation();
   const navigator = useNavigate();
   const { channelDetails } = useLinks();
+  const { refreshChannels } = useAppChannel();
 
   const handleCreateChannel = (data: ChannelCreateMutation) => {
     if (!data?.channelCreate.errors.length) {
+      refreshChannels();
       toast(t("messages.create.success"));
       navigator(channelDetails(data?.channelCreate.channel.id));
     }

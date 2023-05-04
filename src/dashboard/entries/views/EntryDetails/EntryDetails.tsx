@@ -41,7 +41,10 @@ export const EntryDetails = () => {
 
   const { availableChannels } = useAppChannel();
 
-  const [updateEntry, updateEntryResult] = useEntryUpdateHandler(data?.entry);
+  const [updateEntry, updateEntryResult] = useEntryUpdateHandler(
+    data?.entry,
+    refetch
+  );
 
   const handleConsultDocumentResult = (data: ConsultDocumentMutation) => {
     if (!data?.consultDocument?.errors.length) {

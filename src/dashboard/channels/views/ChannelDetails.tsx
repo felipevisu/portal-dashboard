@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 
 import { DialogContentText } from "@mui/material";
 import ActionDialog from "@portal/components/ActionDialog";
+import useAppChannel from "@portal/components/AppLayout/AppChannelContext";
 import CircularLoading from "@portal/components/Circular";
 import NotFound from "@portal/components/NotFound";
 import {
@@ -14,7 +15,7 @@ import {
   useChannelDetailsQuery,
   useChannelUpdateMutation,
 } from "@portal/graphql";
-import { useModal } from "@portal/hooks";
+import { useLinks, useModal } from "@portal/hooks";
 
 import { ChannelDetailsPage } from "../components/ChannelDetailsPage";
 
@@ -22,7 +23,8 @@ export const ChannelDetails = () => {
   const { t } = useTranslation();
   const { id } = useParams();
   const navigate = useNavigate();
-
+  const { channelList } = useLinks();
+  const { refreshChannels } = useAppChannel();
   const { isOpen, openModal, closeModal } = useModal();
 
   const { data, loading } = useChannelDetailsQuery({
@@ -30,8 +32,10 @@ export const ChannelDetails = () => {
   });
 
   const handleUpdateChannel = (data: ChannelUpdateMutation) => {
-    if (data.channelUpdate.errors.length === 0)
+    if (data.channelUpdate.errors.length === 0) {
+      refreshChannels();
       toast(t("messages.update.success"), { type: toast.TYPE.SUCCESS });
+    }
   };
 
   const [updateChannel, updateChannelResult] = useChannelUpdateMutation({
@@ -39,7 +43,10 @@ export const ChannelDetails = () => {
   });
 
   const [deleteChannel] = useChannelDeleteMutation({
-    onCompleted: () => navigate("/categories"),
+    onCompleted: () => {
+      refreshChannels();
+      navigate(channelList());
+    },
   });
 
   const handleChannelDelete = async () => {

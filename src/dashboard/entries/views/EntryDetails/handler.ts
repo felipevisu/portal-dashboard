@@ -28,7 +28,8 @@ interface UseEntryUpdateHandlerOpts {
 }
 
 export const useEntryUpdateHandler = (
-  entry: EntryDetailsFragment
+  entry: EntryDetailsFragment,
+  callback: () => void
 ): [UseEntryUpdateHandler, UseEntryUpdateHandlerOpts] => {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
@@ -67,6 +68,7 @@ export const useEntryUpdateHandler = (
     setLoading(false);
 
     if (errors.length === 0) {
+      if (callback) callback();
       toast(t("messages.update.success"), { type: toast.TYPE.SUCCESS });
     }
 

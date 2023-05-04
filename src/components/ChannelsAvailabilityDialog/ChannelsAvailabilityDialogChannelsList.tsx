@@ -17,7 +17,7 @@ export const ChannelsAvailabilityContent: React.FC<
   return (
     <>
       {channels.map((option) => (
-        <FormControl fullWidth key={option.id} data-test-id="channel-row">
+        <FormControl fullWidth key={option.id}>
           <ControlledCheckbox
             checked={isChannelSelected(option)}
             name={option.name}

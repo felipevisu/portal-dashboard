@@ -14,8 +14,8 @@ export interface ChannelOpts {
 }
 
 const emptyListing: Omit<PublishableChannelListingInput, "channelId"> = {
-  isPublished: false,
-  isActive: false,
+  isPublished: true,
+  isActive: true,
 };
 
 export const updateChannelsInput = (

@@ -1,5 +1,11 @@
 import React from "react";
 
+import {
+  Checkbox,
+  Divider,
+  FormControl,
+  FormControlLabel,
+} from "@mui/material";
 import { Channel } from "@portal/dashboard/channels/utils";
 
 import ActionDialog from "../ActionDialog";
@@ -46,11 +52,29 @@ export const ChannelsAvailabilityDialog: React.FC<
       disabled={disabled}
     >
       {hasChannels ? (
-        <ChannelsAvailabilityContent
-          channels={channels}
-          isChannelSelected={isSelected}
-          onChange={onChange}
-        />
+        <>
+          <FormControl>
+            <FormControlLabel
+              label="Selecione todos"
+              control={
+                <Checkbox
+                  indeterminate={
+                    channels && channels.length > selected && selected > 0
+                  }
+                  checked={selected !== 0}
+                  disabled={disabled}
+                  onChange={() => toggleAll(channels, selected)}
+                />
+              }
+            />
+          </FormControl>
+          <Divider />
+          <ChannelsAvailabilityContent
+            channels={channels}
+            isChannelSelected={isSelected}
+            onChange={onChange}
+          />
+        </>
       ) : (
         <div />
       )}
