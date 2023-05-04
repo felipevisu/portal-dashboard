@@ -2,6 +2,7 @@ import { useState } from "react";
 import isEqual from "lodash/isEqual";
 
 import { ChangeEvent } from "@portal/types";
+import { toggle } from "@portal/utils/lists";
 
 import useStateFromProps from "./useStateFromProps";
 
@@ -75,10 +76,27 @@ export const useForm = <T extends FormData, TErrors>(
     onSubmit(data);
   }
 
+  function toggleValue(event: ChangeEvent, cb?: () => void) {
+    const { name, value } = event.target;
+    const field = data[name as keyof T];
+
+    if (Array.isArray(field)) {
+      setData({
+        ...data,
+        [name]: toggle(value, field, isEqual),
+      });
+    }
+
+    if (typeof cb === "function") {
+      cb();
+    }
+  }
+
   return {
     data,
     submit,
     change,
+    toggleValue,
     set,
   };
 };

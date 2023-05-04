@@ -7,23 +7,20 @@ import {
   CardHeader,
   FormControl,
   FormHelperText,
-  InputLabel,
-  MenuItem,
-  Select,
 } from "@mui/material";
-import { Box } from "@mui/system";
-import { Button } from "@portal/components/Button";
+import { MultiAutocompleteChoiceType } from "@portal/components/Attributes/utils";
+import { MultiAutocompleteSelectField } from "@portal/components/MultiAutocompleteSelectField";
 import { EntryErrorWithAttributesFragment } from "@portal/graphql";
 import { ChangeEvent, FetchMoreProps } from "@portal/types";
-import { SingleAutocompleteChoiceType } from "@portal/utils/data";
 import { getFormErrors } from "@portal/utils/errors";
 
 interface EntryOrganizationProps {
   errors: EntryErrorWithAttributesFragment[];
   data: {
-    category: string;
+    categories: string[];
   };
-  categories: SingleAutocompleteChoiceType[];
+  categories: MultiAutocompleteChoiceType[];
+  categoriesInputDisplayValue: MultiAutocompleteChoiceType[];
   onChange: (e: ChangeEvent) => void;
   onCategoryChange: (event: ChangeEvent) => void;
   fetchCategories: (query: string) => void;
@@ -35,51 +32,33 @@ export const EntryOrganization = ({
   errors,
   data,
   categories,
-  onChange,
+  categoriesInputDisplayValue,
   onCategoryChange,
   fetchCategories,
   fetchMoreCategories,
   disabled,
 }: EntryOrganizationProps) => {
   const { t } = useTranslation();
-  const formErrors = getFormErrors(["category"], errors);
+  const formErrors = getFormErrors(["categories"], errors);
 
   return (
     <Card>
       <CardHeader title={t("visibility")} />
       <CardContent>
         <FormControl fullWidth>
-          <InputLabel error={formErrors.category && true}>
-            {t("category.title")}
-          </InputLabel>
-          <Select
-            fullWidth
-            name="category"
-            label={t("category.title")}
-            value={data.category}
+          <MultiAutocompleteSelectField
+            displayValues={categoriesInputDisplayValue}
+            error={!!formErrors.categories}
+            label={t("category.plural")}
+            choices={disabled ? [] : categories}
+            name="categories"
+            value={data.categories}
             onChange={onCategoryChange}
-            error={formErrors.category && true}
-            disabled={disabled}
-          >
-            {categories.map((category) => (
-              <MenuItem key={category.value} value={category.value}>
-                {category.label}
-              </MenuItem>
-            ))}
-            {fetchMoreCategories.hasMore && (
-              <Box paddingX={2} paddingY={1}>
-                <Button
-                  variant="outlined"
-                  fullWidth
-                  onClick={fetchMoreCategories.onFetchMore}
-                >
-                  Carregar mais
-                </Button>
-              </Box>
-            )}
-          </Select>
-          <FormHelperText error={formErrors.category && true}>
-            {formErrors.category?.message}
+            fetchChoices={fetchCategories}
+            {...fetchMoreCategories}
+          />
+          <FormHelperText error={formErrors.categories && true}>
+            {formErrors.categories?.message}
           </FormHelperText>
         </FormControl>
       </CardContent>

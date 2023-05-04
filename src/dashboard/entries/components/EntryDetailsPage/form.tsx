@@ -1,7 +1,10 @@
 import React from "react";
 
 import { AttributeInputData } from "@portal/components/Attributes/Attributes";
-import { mergeAttributes } from "@portal/components/Attributes/utils";
+import {
+  mergeAttributes,
+  MultiAutocompleteChoiceType,
+} from "@portal/components/Attributes/utils";
 import {
   createAttributeChangeHandler,
   createAttributeMultiChangeHandler,
@@ -19,25 +22,29 @@ import useForm, {
   SubmitPromise,
 } from "@portal/hooks/useForm";
 import useFormset from "@portal/hooks/useFormset";
+import { maybe } from "@portal/misc";
 import {
   getAttributeInputFromAttributes,
   getAttributeInputFromEntry,
   SingleAutocompleteChoiceType,
 } from "@portal/utils/data";
-import createSingleAutocompleteSelectHandler from "@portal/utils/handlers/singleAutocompleteSelectChangeHandler";
+import createMultiAutocompleteSelectHandler from "@portal/utils/handlers/multiAutocompleteSelectChangeHandler";
 
 import { useEntryChannelListingsForm } from "./formChannels";
 
 export interface UseEntryUpdateFormOpts {
   categories: SingleAutocompleteChoiceType[];
   attributes: AttributeFragment[];
-  setSelectedCategory: React.Dispatch<React.SetStateAction<string>>;
+  setSelectedCategories: React.Dispatch<
+    React.SetStateAction<MultiAutocompleteChoiceType[]>
+  >;
+  selectedCategories: MultiAutocompleteChoiceType[];
 }
 
 export interface EntryUpdateFormData {
   name: string;
   slug: string;
-  category: string;
+  categories: string[];
   email: string;
   documentNumber: string;
 }
@@ -54,7 +61,7 @@ export interface EntryUpdateFormProps extends UseEntryUpdateFormOpts {
   loading: boolean;
 }
 
-export type EntryUpdateHandlers = Record<"selectCategory", FormChange>;
+export type EntryUpdateHandlers = Record<"selectCategories", FormChange>;
 
 export type UseEntryUpdateFormOutput = CommonUseFormResultWithHandlers<
   EntryUpdateData,
@@ -71,12 +78,12 @@ const useEntryUpdateForm = (
     name: entry.name,
     slug: entry.slug,
     documentNumber: entry.documentNumber,
-    category: entry.category.id,
     email: entry.email,
+    categories: entry.categories.map((category) => category.id),
   };
 
   const form = useForm(initialData, onSubmit);
-  const { change, data: formData } = form;
+  const { change, data: formData, toggleValue } = form;
 
   const currentAttributes = getAttributeInputFromEntry(entry);
   const newAttributes = getAttributeInputFromAttributes(opts.attributes);
@@ -91,9 +98,10 @@ const useEntryUpdateForm = (
     touched: touchedChannels,
   } = useEntryChannelListingsForm(entry);
 
-  const handleCategorySelect = createSingleAutocompleteSelectHandler(
-    change,
-    opts.setSelectedCategory,
+  const handleCategorySelect = createMultiAutocompleteSelectHandler(
+    (event) => toggleValue(event),
+    opts.setSelectedCategories,
+    opts.selectedCategories,
     opts.categories
   );
 
@@ -120,7 +128,7 @@ const useEntryUpdateForm = (
   const submit = async () => onSubmit(getData());
 
   const handlers = {
-    selectCategory: handleCategorySelect,
+    selectCategories: handleCategorySelect,
     selectAttributeMultiple: handleAttributeMultiChange,
     selectAttribute: handleAttributeChange,
     changeChannels: handleChannelChange,

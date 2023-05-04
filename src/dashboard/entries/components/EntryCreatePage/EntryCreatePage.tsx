@@ -17,6 +17,7 @@ import {
 import { useLinks } from "@portal/hooks";
 import { SubmitPromise } from "@portal/hooks/useForm";
 import useStateFromProps from "@portal/hooks/useStateFromProps";
+import { maybe } from "@portal/misc";
 import { FetchMoreProps, RelayToFlat } from "@portal/types";
 import { getChoices } from "@portal/utils/data";
 
@@ -56,7 +57,7 @@ export const EntryCreatePage = ({
   onAttributeSelectBlur,
 }: EntryCreatePageProps) => {
   const navigate = useNavigate();
-  const [selectedCategory, setSelectedCategory] = useStateFromProps("");
+  const [selectedCategories, setSelectedCategories] = useStateFromProps([]);
   const categories = getChoices(categoryChoiceList);
   const { entry: type } = useParams();
   const { entryList } = useLinks();
@@ -68,7 +69,8 @@ export const EntryCreatePage = ({
       loading={loading}
       categories={categories}
       attributes={attributes}
-      setSelectedCategory={setSelectedCategory}
+      selectedCategories={selectedCategories}
+      setSelectedCategories={setSelectedCategories}
     >
       {({ change, submit, data, handlers }) => {
         return (
@@ -104,10 +106,11 @@ export const EntryCreatePage = ({
                   onChange={change}
                   data={data}
                   categories={categories}
-                  onCategoryChange={handlers.selectCategory}
+                  onCategoryChange={handlers.selectCategories}
                   fetchCategories={fetchCategories}
                   fetchMoreCategories={fetchMoreCategories}
                   disabled={loading}
+                  categoriesInputDisplayValue={selectedCategories}
                 />
                 <Channels />
               </Grid>

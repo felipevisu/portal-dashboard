@@ -2,6 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 
 import { AttributeInputData } from "@portal/components/Attributes/Attributes";
+import { MultiAutocompleteChoiceType } from "@portal/components/Attributes/utils";
 import {
   createAttributeChangeHandler,
   createAttributeMultiChangeHandler,
@@ -18,24 +19,28 @@ import useForm, {
   SubmitPromise,
 } from "@portal/hooks/useForm";
 import useFormset from "@portal/hooks/useFormset";
+import { maybe } from "@portal/misc";
 import {
   getAttributeInputFromAttributes,
   SingleAutocompleteChoiceType,
 } from "@portal/utils/data";
-import createSingleAutocompleteSelectHandler from "@portal/utils/handlers/singleAutocompleteSelectChangeHandler";
+import createMultiAutocompleteSelectHandler from "@portal/utils/handlers/multiAutocompleteSelectChangeHandler";
 
 import { mapType } from "../../views/utils";
 
 export interface UseEntryCreateFormOpts {
   attributes: AttributeFragment[];
   categories: SingleAutocompleteChoiceType[];
-  setSelectedCategory: React.Dispatch<React.SetStateAction<string>>;
+  setSelectedCategories: React.Dispatch<
+    React.SetStateAction<MultiAutocompleteChoiceType[]>
+  >;
+  selectedCategories: MultiAutocompleteChoiceType[];
 }
 
 export interface EntryCreateFormData {
   name: string;
   slug: string;
-  category: string;
+  categories: string[];
   email: string;
   documentNumber: string;
   type: EntryTypeEnum;
@@ -52,7 +57,7 @@ export interface EntryCreateFormProps extends UseEntryCreateFormOpts {
   loading: boolean;
 }
 
-export type EntryCreateHandlers = Record<"selectCategory", FormChange>;
+export type EntryCreateHandlers = Record<"selectCategories", FormChange>;
 
 export type UseEntryCreateFormOutput = CommonUseFormResultWithHandlers<
   EntryCreateData,
@@ -70,21 +75,22 @@ const useEntryCreateForm = (
     name: "",
     slug: "",
     documentNumber: "",
-    category: "",
+    categories: [],
     email: "",
     type: mapType[type],
   };
 
   const form = useForm(initialData, onSubmit);
-  const { change, data: formData } = form;
+  const { change, data: formData, toggleValue } = form;
 
   const attributes = useFormset<AttributeInputData>(
     opts.attributes ? getAttributeInputFromAttributes(opts.attributes) : []
   );
 
-  const handleCategorySelect = createSingleAutocompleteSelectHandler(
-    change,
-    opts.setSelectedCategory,
+  const handleCategorySelect = createMultiAutocompleteSelectHandler(
+    (event) => toggleValue(event),
+    opts.setSelectedCategories,
+    opts.selectedCategories,
     opts.categories
   );
 
@@ -110,7 +116,7 @@ const useEntryCreateForm = (
   const submit = async () => onSubmit(getData());
 
   const handlers = {
-    selectCategory: handleCategorySelect,
+    selectCategories: handleCategorySelect,
     selectAttributeMultiple: handleAttributeMultiChange,
     selectAttribute: handleAttributeChange,
   };

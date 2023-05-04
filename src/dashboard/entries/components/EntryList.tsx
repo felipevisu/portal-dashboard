@@ -65,7 +65,9 @@ export const EntryList = ({
                   />
                 </TableCell>
                 <TableCell>{entry.name}</TableCell>
-                <TableCell>{entry.category.name}</TableCell>
+                <TableCell>
+                  {entry.categories.map((category) => category.name).join(", ")}
+                </TableCell>
               </TableRowLink>
             );
           })}

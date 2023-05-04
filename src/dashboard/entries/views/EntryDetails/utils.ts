@@ -17,7 +17,7 @@ export const getEntryUpdateVariables = (
     id: entry.id,
     input: {
       attributes: data.attributes,
-      category: data.category,
+      categories: data.categories,
       name: data.name,
       slug: data.slug,
       documentNumber: data.documentNumber,

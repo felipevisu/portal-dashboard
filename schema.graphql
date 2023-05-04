@@ -620,6 +620,7 @@ input DocumentUpdateByEntryInput {
 
 type Entry implements Node {
   attributes: [SelectedAttribute!]!
+  categories: [Category!]
   category: Category
   channel: String
 
@@ -742,6 +743,7 @@ input EntryInput {
   active: Boolean
   address: String
   attributes: [AttributeValueInput!]
+  categories: [ID!]
   category: ID
   documentNumber: String
   email: String

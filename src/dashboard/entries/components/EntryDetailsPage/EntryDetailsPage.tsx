@@ -22,6 +22,7 @@ import {
 import { useLinks } from "@portal/hooks";
 import { SubmitPromise } from "@portal/hooks/useForm";
 import useStateFromProps from "@portal/hooks/useStateFromProps";
+import { maybe } from "@portal/misc";
 import { FetchMoreProps, Paginator, RelayToFlat } from "@portal/types";
 import { getChoices } from "@portal/utils/data";
 import { mapEdgesToItems } from "@portal/utils/maps";
@@ -115,7 +116,9 @@ export const EntryDetailsPage = ({
   const { entryList } = useLinks();
   const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [, setSelectedCategory] = useStateFromProps(entry.category.id);
+  const [selectedCategories, setSelectedCategories] = useStateFromProps(
+    getChoices(maybe(() => entry.categories, []))
+  );
 
   const [value, setValue] = React.useState(
     parseInt(searchParams.get("tab")) || 0
@@ -133,7 +136,8 @@ export const EntryDetailsPage = ({
       loading={loading}
       categories={categories}
       attributes={attributes}
-      setSelectedCategory={setSelectedCategory}
+      selectedCategories={selectedCategories}
+      setSelectedCategories={setSelectedCategories}
     >
       {({ change, submit, data, handlers }) => {
         const listings: ChannelData[] = data.channels.updateChannels.map(
@@ -201,8 +205,9 @@ export const EntryDetailsPage = ({
                     categories={categories}
                     fetchCategories={fetchCategories}
                     fetchMoreCategories={fetchMoreCategories}
-                    onCategoryChange={handlers.selectCategory}
+                    onCategoryChange={handlers.selectCategories}
                     disabled={loading}
+                    categoriesInputDisplayValue={selectedCategories}
                   />
                   <ChannelsAvailabilityCard
                     errors={channelsErrors}

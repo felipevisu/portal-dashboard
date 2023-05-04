@@ -12,7 +12,6 @@ import {
   useEntryCreateMutation,
 } from "@portal/graphql";
 import { useLinks } from "@portal/hooks";
-import useAttributeSearch from "@portal/searches/useAttributeSearch";
 import useCategorySearch from "@portal/searches/useCategorySearch";
 import useAttributeValueSearchHandler from "@portal/utils/handlers/attributeValueSearchHandler";
 import { mapEdgesToItems } from "@portal/utils/maps";

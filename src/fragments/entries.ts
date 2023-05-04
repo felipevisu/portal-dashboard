@@ -21,6 +21,10 @@ export const entryFragment = gql`
       id
       name
     }
+    categories {
+      id
+      name
+    }
     channelListings {
       ...ChannelListingEntry
     }
@@ -34,6 +38,10 @@ export const entryDetailsFragment = gql`
     slug
     documentNumber
     category {
+      id
+      name
+    }
+    categories {
       id
       name
     }
