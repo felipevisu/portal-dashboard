@@ -75,8 +75,8 @@ export const FilterContent = ({ filterOpts }: FilterContentProps) => {
 
   return (
     <Paper
-      elevation={0}
-      sx={{ width: 360, borderRadius: "10px", overflow: "hidden" }}
+      sx={{ width: 360, overflow: "hidden", marginTop: 1 }}
+      variant="outlined"
     >
       <FilterContentHeader
         onClickApply={handleApplyFilters}

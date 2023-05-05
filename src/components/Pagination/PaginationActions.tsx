@@ -67,6 +67,7 @@ export const PaginationActions = <BProps,>({
         onClick={onPreviousPage}
         disabled={previousDisabled}
         aria-label="previous page"
+        sx={{ "&:disabled": { opacity: 0.5 } }}
         {...prevIconButtonProps}
       >
         <ChevronLeft />
@@ -76,6 +77,7 @@ export const PaginationActions = <BProps,>({
         onClick={onNextPage}
         disabled={nextDisabled}
         aria-label="next page"
+        sx={{ "&:disabled": { opacity: 0.5 } }}
         {...nextIconButtonProps}
       >
         <ChevronRight />
