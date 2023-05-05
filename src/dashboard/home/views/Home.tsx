@@ -1,7 +1,8 @@
 import React from "react";
 
 import CircularLoading from "@portal/components/Circular";
-import { useDocumentsQuery } from "@portal/graphql";
+import { useDocumentsQuery, useEventsQuery } from "@portal/graphql";
+import { mapEdgesToItems } from "@portal/utils/maps";
 
 import Homepage from "../components/Homepage";
 
@@ -10,7 +11,12 @@ import { getDates } from "./utils";
 export const Home = () => {
   const { today, tomorrow, nextWeek } = getDates();
 
-  const { data: expired, loading: loading1 } = useDocumentsQuery({
+  const { data: events, loading: eventsLoading } = useEventsQuery({
+    variables: { first: 5 },
+    fetchPolicy: "network-only",
+  });
+
+  const { data: expired, loading: expiredLoading } = useDocumentsQuery({
     variables: {
       first: 10,
       filter: {
@@ -20,10 +26,10 @@ export const Home = () => {
         waiting: false,
       },
     },
-    fetchPolicy: "cache-and-network",
+    fetchPolicy: "network-only",
   });
 
-  const { data: closeToExpire, loading: loading2 } = useDocumentsQuery({
+  const { data: closeToExpire, loading: expiringLoading } = useDocumentsQuery({
     variables: {
       first: 10,
       filter: {
@@ -33,18 +39,21 @@ export const Home = () => {
         waiting: false,
       },
     },
-    fetchPolicy: "cache-and-network",
+    fetchPolicy: "network-only",
   });
 
   const expiredFilter = `/documents?expirationDate_Lte=${today}`;
   const closeToExpireFilter = `/documents?expirationDate_Gte=${tomorrow}&expirationDate_Lte=${nextWeek}`;
 
-  if (loading1 || loading2) return <CircularLoading />;
+  if (eventsLoading || expiredLoading || expiringLoading) {
+    return <CircularLoading />;
+  }
 
   return (
     <Homepage
-      expired={expired.documents}
-      closeToExpire={closeToExpire.documents}
+      events={mapEdgesToItems(events.events)}
+      expired={mapEdgesToItems(expired.documents)}
+      closeToExpire={mapEdgesToItems(closeToExpire.documents)}
       expiredFilter={expiredFilter}
       closeToExpireFilter={closeToExpireFilter}
     />

@@ -44,13 +44,6 @@ export const ColorModeProvider = ({ children }: ColorModeProviderProps) => {
             : {}),
         },
         components: {
-          MuiPaper: {
-            styleOverrides: {
-              root: {
-                boxShadow: "none",
-              },
-            },
-          },
           MuiAccordion: {
             styleOverrides: {
               root: {

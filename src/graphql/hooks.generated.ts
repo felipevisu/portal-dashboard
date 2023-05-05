@@ -2125,6 +2125,52 @@ export function useEntryDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type EntryDetailsQueryHookResult = ReturnType<typeof useEntryDetailsQuery>;
 export type EntryDetailsLazyQueryHookResult = ReturnType<typeof useEntryDetailsLazyQuery>;
 export type EntryDetailsQueryResult = Apollo.QueryResult<Types.EntryDetailsQuery, Types.EntryDetailsQueryVariables>;
+export const EventsDocument = gql`
+    query Events($first: Int, $last: Int, $after: String, $before: String) {
+  events(first: $first, last: $last, after: $after, before: $before) {
+    edges {
+      node {
+        ...EventDetails
+      }
+    }
+    pageInfo {
+      ...PageInfo
+    }
+  }
+}
+    ${EventDetailsFragmentDoc}
+${PageInfoFragmentDoc}`;
+
+/**
+ * __useEventsQuery__
+ *
+ * To run a query within a React component, call `useEventsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEventsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useEventsQuery({
+ *   variables: {
+ *      first: // value for 'first'
+ *      last: // value for 'last'
+ *      after: // value for 'after'
+ *      before: // value for 'before'
+ *   },
+ * });
+ */
+export function useEventsQuery(baseOptions?: Apollo.QueryHookOptions<Types.EventsQuery, Types.EventsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<Types.EventsQuery, Types.EventsQueryVariables>(EventsDocument, options);
+      }
+export function useEventsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.EventsQuery, Types.EventsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<Types.EventsQuery, Types.EventsQueryVariables>(EventsDocument, options);
+        }
+export type EventsQueryHookResult = ReturnType<typeof useEventsQuery>;
+export type EventsLazyQueryHookResult = ReturnType<typeof useEventsLazyQuery>;
+export type EventsQueryResult = Apollo.QueryResult<Types.EventsQuery, Types.EventsQueryVariables>;
 export const InvestmentBulkDeleteDocument = gql`
     mutation InvestmentBulkDelete($ids: [ID!]!) {
   investmentBulkDelete(ids: $ids) {

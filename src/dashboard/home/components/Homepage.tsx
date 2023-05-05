@@ -1,21 +1,22 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import { Box, Typography } from "@mui/material";
-import FormSpacer from "@portal/components/FormSpacer";
-import { DocumentsQuery } from "@portal/graphql";
-import { mapEdgesToItems } from "@portal/utils/maps";
+import { Box, Grid, Typography } from "@mui/material";
+import { DocumentFragment, EventDetailsFragment } from "@portal/graphql";
 
 import { DocumentList } from "./DocumentList";
+import EventList from "./EventList";
 
 interface HomepageProps {
-  expired: DocumentsQuery["documents"];
-  closeToExpire: DocumentsQuery["documents"];
+  events: EventDetailsFragment[];
+  expired: DocumentFragment[];
+  closeToExpire: DocumentFragment[];
   expiredFilter: string;
   closeToExpireFilter: string;
 }
 
 export const Homepage = ({
+  events,
   expired,
   closeToExpire,
   expiredFilter,
@@ -33,16 +34,23 @@ export const Homepage = ({
       <Typography variant="body1" marginBottom={3}>
         {t("message")}
       </Typography>
-      <DocumentList
-        documents={mapEdgesToItems(expired)}
-        title={t("expired")}
-        href={expiredFilter}
-      />
-      <DocumentList
-        documents={mapEdgesToItems(closeToExpire)}
-        title={t("expiring")}
-        href={closeToExpireFilter}
-      />
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={8}>
+          <DocumentList
+            documents={expired}
+            title={t("expired")}
+            href={expiredFilter}
+          />
+          <DocumentList
+            documents={closeToExpire}
+            title={t("expiring")}
+            href={closeToExpireFilter}
+          />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <EventList events={events} />
+        </Grid>
+      </Grid>
     </Box>
   );
 };
