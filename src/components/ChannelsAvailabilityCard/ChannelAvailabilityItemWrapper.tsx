@@ -13,7 +13,7 @@ export const ChannelAvailabilityItemWrapper = ({
   data,
   children,
 }: ChannelAvailabilityItemWrapperProps) => {
-  const [expanded, setExpanded] = useState(true);
+  const [expanded, setExpanded] = useState(false);
   return (
     <Accordion expanded={expanded} disableGutters elevation={0}>
       <AccordionSummary
