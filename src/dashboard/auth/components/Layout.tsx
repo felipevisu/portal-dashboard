@@ -13,7 +13,7 @@ const MainPanel = styled("div")(({ theme }) => ({
   width: "100%",
 }));
 
-const Content = styled("div")(({ theme }) => ({
+const Content = styled("div")(() => ({
   margin: "auto",
   width: "100%",
   maxWidth: "420px",

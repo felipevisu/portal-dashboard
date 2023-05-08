@@ -17,7 +17,6 @@ import {
 import { useLinks } from "@portal/hooks";
 import { SubmitPromise } from "@portal/hooks/useForm";
 import useStateFromProps from "@portal/hooks/useStateFromProps";
-import { maybe } from "@portal/misc";
 import { FetchMoreProps, RelayToFlat } from "@portal/types";
 import { getChoices } from "@portal/utils/data";
 

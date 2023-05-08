@@ -8,7 +8,6 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { Button } from "@portal/components/Button";
 import { FormSpacer } from "@portal/components/FormSpacer";
 import { ErrorFragment, UserFragment } from "@portal/graphql";
 

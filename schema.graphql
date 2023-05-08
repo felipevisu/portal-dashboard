@@ -29,7 +29,6 @@ enum AttributeChoicesSortField {
 }
 
 input AttributeChoicesSortingInput {
-  """Specifies the direction in which to sort products."""
   direction: OrderDirection!
 
   """Sort attribute choices by the selected field."""
@@ -94,6 +93,15 @@ input AttributeFilterInput {
   visibleInWebsite: Boolean
 }
 
+input AttributeInput {
+  boolean: Boolean
+  date: DateRangeInput
+  dateTime: DateTimeRangeInput
+  slug: String!
+  values: [String!]
+  valuesRange: IntRangeInput
+}
+
 """An enumeration."""
 enum AttributeInputTypeEnum {
   BOOLEAN
@@ -127,7 +135,6 @@ enum AttributeSortField {
 }
 
 input AttributeSortingInput {
-  """Specifies the direction in which to sort products."""
   direction: OrderDirection!
 
   """Sort attributes by the selected field."""
@@ -323,7 +330,6 @@ enum CategorySortField {
 }
 
 input CategorySortingInput {
-  """Specifies the direction in which to sort products."""
   direction: OrderDirection!
 
   """Sort categories by the selected field."""
@@ -447,6 +453,14 @@ value as specified by
 [iso8601](https://en.wikipedia.org/wiki/ISO_8601).
 """
 scalar DateTime
+
+input DateTimeRangeInput {
+  """Start date."""
+  gte: DateTime
+
+  """End date."""
+  lte: DateTime
+}
 
 """Deactivate all JWT tokens of the currently authenticated user."""
 type DeactivateAllUserTokens {
@@ -595,7 +609,6 @@ enum DocumentSortField {
 }
 
 input DocumentSortingInput {
-  """Specifies the direction in which to sort products."""
   direction: OrderDirection!
 
   """Sort documents by the selected field."""
@@ -732,9 +745,10 @@ type EntryError {
 }
 
 input EntryFilterInput {
+  attributes: [AttributeInput!]
   categories: [ID!]
-  category: ID
   channel: String
+  isPublished: Boolean
   search: String
   type: EntryTypeEnum
 }
@@ -763,7 +777,6 @@ enum EntrySortField {
 }
 
 input EntrySortingInput {
-  """Specifies the direction in which to sort products."""
   direction: OrderDirection!
 
   """Sort entries by the selected field."""
@@ -852,6 +865,14 @@ String, Boolean, Int, Float, List or Object.
 """
 scalar GenericScalar
 
+input IntRangeInput {
+  """Value greater than or equal to."""
+  gte: Int
+
+  """Value less than or equal to."""
+  lte: Int
+}
+
 type Investment implements Node {
   id: ID!
   isPublished: Boolean
@@ -917,7 +938,6 @@ enum InvestmentSortField {
 }
 
 input InvestmentSortingInput {
-  """Specifies the direction in which to sort products."""
   direction: OrderDirection!
 
   """Sort investments by the selected field."""
@@ -1191,7 +1211,6 @@ enum PluginSortField {
 }
 
 input PluginSortingInput {
-  """Specifies the direction in which to sort products."""
   direction: OrderDirection!
 
   """Sort plugins by the selected field."""
@@ -1354,7 +1373,6 @@ enum SessionSortField {
 }
 
 input SessionSortingInput {
-  """Specifies the direction in which to sort products."""
   direction: OrderDirection!
 
   """Sort sessions by the selected field."""

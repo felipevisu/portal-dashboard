@@ -5,7 +5,6 @@ import { useParams } from "react-router-dom";
 import { Table, TableBody, TableCell, TableContainer } from "@mui/material";
 import Checkbox from "@portal/components/Checkbox";
 import TableCellHeader from "@portal/components/TableCell";
-import TableCellWithStatus from "@portal/components/TableCellWithStatus";
 import TableHead from "@portal/components/TableHead";
 import TableRowLink from "@portal/components/TableRowLink";
 import { EntryFragment } from "@portal/graphql";

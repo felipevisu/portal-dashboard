@@ -474,7 +474,7 @@
         "inputFields": [
           {
             "name": "direction",
-            "description": "Specifies the direction in which to sort products.",
+            "description": null,
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -1003,6 +1003,101 @@
         "possibleTypes": null
       },
       {
+        "kind": "INPUT_OBJECT",
+        "name": "AttributeInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "boolean",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "date",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "DateRangeInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "dateTime",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "DateTimeRangeInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "slug",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "values",
+            "description": null,
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "valuesRange",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "IntRangeInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "ENUM",
         "name": "AttributeInputTypeEnum",
         "description": "An enumeration.",
@@ -1116,7 +1211,7 @@
         "inputFields": [
           {
             "name": "direction",
-            "description": "Specifies the direction in which to sort products.",
+            "description": null,
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -2720,7 +2815,7 @@
         "inputFields": [
           {
             "name": "direction",
-            "description": "Specifies the direction in which to sort products.",
+            "description": null,
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -3602,6 +3697,41 @@
         "description": "The `DateTime` scalar type represents a DateTime\nvalue as specified by\n[iso8601](https://en.wikipedia.org/wiki/ISO_8601).",
         "fields": null,
         "inputFields": null,
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "DateTimeRangeInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "gte",
+            "description": "Start date.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "DateTime",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "lte",
+            "description": "End date.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "DateTime",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
         "interfaces": null,
         "enumValues": null,
         "possibleTypes": null
@@ -4748,7 +4878,7 @@
         "inputFields": [
           {
             "name": "direction",
-            "description": "Specifies the direction in which to sort products.",
+            "description": null,
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -5845,6 +5975,26 @@
         "fields": null,
         "inputFields": [
           {
+            "name": "attributes",
+            "description": null,
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "AttributeInput",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "categories",
             "description": null,
             "type": {
@@ -5865,11 +6015,11 @@
             "deprecationReason": null
           },
           {
-            "name": "category",
+            "name": "channel",
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "ID",
+              "name": "String",
               "ofType": null
             },
             "defaultValue": null,
@@ -5877,11 +6027,11 @@
             "deprecationReason": null
           },
           {
-            "name": "channel",
+            "name": "isPublished",
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "String",
+              "name": "Boolean",
               "ofType": null
             },
             "defaultValue": null,
@@ -6143,7 +6293,7 @@
         "inputFields": [
           {
             "name": "direction",
-            "description": "Specifies the direction in which to sort products.",
+            "description": null,
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -6657,6 +6807,41 @@
         "possibleTypes": null
       },
       {
+        "kind": "INPUT_OBJECT",
+        "name": "IntRangeInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "gte",
+            "description": "Value greater than or equal to.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "lte",
+            "description": "Value less than or equal to.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "OBJECT",
         "name": "Investment",
         "description": null,
@@ -7143,7 +7328,7 @@
         "inputFields": [
           {
             "name": "direction",
-            "description": "Specifies the direction in which to sort products.",
+            "description": null,
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -10182,7 +10367,7 @@
         "inputFields": [
           {
             "name": "direction",
-            "description": "Specifies the direction in which to sort products.",
+            "description": null,
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -12210,7 +12395,7 @@
         "inputFields": [
           {
             "name": "direction",
-            "description": "Specifies the direction in which to sort products.",
+            "description": null,
             "type": {
               "kind": "NON_NULL",
               "name": null,

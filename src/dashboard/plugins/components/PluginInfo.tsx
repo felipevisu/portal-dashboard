@@ -19,7 +19,6 @@ interface PluginInfoProps {
 const PluginInfo: React.FC<PluginInfoProps> = ({
   data,
   description,
-  errors,
   name,
   onChange,
 }) => {

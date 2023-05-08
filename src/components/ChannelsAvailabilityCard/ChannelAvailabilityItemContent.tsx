@@ -7,7 +7,6 @@ import { EntryChannelListingErrorFragment } from "@portal/graphql";
 import { getFormErrors } from "@portal/utils/errors";
 
 import ControlledCheckbox from "../ControlledCheckbox";
-import FormSpacer from "../FormSpacer";
 
 export interface ChannelAvailabilityItemContentProps {
   disabled?: boolean;
@@ -27,11 +26,12 @@ export const ChannelAvailabilityItemContent = ({
 
   return (
     <Box sx={{ paddingLeft: 3, paddingBottom: 1 }}>
-      <FormControl>
+      <FormControl error={!!formErrors.isPublished}>
         <ControlledCheckbox
           label="Publicado"
           name="isPublished"
           checked={data.isPublished}
+          disabled={disabled}
           onChange={(e) =>
             onChange(data.id, {
               ...formData,
@@ -41,11 +41,12 @@ export const ChannelAvailabilityItemContent = ({
         />
       </FormControl>
       <div />
-      <FormControl>
+      <FormControl error={!!formErrors.isActive}>
         <ControlledCheckbox
           label="Ativo"
           name="isActive"
           checked={data.isActive}
+          disabled={disabled}
           onChange={(e) =>
             onChange(data.id, {
               ...formData,

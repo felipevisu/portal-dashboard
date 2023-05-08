@@ -19,7 +19,6 @@ import useForm, {
   SubmitPromise,
 } from "@portal/hooks/useForm";
 import useFormset from "@portal/hooks/useFormset";
-import { maybe } from "@portal/misc";
 import {
   getAttributeInputFromAttributes,
   SingleAutocompleteChoiceType,

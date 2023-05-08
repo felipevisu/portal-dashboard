@@ -2,7 +2,6 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 import { Card } from "@mui/material";
-import { Button } from "@portal/components/Button";
 import FilterBar from "@portal/components/FilterBar";
 import PageHeader from "@portal/components/PageHeader";
 import { Pagination } from "@portal/components/Pagination";

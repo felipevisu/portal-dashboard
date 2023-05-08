@@ -22,7 +22,6 @@ import useForm, {
   SubmitPromise,
 } from "@portal/hooks/useForm";
 import useFormset from "@portal/hooks/useFormset";
-import { maybe } from "@portal/misc";
 import {
   getAttributeInputFromAttributes,
   getAttributeInputFromEntry,
@@ -91,12 +90,8 @@ const useEntryUpdateForm = (
 
   const attributes = useFormset<AttributeInputData>(mergedAttributes || []);
 
-  const {
-    channels,
-    handleChannelChange,
-    handleChannelListUpdate,
-    touched: touchedChannels,
-  } = useEntryChannelListingsForm(entry);
+  const { channels, handleChannelChange, handleChannelListUpdate } =
+    useEntryChannelListingsForm(entry);
 
   const handleCategorySelect = createMultiAutocompleteSelectHandler(
     (event) => toggleValue(event),

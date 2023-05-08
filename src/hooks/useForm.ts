@@ -1,4 +1,3 @@
-import { useState } from "react";
 import isEqual from "lodash/isEqual";
 
 import { ChangeEvent } from "@portal/types";
@@ -47,7 +46,6 @@ export const useForm = <T extends FormData, TErrors>(
   initialData: T,
   onSubmit?: (data: T) => SubmitPromise<TErrors[]> | void
 ) => {
-  const [errors, setErrors] = useState<FormErrors<T>>({});
   const [data, setData] = useStateFromProps(initialData, {
     mergeFunc: merge,
   });
