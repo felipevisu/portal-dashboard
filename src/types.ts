@@ -1,3 +1,5 @@
+import { MultiAutocompleteChoiceType } from "./components/Attributes/utils";
+import { IFilter } from "./components/Filter/types";
 import { PageInfoFragment } from "./graphql";
 import { PaginationState } from "./hooks/usePaginator";
 import { SingleAutocompleteChoiceType } from "./utils/data";
@@ -23,10 +25,10 @@ export interface DialogProps {
 }
 
 export interface SearchProps {
-  onSearchChange: (e: React.ChangeEvent<any>) => void;
+  onSearchChange: (value: string) => void;
 }
 export interface SearchPageProps extends SearchProps {
-  search: string;
+  initialSearch: string;
 }
 
 export interface ListActionsWithoutToolbar {
@@ -58,11 +60,16 @@ export type SingleAction = Partial<{
   id: string;
 }>;
 
-export interface FilterOpts {
-  name: string;
-  slug: string;
-  choices: SingleAutocompleteChoiceType[];
-  type: "radio" | "multiple" | "date" | "daterange";
+export interface FilterOpts<T> {
+  active: boolean;
+  value: T;
+}
+
+export interface AutocompleteFilterOpts
+  extends Partial<FetchMoreProps>,
+    Partial<SearchPageProps> {
+  choices: MultiAutocompleteChoiceType[];
+  displayValues: MultiAutocompleteChoiceType[];
 }
 
 export type Paginator = {
@@ -77,4 +84,21 @@ export interface FetchMoreProps {
   hasMore: boolean;
   totalCount?: number;
   onFetchMore: () => void;
+}
+
+export interface KeyValue {
+  key: string;
+  value?: string;
+}
+
+export interface FilterProps<TKeys extends string> {
+  currencySymbol?: string;
+  onFilterChange: (filter: IFilter<TKeys>) => void;
+  onFilterAttributeFocus?: (id?: string) => void;
+}
+
+export interface FilterPageProps<TKeys extends string, TOpts extends {}>
+  extends FilterProps<TKeys>,
+    SearchPageProps {
+  filterOpts: TOpts;
 }

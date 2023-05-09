@@ -7,13 +7,12 @@ import PageHeader from "@portal/components/PageHeader";
 import { Pagination } from "@portal/components/Pagination";
 import { AttributeFragment } from "@portal/graphql";
 import { useLinks } from "@portal/hooks";
-import { FilterOpts, PaginateListProps } from "@portal/types";
+import { PaginateListProps } from "@portal/types";
 
 import { AttributeList } from "./AttributeList";
 
 interface AttributeListPage extends PaginateListProps {
   attributes: AttributeFragment[];
-  filterOpts: FilterOpts[];
 }
 
 export const AttributeListPage = ({

@@ -1,11 +1,10 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 
 import { Delete } from "@mui/icons-material";
 import { DialogContentText, IconButton } from "@mui/material";
 import ActionDialog from "@portal/components/ActionDialog";
-import EntryListPage from "@portal/dashboard/entries/components/EntryListPage";
 import {
   EntryBulkDeleteMutation,
   useEntriesQuery,
@@ -15,9 +14,22 @@ import { useBulkActions, usePaginator } from "@portal/hooks";
 import useModal from "@portal/hooks/useModal";
 import { mapEdgesToItems } from "@portal/utils/maps";
 
+import { EntryListPage } from "../components/EntryListPage";
+
 import { mapType } from "./utils";
 
+const filterOpts = {
+  categories: {
+    active: false,
+    value: [],
+    choices: [],
+    displayValues: [],
+  },
+  channel: { active: false, value: "", choices: [] },
+};
+
 export const VehicleList = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const { pagination, handleNextPage, handlePreviousPage } = usePaginator();
   const { entry: type } = useParams();
   const { isSelected, listElements, toggle, toggleAll, reset } = useBulkActions(
@@ -31,7 +43,7 @@ export const VehicleList = () => {
     fetchPolicy: "network-only",
     variables: {
       ...pagination,
-      filter: { type: mapType[type] },
+      filter: { type: mapType[type], search: searchParams.get("search") },
     },
   });
 
@@ -46,6 +58,10 @@ export const VehicleList = () => {
   const [vehicleBulkDelete] = useEntryBulkDeleteMutation({
     onCompleted: handleVehicleBulkDelete,
   });
+
+  const handleSearchChange = (value: string) => {
+    setSearchParams({ ...searchParams, search: value });
+  };
 
   return (
     <>
@@ -64,6 +80,10 @@ export const VehicleList = () => {
         onNextPage={handleNextPage}
         onPreviousPage={handlePreviousPage}
         pageInfo={data?.entries?.pageInfo}
+        filterOpts={filterOpts}
+        onSearchChange={handleSearchChange}
+        onFilterChange={(filter) => console.log(filter)}
+        initialSearch={searchParams.get("search") || ""}
       />
       <ActionDialog
         onClose={closeModal}

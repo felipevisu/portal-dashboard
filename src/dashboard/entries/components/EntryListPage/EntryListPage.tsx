@@ -4,15 +4,21 @@ import { useParams } from "react-router-dom";
 
 import { Card } from "@mui/material";
 import { Button } from "@portal/components/Button";
+import { FilterBar } from "@portal/components/FilterBar";
 import PageHeader from "@portal/components/PageHeader";
 import { Pagination } from "@portal/components/Pagination";
 import { EntryFragment } from "@portal/graphql";
 import { useLinks } from "@portal/hooks";
-import { ListActions, PaginateListProps } from "@portal/types";
+import { FilterPageProps, ListActions, PaginateListProps } from "@portal/types";
 
-import EntryList from "./EntryList";
+import EntryList from "../EntryList";
 
-interface EntryListPageProps extends ListActions, PaginateListProps {
+import { EntryFilterKeys, EntryListFilterOpts } from "./filters";
+
+interface EntryListPageProps
+  extends ListActions,
+    PaginateListProps,
+    FilterPageProps<EntryFilterKeys, EntryListFilterOpts> {
   entries: EntryFragment[];
   disabled: boolean;
 }
@@ -22,16 +28,21 @@ export const EntryListPage = ({
   pageInfo,
   selected,
   toolbar,
+  disabled,
+  initialSearch,
+  filterOpts,
   toggle,
   toggleAll,
   isChecked,
   onNextPage,
   onPreviousPage,
-  disabled,
+  onSearchChange,
+  onFilterChange,
 }: EntryListPageProps) => {
   const { entry: type } = useParams();
   const { t } = useTranslation("translation", { keyPrefix: type });
   const { entryCreate } = useLinks();
+
   return (
     <>
       <PageHeader title={t("plural")}>
@@ -40,6 +51,13 @@ export const EntryListPage = ({
         </Button>
       </PageHeader>
       <Card>
+        <FilterBar
+          initialSearch={initialSearch}
+          onSearchChange={onSearchChange}
+          searchPlaceholder="Pesquisar"
+          filterStructure={[]}
+          onFilterChange={onFilterChange}
+        />
         <EntryList
           selected={selected}
           entries={entries}
