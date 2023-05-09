@@ -1,6 +1,5 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
-import { useSearchParams } from "react-router-dom";
 
 import { Delete } from "@mui/icons-material";
 import { DialogContentText, IconButton } from "@mui/material";
@@ -10,36 +9,25 @@ import {
   useCategoriesQuery,
   useCategoryBulkDeleteMutation,
 } from "@portal/graphql";
-import { useBulkActions, usePaginator, useSearch } from "@portal/hooks";
+import { useBulkActions, usePaginator } from "@portal/hooks";
 import useModal from "@portal/hooks/useModal";
-import { getQuery } from "@portal/utils/filters";
 import { mapEdgesToItems } from "@portal/utils/maps";
 
 import CategoryListPage from "../components/CategoryListPage";
 
-import { getFilterOpts } from "./filter";
-
 export const CategoryList = () => {
   const { t } = useTranslation();
-  const [searchParams] = useSearchParams();
-  const { search, handleSearch } = useSearch();
-  const { pagination, handleNextPage, handlePreviousPage } = usePaginator();
-  const filterOpts = getFilterOpts();
 
+  const { pagination, handleNextPage, handlePreviousPage } = usePaginator();
   const { isSelected, listElements, toggle, toggleAll, reset } = useBulkActions(
     []
   );
 
   const { isOpen, openModal, closeModal } = useModal();
 
-  const queryParameters = useMemo(
-    () => getQuery(filterOpts, searchParams),
-    [searchParams]
-  );
-
   const { data, loading, refetch } = useCategoriesQuery({
     fetchPolicy: "network-only",
-    variables: { ...pagination, filter: { ...queryParameters } },
+    variables: { ...pagination },
   });
 
   const handleCategoryBulkDelete = (data: CategoryBulkDeleteMutation) => {
@@ -68,9 +56,6 @@ export const CategoryList = () => {
             <Delete />
           </IconButton>
         }
-        onSearchChange={handleSearch}
-        search={search}
-        filterOpts={filterOpts}
         onNextPage={handleNextPage}
         onPreviousPage={handlePreviousPage}
         pageInfo={data?.categories?.pageInfo}

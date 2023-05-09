@@ -3,42 +3,29 @@ import { useTranslation } from "react-i18next";
 
 import { Card } from "@mui/material";
 import { Button } from "@portal/components/Button";
-import FilterBar from "@portal/components/FilterBar";
 import PageHeader from "@portal/components/PageHeader";
 import { Pagination } from "@portal/components/Pagination";
 import { SessionFragment } from "@portal/graphql";
-import {
-  FilterOpts,
-  ListActions,
-  PaginateListProps,
-  SearchPageProps,
-} from "@portal/types";
+import { ListActions, PaginateListProps } from "@portal/types";
 
 import SessionList from "./SessionList";
 
-interface SessionListPageProps
-  extends ListActions,
-    SearchPageProps,
-    PaginateListProps {
+interface SessionListPageProps extends ListActions, PaginateListProps {
   sessions: SessionFragment[];
   disabled: boolean;
-  filterOpts: FilterOpts[];
 }
 
 export const SessionListPage = ({
   sessions,
-  onSearchChange,
   pageInfo,
   selected,
   toolbar,
-  search,
   toggle,
   toggleAll,
   isChecked,
   onNextPage,
   onPreviousPage,
   disabled,
-  filterOpts,
 }: SessionListPageProps) => {
   const { t } = useTranslation();
   return (
@@ -49,11 +36,6 @@ export const SessionListPage = ({
         </Button>
       </PageHeader>
       <Card>
-        <FilterBar
-          onSearchChange={onSearchChange}
-          filterOpts={filterOpts}
-          search={search}
-        />
         <SessionList
           selected={selected}
           sessions={sessions}

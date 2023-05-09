@@ -4,32 +4,21 @@ import { useParams } from "react-router-dom";
 
 import { Card } from "@mui/material";
 import { Button } from "@portal/components/Button";
-import { FilterBar } from "@portal/components/FilterBar";
 import PageHeader from "@portal/components/PageHeader";
 import { Pagination } from "@portal/components/Pagination";
 import { EntryFragment } from "@portal/graphql";
 import { useLinks } from "@portal/hooks";
-import {
-  FilterOpts,
-  ListActions,
-  PaginateListProps,
-  SearchPageProps,
-} from "@portal/types";
+import { ListActions, PaginateListProps } from "@portal/types";
 
 import EntryList from "./EntryList";
 
-interface EntryListPageProps
-  extends ListActions,
-    SearchPageProps,
-    PaginateListProps {
+interface EntryListPageProps extends ListActions, PaginateListProps {
   entries: EntryFragment[];
   disabled: boolean;
-  filterOpts: FilterOpts[];
 }
 
 export const EntryListPage = ({
   entries,
-  onSearchChange,
   pageInfo,
   selected,
   toolbar,
@@ -39,8 +28,6 @@ export const EntryListPage = ({
   onNextPage,
   onPreviousPage,
   disabled,
-  filterOpts,
-  search,
 }: EntryListPageProps) => {
   const { entry: type } = useParams();
   const { t } = useTranslation("translation", { keyPrefix: type });
@@ -53,12 +40,6 @@ export const EntryListPage = ({
         </Button>
       </PageHeader>
       <Card>
-        <FilterBar
-          placeholder={t("search")}
-          onSearchChange={onSearchChange}
-          filterOpts={filterOpts}
-          search={search}
-        />
         <EntryList
           selected={selected}
           entries={entries}

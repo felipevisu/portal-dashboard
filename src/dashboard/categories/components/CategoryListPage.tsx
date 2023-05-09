@@ -3,43 +3,30 @@ import { useTranslation } from "react-i18next";
 
 import { Card } from "@mui/material";
 import { Button } from "@portal/components/Button";
-import FilterBar from "@portal/components/FilterBar";
 import PageHeader from "@portal/components/PageHeader";
 import { Pagination } from "@portal/components/Pagination";
 import { CategoryFragment } from "@portal/graphql";
 import useLinks from "@portal/hooks/useLinks";
-import {
-  FilterOpts,
-  ListActions,
-  PaginateListProps,
-  SearchPageProps,
-} from "@portal/types";
+import { ListActions, PaginateListProps } from "@portal/types";
 
 import CategoryList from "./CategoryList";
 
-interface CategoryListPageProps
-  extends ListActions,
-    SearchPageProps,
-    PaginateListProps {
+interface CategoryListPageProps extends ListActions, PaginateListProps {
   categories: CategoryFragment[];
   disabled: boolean;
-  filterOpts: FilterOpts[];
 }
 
 export const CategoryListPage = ({
   categories,
-  onSearchChange,
   pageInfo,
   selected,
   toolbar,
-  filterOpts,
   toggle,
   toggleAll,
   isChecked,
   onNextPage,
   onPreviousPage,
   disabled,
-  search,
 }: CategoryListPageProps) => {
   const { t } = useTranslation();
   const { categoryCreate } = useLinks();
@@ -52,11 +39,6 @@ export const CategoryListPage = ({
         </Button>
       </PageHeader>
       <Card>
-        <FilterBar
-          onSearchChange={onSearchChange}
-          filterOpts={filterOpts}
-          search={search}
-        />
         <CategoryList
           selected={selected}
           categories={categories}

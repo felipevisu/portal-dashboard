@@ -1,6 +1,5 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
-import { useSearchParams } from "react-router-dom";
 
 import { Delete } from "@mui/icons-material";
 import { DialogContentText, IconButton } from "@mui/material";
@@ -10,23 +9,14 @@ import {
   useDocumentBulkDeleteMutation,
   useDocumentsQuery,
 } from "@portal/graphql";
-import {
-  useBulkActions,
-  useModal,
-  usePaginator,
-  useSearch,
-} from "@portal/hooks";
-import { getQuery } from "@portal/utils/filters";
+import { useBulkActions, useModal, usePaginator } from "@portal/hooks";
 import { mapEdgesToItems } from "@portal/utils/maps";
 
 import { DocumentListPage } from "../components/DocumentListPage";
 
-import { getFilterOpts } from "./filter";
-
 export const DocumentList = () => {
   const { t } = useTranslation();
-  const [searchParams] = useSearchParams();
-  const { search, handleSearch } = useSearch();
+
   const { pagination, handleNextPage, handlePreviousPage } = usePaginator();
   const { isSelected, listElements, toggle, toggleAll, reset } = useBulkActions(
     []
@@ -34,16 +24,9 @@ export const DocumentList = () => {
 
   const { isOpen, openModal, closeModal } = useModal();
 
-  const filterOpts = getFilterOpts();
-
-  const queryParameters = useMemo(
-    () => getQuery(filterOpts, searchParams),
-    [searchParams]
-  );
-
   const { data, loading, refetch } = useDocumentsQuery({
     fetchPolicy: "network-only",
-    variables: { ...pagination, filter: { ...queryParameters } },
+    variables: { ...pagination },
   });
 
   const handleDocumentBulkDelete = (data: DocumentBulkDeleteMutation) => {
@@ -66,13 +49,10 @@ export const DocumentList = () => {
         pageInfo={data?.documents?.pageInfo}
         onNextPage={handleNextPage}
         onPreviousPage={handlePreviousPage}
-        onSearchChange={handleSearch}
-        search={search}
         selected={listElements.length}
         isChecked={isSelected}
         toggle={toggle}
         toggleAll={toggleAll}
-        filterOpts={filterOpts}
         toolbar={
           <IconButton color="primary" onClick={openModal}>
             <Delete />

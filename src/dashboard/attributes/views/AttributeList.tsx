@@ -1,40 +1,24 @@
-import React, { useMemo } from "react";
-import { useSearchParams } from "react-router-dom";
+import React from "react";
 
 import { useAttributesQuery } from "@portal/graphql";
-import { usePaginator, useSearch } from "@portal/hooks";
-import { getQuery } from "@portal/utils/filters";
+import { usePaginator } from "@portal/hooks";
 import { mapEdgesToItems } from "@portal/utils/maps";
 
 import AttributeListPage from "../components/AttributeListPage";
 
-import { getFilterOpts } from "./filters";
-
 export const AttributeList = () => {
-  const [searchParams] = useSearchParams();
-  const { search, handleSearch } = useSearch();
   const { pagination, handleNextPage, handlePreviousPage } = usePaginator();
-  const filterOpts = getFilterOpts();
 
-  const queryParameters = useMemo(
-    () => getQuery(filterOpts, searchParams),
-    [searchParams]
-  );
-
-  const { data, loading, error } = useAttributesQuery({
+  const { data } = useAttributesQuery({
     fetchPolicy: "network-only",
     variables: {
       ...pagination,
-      filter: { ...queryParameters },
     },
   });
 
   return (
     <AttributeListPage
-      search={search}
       attributes={mapEdgesToItems(data?.attributes)}
-      onSearchChange={handleSearch}
-      filterOpts={filterOpts}
       onNextPage={handleNextPage}
       onPreviousPage={handlePreviousPage}
       pageInfo={data?.attributes?.pageInfo}

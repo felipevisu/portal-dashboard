@@ -2,26 +2,16 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 import { Card } from "@mui/material";
-import FilterBar from "@portal/components/FilterBar";
 import PageHeader from "@portal/components/PageHeader";
 import { Pagination } from "@portal/components/Pagination";
 import { DocumentFragment } from "@portal/graphql";
-import {
-  FilterOpts,
-  ListActions,
-  PaginateListProps,
-  SearchPageProps,
-} from "@portal/types";
+import { ListActions, PaginateListProps } from "@portal/types";
 
 import DocumentList from "./DocumentList";
 
-interface DocumentListPageProps
-  extends ListActions,
-    SearchPageProps,
-    PaginateListProps {
+interface DocumentListPageProps extends ListActions, PaginateListProps {
   documents: DocumentFragment[];
   disabled: boolean;
-  filterOpts: FilterOpts[];
 }
 
 export const DocumentListPage = ({
@@ -30,25 +20,17 @@ export const DocumentListPage = ({
   selected,
   disabled,
   toolbar,
-  filterOpts,
-  search,
   toggle,
   toggleAll,
   isChecked,
   onNextPage,
   onPreviousPage,
-  onSearchChange,
 }: DocumentListPageProps) => {
   const { t } = useTranslation();
   return (
     <>
       <PageHeader title={t("document.plural")} />
       <Card>
-        <FilterBar
-          onSearchChange={onSearchChange}
-          filterOpts={filterOpts}
-          search={search}
-        />
         <DocumentList
           selected={selected}
           documents={documents}
