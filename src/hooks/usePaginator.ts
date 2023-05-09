@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { parse } from "qs";
 import { useSearchParams } from "react-router-dom";
 
 import { Paginator } from "@portal/types";
@@ -44,11 +45,15 @@ export const usePaginator = (): Paginator => {
   }, [searchParams]);
 
   const handleNextPage = (value: string) => {
-    setSearchParams({ after: value });
+    const params = parse(searchParams.toString());
+    delete params.before;
+    setSearchParams({ ...params, after: value });
   };
 
   const handlePreviousPage = (value: string) => {
-    setSearchParams({ before: value });
+    const params = parse(searchParams.toString());
+    delete params.after;
+    setSearchParams({ ...params, before: value });
   };
 
   return {
