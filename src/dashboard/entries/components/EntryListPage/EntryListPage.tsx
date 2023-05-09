@@ -13,7 +13,11 @@ import { FilterPageProps, ListActions, PaginateListProps } from "@portal/types";
 
 import EntryList from "../EntryList";
 
-import { EntryFilterKeys, EntryListFilterOpts } from "./filters";
+import {
+  createFilterStructure,
+  EntryFilterKeys,
+  EntryListFilterOpts,
+} from "./filters";
 
 interface EntryListPageProps
   extends ListActions,
@@ -43,6 +47,8 @@ export const EntryListPage = ({
   const { t } = useTranslation("translation", { keyPrefix: type });
   const { entryCreate } = useLinks();
 
+  const filterStructure = createFilterStructure(filterOpts);
+
   return (
     <>
       <PageHeader title={t("plural")}>
@@ -55,7 +61,7 @@ export const EntryListPage = ({
           initialSearch={initialSearch}
           onSearchChange={onSearchChange}
           searchPlaceholder="Pesquisar"
-          filterStructure={[]}
+          filterStructure={filterStructure}
           onFilterChange={onFilterChange}
         />
         <EntryList

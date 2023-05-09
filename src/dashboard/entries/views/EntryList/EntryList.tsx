@@ -1,32 +1,28 @@
 import React from "react";
+import { parse as parseQs } from "qs";
 import { useTranslation } from "react-i18next";
 import { useParams, useSearchParams } from "react-router-dom";
 
 import { Delete } from "@mui/icons-material";
 import { DialogContentText, IconButton } from "@mui/material";
 import ActionDialog from "@portal/components/ActionDialog";
+import useAppChannel from "@portal/components/AppLayout/AppChannelContext";
+import { DEFAULT_INITIAL_SEARCH_DATA } from "@portal/config";
 import {
   EntryBulkDeleteMutation,
   useEntriesQuery,
   useEntryBulkDeleteMutation,
+  useInitialEntryFilterCategoriesQuery,
 } from "@portal/graphql";
 import { useBulkActions, usePaginator } from "@portal/hooks";
 import useModal from "@portal/hooks/useModal";
-import { mapEdgesToItems } from "@portal/utils/maps";
+import useCategorySearch from "@portal/searches/useCategorySearch";
+import { mapEdgesToItems, mapNodeToChoice } from "@portal/utils/maps";
 
-import { EntryListPage } from "../components/EntryListPage";
+import { EntryListPage } from "../../components/EntryListPage";
+import { mapType } from "../utils";
 
-import { mapType } from "./utils";
-
-const filterOpts = {
-  categories: {
-    active: false,
-    value: [],
-    choices: [],
-    displayValues: [],
-  },
-  channel: { active: false, value: "", choices: [] },
-};
+import { getFilterOpts, getFilterVariables } from "./filters";
 
 export const VehicleList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -39,11 +35,31 @@ export const VehicleList = () => {
 
   const { isOpen, openModal, closeModal } = useModal();
 
+  const { data: initialFilterCategories } =
+    useInitialEntryFilterCategoriesQuery({
+      variables: {
+        categories: searchParams.getAll("categories"),
+      },
+      skip: !searchParams.getAll("categories")?.length,
+    });
+
+  const searchCategories = useCategorySearch({
+    variables: {
+      ...DEFAULT_INITIAL_SEARCH_DATA,
+      first: 5,
+    },
+  });
+
+  const { availableChannels } = useAppChannel();
+  const channelOpts = availableChannels
+    ? mapNodeToChoice(availableChannels, (channel) => channel.slug)
+    : null;
+
   const { data, loading, refetch } = useEntriesQuery({
     fetchPolicy: "network-only",
     variables: {
       ...pagination,
-      filter: { type: mapType[type], search: searchParams.get("search") },
+      filter: { type: mapType[type], ...getFilterVariables(searchParams) },
     },
   });
 
@@ -59,9 +75,27 @@ export const VehicleList = () => {
     onCompleted: handleVehicleBulkDelete,
   });
 
-  const handleSearchChange = (value: string) => {
-    setSearchParams({ ...searchParams, search: value });
+  const handleFilterChange = (filter) => {
+    delete filter.first;
+    delete filter.last;
+    delete filter.before;
+    delete filter.after;
+    setSearchParams({ ...filter });
   };
+
+  const handleSearchChange = (value: string) => {
+    const params = parseQs(searchParams.toString());
+    handleFilterChange({ ...params, search: value });
+  };
+
+  const filterOpts = getFilterOpts(
+    searchParams,
+    {
+      initial: mapEdgesToItems(initialFilterCategories?.categories) || [],
+      search: searchCategories,
+    },
+    channelOpts
+  );
 
   return (
     <>
@@ -82,7 +116,7 @@ export const VehicleList = () => {
         pageInfo={data?.entries?.pageInfo}
         filterOpts={filterOpts}
         onSearchChange={handleSearchChange}
-        onFilterChange={(filter) => console.log(filter)}
+        onFilterChange={handleFilterChange}
         initialSearch={searchParams.get("search") || ""}
       />
       <ActionDialog

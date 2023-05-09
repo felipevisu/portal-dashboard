@@ -67,3 +67,10 @@ export type IFilter<
   : T extends FieldType.keyValue
   ? Array<FilterElementKeyValue<K>>
   : Array<FilterElementRegular<K>>;
+
+export type FilterElementGeneric<
+  K extends string,
+  T extends FieldType
+> = T extends FieldType.keyValue
+  ? FilterElementKeyValue<K> & { type: T }
+  : FilterElementRegular<K> & { type: T };

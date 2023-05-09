@@ -102,3 +102,7 @@ export interface FilterPageProps<TKeys extends string, TOpts extends {}>
     SearchPageProps {
   filterOpts: TOpts;
 }
+
+export interface Node {
+  id: string;
+}

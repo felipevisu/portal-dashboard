@@ -52,7 +52,6 @@ export enum AttributeChoicesSortField {
 }
 
 export type AttributeChoicesSortingInput = {
-  /** Specifies the direction in which to sort products. */
   direction: OrderDirection;
   /** Sort attribute choices by the selected field. */
   field: AttributeChoicesSortField;
@@ -88,6 +87,15 @@ export type AttributeFilterInput = {
   visibleInWebsite?: InputMaybe<Scalars['Boolean']>;
 };
 
+export type AttributeInput = {
+  boolean?: InputMaybe<Scalars['Boolean']>;
+  date?: InputMaybe<DateRangeInput>;
+  dateTime?: InputMaybe<DateTimeRangeInput>;
+  slug: Scalars['String'];
+  values?: InputMaybe<Array<Scalars['String']>>;
+  valuesRange?: InputMaybe<IntRangeInput>;
+};
+
 /** An enumeration. */
 export enum AttributeInputTypeEnum {
   BOOLEAN = 'BOOLEAN',
@@ -116,7 +124,6 @@ export enum AttributeSortField {
 }
 
 export type AttributeSortingInput = {
-  /** Specifies the direction in which to sort products. */
   direction: OrderDirection;
   /** Sort attributes by the selected field. */
   field: AttributeSortField;
@@ -181,6 +188,7 @@ export type AttributeValueUpdateInput = {
 };
 
 export type CategoryFilterInput = {
+  ids?: InputMaybe<Array<Scalars['ID']>>;
   search?: InputMaybe<Scalars['String']>;
   type?: InputMaybe<EntryTypeEnum>;
 };
@@ -196,7 +204,6 @@ export enum CategorySortField {
 }
 
 export type CategorySortingInput = {
-  /** Specifies the direction in which to sort products. */
   direction: OrderDirection;
   /** Sort categories by the selected field. */
   field: CategorySortField;
@@ -229,6 +236,13 @@ export type DateRangeInput = {
   gte?: InputMaybe<Scalars['Date']>;
   /** End date. */
   lte?: InputMaybe<Scalars['Date']>;
+};
+
+export type DateTimeRangeInput = {
+  /** Start date. */
+  gte?: InputMaybe<Scalars['DateTime']>;
+  /** End date. */
+  lte?: InputMaybe<Scalars['DateTime']>;
 };
 
 /** An enumeration. */
@@ -288,7 +302,6 @@ export enum DocumentSortField {
 }
 
 export type DocumentSortingInput = {
-  /** Specifies the direction in which to sort products. */
   direction: OrderDirection;
   /** Sort documents by the selected field. */
   field: DocumentSortField;
@@ -306,9 +319,10 @@ export type EntryChannelListingUpdateInput = {
 };
 
 export type EntryFilterInput = {
+  attributes?: InputMaybe<Array<AttributeInput>>;
   categories?: InputMaybe<Array<Scalars['ID']>>;
-  category?: InputMaybe<Scalars['ID']>;
   channel?: InputMaybe<Scalars['String']>;
+  isPublished?: InputMaybe<Scalars['Boolean']>;
   search?: InputMaybe<Scalars['String']>;
   type?: InputMaybe<EntryTypeEnum>;
 };
@@ -337,7 +351,6 @@ export enum EntrySortField {
 }
 
 export type EntrySortingInput = {
-  /** Specifies the direction in which to sort products. */
   direction: OrderDirection;
   /** Sort entries by the selected field. */
   field: EntrySortField;
@@ -365,6 +378,13 @@ export enum EventTypesEnum {
   ENTRY_UPDATED = 'ENTRY_UPDATED'
 }
 
+export type IntRangeInput = {
+  /** Value greater than or equal to. */
+  gte?: InputMaybe<Scalars['Int']>;
+  /** Value less than or equal to. */
+  lte?: InputMaybe<Scalars['Int']>;
+};
+
 export type InvestmentFilterInput = {
   isPublished?: InputMaybe<Scalars['Boolean']>;
   month?: InputMaybe<Scalars['Float']>;
@@ -383,7 +403,6 @@ export enum InvestmentSortField {
 }
 
 export type InvestmentSortingInput = {
-  /** Specifies the direction in which to sort products. */
   direction: OrderDirection;
   /** Sort investments by the selected field. */
   field: InvestmentSortField;
@@ -437,7 +456,6 @@ export enum PluginSortField {
 }
 
 export type PluginSortingInput = {
-  /** Specifies the direction in which to sort products. */
   direction: OrderDirection;
   /** Sort plugins by the selected field. */
   field: PluginSortField;
@@ -477,7 +495,6 @@ export enum SessionSortField {
 }
 
 export type SessionSortingInput = {
-  /** Specifies the direction in which to sort products. */
   direction: OrderDirection;
   /** Sort sessions by the selected field. */
   field: SessionSortField;
@@ -821,6 +838,13 @@ export type EntryDetailsQueryVariables = Exact<{
 
 
 export type EntryDetailsQuery = { __typename: 'Query', entry: { __typename: 'Entry', id: string, name: string, slug: string | null, documentNumber: string | null, email: string | null, documents: { __typename: 'DocumentCountableConnection', edges: Array<{ __typename: 'DocumentCountableEdge', node: { __typename: 'Document', id: string, name: string, created: any | null, isPublished: boolean | null, expired: boolean | null, expires: boolean | null, defaultFile: { __typename: 'DocumentFile', id: string, beginDate: any | null, expirationDate: any | null } | null, entry: { __typename: 'Entry', id: string, name: string, type: EntryTypeEnum | null } | null } }>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null, category: { __typename: 'Category', id: string, name: string } | null, categories: Array<{ __typename: 'Category', id: string, name: string }> | null, attributes: Array<{ __typename: 'SelectedAttribute', attribute: { __typename: 'Attribute', id: string, name: string | null, slug: string | null, type: AttributeTypeEnum | null, visibleInWebsite: boolean, filterableInDashboard: boolean, filterableInWebsite: boolean, inputType: AttributeInputTypeEnum | null, entityType: AttributeEntityTypeEnum | null, valueRequired: boolean }, values: Array<{ __typename: 'AttributeValue', id: string, name: string | null, slug: string | null, boolean: boolean | null, date: any | null, value: string | null, plainText: string | null, reference: string | null, file: { __typename: 'File', url: string } | null }> }>, consult: Array<{ __typename: 'Consult', id: string, created: any | null, plugin: string | null, response: any | null }> | null, channelListings: Array<{ __typename: 'EntryChannelListing', isPublished: boolean, isActive: boolean, channel: { __typename: 'Channel', id: string, name: string } }> | null } | null };
+
+export type InitialEntryFilterCategoriesQueryVariables = Exact<{
+  categories?: InputMaybe<Array<Scalars['ID']> | Scalars['ID']>;
+}>;
+
+
+export type InitialEntryFilterCategoriesQuery = { __typename: 'Query', categories: { __typename: 'CategoryCountableConnection', edges: Array<{ __typename: 'CategoryCountableEdge', node: { __typename: 'Category', id: string, name: string } }> } | null };
 
 export type EventsQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']>;

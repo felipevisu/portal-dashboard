@@ -44,3 +44,16 @@ export const entryDetailsQuery = gql`
     }
   }
 `;
+
+export const initialEntryFilterCategoriesQuery = gql`
+  query InitialEntryFilterCategories($categories: [ID!]) {
+    categories(first: 100, filter: { ids: $categories }) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
