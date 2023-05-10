@@ -18,12 +18,14 @@ export interface FilterProps<TFilterKeys extends string = string> {
   menu: IFilter<TFilterKeys>;
   onFilterAdd: (filter: Array<FilterElement<string>>) => void;
   onFilterAttributeFocus?: (id?: string) => void;
+  onFilterReset: () => void;
 }
 
 export const Filter = ({
   menu,
   onFilterAdd,
   onFilterAttributeFocus,
+  onFilterReset,
 }: FilterProps) => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const [open, setOpen] = useState(false);
@@ -46,6 +48,7 @@ export const Filter = ({
   };
 
   const handleClear = () => {
+    onFilterReset();
     reset();
   };
 

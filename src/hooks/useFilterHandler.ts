@@ -32,7 +32,7 @@ export const useFilterHandler = <
   };
 
   const resetFilters = () => {
-    console.log("reset");
+    setSearchParams({});
   };
 
   const handleSearchChange = (query: string) => {

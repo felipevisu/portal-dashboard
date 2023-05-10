@@ -76,7 +76,7 @@ export const VehicleList = () => {
     onCompleted: handleVehicleBulkDelete,
   });
 
-  const [changeFilters, , handleSearchChange] = useFilterHandler();
+  const [changeFilters, resetFilters, handleSearchChange] = useFilterHandler();
 
   const filterOpts = getFilterOpts(
     searchParams,
@@ -107,6 +107,7 @@ export const VehicleList = () => {
         filterOpts={filterOpts}
         onSearchChange={handleSearchChange}
         onFilterChange={changeFilters}
+        onFilterReset={resetFilters}
         initialSearch={searchParams.get("search") || ""}
       />
       <ActionDialog

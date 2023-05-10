@@ -22,6 +22,7 @@ export const FilterBar = ({
   onSearchChange,
   onFilterChange,
   onFilterAttributeFocus,
+  onFilterReset,
 }: FilterBarProps) => {
   return (
     <Root>
@@ -29,6 +30,7 @@ export const FilterBar = ({
         menu={filterStructure}
         onFilterAdd={onFilterChange}
         onFilterAttributeFocus={onFilterAttributeFocus}
+        onFilterReset={onFilterReset}
       />
       <SearchInput
         initialSearch={initialSearch}

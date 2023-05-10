@@ -94,6 +94,7 @@ export interface KeyValue {
 export interface FilterProps<TKeys extends string> {
   currencySymbol?: string;
   onFilterChange: (filter: IFilter<TKeys>) => void;
+  onFilterReset: () => void;
   onFilterAttributeFocus?: (id?: string) => void;
 }
 
