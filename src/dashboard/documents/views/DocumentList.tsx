@@ -1,5 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { useSearchParams } from "react-router-dom";
 
 import { Delete } from "@mui/icons-material";
 import { DialogContentText, IconButton } from "@mui/material";
@@ -9,14 +10,21 @@ import {
   useDocumentBulkDeleteMutation,
   useDocumentsQuery,
 } from "@portal/graphql";
-import { useBulkActions, useModal, usePaginator } from "@portal/hooks";
+import {
+  useBulkActions,
+  useFilterHandler,
+  useModal,
+  usePaginator,
+} from "@portal/hooks";
 import { mapEdgesToItems } from "@portal/utils/maps";
 
 import { DocumentListPage } from "../components/DocumentListPage";
 
+import { getFilterOpts, getFilterVariables } from "./filters";
+
 export const DocumentList = () => {
   const { t } = useTranslation();
-
+  const [searchParams] = useSearchParams();
   const { pagination, handleNextPage, handlePreviousPage } = usePaginator();
   const { isSelected, listElements, toggle, toggleAll, reset } = useBulkActions(
     []
@@ -26,7 +34,7 @@ export const DocumentList = () => {
 
   const { data, loading, refetch } = useDocumentsQuery({
     fetchPolicy: "network-only",
-    variables: { ...pagination },
+    variables: { ...pagination, filter: getFilterVariables(searchParams) },
   });
 
   const handleDocumentBulkDelete = (data: DocumentBulkDeleteMutation) => {
@@ -40,6 +48,10 @@ export const DocumentList = () => {
   const [documentBulkDelete] = useDocumentBulkDeleteMutation({
     onCompleted: handleDocumentBulkDelete,
   });
+
+  const [changeFilters, resetFilters, handleSearchChange] = useFilterHandler();
+
+  const filterOpts = getFilterOpts(searchParams);
 
   return (
     <>
@@ -58,6 +70,11 @@ export const DocumentList = () => {
             <Delete />
           </IconButton>
         }
+        filterOpts={filterOpts}
+        onSearchChange={handleSearchChange}
+        onFilterChange={changeFilters}
+        onFilterReset={resetFilters}
+        initialSearch={searchParams.get("search") || ""}
       />
       <ActionDialog
         onClose={closeModal}
