@@ -51,7 +51,6 @@ export function getFilterOpts(
 
 export function getFilterVariables(params: URLSearchParams): EntryFilterInput {
   const categories = params.getAll("categories");
-  console.log(categories);
   return {
     categories: categories.length ? categories : null,
     search: params.get("search"),

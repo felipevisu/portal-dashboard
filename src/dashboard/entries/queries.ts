@@ -7,6 +7,7 @@ export const entriesQuery = gql`
     $after: String
     $before: String
     $filter: EntryFilterInput
+    $channel: String
   ) {
     entries(
       first: $first
@@ -14,6 +15,7 @@ export const entriesQuery = gql`
       after: $after
       before: $before
       filter: $filter
+      channel: $channel
     ) {
       edges {
         node {

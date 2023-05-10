@@ -2,6 +2,8 @@ import { FetchMoreProps, KeyValue, SearchPageProps } from "@portal/types";
 
 import { MultiAutocompleteChoiceType } from "../Attributes/utils";
 
+import { FilterDispatchFunction } from "./useFilter";
+
 export interface KeyValueFilterElementData {
   value: KeyValue[];
   type: FieldType.keyValue;
@@ -74,3 +76,16 @@ export type FilterElementGeneric<
 > = T extends FieldType.keyValue
   ? FilterElementKeyValue<K> & { type: T }
   : FilterElementRegular<K> & { type: T };
+
+export const isFilterType = <T extends FieldType, K extends string = string>(
+  filter: FilterElement<K>,
+  type: T
+): filter is FilterElementGeneric<K, T> => filter.type === type;
+
+export interface FilterFieldBaseProps<
+  K extends string = string,
+  T extends FieldType | unknown = unknown
+> {
+  filter: T extends FieldType ? FilterElementGeneric<K, T> : FilterElement<K>;
+  onFilterPropertyChange: FilterDispatchFunction<K>;
+}

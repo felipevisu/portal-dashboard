@@ -2024,13 +2024,14 @@ export type EntryChannelListingUpdateMutationHookResult = ReturnType<typeof useE
 export type EntryChannelListingUpdateMutationResult = Apollo.MutationResult<Types.EntryChannelListingUpdateMutation>;
 export type EntryChannelListingUpdateMutationOptions = Apollo.BaseMutationOptions<Types.EntryChannelListingUpdateMutation, Types.EntryChannelListingUpdateMutationVariables>;
 export const EntriesDocument = gql`
-    query Entries($first: Int, $last: Int, $after: String, $before: String, $filter: EntryFilterInput) {
+    query Entries($first: Int, $last: Int, $after: String, $before: String, $filter: EntryFilterInput, $channel: String) {
   entries(
     first: $first
     last: $last
     after: $after
     before: $before
     filter: $filter
+    channel: $channel
   ) {
     edges {
       node {
@@ -2062,6 +2063,7 @@ ${PageInfoFragmentDoc}`;
  *      after: // value for 'after'
  *      before: // value for 'before'
  *      filter: // value for 'filter'
+ *      channel: // value for 'channel'
  *   },
  * });
  */

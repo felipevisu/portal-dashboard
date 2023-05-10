@@ -1,5 +1,4 @@
 import React from "react";
-import { parse as parseQs } from "qs";
 import { useTranslation } from "react-i18next";
 import { useParams, useSearchParams } from "react-router-dom";
 
@@ -14,7 +13,7 @@ import {
   useEntryBulkDeleteMutation,
   useInitialEntryFilterCategoriesQuery,
 } from "@portal/graphql";
-import { useBulkActions, usePaginator } from "@portal/hooks";
+import { useBulkActions, useFilterHandler, usePaginator } from "@portal/hooks";
 import useModal from "@portal/hooks/useModal";
 import useCategorySearch from "@portal/searches/useCategorySearch";
 import { mapEdgesToItems, mapNodeToChoice } from "@portal/utils/maps";
@@ -25,7 +24,7 @@ import { mapType } from "../utils";
 import { getFilterOpts, getFilterVariables } from "./filters";
 
 export const VehicleList = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const { pagination, handleNextPage, handlePreviousPage } = usePaginator();
   const { entry: type } = useParams();
   const { isSelected, listElements, toggle, toggleAll, reset } = useBulkActions(
@@ -47,6 +46,7 @@ export const VehicleList = () => {
     variables: {
       ...DEFAULT_INITIAL_SEARCH_DATA,
       first: 5,
+      type: mapType[type],
     },
   });
 
@@ -59,6 +59,7 @@ export const VehicleList = () => {
     fetchPolicy: "network-only",
     variables: {
       ...pagination,
+      channel: searchParams.get("channel"),
       filter: { type: mapType[type], ...getFilterVariables(searchParams) },
     },
   });
@@ -75,18 +76,7 @@ export const VehicleList = () => {
     onCompleted: handleVehicleBulkDelete,
   });
 
-  const handleFilterChange = (filter) => {
-    delete filter.first;
-    delete filter.last;
-    delete filter.before;
-    delete filter.after;
-    setSearchParams({ ...filter });
-  };
-
-  const handleSearchChange = (value: string) => {
-    const params = parseQs(searchParams.toString());
-    handleFilterChange({ ...params, search: value });
-  };
+  const [changeFilters, , handleSearchChange] = useFilterHandler();
 
   const filterOpts = getFilterOpts(
     searchParams,
@@ -116,7 +106,7 @@ export const VehicleList = () => {
         pageInfo={data?.entries?.pageInfo}
         filterOpts={filterOpts}
         onSearchChange={handleSearchChange}
-        onFilterChange={handleFilterChange}
+        onFilterChange={changeFilters}
         initialSearch={searchParams.get("search") || ""}
       />
       <ActionDialog

@@ -825,6 +825,7 @@ export type EntriesQueryVariables = Exact<{
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   filter?: InputMaybe<EntryFilterInput>;
+  channel?: InputMaybe<Scalars['String']>;
 }>;
 
 

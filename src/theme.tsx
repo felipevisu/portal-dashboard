@@ -54,6 +54,7 @@ export const ColorModeProvider = ({ children }: ColorModeProviderProps) => {
           MuiAccordion: {
             styleOverrides: {
               root: {
+                background: "none",
                 boxShadow: "none",
                 "&:before": {
                   display: "none",

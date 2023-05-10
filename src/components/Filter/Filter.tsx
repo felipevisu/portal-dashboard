@@ -10,6 +10,7 @@ import {
 
 import { Button } from "../Button";
 
+import { FilterContent } from "./FilterContent";
 import { FilterElement, IFilter } from "./types";
 import useFilter from "./useFilter";
 
@@ -55,7 +56,14 @@ export const Filter = ({
           {t("filters")}
         </Button>
         <Popper open={open} anchorEl={anchorEl} placement={placement}>
-          Filtro
+          <FilterContent
+            dataStructure={menu}
+            filters={data}
+            onClear={handleClear}
+            onFilterPropertyChange={dispatch}
+            onFilterAttributeFocus={onFilterAttributeFocus}
+            onSubmit={handleSubmit}
+          />
         </Popper>
       </Box>
     </ClickAwayListener>
