@@ -1,4 +1,4 @@
-import { Node } from "@portal/types";
+import { Node, SlugNode } from "@portal/types";
 
 import { ChoiceValue, SingleAutocompleteChoiceType } from "./data";
 
@@ -37,4 +37,10 @@ export function mapNodeToChoice<T extends ExtendedNode>(
     label: node.name,
     value: getterFn ? getterFn(node) : node.id,
   }));
+}
+
+export function mapSlugNodeToChoice(
+  nodes: Array<ExtendedNode & SlugNode>
+): SingleAutocompleteChoiceType[] {
+  return mapNodeToChoice(nodes, (node) => node.slug);
 }

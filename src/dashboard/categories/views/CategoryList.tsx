@@ -1,5 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { useSearchParams } from "react-router-dom";
 
 import { Delete } from "@mui/icons-material";
 import { DialogContentText, IconButton } from "@mui/material";
@@ -9,13 +10,16 @@ import {
   useCategoriesQuery,
   useCategoryBulkDeleteMutation,
 } from "@portal/graphql";
-import { useBulkActions, usePaginator } from "@portal/hooks";
+import { useBulkActions, useFilterHandler, usePaginator } from "@portal/hooks";
 import useModal from "@portal/hooks/useModal";
 import { mapEdgesToItems } from "@portal/utils/maps";
 
 import CategoryListPage from "../components/CategoryListPage";
 
+import { getFilterOpts, getFilterVariables } from "./filters";
+
 export const CategoryList = () => {
+  const [searchParams] = useSearchParams();
   const { t } = useTranslation();
 
   const { pagination, handleNextPage, handlePreviousPage } = usePaginator();
@@ -27,7 +31,7 @@ export const CategoryList = () => {
 
   const { data, loading, refetch } = useCategoriesQuery({
     fetchPolicy: "network-only",
-    variables: { ...pagination },
+    variables: { ...pagination, filter: getFilterVariables(searchParams) },
   });
 
   const handleCategoryBulkDelete = (data: CategoryBulkDeleteMutation) => {
@@ -41,6 +45,10 @@ export const CategoryList = () => {
   const [categoryBulkDelete] = useCategoryBulkDeleteMutation({
     onCompleted: handleCategoryBulkDelete,
   });
+
+  const [changeFilters, resetFilters, handleSearchChange] = useFilterHandler();
+
+  const filterOpts = getFilterOpts(searchParams);
 
   return (
     <>
@@ -59,6 +67,11 @@ export const CategoryList = () => {
         onNextPage={handleNextPage}
         onPreviousPage={handlePreviousPage}
         pageInfo={data?.categories?.pageInfo}
+        filterOpts={filterOpts}
+        onSearchChange={handleSearchChange}
+        onFilterChange={changeFilters}
+        onFilterReset={resetFilters}
+        initialSearch={searchParams.get("search") || ""}
       />
       <ActionDialog
         onClose={closeModal}

@@ -47,6 +47,21 @@ export const entryDetailsQuery = gql`
   }
 `;
 
+export const initialEntryFilterAttributesQuery = gql`
+  query InitialEntryFilterAttributes($type: AttributeTypeEnum!) {
+    attributes(first: 100, filter: { type: $type }) {
+      edges {
+        node {
+          id
+          name
+          inputType
+          slug
+        }
+      }
+    }
+  }
+`;
+
 export const initialEntryFilterCategoriesQuery = gql`
   query InitialEntryFilterCategories($categories: [ID!]) {
     categories(first: 100, filter: { ids: $categories }) {

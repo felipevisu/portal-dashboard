@@ -840,6 +840,13 @@ export type EntryDetailsQueryVariables = Exact<{
 
 export type EntryDetailsQuery = { __typename: 'Query', entry: { __typename: 'Entry', id: string, name: string, slug: string | null, documentNumber: string | null, email: string | null, documents: { __typename: 'DocumentCountableConnection', edges: Array<{ __typename: 'DocumentCountableEdge', node: { __typename: 'Document', id: string, name: string, created: any | null, isPublished: boolean | null, expired: boolean | null, expires: boolean | null, defaultFile: { __typename: 'DocumentFile', id: string, beginDate: any | null, expirationDate: any | null } | null, entry: { __typename: 'Entry', id: string, name: string, type: EntryTypeEnum | null } | null } }>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null, category: { __typename: 'Category', id: string, name: string } | null, categories: Array<{ __typename: 'Category', id: string, name: string }> | null, attributes: Array<{ __typename: 'SelectedAttribute', attribute: { __typename: 'Attribute', id: string, name: string | null, slug: string | null, type: AttributeTypeEnum | null, visibleInWebsite: boolean, filterableInDashboard: boolean, filterableInWebsite: boolean, inputType: AttributeInputTypeEnum | null, entityType: AttributeEntityTypeEnum | null, valueRequired: boolean }, values: Array<{ __typename: 'AttributeValue', id: string, name: string | null, slug: string | null, boolean: boolean | null, date: any | null, value: string | null, plainText: string | null, reference: string | null, file: { __typename: 'File', url: string } | null }> }>, consult: Array<{ __typename: 'Consult', id: string, created: any | null, plugin: string | null, response: any | null }> | null, channelListings: Array<{ __typename: 'EntryChannelListing', isPublished: boolean, isActive: boolean, channel: { __typename: 'Channel', id: string, name: string } }> | null } | null };
 
+export type InitialEntryFilterAttributesQueryVariables = Exact<{
+  type: AttributeTypeEnum;
+}>;
+
+
+export type InitialEntryFilterAttributesQuery = { __typename: 'Query', attributes: { __typename: 'AttributeCountableConnection', edges: Array<{ __typename: 'AttributeCountableEdge', node: { __typename: 'Attribute', id: string, name: string | null, inputType: AttributeInputTypeEnum | null, slug: string | null } }> } | null };
+
 export type InitialEntryFilterCategoriesQueryVariables = Exact<{
   categories?: InputMaybe<Array<Scalars['ID']> | Scalars['ID']>;
 }>;

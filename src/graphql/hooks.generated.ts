@@ -2127,6 +2127,48 @@ export function useEntryDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type EntryDetailsQueryHookResult = ReturnType<typeof useEntryDetailsQuery>;
 export type EntryDetailsLazyQueryHookResult = ReturnType<typeof useEntryDetailsLazyQuery>;
 export type EntryDetailsQueryResult = Apollo.QueryResult<Types.EntryDetailsQuery, Types.EntryDetailsQueryVariables>;
+export const InitialEntryFilterAttributesDocument = gql`
+    query InitialEntryFilterAttributes($type: AttributeTypeEnum!) {
+  attributes(first: 100, filter: {type: $type}) {
+    edges {
+      node {
+        id
+        name
+        inputType
+        slug
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useInitialEntryFilterAttributesQuery__
+ *
+ * To run a query within a React component, call `useInitialEntryFilterAttributesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useInitialEntryFilterAttributesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useInitialEntryFilterAttributesQuery({
+ *   variables: {
+ *      type: // value for 'type'
+ *   },
+ * });
+ */
+export function useInitialEntryFilterAttributesQuery(baseOptions: Apollo.QueryHookOptions<Types.InitialEntryFilterAttributesQuery, Types.InitialEntryFilterAttributesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<Types.InitialEntryFilterAttributesQuery, Types.InitialEntryFilterAttributesQueryVariables>(InitialEntryFilterAttributesDocument, options);
+      }
+export function useInitialEntryFilterAttributesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.InitialEntryFilterAttributesQuery, Types.InitialEntryFilterAttributesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<Types.InitialEntryFilterAttributesQuery, Types.InitialEntryFilterAttributesQueryVariables>(InitialEntryFilterAttributesDocument, options);
+        }
+export type InitialEntryFilterAttributesQueryHookResult = ReturnType<typeof useInitialEntryFilterAttributesQuery>;
+export type InitialEntryFilterAttributesLazyQueryHookResult = ReturnType<typeof useInitialEntryFilterAttributesLazyQuery>;
+export type InitialEntryFilterAttributesQueryResult = Apollo.QueryResult<Types.InitialEntryFilterAttributesQuery, Types.InitialEntryFilterAttributesQueryVariables>;
 export const InitialEntryFilterCategoriesDocument = gql`
     query InitialEntryFilterCategories($categories: [ID!]) {
   categories(first: 100, filter: {ids: $categories}) {

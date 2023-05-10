@@ -3,10 +3,10 @@ import React, { useState } from "react";
 import { Accordion, AccordionSummary, Box, Paper } from "@mui/material";
 import useStateFromProps from "@portal/hooks/useStateFromProps";
 
-import { FilterAutocompleteDisplayValues } from "../FilterAutocompleteField";
 import { FilterReducerAction } from "../reducer";
 import { FieldType, FilterElement, IFilter } from "../types";
 
+import { FilterAutocompleteDisplayValues } from "./FilterAutocompleteField";
 import FilterContentBody, { FilterContentBodyProps } from "./FilterContentBody";
 import { FilterContentBodyNameField } from "./FilterContentBodyNameField";
 import { FilterContentHeader } from "./FilterContentHeader";

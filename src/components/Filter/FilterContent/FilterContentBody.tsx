@@ -3,11 +3,12 @@ import React from "react";
 import { Box } from "@mui/material";
 import { MultiAutocompleteChoiceType } from "@portal/components/Attributes/utils";
 
-import { FilterAutocompleteDisplayValues } from "../FilterAutocompleteField";
 import { FilterReducerAction } from "../reducer";
 import { FieldType, FilterElement, isFilterType } from "../types";
 
-import FilterAutocompleteField from "./FilterAutocompleteField";
+import FilterAutocompleteField, {
+  FilterAutocompleteDisplayValues,
+} from "./FilterAutocompleteField";
 import FilterOptionField from "./FilterOptionField";
 
 const filterTestingContext = "filter-field-";

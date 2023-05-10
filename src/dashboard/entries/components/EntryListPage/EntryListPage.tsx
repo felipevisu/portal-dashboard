@@ -43,6 +43,7 @@ export const EntryListPage = ({
   onSearchChange,
   onFilterChange,
   onFilterReset,
+  onFilterAttributeFocus,
 }: EntryListPageProps) => {
   const { entry: type } = useParams();
   const { t } = useTranslation("translation", { keyPrefix: type });
@@ -65,6 +66,7 @@ export const EntryListPage = ({
           filterStructure={filterStructure}
           onFilterChange={onFilterChange}
           onFilterReset={onFilterReset}
+          onFilterAttributeFocus={onFilterAttributeFocus}
         />
         <EntryList
           selected={selected}

@@ -35,3 +35,16 @@ export type RequireOnlyOne<T, Keys extends keyof T = keyof T> = Pick<
     [K in Keys]-?: Required<Pick<T, K>> &
       Partial<Record<Exclude<Keys, K>, undefined>>;
   }[Keys];
+
+export function findValueInEnum<TEnum extends Record<string, unknown>>(
+  needle: string,
+  haystack: TEnum
+): TEnum[keyof TEnum] {
+  const match = Object.entries(haystack).find(([_, value]) => value === needle);
+
+  if (!match) {
+    throw new Error(`Value ${needle} not found in enum`);
+  }
+
+  return needle as unknown as TEnum[keyof TEnum];
+}

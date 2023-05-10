@@ -1,5 +1,9 @@
 import { AttributeInput } from "@portal/components/Attributes/Attributes";
-import { AttributeValueFragment } from "@portal/graphql";
+import {
+  AttributeFragment,
+  AttributeInputTypeEnum,
+  AttributeValueFragment,
+} from "@portal/graphql";
 
 import { AttributeValueEditDialogFormData } from "../components/ValueUpdateDialog";
 
@@ -26,4 +30,20 @@ export function attributeValueFragmentToFormData(
     name: data?.name ?? "",
     value: data?.value ?? "",
   };
+}
+
+export const ATTRIBUTE_TYPES_WITH_CONFIGURABLE_FACED_NAVIGATION = [
+  AttributeInputTypeEnum.DROPDOWN,
+  AttributeInputTypeEnum.MULTISELECT,
+  AttributeInputTypeEnum.BOOLEAN,
+  AttributeInputTypeEnum.DATE,
+  AttributeInputTypeEnum.SWATCH,
+];
+
+export function filterable(
+  attribute: Pick<AttributeFragment, "inputType">
+): boolean {
+  return ATTRIBUTE_TYPES_WITH_CONFIGURABLE_FACED_NAVIGATION.includes(
+    attribute.inputType!
+  );
 }

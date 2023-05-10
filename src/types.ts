@@ -107,3 +107,7 @@ export interface FilterPageProps<TKeys extends string, TOpts extends {}>
 export interface Node {
   id: string;
 }
+
+export interface SlugNode {
+  slug: string;
+}

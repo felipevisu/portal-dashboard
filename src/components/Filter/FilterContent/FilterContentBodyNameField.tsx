@@ -19,7 +19,7 @@ export const FilterContentBodyNameField = ({
     <div>
       <FormControlLabel
         control={<Checkbox checked={filter.active} />}
-        label={filter.label}
+        label={filter.label.toUpperCase()}
         onClick={(event) => event.stopPropagation()}
         onChange={() =>
           onFilterPropertyChange({

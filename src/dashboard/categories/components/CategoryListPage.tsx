@@ -3,15 +3,24 @@ import { useTranslation } from "react-i18next";
 
 import { Card } from "@mui/material";
 import { Button } from "@portal/components/Button";
+import { FilterBar } from "@portal/components/FilterBar";
 import PageHeader from "@portal/components/PageHeader";
 import { Pagination } from "@portal/components/Pagination";
 import { CategoryFragment } from "@portal/graphql";
 import useLinks from "@portal/hooks/useLinks";
-import { ListActions, PaginateListProps } from "@portal/types";
+import { FilterPageProps, ListActions, PaginateListProps } from "@portal/types";
 
 import CategoryList from "./CategoryList";
+import {
+  CategoryFilterKeys,
+  CategoryListFilterOpts,
+  createFilterStructure,
+} from "./filters";
 
-interface CategoryListPageProps extends ListActions, PaginateListProps {
+interface CategoryListPageProps
+  extends ListActions,
+    PaginateListProps,
+    FilterPageProps<CategoryFilterKeys, CategoryListFilterOpts> {
   categories: CategoryFragment[];
   disabled: boolean;
 }
@@ -21,15 +30,22 @@ export const CategoryListPage = ({
   pageInfo,
   selected,
   toolbar,
+  initialSearch,
+  filterOpts,
   toggle,
   toggleAll,
   isChecked,
   onNextPage,
   onPreviousPage,
+  onSearchChange,
+  onFilterChange,
+  onFilterReset,
   disabled,
 }: CategoryListPageProps) => {
   const { t } = useTranslation();
   const { categoryCreate } = useLinks();
+
+  const filterStructure = createFilterStructure(filterOpts);
 
   return (
     <>
@@ -39,6 +55,14 @@ export const CategoryListPage = ({
         </Button>
       </PageHeader>
       <Card>
+        <FilterBar
+          initialSearch={initialSearch}
+          onSearchChange={onSearchChange}
+          searchPlaceholder="Pesquisar"
+          filterStructure={filterStructure}
+          onFilterChange={onFilterChange}
+          onFilterReset={onFilterReset}
+        />
         <CategoryList
           selected={selected}
           categories={categories}
