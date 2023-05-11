@@ -2,7 +2,16 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
-import { Table, TableBody, TableCell, TableContainer } from "@mui/material";
+import { Cancel, CheckCircle } from "@mui/icons-material";
+import {
+  Box,
+  Chip,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  Tooltip,
+} from "@mui/material";
 import Checkbox from "@portal/components/Checkbox";
 import TableCellHeader from "@portal/components/TableCell";
 import TableHead from "@portal/components/TableHead";
@@ -26,7 +35,7 @@ export const EntryList = ({
   selected,
   toolbar,
 }: EntryListProps) => {
-  const numberOfColumns = entries?.length === 0 ? 2 : 3;
+  const numberOfColumns = entries?.length === 0 ? 3 : 4;
   const { t } = useTranslation();
   const { entry: type } = useParams();
   const { entryDetails } = useLinks();
@@ -44,6 +53,7 @@ export const EntryList = ({
         >
           <TableCellHeader>{t("name")}</TableCellHeader>
           <TableCellHeader>{t("category.title")}</TableCellHeader>
+          <TableCellHeader>{t("visibility")}</TableCellHeader>
         </TableHead>
         <TableBody>
           {renderCollection(entries, (entry) => {
@@ -66,6 +76,40 @@ export const EntryList = ({
                 <TableCell>{entry.name}</TableCell>
                 <TableCell>
                   {entry.categories.map((category) => category.name).join(", ")}
+                </TableCell>
+                <TableCell>
+                  <Tooltip
+                    title={
+                      <Box>
+                        {entry.channelListings.map((item) => (
+                          <Box
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              m: 1,
+                              gap: 1,
+                            }}
+                            key={item.channel.id}
+                          >
+                            {item.isPublished ? (
+                              <CheckCircle fontSize="small" />
+                            ) : (
+                              <Cancel fontSize="small" />
+                            )}
+                            <span>{item.channel.name}</span>
+                          </Box>
+                        ))}
+                      </Box>
+                    }
+                    placement="left"
+                  >
+                    <Chip
+                      label={t("channel.visibility", {
+                        count: entry.channelListings.length,
+                      })}
+                      size="small"
+                    />
+                  </Tooltip>
                 </TableCell>
               </TableRowLink>
             );

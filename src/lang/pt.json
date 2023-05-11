@@ -74,7 +74,10 @@
 			"title": "Vincule o cadastro aos canais disponíveis."
 		},
 		"availability": "Disponível em {{ available }} de {{ total }} canais.",
-		"createMessage": "Primeiro salve o cadastro para depoius vinculá-lo aos canais disponíveis."
+		"createMessage": "Primeiro salve o cadastro para depoius vinculá-lo aos canais disponíveis.",
+		"visibility_zero": "{{ count }} canais",
+		"visibility_one": "{{ count }} canal",
+		"visibility_other": "{{ count }} canais"
 	},
 	"clickHere": "Clique aqui",
 	"configurationType": "Tipo de configuração",

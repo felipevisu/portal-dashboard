@@ -10,7 +10,7 @@ type MenuItem = {
 };
 
 export const MenuMain = styled("div")<MenuContent>(({ opened }) => ({
-  width: opened ? "320px" : "72px",
+  width: opened ? "270px" : "72px",
   transition: "all ease 300ms",
   position: "relative",
 }));
@@ -35,7 +35,7 @@ export const MenuItem = styled(Box, {
   "&:hover": { color: theme.palette.primary.main },
   background: active ? theme.palette.action.selected : "",
   borderRadius: "0 8px 8px 0",
-  width: opened ? "320px" : "72px",
+  width: opened ? "270px" : "72px",
   transition: "all ease 300ms",
 }));
 
@@ -46,7 +46,7 @@ export const Label = styled(Typography)(({ theme }) => ({
   "&:hover": { color: theme.palette.primary.main },
   position: "absolute",
   left: "70px",
-  width: "250px",
+  width: "230px",
 }));
 
 export const OpenClose = styled(IconButton)(({ theme }) => ({
