@@ -17,6 +17,16 @@ export function getFilterOpts(params: URLSearchParams) {
       active: !!params.get("expires"),
       value: params.get("expires"),
     },
+    expirationDate: {
+      active: [
+        params.get("expirationDateFrom"),
+        params.get("expirationDateTo"),
+      ].some((field) => field !== null),
+      value: {
+        max: params.get("expirationDateFrom") || "",
+        min: params.get("expirationDateTo") || "",
+      },
+    },
   };
 }
 
@@ -31,5 +41,9 @@ export function getFilterVariables(
     isPublished: isPublished ? boolean(isPublished) : null,
     expires: expires ? boolean(expires) : null,
     search: params.get("search"),
+    expirationDate: {
+      gte: params.get("expirationDateFrom"),
+      lte: params.get("expirationDateTo"),
+    },
   };
 }

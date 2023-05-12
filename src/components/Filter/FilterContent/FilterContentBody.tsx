@@ -9,6 +9,7 @@ import { FieldType, FilterElement, isFilterType } from "../types";
 import FilterAutocompleteField, {
   FilterAutocompleteDisplayValues,
 } from "./FilterAutocompleteField";
+import FilterDateField from "./FilterDateField";
 import FilterOptionField from "./FilterOptionField";
 
 const filterTestingContext = "filter-field-";
@@ -39,19 +40,23 @@ export const FilterContentBody = <K extends string = string>({
       {children}
       {isFilterType(filter, FieldType.options) && (
         <FilterOptionField
-          data-test-id={filterTestingContext + filter.name}
           filter={filter}
           onFilterPropertyChange={onFilterPropertyChange}
         />
       )}
       {isFilterType(filter, FieldType.autocomplete) && (
         <FilterAutocompleteField
-          data-test-id={filterTestingContext + filter.name}
           displayValues={autocompleteDisplayValues}
           filter={filter}
           setDisplayValues={setAutocompleteDisplayValues}
           onFilterPropertyChange={onFilterPropertyChange}
           initialDisplayValues={initialAutocompleteDisplayValues}
+        />
+      )}
+      {isFilterType(filter, FieldType.date) && (
+        <FilterDateField
+          filter={filter}
+          onFilterPropertyChange={onFilterPropertyChange}
         />
       )}
     </Box>

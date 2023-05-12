@@ -2,12 +2,16 @@ import { t } from "i18next";
 
 import { IFilter } from "@portal/components/Filter";
 import { EntryTypeEnum } from "@portal/graphql";
-import { FilterOpts } from "@portal/types";
-import { createOptionsField } from "@portal/utils/filters/fields";
+import { FilterOpts, MinMax } from "@portal/types";
+import {
+  createDateField,
+  createOptionsField,
+} from "@portal/utils/filters/fields";
 
 export const DocumentFilterKeys = {
   type: "type",
   isPublished: "isPublished",
+  expirationDate: "expirationDate",
 } as const;
 
 export type DocumentFilterKeys =
@@ -16,6 +20,7 @@ export type DocumentFilterKeys =
 export interface DocumentListFilterOpts {
   type: FilterOpts<EntryTypeEnum>;
   isPublished: FilterOpts<string>;
+  expirationDate: FilterOpts<MinMax>;
 }
 
 export function createFilterStructure(
@@ -59,6 +64,14 @@ export function createFilterStructure(
         ]
       ),
       active: opts.isPublished.active,
+    },
+    {
+      ...createDateField(
+        DocumentFilterKeys.expirationDate,
+        t("expirationDate"),
+        opts.expirationDate.value
+      ),
+      active: opts.expirationDate.active,
     },
   ];
 }

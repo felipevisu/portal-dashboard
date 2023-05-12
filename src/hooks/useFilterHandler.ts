@@ -26,7 +26,16 @@ export const useFilterHandler = <
     const params = parseQs(searchParams.toString());
     clearParams(params);
     filters.forEach((filter) => {
-      extraParams[filter.name] = filter.value;
+      if (filter.value[0]) {
+        if (filter.type === "date") {
+          const from = filter.value[0];
+          if (from) extraParams[filter.name + "From"] = filter.value[0];
+          const to = filter.value[1];
+          if (to) extraParams[filter.name + "To"] = filter.value[1];
+        } else {
+          extraParams[filter.name] = filter.value;
+        }
+      }
     });
     setSearchParams({ ...params, ...extraParams });
   };

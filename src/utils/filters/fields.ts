@@ -1,6 +1,6 @@
 import { MultiAutocompleteChoiceType } from "@portal/components/Attributes/utils";
 import { FieldType, FilterElementGeneric } from "@portal/components/Filter";
-import { FetchMoreProps, SearchPageProps } from "@portal/types";
+import { FetchMoreProps, MinMax, SearchPageProps } from "@portal/types";
 
 export function createOptionsField<K extends string>(
   name: K,
@@ -41,5 +41,20 @@ export function createAutocompleteField<K extends string>(
     type: FieldType.autocomplete,
     value: defaultValue,
     id,
+  };
+}
+
+export function createDateField<K extends string>(
+  name: K,
+  label: string,
+  defaultValue: MinMax
+): FilterElementGeneric<K, FieldType.date> {
+  return {
+    active: false,
+    label,
+    multiple: defaultValue.min !== defaultValue.max,
+    name,
+    type: FieldType.date,
+    value: [defaultValue.min, defaultValue.max],
   };
 }

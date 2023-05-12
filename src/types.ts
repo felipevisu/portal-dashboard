@@ -111,3 +111,5 @@ export interface Node {
 export interface SlugNode {
   slug: string;
 }
+
+export type MinMax = Record<"min" | "max", string>;

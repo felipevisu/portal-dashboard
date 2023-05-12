@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export function renderCollection<T>(
   collection: T[],
   renderItem: (
@@ -47,4 +49,28 @@ export function findValueInEnum<TEnum extends Record<string, unknown>>(
   }
 
   return needle as unknown as TEnum[keyof TEnum];
+}
+
+export function splitDateTime(dateTime: string) {
+  if (!dateTime) {
+    return {
+      date: "",
+      time: "",
+    };
+  }
+  // Default html input format YYYY-MM-DD HH:mm
+  const splitDateTime = moment(dateTime).format("YYYY-MM-DD HH:mm").split(" ");
+  return {
+    date: splitDateTime[0],
+    time: splitDateTime[1],
+  };
+}
+
+export function joinDateTime(date: string, time?: string) {
+  if (!date) {
+    return null;
+  }
+  const setTime = time || "00:00";
+  const dateTime = moment(date + " " + setTime).format();
+  return dateTime;
 }
