@@ -28,18 +28,29 @@ export const EventList = ({ events }: EventListProps) => {
         >
           <Divider sx={{ marginTop: 1, marginBottom: 1 }} />
           <Typography>{t(`events.${event.type}`)}</Typography>
-          <Link to={documentDetails(event.document.id)}>
+          {event.document ? (
+            <Link to={documentDetails(event.document.id)}>
+              <Typography
+                fontSize="small"
+                sx={{
+                  color: "primary.main",
+                  "&:hover": { textDecoration: "underline" },
+                }}
+              >
+                {event.documentName}
+              </Typography>
+            </Link>
+          ) : (
             <Typography
               fontSize="small"
               sx={{
                 color: "primary.main",
-                "&:hover": { textDecoration: "underline" },
               }}
             >
-              {event.document.entry.name} / {event.document.name}
+              {event.documentName}
             </Typography>
-          </Link>
-          <Typography fontSize="small">{event.user.email}</Typography>
+          )}
+          <Typography fontSize="small">{event.userEmail}</Typography>
           <Typography fontSize="small">{formatDateTime(event.date)}</Typography>
         </Box>
       ))}

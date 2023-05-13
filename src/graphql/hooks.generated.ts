@@ -150,6 +150,7 @@ export const EventFragmentDoc = gql`
   user {
     ...User
   }
+  userEmail
 }
     ${UserFragmentDoc}`;
 export const DocumentDetailsFragmentDoc = gql`
@@ -311,6 +312,7 @@ export const EventDetailsFragmentDoc = gql`
   user {
     ...User
   }
+  userEmail
   document {
     id
     name
@@ -319,6 +321,7 @@ export const EventDetailsFragmentDoc = gql`
       name
     }
   }
+  documentName
 }
     ${UserFragmentDoc}`;
 export const InvestmentFragmentDoc = gql`

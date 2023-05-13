@@ -9,6 +9,7 @@ export const eventFragment = gql`
     user {
       ...User
     }
+    userEmail
   }
 `;
 
@@ -21,6 +22,7 @@ export const eventDetailsFragment = gql`
     user {
       ...User
     }
+    userEmail
     document {
       id
       name
@@ -29,5 +31,6 @@ export const eventDetailsFragment = gql`
         name
       }
     }
+    documentName
   }
 `;

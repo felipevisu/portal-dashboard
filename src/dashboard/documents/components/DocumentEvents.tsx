@@ -46,7 +46,7 @@ export const DocumentEvents = ({ events }: DocumentEventsProps) => {
                   )}
                   {event.user && (
                     <Typography fontSize="small">
-                      Usuário: {event.user.email}
+                      Usuário: {event.userEmail}
                     </Typography>
                   )}
                 </div>{" "}

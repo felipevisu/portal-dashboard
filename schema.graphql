@@ -812,6 +812,7 @@ type Error {
 type Event implements Node {
   date: DateTime
   document: Document
+  documentName: String
   id: ID!
   message: String
   parameters: JSONString
@@ -819,6 +820,7 @@ type Event implements Node {
   """Order event type."""
   type: EventTypesEnum
   user: User
+  userEmail: String
 }
 
 type EventCountableConnection {
