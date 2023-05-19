@@ -6,8 +6,6 @@ export const categoryFragment = gql`
     name
     slug
     type
-    entries {
-      totalCount
-    }
+    totalEntries
   }
 `;

@@ -71,7 +71,7 @@ export const CategoryList = ({
                     : t("providers.title")}
                 </TableCellHeader>
                 <TableCell sx={{ width: 160, textAlign: "center" }}>
-                  {category.entries.totalCount}
+                  {category.totalEntries}
                 </TableCell>
               </TableRowLink>
             );

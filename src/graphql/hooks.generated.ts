@@ -87,9 +87,7 @@ export const CategoryFragmentDoc = gql`
   name
   slug
   type
-  entries {
-    totalCount
-  }
+  totalEntries
 }
     `;
 export const ChannelFragmentDoc = gql`
@@ -210,10 +208,6 @@ export const EntryFragmentDoc = gql`
   name
   slug
   updated
-  category {
-    id
-    name
-  }
   categories {
     id
     name
@@ -237,10 +231,6 @@ export const EntryDetailsFragmentDoc = gql`
   name
   slug
   documentNumber
-  category {
-    id
-    name
-  }
   categories {
     id
     name

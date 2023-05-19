@@ -271,7 +271,6 @@ type BulkItemError {
 }
 
 type Category implements Node {
-  entries(after: String, before: String, first: Int, last: Int): EntryCountableConnection
   id: ID!
   name: String!
   slug: String
@@ -635,7 +634,6 @@ input DocumentUpdateByEntryInput {
 type Entry implements Node {
   attributes: [SelectedAttribute!]!
   categories: [Category!]
-  category: Category
   channel: String
 
   "\n\nRequires one of the following permissions: MANAGE_ENTRIES."
@@ -759,7 +757,6 @@ input EntryInput {
   address: String
   attributes: [AttributeValueInput!]
   categories: [ID!]
-  category: ID
   documentNumber: String
   email: String
   isPublished: Boolean

@@ -17,10 +17,6 @@ export const entryFragment = gql`
     name
     slug
     updated
-    category {
-      id
-      name
-    }
     categories {
       id
       name
@@ -37,10 +33,6 @@ export const entryDetailsFragment = gql`
     name
     slug
     documentNumber
-    category {
-      id
-      name
-    }
     categories {
       id
       name
