@@ -1,7 +1,7 @@
 import React from "react";
 
 import { createTheme, ThemeProvider } from "@mui/material";
-
+import useMediaQuery from "@mui/material/useMediaQuery";
 const fontFamily = '"Inter", "sans-serif"';
 
 const spacing = (value = 1) => `${(value * 8) / 16}rem`;
@@ -20,8 +20,12 @@ interface ColorModeProviderProps {
 type ColorMode = "dark" | "light";
 
 export const ColorModeProvider = ({ children }: ColorModeProviderProps) => {
+  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+
   const [mode, setMode] = React.useState<"light" | "dark">(
-    (localStorage.getItem("themeMode") as ColorMode) || "light"
+    (localStorage.getItem("themeMode") as ColorMode) || prefersDarkMode
+      ? "dark"
+      : "light"
   );
 
   const toggleColorMode = () => {
