@@ -1,5 +1,27 @@
 {
 	"active": "Ativo",
+	"account": {
+		"login": {
+			"title": "Login",
+			"forgot": "Esqueçeu sua senha?",
+			"submit": "Entrar",
+			"fields": {
+				"email": "Email",
+				"password": "Senha"
+			}
+		},
+		"request":{
+			"title": "Solicite uma nova senha",
+			"return": "Retornar para login",
+			"submit": "Enviar",
+			"fields": {
+				"email": "Email"
+			},
+			"message": {
+				"success": "Verifique seu email, enviamos on link para redefinição de senha."
+			}
+		}
+	},
 	"add": "Adicionar",
 	"address": "Endereço",
 	"attribute": {

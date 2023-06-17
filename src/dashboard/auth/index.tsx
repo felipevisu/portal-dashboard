@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import { UserFragment } from "@portal/graphql";
 
 import Layout from "./components/Layout";
+import Access from "./views/Access";
 import Login from "./views/Login";
 
 export interface ContextProps {
@@ -27,7 +28,7 @@ export const Auth = () => {
   return (
     <Layout>
       <Routes>
-        <Route path="*" element={<Login />} />
+        <Route path="*" element={<Access />} />
       </Routes>
     </Layout>
   );

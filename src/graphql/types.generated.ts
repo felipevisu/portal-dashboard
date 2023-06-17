@@ -594,6 +594,14 @@ export type TokenCreateMutationVariables = Exact<{
 
 export type TokenCreateMutation = { __typename: 'Mutation', tokenCreate: { __typename: 'CreateToken', token: string | null, refreshToken: string | null, errors: Array<{ __typename: 'Error', message: string | null, field: string | null, code: string | null }>, user: { __typename: 'User', email: string, firstName: string | null, lastName: string | null } | null } | null };
 
+export type RequestPasswordResetMutationVariables = Exact<{
+  email: Scalars['String'];
+  redirectUrl: Scalars['String'];
+}>;
+
+
+export type RequestPasswordResetMutation = { __typename: 'Mutation', requestPasswordReset: { __typename: 'RequestPasswordReset', errors: Array<{ __typename: 'Error', message: string | null, field: string | null, code: string | null }> } | null };
+
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 

@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { LoadingButton } from "@mui/lab";
 import {
+  Box,
   Card,
   CardContent,
-  styled,
+  Link,
   TextField,
   Typography,
 } from "@mui/material";
@@ -12,6 +14,8 @@ import { FormSpacer } from "@portal/components/FormSpacer";
 import { ErrorFragment, UserFragment } from "@portal/graphql";
 
 import { useUser } from "..";
+
+import { Panel } from "./styles";
 
 export interface FieldsProps {
   email: string | undefined;
@@ -26,23 +30,8 @@ export interface ResponseProps {
   };
 }
 
-const ButtonsContainer = styled("div")(() => ({
-  display: "flex",
-  justifyContent: "flex-end",
-}));
-
-const Panel = styled("div")(({ theme }) => ({
-  "& span": {
-    color: theme.palette.error.contrastText,
-  },
-  ...theme.typography.body1,
-  background: "#ffd6d9",
-  borderRadius: 4,
-  marginBottom: theme.spacing(2),
-  padding: theme.spacing(1.5, 2.5),
-}));
-
-export const Login = () => {
+export const Login = ({ action }: { action: () => void }) => {
+  const { t } = useTranslation();
   const [form, setForm] = useState<FieldsProps>({
     email: "",
     password: "",
@@ -68,7 +57,7 @@ export const Login = () => {
       <CardContent sx={{ padding: 3 }}>
         <form onSubmit={handleSubmit}>
           <Typography variant="h5" sx={{ fontWeight: 700, marginBottom: 3 }}>
-            Login
+            {t("account.login.title")}
           </Typography>
           {errors.map((error, key) => (
             <Panel key={key}>{error.message}</Panel>
@@ -79,7 +68,7 @@ export const Login = () => {
             autoComplete="username"
             type="text"
             name="email"
-            label="Email"
+            label={t("account.login.fields.email")}
             onChange={handleChange}
           />
           <FormSpacer />
@@ -88,24 +77,27 @@ export const Login = () => {
             autoComplete="password"
             type="password"
             name="password"
-            label="Senha"
+            label={t("account.login.fields.password")}
             onChange={handleChange}
           />
           <FormSpacer />
-          <ButtonsContainer>
-            <LoadingButton
-              loading={loading}
-              sx={{ width: "100%" }}
-              color="primary"
-              variant="contained"
-              onClick={handleSubmit}
-              type="submit"
-              data-test-id="submit"
-            >
-              Entrar
-            </LoadingButton>
-          </ButtonsContainer>
+          <LoadingButton
+            loading={loading}
+            sx={{ width: "100%" }}
+            color="primary"
+            variant="contained"
+            onClick={handleSubmit}
+            type="submit"
+            data-test-id="submit"
+          >
+            {t("account.login.submit")}
+          </LoadingButton>
         </form>
+        <Box sx={{ textAlign: "center", marginTop: 2 }}>
+          <Link href="#" onClick={action}>
+            {t("account.login.forgot")}
+          </Link>
+        </Box>
       </CardContent>
     </Card>
   );
