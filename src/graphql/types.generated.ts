@@ -602,6 +602,15 @@ export type RequestPasswordResetMutationVariables = Exact<{
 
 export type RequestPasswordResetMutation = { __typename: 'Mutation', requestPasswordReset: { __typename: 'RequestPasswordReset', errors: Array<{ __typename: 'Error', message: string | null, field: string | null, code: string | null }> } | null };
 
+export type PasswordResetMutationVariables = Exact<{
+  email: Scalars['String'];
+  password: Scalars['String'];
+  token: Scalars['String'];
+}>;
+
+
+export type PasswordResetMutation = { __typename: 'Mutation', passwordReset: { __typename: 'SetPassword', errors: Array<{ __typename: 'Error', message: string | null, field: string | null, code: string | null }> } | null };
+
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 

@@ -5,7 +5,7 @@ import { UserFragment } from "@portal/graphql";
 
 import Layout from "./components/Layout";
 import Access from "./views/Access";
-import Login from "./views/Login";
+import PasswordReset from "./views/PasswordReset";
 
 export interface ContextProps {
   login: (email: string, password: string) => Promise<any>;

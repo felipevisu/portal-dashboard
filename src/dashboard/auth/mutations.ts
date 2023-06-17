@@ -30,3 +30,15 @@ export const requestPasswordReset = gql`
     }
   }
 `;
+
+export const passwordReset = gql`
+  mutation PasswordReset($email: String!, $password: String!, $token: String!) {
+    passwordReset(email: $email, password: $password, token: $token) {
+      errors {
+        message
+        field
+        code
+      }
+    }
+  }
+`;

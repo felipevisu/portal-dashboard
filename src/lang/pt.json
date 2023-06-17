@@ -20,6 +20,17 @@
 			"message": {
 				"success": "Verifique seu email, enviamos on link para redefinição de senha."
 			}
+		},
+		"reset":{
+			"title": "Redefinição de senha",
+			"return": "Retornar para login",
+			"submit": "Enviar",
+			"fields": {
+				"password": "Senha"
+			},
+			"message": {
+				"success": "Senha redefinida com sucesso, retorne para a tela de login."
+			}
 		}
 	},
 	"add": "Adicionar",

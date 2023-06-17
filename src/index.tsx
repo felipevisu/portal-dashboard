@@ -12,6 +12,7 @@ import { BrowserTracing } from "@sentry/tracing";
 import { BacklinkProvider } from "./components/Backlink/context";
 import { SavebarProvider } from "./components/Savebar/context";
 import BackgroundTasksProvider from "./containers/BackgroundTasks/BackgroundTasksProvider";
+import PasswordReset from "./dashboard/auth/views/PasswordReset";
 import client from "./graphql/client";
 import pt from "./lang/pt.json";
 import { DocumentPublicUpdate } from "./website/documents/views";
@@ -46,6 +47,7 @@ const RoutesComponent = () => {
   return (
     <Routes>
       <Route path="/*" element={<Dashboard />} />
+      <Route path="/reset" element={<PasswordReset />} />
       <Route
         path="/update_document/:id/:token/*"
         element={<DocumentPublicUpdate />}

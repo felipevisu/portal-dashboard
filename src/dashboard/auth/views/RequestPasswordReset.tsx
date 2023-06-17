@@ -57,7 +57,10 @@ export const RequestPasswordReset = ({ action }: { action: () => void }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await request({
-      variables: { email: form.email, redirectUrl: window.location.href },
+      variables: {
+        email: form.email,
+        redirectUrl: process.env.REACT_APP_PASSWORD_RESET_URL,
+      },
     });
   };
 
