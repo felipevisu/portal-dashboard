@@ -21,12 +21,10 @@ type ColorMode = "dark" | "light";
 
 export const ColorModeProvider = ({ children }: ColorModeProviderProps) => {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+  const storagedMode = localStorage.getItem("themeMode") as ColorMode;
+  const initial = storagedMode || (prefersDarkMode ? "dark" : "light");
 
-  const [mode, setMode] = React.useState<"light" | "dark">(
-    (localStorage.getItem("themeMode") as ColorMode) || prefersDarkMode
-      ? "dark"
-      : "light"
-  );
+  const [mode, setMode] = React.useState<"light" | "dark">(initial);
 
   const toggleColorMode = () => {
     const newMode = mode === "light" ? "dark" : "light";
