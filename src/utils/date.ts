@@ -1,31 +1,11 @@
-function padTo2Digits(num: number) {
-  return num.toString().padStart(2, "0");
-}
+import dayjs from "dayjs";
 
 export function formatDateTime(dateString: string) {
-  const date = new Date(dateString);
-  return (
-    [
-      padTo2Digits(date.getDate()),
-      padTo2Digits(date.getMonth() + 1),
-      date.getFullYear(),
-    ].join("/") +
-    " - " +
-    [
-      padTo2Digits(date.getHours()),
-      padTo2Digits(date.getMinutes()),
-      padTo2Digits(date.getSeconds()),
-    ].join(":")
-  );
+  return dayjs(dateString).format("DD/MM/YYYY h:mm A");
 }
 
 export function formatDate(dateString: string) {
-  const date = new Date(dateString);
-  return [
-    padTo2Digits(date.getDate()),
-    padTo2Digits(date.getMonth() + 1),
-    date.getFullYear(),
-  ].join("/");
+  return dayjs(dateString).format("DD/MM/YYYY");
 }
 
 export function toMonthName(monthNumber: number) {
