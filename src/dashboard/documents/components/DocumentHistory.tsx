@@ -53,8 +53,7 @@ export const DocumentHistory = ({
           <TableHead>
             <TableRow>
               <TableCellHeader>{t("file.title")}</TableCellHeader>
-              <TableCellHeader>Início</TableCellHeader>
-              <TableCellHeader>Término</TableCellHeader>
+              <TableCellHeader>{t("expirationDate")}</TableCellHeader>
               <TableCellHeader>{t("status")}</TableCellHeader>
               <TableCellHeader align="right">{t("actions")}</TableCellHeader>
             </TableRow>
@@ -74,9 +73,8 @@ export const DocumentHistory = ({
                   </Link>
                 </TableCell>
                 <TableCell>
-                  {formatDate(file.beginDate || file.created)}
+                  {file.expirationDate ? formatDate(file.expirationDate) : "-"}
                 </TableCell>
-                <TableCell>{formatDate(file.expirationDate)}</TableCell>
                 <TableCell>
                   <Chip
                     label={label[file.status]}

@@ -132,7 +132,6 @@ export const DocumentDetails = () => {
         loading={updateDocumentResult.loading}
         loadingFromAPI={loadNewDocumentFromApiResult.loading}
         onFileAction={handleAction}
-        returnURL={entryDetailsURL}
       />
       <ActionDialog
         onClose={deleteModal.closeModal}
