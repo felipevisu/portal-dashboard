@@ -346,6 +346,7 @@ type Channel implements Node {
   isActive: Boolean!
   name: String!
   slug: String!
+  totalEntries: Int
 }
 
 type ChannelActivate {
@@ -487,7 +488,6 @@ type Document implements Node {
   isPublished: Boolean
   loadType: DocumentLoadOptionsEnum
   name: String!
-  publicationDate: Date
   updated: DateTime
 }
 
@@ -572,7 +572,6 @@ input DocumentInput {
   loadType: DocumentLoadOptionsEnum
   name: String
   provider: ID
-  publicationDate: Date
 }
 
 type DocumentLoad implements Node {
@@ -588,6 +587,7 @@ enum DocumentLoadOptionsEnum {
   CND
   CNDT
   CNEP
+  CNPJ
   EMPTY
   FGTS
   JUCESP
@@ -645,7 +645,7 @@ type Entry implements Node {
   email: String
   id: ID!
   name: String!
-  slug: String
+  slug: String!
   type: EntryTypeEnum
   updated: DateTime
 }
@@ -762,7 +762,6 @@ input EntryInput {
   isPublished: Boolean
   name: String
   phone: String
-  publicationDate: Date
   slug: String
   type: EntryTypeEnum
 }

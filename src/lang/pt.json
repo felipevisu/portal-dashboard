@@ -190,7 +190,8 @@
 			"SEFAZ_SP": "SEFAZ / SP / Certidão Negativa de Débitos",
 			"TCU": "TCU / Certidão Negativa de Processo",
 			"MEI": "Receita Federal / MEI",
-			"JUCESP": "Junta Comercial / SP / Certidão Simplificada"
+			"JUCESP": "Junta Comercial / SP / Certidão Simplificada",
+			"CNPJ": "CNPJ"
 		}
 	},
 	"documentNumber": "CNPJ/CPF",

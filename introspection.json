@@ -2924,6 +2924,18 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "totalEntries",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -3914,18 +3926,6 @@
             "deprecationReason": null
           },
           {
-            "name": "publicationDate",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Date",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "updated",
             "description": null,
             "args": [],
@@ -4613,18 +4613,6 @@
             "defaultValue": null,
             "isDeprecated": false,
             "deprecationReason": null
-          },
-          {
-            "name": "publicationDate",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "Date",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
           }
         ],
         "interfaces": null,
@@ -4734,6 +4722,12 @@
           },
           {
             "name": "CNEP",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "CNPJ",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -5248,9 +5242,13 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -6138,18 +6136,6 @@
             "type": {
               "kind": "SCALAR",
               "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "publicationDate",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "Date",
               "ofType": null
             },
             "defaultValue": null,
