@@ -1,6 +1,7 @@
 import React from "react";
 
 import { createTheme, ThemeProvider } from "@mui/material";
+import { orange, red } from "@mui/material/colors";
 import useMediaQuery from "@mui/material/useMediaQuery";
 const fontFamily = '"Inter", "sans-serif"';
 
@@ -36,12 +37,14 @@ export const ColorModeProvider = ({ children }: ColorModeProviderProps) => {
     () =>
       createTheme({
         palette: {
+          primary: orange,
           mode: mode,
           ...(mode === "light"
             ? {
                 background: {
                   default: "#eff5f8",
                 },
+                primary: red,
               }
             : {}),
         },

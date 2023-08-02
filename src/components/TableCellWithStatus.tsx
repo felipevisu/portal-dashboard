@@ -25,11 +25,11 @@ export const TableCellWithStatus = ({
           sx={{
             display: "flex",
             gap: 1,
-            color: "primary.main",
+            color: "success.main",
             alignItems: "center",
           }}
         >
-          <CheckCircle color="primary" fontSize="small" />
+          <CheckCircle color="success" fontSize="small" />
           {labels.published}
         </Box>
       ) : (
