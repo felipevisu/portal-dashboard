@@ -1,4 +1,5 @@
-schema: schema.graphql
+schema:
+  - ${REACT_APP_API_URI}
 generates:
   ./src/graphql/hooks.generated.ts:
     documents:
@@ -30,3 +31,6 @@ generates:
     plugins:
       - typescript
       - typescript-operations
+  ./introspection.json:
+    plugins:
+      - introspection

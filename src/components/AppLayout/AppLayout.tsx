@@ -6,7 +6,7 @@ import { Backdrop } from "@mui/material";
 
 import { useBacklink } from "../Backlink/context";
 import { Menu } from "../Menu";
-import { MenuIcon } from "../Menu/styles";
+import { MenuButton } from "../Menu/styles";
 import { useSavebar } from "../Savebar/context";
 import { UserMenu } from "../UserMenu";
 
@@ -32,9 +32,9 @@ export const AppLayout = ({ children }: { children: React.ReactNode }) => {
       </Lateral>
       <Content maxWidth="xl">
         <Header>
-          <MenuIcon onClick={() => setOpened(!opened)}>
+          <MenuButton onClick={() => setOpened(!opened)} aria-label="delete">
             <Hamburg fontSize="medium" />
-          </MenuIcon>
+          </MenuButton>
           <div ref={backLinkRef} />
           <UserMenu />
         </Header>

@@ -1,4 +1,4 @@
-import { Box, styled, Typography } from "@mui/material";
+import { Box, IconButton, styled, Typography } from "@mui/material";
 
 type MenuItem = {
   active?: boolean;
@@ -55,13 +55,13 @@ export const Label = styled(Typography)(({ theme }) => ({
   "&:hover": { color: theme.palette.primary.main },
 }));
 
-export const MenuIcon = styled("button")(({ theme }) => ({
+export const MenuButton = styled(IconButton)(({ theme }) => ({
   background: theme.palette.primary.main,
+  marginRight: theme.spacing(2),
+  "&:hover": {
+    background: theme.palette.primary.dark,
+  },
   color: theme.palette.background.default,
-  border: "none",
-  height: 40,
-  width: 40,
-  borderRadius: 4,
   [theme.breakpoints.up("lg")]: {
     display: "none",
   },
