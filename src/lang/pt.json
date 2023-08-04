@@ -181,17 +181,17 @@
 		},
 		"loadType": {
 			"label": "Consulta otimizada",
-			"EMPTY": "Nenhuma",
-			"CNEP": "Certidão Negativa Correcional (CGU-PJ, CEIS, CNEP e CEPIM)",
-			"CND": "Receita Federal / PGFN (CND Federal)",
-			"CNDT": "Tribunal Superior do Trabalho / CNDT",
-			"FGTS": "Caixa / Regularidade do Empregador (FGTS)",
-			"SEFAZ_MG": "SEFAZ / MG / Certidão Negativa de Débitos",
-			"SEFAZ_SP": "SEFAZ / SP / Certidão Negativa de Débitos",
-			"TCU": "TCU / Certidão Negativa de Processo",
-			"MEI": "Receita Federal / MEI",
-			"JUCESP": "Junta Comercial / SP / Certidão Simplificada",
-			"CNPJ": "CNPJ"
+			"EMPTY": "Sem consulta",
+      "CND": "CND FEDERAL (Certidão da PGFN Receita Federal)",
+      "CNDT": "CNDT (Certidão do Tribunal Superior do Trabalho)",
+			"CNEP": "CGU (Certidão da Controladoria Geral da União – CGU-PJ, CEIS, CNEP e CEPIM)",
+			"FGTS": "CRF FGTS  (Certidão da CAIXA / Regularidade do Empregador)",
+			"SEFAZ_MG": "CND ESTADUAL MG (Certidão do SEFAZ / MG)",
+			"SEFAZ_SP": "CND ESTADUAL SP (Certidão do SEFAZ / SP)",
+			"TCU": "TCU (Certidão do Tribunal de Contas da União)",
+			"MEI": "MEI (Certificado do Microempreendedor Individual)",
+			"JUCESP": "CS SP (Certidão Simplificada da Junta Comercial de São Paulo",
+			"CNPJ": "CNPJ (Cadastro Nacional de Pessoa Jurídica)"
 		}
 	},
 	"documentNumber": "CNPJ/CPF",
