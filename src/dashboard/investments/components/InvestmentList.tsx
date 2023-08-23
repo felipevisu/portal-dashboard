@@ -67,7 +67,7 @@ export const InvestmentList = ({
                 <TableCell>
                   {toMonthName(investment.month)} de {investment.year}
                 </TableCell>
-                <TableCell>{investment.channel.name}</TableCell>
+                <TableCell>{investment.channel?.name}</TableCell>
                 <TableCell>{formatMoney(0)}</TableCell>
                 <TableCellWithStatus status={investment.isPublished} />
               </TableRowLink>
