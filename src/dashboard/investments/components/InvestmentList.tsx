@@ -27,7 +27,7 @@ export const InvestmentList = ({
   selected,
   toolbar,
 }: InvestmentListProps) => {
-  const numberOfColumns = investments?.length === 0 ? 3 : 4;
+  const numberOfColumns = investments?.length === 0 ? 4 : 5;
   const { t } = useTranslation();
 
   return (
@@ -42,6 +42,7 @@ export const InvestmentList = ({
           toolbar={toolbar}
         >
           <TableCellHeader>{t("date")}</TableCellHeader>
+          <TableCellHeader>{t("channel.title")}</TableCellHeader>
           <TableCellHeader>{t("total")}</TableCellHeader>
           <TableCellHeader>{t("visibility")}</TableCellHeader>
         </TableHead>
@@ -66,6 +67,7 @@ export const InvestmentList = ({
                 <TableCell>
                   {toMonthName(investment.month)} de {investment.year}
                 </TableCell>
+                <TableCell>{investment.channel.name}</TableCell>
                 <TableCell>{formatMoney(0)}</TableCell>
                 <TableCellWithStatus status={investment.isPublished} />
               </TableRowLink>

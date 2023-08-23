@@ -364,6 +364,7 @@ export type InvestmentFilterInput = {
 };
 
 export type InvestmentInput = {
+  channel?: InputMaybe<Scalars['ID']>;
   isPublished?: InputMaybe<Scalars['Boolean']>;
   items?: InputMaybe<Array<ItemCreateInput>>;
   month?: InputMaybe<Scalars['Int']>;
@@ -382,6 +383,7 @@ export type InvestmentSortingInput = {
 
 export type InvestmentUpdateInput = {
   addItems?: InputMaybe<Array<ItemCreateInput>>;
+  channel?: InputMaybe<Scalars['ID']>;
   isPublished?: InputMaybe<Scalars['Boolean']>;
   month?: InputMaybe<Scalars['Int']>;
   removeItems?: InputMaybe<Array<Scalars['ID']>>;
@@ -450,11 +452,13 @@ export type PublishableChannelListingInput = {
 };
 
 export type SessionFilterInput = {
+  channel?: InputMaybe<Scalars['ID']>;
   isPublished?: InputMaybe<Scalars['Boolean']>;
   search?: InputMaybe<Scalars['String']>;
 };
 
 export type SessionInput = {
+  channel?: InputMaybe<Scalars['ID']>;
   content?: InputMaybe<Scalars['JSONString']>;
   date?: InputMaybe<Scalars['DateTime']>;
   isPublished?: InputMaybe<Scalars['Boolean']>;
@@ -903,25 +907,26 @@ export type InvestmentCreateMutationVariables = Exact<{
 }>;
 
 
-export type InvestmentCreateMutation = { __typename: 'Mutation', investmentCreate: { __typename: 'InvestmentCreate', investment: { __typename: 'Investment', id: string, year: number, month: number, isPublished: boolean | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+export type InvestmentCreateMutation = { __typename: 'Mutation', investmentCreate: { __typename: 'InvestmentCreate', investment: { __typename: 'Investment', id: string, year: number, month: number, isPublished: boolean | null, channel: { __typename: 'Channel', id: string, name: string, slug: string } | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
 
 export type InvestmentsQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
+  channel?: InputMaybe<Scalars['String']>;
   filter?: InputMaybe<InvestmentFilterInput>;
 }>;
 
 
-export type InvestmentsQuery = { __typename: 'Query', investments: { __typename: 'InvestmentCountableConnection', edges: Array<{ __typename: 'InvestmentCountableEdge', node: { __typename: 'Investment', id: string, year: number, month: number, isPublished: boolean | null } }>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
+export type InvestmentsQuery = { __typename: 'Query', investments: { __typename: 'InvestmentCountableConnection', edges: Array<{ __typename: 'InvestmentCountableEdge', node: { __typename: 'Investment', id: string, year: number, month: number, isPublished: boolean | null, channel: { __typename: 'Channel', id: string, name: string, slug: string } | null } }>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
 
 export type InvestmentDetailsQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type InvestmentDetailsQuery = { __typename: 'Query', investment: { __typename: 'Investment', id: string, year: number, month: number, isPublished: boolean | null, items: Array<{ __typename: 'Item', id: string, name: string, value: any | null }> | null } | null };
+export type InvestmentDetailsQuery = { __typename: 'Query', investment: { __typename: 'Investment', id: string, year: number, month: number, isPublished: boolean | null, channel: { __typename: 'Channel', id: string, name: string, slug: string } | null, items: Array<{ __typename: 'Item', id: string, name: string, value: any | null }> | null } | null };
 
 export type PluginUpdateMutationVariables = Exact<{
   channelId?: InputMaybe<Scalars['ID']>;
@@ -956,7 +961,7 @@ export type SessionCreateMutationVariables = Exact<{
 }>;
 
 
-export type SessionCreateMutation = { __typename: 'Mutation', sessionCreate: { __typename: 'SessionCreate', session: { __typename: 'Session', id: string, name: string, slug: string | null, content: any | null, date: any | null, isPublished: boolean | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+export type SessionCreateMutation = { __typename: 'Mutation', sessionCreate: { __typename: 'SessionCreate', session: { __typename: 'Session', id: string, name: string, slug: string | null, content: any | null, date: any | null, isPublished: boolean | null, channel: { __typename: 'Channel', id: string, name: string, slug: string } | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
 
 export type SessionUpdateMutationVariables = Exact<{
   id?: InputMaybe<Scalars['ID']>;
@@ -964,7 +969,7 @@ export type SessionUpdateMutationVariables = Exact<{
 }>;
 
 
-export type SessionUpdateMutation = { __typename: 'Mutation', sessionUpdate: { __typename: 'SessionUpdate', session: { __typename: 'Session', id: string, name: string, slug: string | null, content: any | null, date: any | null, isPublished: boolean | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+export type SessionUpdateMutation = { __typename: 'Mutation', sessionUpdate: { __typename: 'SessionUpdate', session: { __typename: 'Session', id: string, name: string, slug: string | null, content: any | null, date: any | null, isPublished: boolean | null, channel: { __typename: 'Channel', id: string, name: string, slug: string } | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
 
 export type SessionDeleteMutationVariables = Exact<{
   id: Scalars['ID'];
@@ -985,18 +990,19 @@ export type SessionsQueryVariables = Exact<{
   last?: InputMaybe<Scalars['Int']>;
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
+  channel?: InputMaybe<Scalars['String']>;
   filter?: InputMaybe<SessionFilterInput>;
 }>;
 
 
-export type SessionsQuery = { __typename: 'Query', sessions: { __typename: 'SessionCountableConnection', edges: Array<{ __typename: 'SessionCountableEdge', node: { __typename: 'Session', id: string, name: string, slug: string | null, date: any | null, isPublished: boolean | null } }>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
+export type SessionsQuery = { __typename: 'Query', sessions: { __typename: 'SessionCountableConnection', edges: Array<{ __typename: 'SessionCountableEdge', node: { __typename: 'Session', id: string, name: string, slug: string | null, date: any | null, isPublished: boolean | null, channel: { __typename: 'Channel', id: string, name: string, slug: string } | null } }>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
 
 export type SessionDetailsQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type SessionDetailsQuery = { __typename: 'Query', session: { __typename: 'Session', id: string, name: string, slug: string | null, content: any | null, date: any | null, isPublished: boolean | null } | null };
+export type SessionDetailsQuery = { __typename: 'Query', session: { __typename: 'Session', id: string, name: string, slug: string | null, content: any | null, date: any | null, isPublished: boolean | null, channel: { __typename: 'Channel', id: string, name: string, slug: string } | null } | null };
 
 export type AttributeValueFragment = { __typename: 'AttributeValue', id: string, name: string | null, slug: string | null, boolean: boolean | null, date: any | null, value: string | null, plainText: string | null, reference: string | null, file: { __typename: 'File', url: string } | null };
 
@@ -1048,11 +1054,11 @@ export type EventFragment = { __typename: 'Event', id: string, date: any | null,
 
 export type EventDetailsFragment = { __typename: 'Event', id: string, date: any | null, type: EventTypesEnum | null, message: string | null, userEmail: string | null, documentName: string | null, user: { __typename: 'User', id: string, email: string, firstName: string | null, lastName: string | null, isStaff: boolean | null } | null, document: { __typename: 'Document', id: string, name: string, entry: { __typename: 'Entry', id: string, name: string } | null } | null };
 
-export type InvestmentFragment = { __typename: 'Investment', id: string, year: number, month: number, isPublished: boolean | null };
+export type InvestmentFragment = { __typename: 'Investment', id: string, year: number, month: number, isPublished: boolean | null, channel: { __typename: 'Channel', id: string, name: string, slug: string } | null };
 
 export type ItemFragment = { __typename: 'Item', id: string, name: string, value: any | null };
 
-export type InvestmentDetailsFragment = { __typename: 'Investment', id: string, year: number, month: number, isPublished: boolean | null, items: Array<{ __typename: 'Item', id: string, name: string, value: any | null }> | null };
+export type InvestmentDetailsFragment = { __typename: 'Investment', id: string, year: number, month: number, isPublished: boolean | null, channel: { __typename: 'Channel', id: string, name: string, slug: string } | null, items: Array<{ __typename: 'Item', id: string, name: string, value: any | null }> | null };
 
 export type PageInfoFragment = { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null };
 
@@ -1066,9 +1072,9 @@ export type PluginBaseFragment = { __typename: 'Plugin', id: string, name: strin
 
 export type PluginsDetailsFragment = { __typename: 'Plugin', id: string, name: string, description: string, globalConfiguration: { __typename: 'PluginConfiguration', active: boolean, configuration: Array<{ __typename: 'ConfigurationItem', name: string, value: string | null, type: ConfigurationTypeFieldEnum | null, helpText: string | null, label: string | null }> | null, channel: { __typename: 'Channel', id: string, name: string, slug: string } | null } | null, channelConfigurations: Array<{ __typename: 'PluginConfiguration', active: boolean, configuration: Array<{ __typename: 'ConfigurationItem', name: string, value: string | null, type: ConfigurationTypeFieldEnum | null, helpText: string | null, label: string | null }> | null, channel: { __typename: 'Channel', id: string, name: string, slug: string } | null }> };
 
-export type SessionFragment = { __typename: 'Session', id: string, name: string, slug: string | null, date: any | null, isPublished: boolean | null };
+export type SessionFragment = { __typename: 'Session', id: string, name: string, slug: string | null, date: any | null, isPublished: boolean | null, channel: { __typename: 'Channel', id: string, name: string, slug: string } | null };
 
-export type SessionDetailsFragment = { __typename: 'Session', id: string, name: string, slug: string | null, content: any | null, date: any | null, isPublished: boolean | null };
+export type SessionDetailsFragment = { __typename: 'Session', id: string, name: string, slug: string | null, content: any | null, date: any | null, isPublished: boolean | null, channel: { __typename: 'Channel', id: string, name: string, slug: string } | null };
 
 export type SearchAttributesQueryVariables = Exact<{
   after?: InputMaybe<Scalars['String']>;

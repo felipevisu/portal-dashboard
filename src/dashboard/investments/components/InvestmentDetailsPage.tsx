@@ -2,6 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
+import { Grid } from "@mui/material";
 import { Backlink } from "@portal/components/Backlink";
 import { Form } from "@portal/components/Form";
 import PageHeader from "@portal/components/PageHeader";
@@ -16,6 +17,7 @@ import { toMonthName } from "@portal/utils/date";
 
 import InvestmentForm, { FormProps } from "./InvestmentForm";
 import InvestmentItems from "./InvestmentItems";
+import InvestmentOrganization from "./InvestmentOrganization";
 
 interface InvestmentDetailsPageProps {
   investment: InvestmentDetailsFragment;
@@ -43,6 +45,7 @@ export const InvestmentDetailsPage = ({
     year: investment.year,
     month: investment.month,
     isPublished: investment.isPublished,
+    channel: investment.channel?.id,
   };
 
   return (
@@ -54,17 +57,29 @@ export const InvestmentDetailsPage = ({
             <PageHeader
               title={`${toMonthName(investment.month)} de ${investment.year}`}
             />
-            <InvestmentForm
-              errors={errors}
-              onChange={change}
-              data={data}
-              disabled={loading}
-            />
-            <InvestmentItems
-              tollbar={tollbar}
-              onDeleteItem={onDeleteItem}
-              items={investment.items}
-            />
+            <Grid container spacing={2}>
+              <Grid item xs={12} lg={8}>
+                <InvestmentForm
+                  errors={errors}
+                  onChange={change}
+                  data={data}
+                  disabled={loading}
+                />
+                <InvestmentItems
+                  tollbar={tollbar}
+                  items={investment.items}
+                  onDeleteItem={onDeleteItem}
+                />
+              </Grid>
+              <Grid item xs={12} lg={4}>
+                <InvestmentOrganization
+                  errors={errors}
+                  onChange={change}
+                  data={data}
+                  disabled={loading}
+                />
+              </Grid>
+            </Grid>
             <Savebar
               onDelete={onDelete}
               onSubmit={submit}

@@ -7,6 +7,11 @@ export const sessionFragment = gql`
     slug
     date
     isPublished
+    channel {
+      id
+      name
+      slug
+    }
   }
 `;
 
@@ -18,5 +23,10 @@ export const sessionDetailsFragment = gql`
     content
     date
     isPublished
+    channel {
+      id
+      name
+      slug
+    }
   }
 `;

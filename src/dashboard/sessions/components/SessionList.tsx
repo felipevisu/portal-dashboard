@@ -41,6 +41,7 @@ export const SessionList = ({
           toolbar={toolbar}
         >
           <TableCellHeader>{t("name")}</TableCellHeader>
+          <TableCellHeader>{t("channel.title")}</TableCellHeader>
           <TableCellHeader>{t("date")}</TableCellHeader>
           <TableCellHeader>{t("visibility")}</TableCellHeader>
         </TableHead>
@@ -63,6 +64,7 @@ export const SessionList = ({
                   />
                 </TableCell>
                 <TableCell>{session.name}</TableCell>
+                <TableCell>{session.channel.name}</TableCell>
                 <TableCell>{formatDate(session.date)}</TableCell>
                 <TableCellWithStatus status={session.isPublished} />
               </TableRowLink>

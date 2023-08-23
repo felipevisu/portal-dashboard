@@ -2,6 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
+import { Grid } from "@mui/material";
 import { Backlink } from "@portal/components/Backlink";
 import { Form } from "@portal/components/Form";
 import PageHeader from "@portal/components/PageHeader";
@@ -11,6 +12,7 @@ import { SubmitPromise } from "@portal/hooks/useForm";
 
 import InvestmentForm, { FormProps } from "./InvestmentForm";
 import InvestmentItems from "./InvestmentItems";
+import InvestmentOrganization from "./InvestmentOrganization";
 
 interface InvestmentCreatePageProps {
   onSubmit: (data: InvestmentInput) => SubmitPromise;
@@ -36,6 +38,7 @@ export const InvestmentCreatePage = ({
     year: null,
     month: null,
     isPublished: false,
+    channel: null,
   };
 
   return (
@@ -45,17 +48,29 @@ export const InvestmentCreatePage = ({
           <>
             <Backlink href="/investments">{t("back")}</Backlink>
             <PageHeader title={t("investment.create")} />
-            <InvestmentForm
-              errors={errors}
-              onChange={change}
-              data={data}
-              disabled={loading}
-            />
-            <InvestmentItems
-              tollbar={tollbar}
-              items={items}
-              onDeleteItem={onDeleteItem}
-            />
+            <Grid container spacing={2}>
+              <Grid item xs={12} lg={8}>
+                <InvestmentForm
+                  errors={errors}
+                  onChange={change}
+                  data={data}
+                  disabled={loading}
+                />
+                <InvestmentItems
+                  tollbar={tollbar}
+                  items={items}
+                  onDeleteItem={onDeleteItem}
+                />
+              </Grid>
+              <Grid item xs={12} lg={4}>
+                <InvestmentOrganization
+                  errors={errors}
+                  onChange={change}
+                  data={data}
+                  disabled={loading}
+                />
+              </Grid>
+            </Grid>
             <Savebar
               onSubmit={submit}
               onCancel={() => navigate("/investments")}

@@ -6,6 +6,7 @@ export const sessionsQuery = gql`
     $last: Int
     $after: String
     $before: String
+    $channel: String
     $filter: SessionFilterInput
   ) {
     sessions(
@@ -13,6 +14,7 @@ export const sessionsQuery = gql`
       last: $last
       after: $after
       before: $before
+      channel: $channel
       filter: $filter
     ) {
       edges {

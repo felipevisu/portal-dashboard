@@ -13,8 +13,6 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import ControlledCheckbox from "@portal/components/ControlledCheckbox";
-import FormSpacer from "@portal/components/FormSpacer";
 import { ErrorFragment } from "@portal/graphql";
 import { ChangeEvent } from "@portal/types";
 import { getFormErrors } from "@portal/utils/errors";
@@ -23,9 +21,10 @@ export type FormProps = {
   month?: number;
   year?: number;
   isPublished: boolean;
+  channel?: string;
 };
 
-interface InvestmentFormProps {
+export interface InvestmentFormProps {
   data: FormProps;
   errors: ErrorFragment[];
   onChange: (e: ChangeEvent) => void;
@@ -39,16 +38,16 @@ export const InvestmentForm = ({
   disabled,
 }: InvestmentFormProps) => {
   const { t } = useTranslation();
-  const formErrors = getFormErrors(["month", "year", "isPublished"], errors);
+  const formErrors = getFormErrors(["month", "year"], errors);
 
   return (
     <Card>
       <CardHeader title={t("generalInfo")} />
       <CardContent>
-        <Grid container spacing={{ xs: 0, md: 2 }}>
-          <Grid item xs={6}>
+        <Grid container spacing={3}>
+          <Grid item xs={12} lg={6}>
             <FormControl fullWidth error={formErrors.month && true}>
-              <InputLabel>Mês</InputLabel>
+              <InputLabel>{t("month")}</InputLabel>
               <Select
                 value={data.month || ""}
                 label={t("month")}
@@ -72,7 +71,7 @@ export const InvestmentForm = ({
               <FormHelperText>{formErrors.month?.message}</FormHelperText>
             </FormControl>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} lg={6}>
             <FormControl fullWidth>
               <TextField
                 error={formErrors.year && true}
@@ -86,17 +85,8 @@ export const InvestmentForm = ({
               />
             </FormControl>
           </Grid>
+          <Grid item xs={12} lg={6}></Grid>
         </Grid>
-        <FormSpacer />
-        <FormControl>
-          <ControlledCheckbox
-            label={t("published")}
-            name="isPublished"
-            checked={data.isPublished}
-            onChange={onChange}
-            disabled={disabled}
-          />
-        </FormControl>
       </CardContent>
     </Card>
   );

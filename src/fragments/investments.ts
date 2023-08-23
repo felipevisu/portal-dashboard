@@ -6,6 +6,11 @@ export const investmentFragment = gql`
     year
     month
     isPublished
+    channel {
+      id
+      name
+      slug
+    }
   }
 `;
 
@@ -23,6 +28,11 @@ export const investmentDetailsFragment = gql`
     year
     month
     isPublished
+    channel {
+      id
+      name
+      slug
+    }
     items {
       ...Item
     }

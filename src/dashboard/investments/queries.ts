@@ -6,6 +6,7 @@ export const investmentsQuery = gql`
     $last: Int
     $after: String
     $before: String
+    $channel: String
     $filter: InvestmentFilterInput
   ) {
     investments(
@@ -13,6 +14,7 @@ export const investmentsQuery = gql`
       last: $last
       after: $after
       before: $before
+      channel: $channel
       filter: $filter
     ) {
       edges {

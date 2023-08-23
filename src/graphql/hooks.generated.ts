@@ -320,6 +320,11 @@ export const InvestmentFragmentDoc = gql`
   year
   month
   isPublished
+  channel {
+    id
+    name
+    slug
+  }
 }
     `;
 export const ItemFragmentDoc = gql`
@@ -335,6 +340,11 @@ export const InvestmentDetailsFragmentDoc = gql`
   year
   month
   isPublished
+  channel {
+    id
+    name
+    slug
+  }
   items {
     ...Item
   }
@@ -401,6 +411,11 @@ export const SessionFragmentDoc = gql`
   slug
   date
   isPublished
+  channel {
+    id
+    name
+    slug
+  }
 }
     `;
 export const SessionDetailsFragmentDoc = gql`
@@ -411,6 +426,11 @@ export const SessionDetailsFragmentDoc = gql`
   content
   date
   isPublished
+  channel {
+    id
+    name
+    slug
+  }
 }
     `;
 export const CheckDocumentLoadStatusDocument = gql`
@@ -2589,12 +2609,13 @@ export type InvestmentCreateMutationHookResult = ReturnType<typeof useInvestment
 export type InvestmentCreateMutationResult = Apollo.MutationResult<Types.InvestmentCreateMutation>;
 export type InvestmentCreateMutationOptions = Apollo.BaseMutationOptions<Types.InvestmentCreateMutation, Types.InvestmentCreateMutationVariables>;
 export const InvestmentsDocument = gql`
-    query Investments($first: Int, $last: Int, $after: String, $before: String, $filter: InvestmentFilterInput) {
+    query Investments($first: Int, $last: Int, $after: String, $before: String, $channel: String, $filter: InvestmentFilterInput) {
   investments(
     first: $first
     last: $last
     after: $after
     before: $before
+    channel: $channel
     filter: $filter
   ) {
     edges {
@@ -2626,6 +2647,7 @@ ${PageInfoFragmentDoc}`;
  *      last: // value for 'last'
  *      after: // value for 'after'
  *      before: // value for 'before'
+ *      channel: // value for 'channel'
  *      filter: // value for 'filter'
  *   },
  * });
@@ -2959,12 +2981,13 @@ export type SessionBulkDeleteMutationHookResult = ReturnType<typeof useSessionBu
 export type SessionBulkDeleteMutationResult = Apollo.MutationResult<Types.SessionBulkDeleteMutation>;
 export type SessionBulkDeleteMutationOptions = Apollo.BaseMutationOptions<Types.SessionBulkDeleteMutation, Types.SessionBulkDeleteMutationVariables>;
 export const SessionsDocument = gql`
-    query Sessions($first: Int, $last: Int, $after: String, $before: String, $filter: SessionFilterInput) {
+    query Sessions($first: Int, $last: Int, $after: String, $before: String, $channel: String, $filter: SessionFilterInput) {
   sessions(
     first: $first
     last: $last
     after: $after
     before: $before
+    channel: $channel
     filter: $filter
   ) {
     edges {
@@ -2996,6 +3019,7 @@ ${PageInfoFragmentDoc}`;
  *      last: // value for 'last'
  *      after: // value for 'after'
  *      before: // value for 'before'
+ *      channel: // value for 'channel'
  *      filter: // value for 'filter'
  *   },
  * });
