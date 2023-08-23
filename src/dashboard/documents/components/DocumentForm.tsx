@@ -15,12 +15,15 @@ import {
 } from "@mui/material";
 import FormSpacer from "@portal/components/FormSpacer";
 import {
+  DocumentDetailsFragment,
   DocumentInput,
   DocumentLoadOptionsEnum,
   ErrorFragment,
 } from "@portal/graphql";
 import { ChangeEvent } from "@portal/types";
 import { getFormErrors } from "@portal/utils/errors";
+
+import { documentShoudlExpire } from "./utils";
 
 export type FormProps = {
   name: string;
@@ -33,6 +36,7 @@ export type FormProps = {
 };
 
 interface DocumentFormProps {
+  instance?: DocumentDetailsFragment;
   data?: FormProps;
   errors: ErrorFragment[];
   onChange: (e: ChangeEvent) => void;
@@ -54,6 +58,7 @@ export const generateSubmitData = (data: FormProps) => {
 };
 
 export const DocumentForm = ({
+  instance,
   data,
   errors,
   disabled,
@@ -64,6 +69,18 @@ export const DocumentForm = ({
     errors
   );
   const { t } = useTranslation();
+
+  const handleLoadTypeChange = (e: ChangeEvent) => {
+    onChange(e);
+    if (e.target.name === "loadType") {
+      onChange({
+        target: {
+          name: "expires",
+          value: documentShoudlExpire(e.target.value, false),
+        },
+      });
+    }
+  };
 
   return (
     <Card>
@@ -107,43 +124,20 @@ export const DocumentForm = ({
             name="loadType"
             label={t("document.loadType.label")}
             value={data.loadType || ""}
-            onChange={onChange}
+            onChange={handleLoadTypeChange}
             error={formErrors.loadType && true}
-            disabled={disabled}
+            disabled={disabled || !!instance}
           >
             <MenuItem value={DocumentLoadOptionsEnum.EMPTY}>
               {t(`document.loadType.${DocumentLoadOptionsEnum.EMPTY}`)}
             </MenuItem>
-            <MenuItem value={DocumentLoadOptionsEnum.CND}>
-              {t(`document.loadType.${DocumentLoadOptionsEnum.CND}`)}
-            </MenuItem>
-            <MenuItem value={DocumentLoadOptionsEnum.CNDT}>
-              {t(`document.loadType.${DocumentLoadOptionsEnum.CNDT}`)}
-            </MenuItem>
-            <MenuItem value={DocumentLoadOptionsEnum.CNEP}>
-              {t(`document.loadType.${DocumentLoadOptionsEnum.CNEP}`)}
-            </MenuItem>
-            <MenuItem value={DocumentLoadOptionsEnum.FGTS}>
-              {t(`document.loadType.${DocumentLoadOptionsEnum.FGTS}`)}
-            </MenuItem>
-            <MenuItem value={DocumentLoadOptionsEnum.SEFAZ_MG}>
-              {t(`document.loadType.${DocumentLoadOptionsEnum.SEFAZ_MG}`)}
-            </MenuItem>
-            <MenuItem value={DocumentLoadOptionsEnum.SEFAZ_SP}>
-              {t(`document.loadType.${DocumentLoadOptionsEnum.SEFAZ_SP}`)}
-            </MenuItem>
-            <MenuItem value={DocumentLoadOptionsEnum.TCU}>
-              {t(`document.loadType.${DocumentLoadOptionsEnum.TCU}`)}
-            </MenuItem>
-            <MenuItem value={DocumentLoadOptionsEnum.MEI}>
-              {t(`document.loadType.${DocumentLoadOptionsEnum.MEI}`)}
-            </MenuItem>
-            <MenuItem value={DocumentLoadOptionsEnum.JUCESP}>
-              {t(`document.loadType.${DocumentLoadOptionsEnum.JUCESP}`)}
-            </MenuItem>
-            <MenuItem value={DocumentLoadOptionsEnum.CNPJ}>
-              {t(`document.loadType.${DocumentLoadOptionsEnum.CNPJ}`)}
-            </MenuItem>
+            {Object.values(DocumentLoadOptionsEnum)
+              .filter((value) => value !== DocumentLoadOptionsEnum.EMPTY)
+              .map((value) => (
+                <MenuItem key={value} value={value}>
+                  {t(`document.loadType.${value}`)}
+                </MenuItem>
+              ))}
           </Select>
         </FormControl>
       </CardContent>

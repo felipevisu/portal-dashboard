@@ -30,6 +30,7 @@ import DocumentFile from "./DocumentFile";
 import DocumentForm, { FormProps, generateSubmitData } from "./DocumentForm";
 import DocumentHistory from "./DocumentHistory";
 import DocumentOrganization from "./DocumentOrganization";
+import { documentShoudlExpire } from "./utils";
 
 interface DocumentDetailsPageProps {
   document: DocumentDetailsFragment;
@@ -83,6 +84,8 @@ export const DocumentDetailsPage = ({
   return (
     <Form initial={initialData} onSubmit={handleSubmit}>
       {({ change, submit, data }) => {
+        const displayDatesInputs =
+          documentShoudlExpire(data.loadType, data.expires) || data.expires;
         return (
           <>
             <Backlink onClick={() => window.history.back()}>
@@ -99,6 +102,7 @@ export const DocumentDetailsPage = ({
                   errors={errors}
                   onChange={change}
                   disabled={loading}
+                  instance={document}
                 />
                 <DocumentFile
                   file={file}
@@ -107,6 +111,7 @@ export const DocumentDetailsPage = ({
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     setFile(e.target.files[0])
                   }
+                  errors={errors}
                 />
                 {document.expires && (
                   <DocumentHistory
@@ -168,7 +173,8 @@ export const DocumentDetailsPage = ({
                   onChange={change}
                   data={data}
                   disabled={loading}
-                  displayDates={data.expires}
+                  displayDatesCheckbox={false}
+                  displayDatesInputs={displayDatesInputs}
                 />
               </Grid>
             </Grid>

@@ -7,12 +7,17 @@ import { Backlink } from "@portal/components/Backlink";
 import { Form } from "@portal/components/Form";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
-import { DocumentInput, ErrorFragment } from "@portal/graphql";
+import {
+  DocumentInput,
+  DocumentLoadOptionsEnum,
+  ErrorFragment,
+} from "@portal/graphql";
 import { useLinks } from "@portal/hooks";
 
 import DocumentFile from "./DocumentFile";
 import DocumentForm, { FormProps, generateSubmitData } from "./DocumentForm";
 import DocumentOrganization from "./DocumentOrganization";
+import { documentShoudlExpire } from "./utils";
 
 interface DocumentCreatePageProps {
   onSubmit: (data: DocumentInput) => Promise<void>;
@@ -41,7 +46,7 @@ export const DocumentCreatePage = ({
     expires: false,
     expirationDate: null,
     beginDate: null,
-    loadType: null,
+    loadType: DocumentLoadOptionsEnum.EMPTY,
   };
 
   const handleSubmit = (data: FormProps) => {
@@ -50,9 +55,16 @@ export const DocumentCreatePage = ({
     onSubmit({ ...submitData, entry: entryId });
   };
 
+  console.log(errors);
+
   return (
     <Form initial={initialData} onSubmit={handleSubmit}>
       {({ change, submit, data }) => {
+        const displayDatesCheckbox =
+          data.loadType === DocumentLoadOptionsEnum.EMPTY;
+        const displayDatesInputs =
+          documentShoudlExpire(data.loadType, data.expires) || data.expires;
+
         return (
           <>
             <Backlink href={entryDetails(type, entryId)}>{t("back")}</Backlink>
@@ -70,6 +82,7 @@ export const DocumentCreatePage = ({
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     setFile(e.target.files[0])
                   }
+                  errors={errors}
                 />
               </Grid>
               <Grid item xs={12} md={4}>
@@ -78,11 +91,11 @@ export const DocumentCreatePage = ({
                   onChange={change}
                   data={data}
                   disabled={loading}
-                  displayDates={data.expires && !!file}
+                  displayDatesCheckbox={displayDatesCheckbox}
+                  displayDatesInputs={displayDatesInputs}
                 />
               </Grid>
             </Grid>
-
             <Savebar
               onSubmit={submit}
               onCancel={() => navigate(entryDetails(type, entryId))}

@@ -95,7 +95,7 @@ export const DocumentPublicUpdatePage = ({
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setFile(e.target.files[0])
                 }
-                error={formErrors.file?.message}
+                errors={errors}
               />
               <Box sx={{ textAlign: "center" }}>
                 <LoadingButton

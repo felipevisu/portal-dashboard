@@ -14,13 +14,15 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { ErrorFragment } from "@portal/graphql";
+import { getFormErrors } from "@portal/utils/errors";
 
 interface DocumentFileProps {
   file?: File;
   fileName?: string;
   fileUrl?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  error?: string;
+  errors?: ErrorFragment[];
 }
 
 export const DocumentFile = ({
@@ -28,7 +30,7 @@ export const DocumentFile = ({
   fileName,
   fileUrl,
   onChange,
-  error,
+  errors,
 }: DocumentFileProps) => {
   const { t } = useTranslation();
   const fileRef = useRef<HTMLInputElement>();
@@ -37,6 +39,8 @@ export const DocumentFile = ({
     fileRef.current.click();
   };
 
+  const formErrors = getFormErrors(["file"], errors);
+
   return (
     <Card>
       <CardHeader
@@ -44,9 +48,9 @@ export const DocumentFile = ({
         action={<Button onClick={handleClick}>{t("file.create")}</Button>}
       />
       <CardContent>
-        {error && (
+        {formErrors.file && (
           <Alert color="error" icon={false} sx={{ marginBottom: 3 }}>
-            {error}
+            {formErrors.file.message}
           </Alert>
         )}
         <input type="file" ref={fileRef} onChange={onChange} hidden />
