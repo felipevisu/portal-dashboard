@@ -27,7 +27,7 @@ export const SessionList = ({
   toolbar,
 }: SessionListProps) => {
   const { t } = useTranslation();
-  const numberOfColumns = sessions?.length === 0 ? 3 : 4;
+  const numberOfColumns = sessions?.length === 0 ? 4 : 5;
 
   return (
     <TableContainer>
@@ -64,7 +64,7 @@ export const SessionList = ({
                   />
                 </TableCell>
                 <TableCell>{session.name}</TableCell>
-                <TableCell>{session.channel.name}</TableCell>
+                <TableCell>{session.channel?.name}</TableCell>
                 <TableCell>{formatDate(session.date)}</TableCell>
                 <TableCellWithStatus status={session.isPublished} />
               </TableRowLink>

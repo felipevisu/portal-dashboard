@@ -4,6 +4,7 @@ import { convertFromRaw, convertToRaw, EditorState } from "draft-js";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
+import { Grid } from "@mui/material";
 import { Backlink } from "@portal/components/Backlink";
 import { Form } from "@portal/components/Form";
 import PageHeader from "@portal/components/PageHeader";
@@ -16,6 +17,7 @@ import {
 import { SubmitPromise } from "@portal/hooks/useForm";
 
 import SessionForm from "./SessionForm";
+import { SessionOrganization } from "./SessionOrganization";
 
 interface SessionDetailsPageProps {
   session: SessionDetailsFragment;
@@ -43,6 +45,7 @@ export const SessionDetailsPage = ({
     ),
     date: dayjs(session.date),
     isPublished: session.isPublished,
+    channel: session.channel?.id,
   };
 
   const handleSubmit = (data) => {
@@ -52,6 +55,7 @@ export const SessionDetailsPage = ({
       content: JSON.stringify(convertToRaw(data.content.getCurrentContent())),
       date: data.date,
       isPublished: data.isPublished,
+      channel: data.channel,
     });
   };
 
@@ -68,6 +72,24 @@ export const SessionDetailsPage = ({
               data={data}
               disabled={loading}
             />
+            <Grid container spacing={2}>
+              <Grid item xs={12} lg={8}>
+                <SessionForm
+                  errors={errors}
+                  onChange={change}
+                  data={data}
+                  disabled={loading}
+                />
+              </Grid>
+              <Grid item xs={12} lg={4}>
+                <SessionOrganization
+                  errors={errors}
+                  onChange={change}
+                  data={data}
+                  disabled={loading}
+                />
+              </Grid>
+            </Grid>
             <Savebar
               onSubmit={submit}
               onCancel={() => navigate("/sessions")}
