@@ -43,7 +43,7 @@ export const Home = () => {
   });
 
   const expiredFilter = `/documents?expirationDateTo=${today}`;
-  const closeToExpireFilter = `/documents?expirationDateForm=${tomorrow}&expirationDateTo=${nextWeek}`;
+  const closeToExpireFilter = `/documents?expirationDateFrom=${tomorrow}&expirationDateTo=${nextWeek}`;
 
   if (eventsLoading || expiredLoading || expiringLoading) {
     return <CircularLoading />;
