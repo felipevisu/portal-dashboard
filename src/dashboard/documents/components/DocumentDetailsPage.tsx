@@ -84,8 +84,7 @@ export const DocumentDetailsPage = ({
   return (
     <Form initial={initialData} onSubmit={handleSubmit}>
       {({ change, submit, data }) => {
-        const displayDatesInputs =
-          documentShoudlExpire(data.loadType, data.expires) || data.expires;
+        const displayDatesInputs = document.expires;
         return (
           <>
             <Backlink onClick={() => window.history.back()}>

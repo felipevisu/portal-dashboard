@@ -6,7 +6,7 @@ const DOCUMENT_EXPIRATION_MAP = {
   [DocumentLoadOptionsEnum.CNEP]: true,
   [DocumentLoadOptionsEnum.CNPJ]: false,
   [DocumentLoadOptionsEnum.FGTS]: true,
-  [DocumentLoadOptionsEnum.JUCESP]: true,
+  [DocumentLoadOptionsEnum.JUCESP]: false,
   [DocumentLoadOptionsEnum.SEFAZ_MG]: true,
   [DocumentLoadOptionsEnum.SEFAZ_SP]: true,
   [DocumentLoadOptionsEnum.TCU]: true,
