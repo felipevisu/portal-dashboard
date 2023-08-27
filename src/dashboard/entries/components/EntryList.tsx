@@ -20,6 +20,7 @@ import { EntryFragment } from "@portal/graphql";
 import { useLinks } from "@portal/hooks";
 import { renderCollection } from "@portal/misc";
 import { ListActions } from "@portal/types";
+import { formatDate } from "@portal/utils/date";
 
 interface EntryListProps extends ListActions {
   entries: EntryFragment[];
@@ -35,7 +36,7 @@ export const EntryList = ({
   selected,
   toolbar,
 }: EntryListProps) => {
-  const numberOfColumns = entries?.length === 0 ? 3 : 4;
+  const numberOfColumns = entries?.length === 0 ? 4 : 5;
   const { t } = useTranslation();
   const { entry: type } = useParams();
   const { entryDetails } = useLinks();
@@ -54,6 +55,7 @@ export const EntryList = ({
           <TableCellHeader>{t("name")}</TableCellHeader>
           <TableCellHeader>{t("category.title")}</TableCellHeader>
           <TableCellHeader>{t("visibility")}</TableCellHeader>
+          <TableCellHeader>{t("created")}</TableCellHeader>
         </TableHead>
         <TableBody>
           {renderCollection(entries, (entry) => {
@@ -111,6 +113,7 @@ export const EntryList = ({
                     />
                   </Tooltip>
                 </TableCell>
+                <TableCell>{formatDate(entry.created)}</TableCell>
               </TableRowLink>
             );
           })}

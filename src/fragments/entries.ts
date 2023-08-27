@@ -16,6 +16,7 @@ export const entryFragment = gql`
     id
     name
     slug
+    created
     updated
     categories {
       id

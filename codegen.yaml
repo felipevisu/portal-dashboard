@@ -1,5 +1,5 @@
 schema:
-  - ${REACT_APP_API_URI}
+  - ${VITE_API_URI}
 generates:
   ./src/graphql/hooks.generated.ts:
     documents:
