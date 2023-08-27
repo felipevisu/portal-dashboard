@@ -84,7 +84,6 @@ export const DocumentDetailsPage = ({
   return (
     <Form initial={initialData} onSubmit={handleSubmit}>
       {({ change, submit, data }) => {
-        const displayDatesInputs = document.expires;
         return (
           <>
             <Backlink onClick={() => window.history.back()}>
@@ -172,8 +171,6 @@ export const DocumentDetailsPage = ({
                   onChange={change}
                   data={data}
                   disabled={loading}
-                  displayDatesCheckbox={false}
-                  displayDatesInputs={displayDatesInputs}
                 />
               </Grid>
             </Grid>

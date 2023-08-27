@@ -126,7 +126,7 @@ export const DocumentForm = ({
             value={data.loadType || ""}
             onChange={handleLoadTypeChange}
             error={formErrors.loadType && true}
-            disabled={disabled || !!instance}
+            disabled={disabled}
           >
             <MenuItem value={DocumentLoadOptionsEnum.EMPTY}>
               {t(`document.loadType.${DocumentLoadOptionsEnum.EMPTY}`)}

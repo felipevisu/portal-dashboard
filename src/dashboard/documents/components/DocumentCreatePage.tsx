@@ -55,16 +55,9 @@ export const DocumentCreatePage = ({
     onSubmit({ ...submitData, entry: entryId });
   };
 
-  console.log(errors);
-
   return (
     <Form initial={initialData} onSubmit={handleSubmit}>
       {({ change, submit, data }) => {
-        const displayDatesCheckbox =
-          data.loadType === DocumentLoadOptionsEnum.EMPTY;
-        const displayDatesInputs =
-          documentShoudlExpire(data.loadType, data.expires) || data.expires;
-
         return (
           <>
             <Backlink href={entryDetails(type, entryId)}>{t("back")}</Backlink>
@@ -91,8 +84,6 @@ export const DocumentCreatePage = ({
                   onChange={change}
                   data={data}
                   disabled={loading}
-                  displayDatesCheckbox={displayDatesCheckbox}
-                  displayDatesInputs={displayDatesInputs}
                 />
               </Grid>
             </Grid>
