@@ -4,7 +4,7 @@ export const Wrapper = styled("div")(() => ({
   display: "flex",
 }));
 
-export const Lateral = styled("div")();
+export const Lateral = styled("div")(() => ({}));
 
 export const Content = styled(Container)(({ theme }) => ({
   flexGrow: "1",

@@ -3,7 +3,7 @@ import { createUploadLink } from "apollo-upload-client";
 import { getToken } from "../lib/auth";
 
 export const link = createUploadLink({
-  uri: process.env.REACT_APP_API_URI,
+  uri: import.meta.env.VITE_API_URI,
   headers: {
     authorization: `JWT ${getToken()}`,
   },

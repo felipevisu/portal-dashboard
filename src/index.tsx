@@ -22,9 +22,9 @@ import { ColorModeProvider } from "./theme";
 import "react-toastify/dist/ReactToastify.css";
 import "./styles.css";
 
-if (process.env.NODE_ENV === "production") {
+if (import.meta.env.PROD) {
   Sentry.init({
-    dsn: process.env.REACT_APP_SENTRY_DNS,
+    dsn: import.meta.env.VITE_SENTRY_DNS,
     integrations: [new BrowserTracing()],
     tracesSampleRate: 1.0,
   });

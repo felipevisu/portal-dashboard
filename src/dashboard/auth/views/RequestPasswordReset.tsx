@@ -59,7 +59,7 @@ export const RequestPasswordReset = ({ action }: { action: () => void }) => {
     await request({
       variables: {
         email: form.email,
-        redirectUrl: process.env.REACT_APP_PASSWORD_RESET_URL,
+        redirectUrl: import.meta.env.VITE_PASSWORD_RESET_URL,
       },
     });
   };

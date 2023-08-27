@@ -33,10 +33,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "start": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
     "generate": "graphql-codegen --config codegen.yaml --require dotenv/config -w"
   },
   "eslintConfig": {
@@ -61,9 +60,10 @@
     "@types/lodash": "^4.14.182",
     "@types/node": "^17.0.24",
     "@types/react": "^17.0.5",
-    "@types/react-dom": "^17.0.4",
+    "@types/react-dom": "^17.0.20",
     "@typescript-eslint/eslint-plugin": "^5.19.0",
     "@typescript-eslint/parser": "^5.19.0",
+    "@vitejs/plugin-react": "^4.0.4",
     "autoprefixer": "^10.4.4",
     "dotenv": "^16.3.1",
     "eslint": "^7.32.0",
@@ -78,10 +78,10 @@
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "postcss": "^8.4.12",
     "prettier": "^2.6.2",
-    "react-app-rewire-alias": "^1.1.7",
-    "react-app-rewired": "^2.2.1",
-    "react-scripts": "5.0.1",
-    "typescript": "^5.1.6"
+    "typescript": "^5.1.6",
+    "vite": "^4.4.9",
+    "vite-plugin-svgr": "^3.2.0",
+    "vite-tsconfig-paths": "^4.2.0"
   },
   "browserslist": {
     "production": [
