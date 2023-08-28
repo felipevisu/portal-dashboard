@@ -321,6 +321,7 @@ export const InvestmentFragmentDoc = gql`
   year
   month
   isPublished
+  total
   channel {
     id
     name
@@ -341,6 +342,7 @@ export const InvestmentDetailsFragmentDoc = gql`
   year
   month
   isPublished
+  total
   channel {
     id
     name

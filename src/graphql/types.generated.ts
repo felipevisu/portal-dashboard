@@ -907,7 +907,7 @@ export type InvestmentCreateMutationVariables = Exact<{
 }>;
 
 
-export type InvestmentCreateMutation = { __typename: 'Mutation', investmentCreate: { __typename: 'InvestmentCreate', investment: { __typename: 'Investment', id: string, year: number, month: number, isPublished: boolean | null, channel: { __typename: 'Channel', id: string, name: string, slug: string } | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+export type InvestmentCreateMutation = { __typename: 'Mutation', investmentCreate: { __typename: 'InvestmentCreate', investment: { __typename: 'Investment', id: string, year: number, month: number, isPublished: boolean | null, total: any | null, channel: { __typename: 'Channel', id: string, name: string, slug: string } | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
 
 export type InvestmentsQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']>;
@@ -919,14 +919,14 @@ export type InvestmentsQueryVariables = Exact<{
 }>;
 
 
-export type InvestmentsQuery = { __typename: 'Query', investments: { __typename: 'InvestmentCountableConnection', edges: Array<{ __typename: 'InvestmentCountableEdge', node: { __typename: 'Investment', id: string, year: number, month: number, isPublished: boolean | null, channel: { __typename: 'Channel', id: string, name: string, slug: string } | null } }>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
+export type InvestmentsQuery = { __typename: 'Query', investments: { __typename: 'InvestmentCountableConnection', edges: Array<{ __typename: 'InvestmentCountableEdge', node: { __typename: 'Investment', id: string, year: number, month: number, isPublished: boolean | null, total: any | null, channel: { __typename: 'Channel', id: string, name: string, slug: string } | null } }>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
 
 export type InvestmentDetailsQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type InvestmentDetailsQuery = { __typename: 'Query', investment: { __typename: 'Investment', id: string, year: number, month: number, isPublished: boolean | null, channel: { __typename: 'Channel', id: string, name: string, slug: string } | null, items: Array<{ __typename: 'Item', id: string, name: string, value: any | null }> | null } | null };
+export type InvestmentDetailsQuery = { __typename: 'Query', investment: { __typename: 'Investment', id: string, year: number, month: number, isPublished: boolean | null, total: any | null, channel: { __typename: 'Channel', id: string, name: string, slug: string } | null, items: Array<{ __typename: 'Item', id: string, name: string, value: any | null }> | null } | null };
 
 export type PluginUpdateMutationVariables = Exact<{
   channelId?: InputMaybe<Scalars['ID']>;
@@ -1054,11 +1054,11 @@ export type EventFragment = { __typename: 'Event', id: string, date: any | null,
 
 export type EventDetailsFragment = { __typename: 'Event', id: string, date: any | null, type: EventTypesEnum | null, message: string | null, userEmail: string | null, documentName: string | null, user: { __typename: 'User', id: string, email: string, firstName: string | null, lastName: string | null, isStaff: boolean | null } | null, document: { __typename: 'Document', id: string, name: string, entry: { __typename: 'Entry', id: string, name: string } | null } | null };
 
-export type InvestmentFragment = { __typename: 'Investment', id: string, year: number, month: number, isPublished: boolean | null, channel: { __typename: 'Channel', id: string, name: string, slug: string } | null };
+export type InvestmentFragment = { __typename: 'Investment', id: string, year: number, month: number, isPublished: boolean | null, total: any | null, channel: { __typename: 'Channel', id: string, name: string, slug: string } | null };
 
 export type ItemFragment = { __typename: 'Item', id: string, name: string, value: any | null };
 
-export type InvestmentDetailsFragment = { __typename: 'Investment', id: string, year: number, month: number, isPublished: boolean | null, channel: { __typename: 'Channel', id: string, name: string, slug: string } | null, items: Array<{ __typename: 'Item', id: string, name: string, value: any | null }> | null };
+export type InvestmentDetailsFragment = { __typename: 'Investment', id: string, year: number, month: number, isPublished: boolean | null, total: any | null, channel: { __typename: 'Channel', id: string, name: string, slug: string } | null, items: Array<{ __typename: 'Item', id: string, name: string, value: any | null }> | null };
 
 export type PageInfoFragment = { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null };
 
