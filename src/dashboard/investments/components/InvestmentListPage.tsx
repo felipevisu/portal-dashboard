@@ -9,6 +9,7 @@ import { InvestmentFragment } from "@portal/graphql";
 import { ListActions, PaginateListProps } from "@portal/types";
 
 import InvestmentList from "./InvestmentList";
+import { useLinks } from "@portal/hooks";
 
 interface InvestmentListPageProps extends ListActions, PaginateListProps {
   investments: InvestmentFragment[];
@@ -28,15 +29,12 @@ export const InvestmentListPage = ({
   disabled,
 }: InvestmentListPageProps) => {
   const { t } = useTranslation();
+  const { investmentCreate } = useLinks();
 
   return (
     <>
       <PageHeader title={t("investment.plural")}>
-        <Button
-          color="primary"
-          variant="contained"
-          href={"/investments/create"}
-        >
+        <Button color="primary" variant="contained" href={investmentCreate()}>
           {t("investment.create")}
         </Button>
       </PageHeader>

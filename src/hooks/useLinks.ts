@@ -15,10 +15,13 @@ export const useLinks = () => {
   const documentList = () => "/documents";
   const documentCreate = (type: string, entryId: string) =>
     `/entries/${type}/details/${entryId}/documents/create`;
-  const documentDetails = (id: string) => `/documents/${id}/details`;
+  const documentDetails = (id: string) => `/documents/details/${id}`;
   const channelList = () => "/channels";
   const channelCreate = () => "/channels/create";
   const channelDetails = (id: string) => `/channels/details/${id}`;
+  const investmentList = () => "/investments";
+  const investmentCreate = () => "/investments/create";
+  const investmentDetails = (id: string) => `/investments/details/${id}`;
 
   return {
     homepage,
@@ -39,6 +42,9 @@ export const useLinks = () => {
     channelList,
     channelCreate,
     channelDetails,
+    investmentList,
+    investmentCreate,
+    investmentDetails,
   };
 };
 

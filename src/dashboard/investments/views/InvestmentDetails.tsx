@@ -17,7 +17,7 @@ import {
   useItemCreateMutation,
   useItemDeleteMutation,
 } from "@portal/graphql";
-import { useModal } from "@portal/hooks";
+import { useLinks, useModal } from "@portal/hooks";
 
 import InvestmentDetailsPage from "../components/InvestmentDetailsPage";
 import ItemCreateDialog from "../components/ItemCreateDialog";
@@ -28,6 +28,7 @@ export const InvestmentDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+  const { investmentList } = useLinks();
 
   const { isOpen, openModal, closeModal } = useModal();
 
@@ -46,7 +47,7 @@ export const InvestmentDetails = () => {
     useInvestmentUpdateMutation({ onCompleted: handleUpdateInvestment });
 
   const [deleteInvestment] = useInvestmentDeleteMutation({
-    onCompleted: () => navigate("/investments"),
+    onCompleted: () => navigate(investmentList()),
   });
 
   const handleInvestmentDelete = async () => {

@@ -8,7 +8,7 @@ export const Documents = () => {
   return (
     <Routes>
       <Route path="/" element={<DocumentList />} />
-      <Route path="/:id/details/" element={<DocumentDetails />} />
+      <Route path="/details/:id/" element={<DocumentDetails />} />
     </Routes>
   );
 };

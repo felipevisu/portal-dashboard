@@ -10,7 +10,7 @@ import {
   ItemCreateInput,
   useInvestmentCreateMutation,
 } from "@portal/graphql";
-import { useModal } from "@portal/hooks";
+import { useLinks, useModal } from "@portal/hooks";
 
 import InvestmentCreatePage from "../components/InvestmentCreatePage";
 import ItemCreateDialog from "../components/ItemCreateDialog";
@@ -20,13 +20,14 @@ export const InvestmentCreate = () => {
   const { t } = useTranslation();
   const navigator = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+  const { investmentDetails } = useLinks();
 
   const [items, setItems] = useState<ItemCreateInput[]>([]);
 
   const handleCreateInvestment = (data: InvestmentCreateMutation) => {
     if (!data?.investmentCreate.errors.length) {
       toast(t("messages.create.success"), { type: toast.TYPE.SUCCESS });
-      navigator(`/investments/details/${data?.investmentCreate.investment.id}`);
+      navigator(investmentDetails(data?.investmentCreate.investment.id));
     }
   };
 

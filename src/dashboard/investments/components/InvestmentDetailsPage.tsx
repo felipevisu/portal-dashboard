@@ -18,6 +18,7 @@ import { toMonthName } from "@portal/utils/date";
 import InvestmentForm, { FormProps } from "./InvestmentForm";
 import InvestmentItems from "./InvestmentItems";
 import InvestmentOrganization from "./InvestmentOrganization";
+import { useLinks } from "@portal/hooks";
 
 interface InvestmentDetailsPageProps {
   investment: InvestmentDetailsFragment;
@@ -40,6 +41,7 @@ export const InvestmentDetailsPage = ({
 }: InvestmentDetailsPageProps) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { investmentList } = useLinks();
 
   const initialData: FormProps = {
     year: investment.year,
@@ -53,7 +55,7 @@ export const InvestmentDetailsPage = ({
       {({ change, submit, data }) => {
         return (
           <>
-            <Backlink href="/investments">{t("back")}</Backlink>
+            <Backlink href={investmentList()}>{t("back")}</Backlink>
             <PageHeader
               title={`${toMonthName(investment.month)} de ${investment.year}`}
             />
@@ -83,7 +85,7 @@ export const InvestmentDetailsPage = ({
             <Savebar
               onDelete={onDelete}
               onSubmit={submit}
-              onCancel={() => navigate("/investments")}
+              onCancel={() => navigate(investmentList())}
               loading={loading}
             />
           </>

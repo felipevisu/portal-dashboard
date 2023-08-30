@@ -12,6 +12,7 @@ import { renderCollection } from "@portal/misc";
 import { ListActions } from "@portal/types";
 import { toMonthName } from "@portal/utils/date";
 import { formatMoney } from "@portal/utils/money";
+import { useLinks } from "@portal/hooks";
 
 interface InvestmentListProps extends ListActions {
   investments: InvestmentFragment[];
@@ -29,6 +30,7 @@ export const InvestmentList = ({
 }: InvestmentListProps) => {
   const numberOfColumns = investments?.length === 0 ? 4 : 5;
   const { t } = useTranslation();
+  const { investmentDetails } = useLinks();
 
   return (
     <TableContainer>
@@ -54,7 +56,7 @@ export const InvestmentList = ({
                 key={investment ? investment.id : "skeleton"}
                 sx={{ cursor: "pointer" }}
                 selected={isSelected}
-                href={`details/${investment.id}/`}
+                href={investmentDetails(investment.id)}
               >
                 <TableCell padding="checkbox">
                   <Checkbox

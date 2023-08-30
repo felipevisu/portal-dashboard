@@ -13,6 +13,7 @@ import { SubmitPromise } from "@portal/hooks/useForm";
 import InvestmentForm, { FormProps } from "./InvestmentForm";
 import InvestmentItems from "./InvestmentItems";
 import InvestmentOrganization from "./InvestmentOrganization";
+import { useLinks } from "@portal/hooks";
 
 interface InvestmentCreatePageProps {
   onSubmit: (data: InvestmentInput) => SubmitPromise;
@@ -33,6 +34,7 @@ export const InvestmentCreatePage = ({
 }: InvestmentCreatePageProps) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { investmentList } = useLinks();
 
   const initialData: FormProps = {
     year: null,
@@ -46,7 +48,7 @@ export const InvestmentCreatePage = ({
       {({ change, submit, data }) => {
         return (
           <>
-            <Backlink href="/investments">{t("back")}</Backlink>
+            <Backlink href={investmentList()}>{t("back")}</Backlink>
             <PageHeader title={t("investment.create")} />
             <Grid container spacing={2}>
               <Grid item xs={12} lg={8}>
@@ -73,7 +75,7 @@ export const InvestmentCreatePage = ({
             </Grid>
             <Savebar
               onSubmit={submit}
-              onCancel={() => navigate("/investments")}
+              onCancel={() => navigate(investmentList())}
               loading={loading}
             />
           </>
