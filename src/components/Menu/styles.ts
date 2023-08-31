@@ -10,7 +10,6 @@ type Opened = {
 
 export const MenuMain = styled("div")(({ theme }) => ({
   width: "0",
-  transition: "all ease 300ms",
   position: "relative",
   [theme.breakpoints.up("lg")]: {
     width: "240px",
@@ -24,7 +23,6 @@ export const MenuContent = styled("div")<Opened>(({ opened, theme }) => ({
   overflowX: "hidden",
   overflowY: "auto",
   left: opened ? 0 : "-300px",
-  transition: "all ease 300ms",
   background: theme.palette.background.default,
   paddingRight: theme.spacing(2),
   paddingTop: theme.spacing(2),
