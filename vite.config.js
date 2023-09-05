@@ -6,14 +6,11 @@ import viteTsconfigPaths from "vite-tsconfig-paths";
 import react from "@vitejs/plugin-react";
 
 export default defineConfig({
-  base: '/admin',
+  base: 'https://portal-frontend-psi.vercel.app/admin',
   plugins: [react(), viteTsconfigPaths(), svgrPlugin()],
   resolve: {
     alias: {
       "@portal": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
-  build: {
-    assetsDir: 'https://portal-frontend-psi.vercel.app/'
-  }
 });
