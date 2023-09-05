@@ -13,4 +13,7 @@ export default defineConfig({
       "@portal": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
+  build: {
+    assetsDir: 'https://portal-frontend-psi.vercel.app/'
+  }
 });
