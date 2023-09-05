@@ -6,7 +6,7 @@ import viteTsconfigPaths from "vite-tsconfig-paths";
 import react from "@vitejs/plugin-react";
 
 export default defineConfig({
-  base: 'https://portal-frontend-psi.vercel.app/admin',
+  base: 'https://portal-frontend-psi.vercel.app/',
   plugins: [react(), viteTsconfigPaths(), svgrPlugin()],
   resolve: {
     alias: {
