@@ -13,11 +13,6 @@ export const configurationItemFragment = gql`
 export const pluginConfigurationBaseFragment = gql`
   fragment PluginConfigurationBase on PluginConfiguration {
     active
-    channel {
-      id
-      name
-      slug
-    }
   }
 `;
 
@@ -35,9 +30,6 @@ export const pluginBaseFragment = gql`
     id
     name
     description
-    channelConfigurations {
-      ...PluginConfigurationBase
-    }
     globalConfiguration {
       ...PluginConfigurationBase
     }
@@ -50,9 +42,6 @@ export const pluginsDetailsFragment = gql`
     name
     description
     globalConfiguration {
-      ...PluginConfigurationExtended
-    }
-    channelConfigurations {
       ...PluginConfigurationExtended
     }
   }

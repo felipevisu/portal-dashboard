@@ -1,5 +1,5 @@
 schema:
-  - ${VITE_API_URI}
+  - ${VITE_API_URI}/clientes/visualize/graphql/
 generates:
   ./src/graphql/hooks.generated.ts:
     documents:

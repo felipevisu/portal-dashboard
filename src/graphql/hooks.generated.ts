@@ -356,11 +356,6 @@ export const InvestmentDetailsFragmentDoc = gql`
 export const PluginConfigurationBaseFragmentDoc = gql`
     fragment PluginConfigurationBase on PluginConfiguration {
   active
-  channel {
-    id
-    name
-    slug
-  }
 }
     `;
 export const PluginBaseFragmentDoc = gql`
@@ -368,9 +363,6 @@ export const PluginBaseFragmentDoc = gql`
   id
   name
   description
-  channelConfigurations {
-    ...PluginConfigurationBase
-  }
   globalConfiguration {
     ...PluginConfigurationBase
   }
@@ -400,9 +392,6 @@ export const PluginsDetailsFragmentDoc = gql`
   name
   description
   globalConfiguration {
-    ...PluginConfigurationExtended
-  }
-  channelConfigurations {
     ...PluginConfigurationExtended
   }
 }
@@ -2702,8 +2691,8 @@ export type InvestmentDetailsQueryHookResult = ReturnType<typeof useInvestmentDe
 export type InvestmentDetailsLazyQueryHookResult = ReturnType<typeof useInvestmentDetailsLazyQuery>;
 export type InvestmentDetailsQueryResult = Apollo.QueryResult<Types.InvestmentDetailsQuery, Types.InvestmentDetailsQueryVariables>;
 export const PluginUpdateDocument = gql`
-    mutation PluginUpdate($channelId: ID, $id: ID!, $input: PluginUpdateInput!) {
-  pluginUpdate(channelId: $channelId, id: $id, input: $input) {
+    mutation PluginUpdate($id: ID!, $input: PluginUpdateInput!) {
+  pluginUpdate(id: $id, input: $input) {
     errors {
       ...Error
     }
@@ -2729,7 +2718,6 @@ export type PluginUpdateMutationFn = Apollo.MutationFunction<Types.PluginUpdateM
  * @example
  * const [pluginUpdateMutation, { data, loading, error }] = usePluginUpdateMutation({
  *   variables: {
- *      channelId: // value for 'channelId'
  *      id: // value for 'id'
  *      input: // value for 'input'
  *   },
