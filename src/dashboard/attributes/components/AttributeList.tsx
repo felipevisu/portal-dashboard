@@ -15,12 +15,14 @@ import { useLinks } from "@portal/hooks";
 import { renderCollection } from "@portal/misc";
 
 import { mapInputType, mapType } from "../utils";
+import EmptyTable from "@portal/components/EmptyTable";
 
 interface AttributeListProps {
+  loading: boolean;
   attributes: AttributeFragment[];
 }
 
-export const AttributeList = ({ attributes }: AttributeListProps) => {
+export const AttributeList = ({ loading, attributes }: AttributeListProps) => {
   const { t } = useTranslation();
   const { attributeDetails } = useLinks();
 
@@ -39,6 +41,7 @@ export const AttributeList = ({ attributes }: AttributeListProps) => {
           </TableCellHeader>
         </TableHead>
         <TableBody>
+          {!loading && !attributes.length && <EmptyTable colSpan={5} />}
           {renderCollection(attributes, (attribute) => {
             return (
               <TableRowLink

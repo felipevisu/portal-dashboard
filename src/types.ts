@@ -43,6 +43,7 @@ export interface ListActions extends ListActionsWithoutToolbar {
 }
 
 export interface PaginateListProps {
+  loading?: boolean;
   pageInfo?: PageInfoFragment;
   onNextPage: (value: string) => void;
   onPreviousPage: (value: string) => void;
@@ -77,7 +78,6 @@ export type Paginator = {
   handlePreviousPage: (value: string) => void;
   pagination: PaginationState;
 };
-
 
 export interface FetchMoreProps {
   loading: boolean;

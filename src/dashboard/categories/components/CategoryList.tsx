@@ -10,6 +10,7 @@ import { CategoryFragment } from "@portal/graphql";
 import { useLinks } from "@portal/hooks";
 import { renderCollection } from "@portal/misc";
 import { ListActions } from "@portal/types";
+import EmptyTable from "@portal/components/EmptyTable";
 
 interface CategoryListProps extends ListActions {
   categories: CategoryFragment[];
@@ -47,6 +48,7 @@ export const CategoryList = ({
           </TableCellHeader>
         </TableHead>
         <TableBody>
+          {!disabled && !categories.length && <EmptyTable colSpan={4} />}
           {renderCollection(categories, (category) => {
             const isSelected = category ? isChecked(category.id) : false;
             return (

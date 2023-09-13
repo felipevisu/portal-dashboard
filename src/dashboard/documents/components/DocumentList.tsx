@@ -12,6 +12,7 @@ import { useLinks } from "@portal/hooks";
 import { renderCollection } from "@portal/misc";
 import { ListActions } from "@portal/types";
 import { formatDate } from "@portal/utils/date";
+import EmptyTable from "@portal/components/EmptyTable";
 
 interface DocumentListProps extends ListActions {
   documents: DocumentFragment[];
@@ -49,6 +50,7 @@ export const DocumentList = ({
           <TableCellHeader>{t("expiresIn")}</TableCellHeader>
         </TableHead>
         <TableBody>
+          {!disabled && !documents.length && <EmptyTable colSpan={6} />}
           {renderCollection(documents, (document) => {
             const isSelected = document ? isChecked(document.id) : false;
             return (

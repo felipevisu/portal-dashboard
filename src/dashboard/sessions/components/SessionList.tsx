@@ -11,6 +11,7 @@ import { SessionFragment } from "@portal/graphql";
 import { renderCollection } from "@portal/misc";
 import { ListActions } from "@portal/types";
 import { formatDate } from "@portal/utils/date";
+import EmptyTable from "@portal/components/EmptyTable";
 
 interface SessionListProps extends ListActions {
   sessions: SessionFragment[];
@@ -46,6 +47,7 @@ export const SessionList = ({
           <TableCellHeader>{t("visibility")}</TableCellHeader>
         </TableHead>
         <TableBody>
+          {!disabled && !sessions.length && <EmptyTable colSpan={5} />}
           {renderCollection(sessions, (session) => {
             const isSelected = sessions ? isChecked(session.id) : false;
             return (

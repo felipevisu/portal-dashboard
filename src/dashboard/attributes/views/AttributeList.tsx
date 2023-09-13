@@ -9,7 +9,7 @@ import AttributeListPage from "../components/AttributeListPage";
 export const AttributeList = () => {
   const { pagination, handleNextPage, handlePreviousPage } = usePaginator();
 
-  const { data } = useAttributesQuery({
+  const { data, loading } = useAttributesQuery({
     fetchPolicy: "network-only",
     variables: {
       ...pagination,
@@ -18,6 +18,7 @@ export const AttributeList = () => {
 
   return (
     <AttributeListPage
+      loading={loading}
       attributes={mapEdgesToItems(data?.attributes)}
       onNextPage={handleNextPage}
       onPreviousPage={handlePreviousPage}

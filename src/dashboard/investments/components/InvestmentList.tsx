@@ -13,6 +13,7 @@ import { ListActions } from "@portal/types";
 import { toMonthName } from "@portal/utils/date";
 import { formatMoney } from "@portal/utils/money";
 import { useLinks } from "@portal/hooks";
+import EmptyTable from "@portal/components/EmptyTable";
 
 interface InvestmentListProps extends ListActions {
   investments: InvestmentFragment[];
@@ -49,6 +50,7 @@ export const InvestmentList = ({
           <TableCellHeader>{t("visibility")}</TableCellHeader>
         </TableHead>
         <TableBody>
+          {!disabled && !investments.length && <EmptyTable colSpan={5} />}
           {renderCollection(investments, (investment) => {
             const isSelected = investment ? isChecked(investment.id) : false;
             return (

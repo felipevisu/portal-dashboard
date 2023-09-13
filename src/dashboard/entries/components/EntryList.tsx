@@ -21,6 +21,7 @@ import { useLinks } from "@portal/hooks";
 import { renderCollection } from "@portal/misc";
 import { ListActions } from "@portal/types";
 import { formatDate } from "@portal/utils/date";
+import EmptyTable from "@portal/components/EmptyTable";
 
 interface EntryListProps extends ListActions {
   entries: EntryFragment[];
@@ -58,6 +59,7 @@ export const EntryList = ({
           <TableCellHeader>{t("created")}</TableCellHeader>
         </TableHead>
         <TableBody>
+          {!disabled && !entries.length && <EmptyTable colSpan={5} />}
           {renderCollection(entries, (entry) => {
             const isSelected = entry ? isChecked(entry.id) : false;
             return (

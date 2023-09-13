@@ -16,6 +16,7 @@ interface AttributeListPage extends PaginateListProps {
 }
 
 export const AttributeListPage = ({
+  loading,
   attributes,
   onNextPage,
   onPreviousPage,
@@ -31,7 +32,7 @@ export const AttributeListPage = ({
         </Button>
       </PageHeader>
       <Card>
-        <AttributeList attributes={attributes} />
+        <AttributeList loading={loading} attributes={attributes} />
         {pageInfo && (
           <Pagination
             pageInfo={pageInfo}

@@ -14,12 +14,14 @@ import TableRowLink from "@portal/components/TableRowLink";
 import { ChannelFragment } from "@portal/graphql";
 import { useLinks } from "@portal/hooks";
 import { renderCollection } from "@portal/misc";
+import EmptyTable from "@portal/components/EmptyTable";
 
 interface ChannelListProps {
   channels: ChannelFragment[];
+  loading: boolean;
 }
 
-export const ChannelList = ({ channels }: ChannelListProps) => {
+export const ChannelList = ({ channels, loading }: ChannelListProps) => {
   const { t } = useTranslation();
   const { channelDetails } = useLinks();
 
@@ -37,6 +39,7 @@ export const ChannelList = ({ channels }: ChannelListProps) => {
             },
           }}
         >
+          {!loading && !channels.length && <EmptyTable colSpan={2} />}
           {renderCollection(channels, (channel) => {
             return (
               <TableRowLink

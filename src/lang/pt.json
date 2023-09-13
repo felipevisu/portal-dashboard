@@ -207,7 +207,7 @@
 		}
 	},
 	"email": "Email",
-	"empty": "Nenhum item cadastrado",
+	"empty": "Nenhum item cadastrado.",
 	"entry": {
 		"deleteDialog": {
 			"title": "Excluir Cadastro",

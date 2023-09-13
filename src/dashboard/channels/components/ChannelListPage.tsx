@@ -11,9 +11,13 @@ import { ChannelList } from "./ChannelList";
 
 interface ChannelListPageProps {
   channels: ChannelFragment[];
+  loading: boolean;
 }
 
-export const ChannelListPage = ({ channels }: ChannelListPageProps) => {
+export const ChannelListPage = ({
+  channels,
+  loading,
+}: ChannelListPageProps) => {
   const { t } = useTranslation();
   const { channelCreate } = useLinks();
 
@@ -25,7 +29,7 @@ export const ChannelListPage = ({ channels }: ChannelListPageProps) => {
         </Button>
       </PageHeader>
       <Card>
-        <ChannelList channels={channels} />
+        <ChannelList channels={channels} loading={loading} />
       </Card>
     </>
   );
