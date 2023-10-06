@@ -76,7 +76,7 @@
     "eslint-plugin-promise": "^5.2.0",
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-simple-import-sort": "^7.0.0",
-    "postcss": "^8.4.12",
+    "postcss": "^8.4.31",
     "prettier": "^2.6.2",
     "typescript": "^5.1.6",
     "vite": "^4.4.9",
