@@ -1,9 +1,14 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import { Table, TableBody, TableCell, TableContainer } from "@mui/material";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+} from "@mui/material";
 import TableCellHeader from "@portal/components/TableCell";
-import TableHead from "@portal/components/TableHead";
 import TableRowLink from "@portal/components/TableRowLink";
 import { EntryTypeFragment } from "@portal/graphql";
 import { useLinks } from "@portal/hooks";
@@ -23,11 +28,7 @@ export const EntryTypeList = ({ entryTypes, disabled }: EntryTypeListProps) => {
   return (
     <TableContainer>
       <Table>
-        <TableHead
-          colSpan={numberOfColumns}
-          disabled={disabled}
-          items={entryTypes}
-        >
+        <TableHead>
           <TableCellHeader>{t("name")}</TableCellHeader>
         </TableHead>
         <TableBody>

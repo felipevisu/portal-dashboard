@@ -5,7 +5,7 @@ import EntryTypeCreate from "./views/EntryTypeCreate";
 import EntryTypeDetails from "./views/EntryTypeDetails";
 import EntryTypeList from "./views/EntryTypeList";
 
-export const Categories = () => {
+export const EntryTypes = () => {
   return (
     <Routes>
       <Route path="/" element={<EntryTypeList />} />
@@ -15,4 +15,4 @@ export const Categories = () => {
   );
 };
 
-export default Categories;
+export default EntryTypes;

@@ -218,6 +218,12 @@
 			"description": "Deseja mesmo excluir estes cadastros? Lembre-se esta ação não é reversível."
 		}
 	},
+	"entryType": {
+		"title": "Tipo de Cadastro",
+		"plural": "Tipos de Cadastro",
+		"create": "Adicionar Tipo de Cadastro",
+		"delete": "Excluir Tipo de Cadastro"
+	},
 	"entryTypes": "Veículo/Fornecedor",
 	"events": {
 		"DOCUMENT_REQUESTED": "Novo documento solicitado",

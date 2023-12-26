@@ -5,6 +5,7 @@ import LanguageIcon from "@mui/icons-material/Language";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import PublicIcon from "@mui/icons-material/Public";
 import UsbIcon from "@mui/icons-material/Usb";
+import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 
 export type SettingsItem = {
   title: string;
@@ -15,6 +16,13 @@ export type SettingsItem = {
 
 export const createConfigurationMenu = (): SettingsItem[] => {
   return [
+    {
+      title: "Tipos de cadastro",
+      description:
+        "Gerêncie seus tipos de cadastros como Veículos e Fornecedores.",
+      url: "/entryTypes",
+      icon: <AppRegistrationIcon fontSize="large" />,
+    },
     {
       title: "Plugins",
       description:

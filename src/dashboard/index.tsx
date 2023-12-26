@@ -17,6 +17,7 @@ import Investments from "./investments";
 import Plugins from "./plugins";
 import Sessions from "./sessions";
 import Settings from "./settings";
+import EntryTypes from "./entryTypes";
 
 const RoutesComponent = () => {
   const { authenticated, authenticating } = useUser();
@@ -37,6 +38,7 @@ const RoutesComponent = () => {
           <Route path="/plugins/*" element={<Plugins />} />
           <Route path="/attributes/*" element={<Attributes />} />
           <Route path="/channels/*" element={<Channels />} />
+          <Route path="/entryTypes/*" element={<EntryTypes />} />
         </Routes>
       </AppLayout>
     );
