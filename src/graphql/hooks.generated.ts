@@ -256,6 +256,13 @@ export const EntryDetailsFragmentDoc = gql`
 ${AttributeValueFragmentDoc}
 ${ConsultFragmentDoc}
 ${ChannelListingEntryFragmentDoc}`;
+export const EntryTypeFragmentDoc = gql`
+    fragment EntryType on EntryType {
+  id
+  name
+  slug
+}
+    `;
 export const ErrorFragmentDoc = gql`
     fragment Error on Error {
   code
@@ -2291,6 +2298,201 @@ export function useInitialEntryFilterCategoriesLazyQuery(baseOptions?: Apollo.La
 export type InitialEntryFilterCategoriesQueryHookResult = ReturnType<typeof useInitialEntryFilterCategoriesQuery>;
 export type InitialEntryFilterCategoriesLazyQueryHookResult = ReturnType<typeof useInitialEntryFilterCategoriesLazyQuery>;
 export type InitialEntryFilterCategoriesQueryResult = Apollo.QueryResult<Types.InitialEntryFilterCategoriesQuery, Types.InitialEntryFilterCategoriesQueryVariables>;
+export const EntryTypeCreateDocument = gql`
+    mutation EntryTypeCreate($input: EntryTypeInput!) {
+  entryTypeCreate(input: $input) {
+    entryType {
+      ...EntryType
+    }
+    errors {
+      ...Error
+    }
+  }
+}
+    ${EntryTypeFragmentDoc}
+${ErrorFragmentDoc}`;
+export type EntryTypeCreateMutationFn = Apollo.MutationFunction<Types.EntryTypeCreateMutation, Types.EntryTypeCreateMutationVariables>;
+
+/**
+ * __useEntryTypeCreateMutation__
+ *
+ * To run a mutation, you first call `useEntryTypeCreateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEntryTypeCreateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [entryTypeCreateMutation, { data, loading, error }] = useEntryTypeCreateMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useEntryTypeCreateMutation(baseOptions?: Apollo.MutationHookOptions<Types.EntryTypeCreateMutation, Types.EntryTypeCreateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Types.EntryTypeCreateMutation, Types.EntryTypeCreateMutationVariables>(EntryTypeCreateDocument, options);
+      }
+export type EntryTypeCreateMutationHookResult = ReturnType<typeof useEntryTypeCreateMutation>;
+export type EntryTypeCreateMutationResult = Apollo.MutationResult<Types.EntryTypeCreateMutation>;
+export type EntryTypeCreateMutationOptions = Apollo.BaseMutationOptions<Types.EntryTypeCreateMutation, Types.EntryTypeCreateMutationVariables>;
+export const EntryTypeUpdateDocument = gql`
+    mutation EntryTypeUpdate($id: ID, $input: EntryTypeInput!) {
+  entryTypeUpdate(id: $id, input: $input) {
+    entryType {
+      ...EntryType
+    }
+    errors {
+      ...Error
+    }
+  }
+}
+    ${EntryTypeFragmentDoc}
+${ErrorFragmentDoc}`;
+export type EntryTypeUpdateMutationFn = Apollo.MutationFunction<Types.EntryTypeUpdateMutation, Types.EntryTypeUpdateMutationVariables>;
+
+/**
+ * __useEntryTypeUpdateMutation__
+ *
+ * To run a mutation, you first call `useEntryTypeUpdateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEntryTypeUpdateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [entryTypeUpdateMutation, { data, loading, error }] = useEntryTypeUpdateMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useEntryTypeUpdateMutation(baseOptions?: Apollo.MutationHookOptions<Types.EntryTypeUpdateMutation, Types.EntryTypeUpdateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Types.EntryTypeUpdateMutation, Types.EntryTypeUpdateMutationVariables>(EntryTypeUpdateDocument, options);
+      }
+export type EntryTypeUpdateMutationHookResult = ReturnType<typeof useEntryTypeUpdateMutation>;
+export type EntryTypeUpdateMutationResult = Apollo.MutationResult<Types.EntryTypeUpdateMutation>;
+export type EntryTypeUpdateMutationOptions = Apollo.BaseMutationOptions<Types.EntryTypeUpdateMutation, Types.EntryTypeUpdateMutationVariables>;
+export const EntryTypeDeleteDocument = gql`
+    mutation EntryTypeDelete($id: ID!) {
+  entryTypeDelete(id: $id) {
+    errors {
+      ...Error
+    }
+  }
+}
+    ${ErrorFragmentDoc}`;
+export type EntryTypeDeleteMutationFn = Apollo.MutationFunction<Types.EntryTypeDeleteMutation, Types.EntryTypeDeleteMutationVariables>;
+
+/**
+ * __useEntryTypeDeleteMutation__
+ *
+ * To run a mutation, you first call `useEntryTypeDeleteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEntryTypeDeleteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [entryTypeDeleteMutation, { data, loading, error }] = useEntryTypeDeleteMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useEntryTypeDeleteMutation(baseOptions?: Apollo.MutationHookOptions<Types.EntryTypeDeleteMutation, Types.EntryTypeDeleteMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Types.EntryTypeDeleteMutation, Types.EntryTypeDeleteMutationVariables>(EntryTypeDeleteDocument, options);
+      }
+export type EntryTypeDeleteMutationHookResult = ReturnType<typeof useEntryTypeDeleteMutation>;
+export type EntryTypeDeleteMutationResult = Apollo.MutationResult<Types.EntryTypeDeleteMutation>;
+export type EntryTypeDeleteMutationOptions = Apollo.BaseMutationOptions<Types.EntryTypeDeleteMutation, Types.EntryTypeDeleteMutationVariables>;
+export const EntryTypesDocument = gql`
+    query EntryTypes($first: Int, $last: Int, $after: String, $before: String) {
+  entryTypes(first: $first, last: $last, after: $after, before: $before) {
+    edges {
+      node {
+        ...EntryType
+      }
+    }
+    pageInfo {
+      ...PageInfo
+    }
+  }
+}
+    ${EntryTypeFragmentDoc}
+${PageInfoFragmentDoc}`;
+
+/**
+ * __useEntryTypesQuery__
+ *
+ * To run a query within a React component, call `useEntryTypesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEntryTypesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useEntryTypesQuery({
+ *   variables: {
+ *      first: // value for 'first'
+ *      last: // value for 'last'
+ *      after: // value for 'after'
+ *      before: // value for 'before'
+ *   },
+ * });
+ */
+export function useEntryTypesQuery(baseOptions?: Apollo.QueryHookOptions<Types.EntryTypesQuery, Types.EntryTypesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<Types.EntryTypesQuery, Types.EntryTypesQueryVariables>(EntryTypesDocument, options);
+      }
+export function useEntryTypesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.EntryTypesQuery, Types.EntryTypesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<Types.EntryTypesQuery, Types.EntryTypesQueryVariables>(EntryTypesDocument, options);
+        }
+export type EntryTypesQueryHookResult = ReturnType<typeof useEntryTypesQuery>;
+export type EntryTypesLazyQueryHookResult = ReturnType<typeof useEntryTypesLazyQuery>;
+export type EntryTypesQueryResult = Apollo.QueryResult<Types.EntryTypesQuery, Types.EntryTypesQueryVariables>;
+export const EntryTypeDetailsDocument = gql`
+    query EntryTypeDetails($id: ID!) {
+  entryType(id: $id) {
+    ...EntryType
+  }
+}
+    ${EntryTypeFragmentDoc}`;
+
+/**
+ * __useEntryTypeDetailsQuery__
+ *
+ * To run a query within a React component, call `useEntryTypeDetailsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEntryTypeDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useEntryTypeDetailsQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useEntryTypeDetailsQuery(baseOptions: Apollo.QueryHookOptions<Types.EntryTypeDetailsQuery, Types.EntryTypeDetailsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<Types.EntryTypeDetailsQuery, Types.EntryTypeDetailsQueryVariables>(EntryTypeDetailsDocument, options);
+      }
+export function useEntryTypeDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.EntryTypeDetailsQuery, Types.EntryTypeDetailsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<Types.EntryTypeDetailsQuery, Types.EntryTypeDetailsQueryVariables>(EntryTypeDetailsDocument, options);
+        }
+export type EntryTypeDetailsQueryHookResult = ReturnType<typeof useEntryTypeDetailsQuery>;
+export type EntryTypeDetailsLazyQueryHookResult = ReturnType<typeof useEntryTypeDetailsLazyQuery>;
+export type EntryTypeDetailsQueryResult = Apollo.QueryResult<Types.EntryTypeDetailsQuery, Types.EntryTypeDetailsQueryVariables>;
 export const EventsDocument = gql`
     query Events($first: Int, $last: Int, $after: String, $before: String) {
   events(first: $first, last: $last, after: $after, before: $before) {

@@ -334,6 +334,21 @@ export enum EntryTypeEnum {
   VEHICLE = 'VEHICLE'
 }
 
+export type EntryTypeInput = {
+  name?: InputMaybe<Scalars['String']>;
+  slug?: InputMaybe<Scalars['String']>;
+};
+
+export enum EntryTypeSortField {
+  NAME = 'NAME'
+}
+
+export type EntryTypeSortingInput = {
+  direction: OrderDirection;
+  /** Sort entry_types by the selected field. */
+  field: EntryTypeSortField;
+};
+
 /** An enumeration. */
 export enum EventTypesEnum {
   DOCUMENT_APPROVED = 'DOCUMENT_APPROVED',
@@ -847,6 +862,45 @@ export type InitialEntryFilterCategoriesQueryVariables = Exact<{
 
 export type InitialEntryFilterCategoriesQuery = { __typename: 'Query', categories: { __typename: 'CategoryCountableConnection', edges: Array<{ __typename: 'CategoryCountableEdge', node: { __typename: 'Category', id: string, name: string } }> } | null };
 
+export type EntryTypeCreateMutationVariables = Exact<{
+  input: EntryTypeInput;
+}>;
+
+
+export type EntryTypeCreateMutation = { __typename: 'Mutation', entryTypeCreate: { __typename: 'EntryTypeCreate', entryType: { __typename: 'EntryType', id: string, name: string, slug: string | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+
+export type EntryTypeUpdateMutationVariables = Exact<{
+  id?: InputMaybe<Scalars['ID']>;
+  input: EntryTypeInput;
+}>;
+
+
+export type EntryTypeUpdateMutation = { __typename: 'Mutation', entryTypeUpdate: { __typename: 'EntryTypeUpdate', entryType: { __typename: 'EntryType', id: string, name: string, slug: string | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+
+export type EntryTypeDeleteMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type EntryTypeDeleteMutation = { __typename: 'Mutation', entryTypeDelete: { __typename: 'EntryTypeDelete', errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+
+export type EntryTypesQueryVariables = Exact<{
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type EntryTypesQuery = { __typename: 'Query', entryTypes: { __typename: 'EntryTypeCountableConnection', edges: Array<{ __typename: 'EntryTypeCountableEdge', node: { __typename: 'EntryType', id: string, name: string, slug: string | null } }>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
+
+export type EntryTypeDetailsQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type EntryTypeDetailsQuery = { __typename: 'Query', entryType: { __typename: 'EntryType', id: string, name: string, slug: string | null } | null };
+
 export type EventsQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
@@ -1038,6 +1092,8 @@ export type ChannelListingEntryFragment = { __typename: 'EntryChannelListing', i
 export type EntryFragment = { __typename: 'Entry', id: string, name: string, slug: string, created: any | null, updated: any | null, categories: Array<{ __typename: 'Category', id: string, name: string }> | null, channelListings: Array<{ __typename: 'EntryChannelListing', isPublished: boolean, isActive: boolean, channel: { __typename: 'Channel', id: string, name: string } }> | null };
 
 export type EntryDetailsFragment = { __typename: 'Entry', id: string, name: string, slug: string, documentNumber: string | null, email: string | null, categories: Array<{ __typename: 'Category', id: string, name: string }> | null, attributes: Array<{ __typename: 'SelectedAttribute', attribute: { __typename: 'Attribute', id: string, name: string | null, slug: string | null, type: AttributeTypeEnum | null, visibleInWebsite: boolean, filterableInDashboard: boolean, filterableInWebsite: boolean, inputType: AttributeInputTypeEnum | null, entityType: AttributeEntityTypeEnum | null, valueRequired: boolean }, values: Array<{ __typename: 'AttributeValue', id: string, name: string | null, slug: string | null, boolean: boolean | null, date: any | null, value: string | null, plainText: string | null, reference: string | null, file: { __typename: 'File', url: string } | null }> }>, consult: Array<{ __typename: 'Consult', id: string, created: any | null, plugin: string | null, response: any | null }> | null, channelListings: Array<{ __typename: 'EntryChannelListing', isPublished: boolean, isActive: boolean, channel: { __typename: 'Channel', id: string, name: string } }> | null };
+
+export type EntryTypeFragment = { __typename: 'EntryType', id: string, name: string, slug: string | null };
 
 export type ErrorFragment = { __typename: 'Error', code: string | null, field: string | null, message: string | null };
 
