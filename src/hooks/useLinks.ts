@@ -12,6 +12,9 @@ export const useLinks = () => {
   const entryCreate = (type: string) => `/entries/${type}/create`;
   const entryDetails = (type: string, id: string) =>
     `/entries/${type}/details/${id}`;
+  const entryTypeList = () => `/entryTypes/`;
+  const entryTypeCreate = () => `/entryTypes/create`;
+  const entryTypeDetails = (id: string) => `/entryTypes/details/${id}`;
   const documentList = () => "/documents";
   const documentCreate = (type: string, entryId: string) =>
     `/entries/${type}/details/${entryId}/documents/create`;
@@ -36,6 +39,9 @@ export const useLinks = () => {
     entryList,
     entryCreate,
     entryDetails,
+    entryTypeList,
+    entryTypeCreate,
+    entryTypeDetails,
     documentList,
     documentCreate,
     documentDetails,
