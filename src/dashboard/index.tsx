@@ -29,7 +29,7 @@ const RoutesComponent = () => {
       <AppLayout>
         <Routes>
           <Route path="/*" element={<Home />} />
-          <Route path="/entries/:entry/*" element={<Entries />} />
+          <Route path="/entries/:entryTypeId/*" element={<Entries />} />
           <Route path="/documents/*" element={<Documents />} />
           <Route path="/activities/*" element={<Categories />} />
           <Route path="/sessions/*" element={<Sessions />} />

@@ -10,6 +10,7 @@ import { Savebar } from "@portal/components/Savebar";
 import {
   EntryErrorWithAttributesFragment,
   EntryInput,
+  EntryTypeDetailsFragment,
   SearchAttributesQuery,
   SearchAttributeValuesQuery,
   SearchCategoriesQuery,
@@ -33,7 +34,7 @@ interface EntryCreatePageProps {
   categories: RelayToFlat<SearchCategoriesQuery["search"]>;
   fetchCategories: (data: string) => void;
   fetchMoreCategories: FetchMoreProps;
-  attributes: RelayToFlat<SearchAttributesQuery["search"]>;
+  entryType: EntryTypeDetailsFragment;
   attributeValues: RelayToFlat<
     SearchAttributeValuesQuery["attribute"]["choices"]
   >;
@@ -49,7 +50,7 @@ export const EntryCreatePage = ({
   categories: categoryChoiceList,
   fetchCategories,
   fetchMoreCategories,
-  attributes,
+  entryType,
   attributeValues,
   fetchAttributeValues,
   fetchMoreAttributeValues,
@@ -58,7 +59,7 @@ export const EntryCreatePage = ({
   const navigate = useNavigate();
   const [selectedCategories, setSelectedCategories] = useStateFromProps([]);
   const categories = getChoices(categoryChoiceList);
-  const { entry: type } = useParams();
+  const { entryTypeId } = useParams();
   const { entryList } = useLinks();
   const { t } = useTranslation();
 
@@ -67,15 +68,15 @@ export const EntryCreatePage = ({
       onSubmit={onSubmit}
       loading={loading}
       categories={categories}
-      attributes={attributes}
+      attributes={entryType.entryAttributes}
       selectedCategories={selectedCategories}
       setSelectedCategories={setSelectedCategories}
     >
       {({ change, submit, data, handlers }) => {
         return (
           <>
-            <Backlink href={entryList(type)}>{t("back")}</Backlink>
-            <PageHeader title={t(`${type}.create`)} />
+            <Backlink href={entryList(entryTypeId)}>{t("back")}</Backlink>
+            <PageHeader title={`${t("entry.createTitle")} ${entryType.name}`} />
             <Grid container spacing={{ xs: 0, md: 2 }}>
               <Grid item xs={12} md={8}>
                 <EntryFormInfos
@@ -116,7 +117,7 @@ export const EntryCreatePage = ({
             </Grid>
             <Savebar
               onSubmit={submit}
-              onCancel={() => navigate(entryList(type))}
+              onCancel={() => navigate(entryList(entryTypeId))}
               loading={loading}
             />
           </>

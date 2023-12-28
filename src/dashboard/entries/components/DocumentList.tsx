@@ -35,7 +35,7 @@ export const DocumentList = ({
 }: DocumentListProps) => {
   const { id: entryId } = useParams();
   const { t } = useTranslation();
-  const { entry: type } = useParams();
+  const { entryTypeId } = useParams();
   const { documentCreate, documentDetails } = useLinks();
 
   return (
@@ -43,7 +43,10 @@ export const DocumentList = ({
       <CardHeader
         title={t("document.plural")}
         action={
-          <Button variant="outlined" href={documentCreate(type, entryId)}>
+          <Button
+            variant="outlined"
+            href={documentCreate(entryTypeId, entryId)}
+          >
             {t("add")}
           </Button>
         }

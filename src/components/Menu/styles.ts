@@ -44,6 +44,15 @@ export const MenuItem = styled(Box, {
   borderRadius: "0 8px 8px 0",
   width: "240px",
   transition: "all ease 300ms",
+  cursor: "pointer",
+}));
+
+export const SubMenuItem = styled(Box, {
+  shouldForwardProp: (prop) => prop !== "active",
+})<MenuItem>(({ active, theme }) => ({
+  padding: theme.spacing(0.5, 1, 1, 8),
+  color: active ? theme.palette.primary.main : theme.palette.text.secondary,
+  "&:hover": { color: theme.palette.primary.main },
 }));
 
 export const Label = styled(Typography)(({ theme }) => ({

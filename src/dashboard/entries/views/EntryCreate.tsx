@@ -8,8 +8,8 @@ import { EntryCreatePage } from "@portal/dashboard/entries/components/EntryCreat
 import {
   EntryCreateMutation,
   EntryInput,
-  useAttributesQuery,
   useEntryCreateMutation,
+  useEntryTypeDetailsQuery,
 } from "@portal/graphql";
 import { useLinks } from "@portal/hooks";
 import useCategorySearch from "@portal/searches/useCategorySearch";
@@ -17,9 +17,11 @@ import useAttributeValueSearchHandler from "@portal/utils/handlers/attributeValu
 import { mapEdgesToItems } from "@portal/utils/maps";
 
 import { mapType } from "./utils";
+import CircularLoading from "@portal/components/Circular";
+import NotFound from "@portal/components/NotFound";
 
 export const VehicleCreate = () => {
-  const { entry: type } = useParams();
+  const { entryTypeId } = useParams();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { entryDetails } = useLinks();
@@ -27,7 +29,7 @@ export const VehicleCreate = () => {
   const handleCreateVehicle = (data: EntryCreateMutation) => {
     if (!data?.entryCreate.errors.length) {
       toast(t("messages.create.success"), { type: toast.TYPE.SUCCESS });
-      navigate(entryDetails(type, data?.entryCreate.entry.id));
+      navigate(entryDetails(entryTypeId, data?.entryCreate.entry.id));
     }
   };
 
@@ -48,16 +50,12 @@ export const VehicleCreate = () => {
   } = useCategorySearch({
     variables: {
       ...DEFAULT_INITIAL_SEARCH_DATA,
-      type: mapType[type],
     },
   });
 
-  const { data: searchAttributeOpts } = useAttributesQuery({
+  const entryType = useEntryTypeDetailsQuery({
     fetchPolicy: "network-only",
-    variables: {
-      ...DEFAULT_INITIAL_SEARCH_DATA,
-      filter: { type: mapType[type] },
-    },
+    variables: { id: entryTypeId },
   });
 
   const {
@@ -80,6 +78,9 @@ export const VehicleCreate = () => {
     onFetchMore: loadMoreAttributeValues,
   };
 
+  if (entryType.loading) return <CircularLoading />;
+  if (!entryType.data) return <NotFound />;
+
   return (
     <EntryCreatePage
       onSubmit={handleSubmit}
@@ -88,7 +89,7 @@ export const VehicleCreate = () => {
       categories={mapEdgesToItems(searchCategoryOpts?.data?.search) || []}
       fetchCategories={searchCategory}
       fetchMoreCategories={fetchMoreCategories}
-      attributes={mapEdgesToItems(searchAttributeOpts?.attributes) || []}
+      entryType={entryType.data.entryType}
       attributeValues={
         mapEdgesToItems(searchAttributeValuesOpts?.data?.attribute.choices) ||
         []

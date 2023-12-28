@@ -14,6 +14,7 @@ import {
   EntryChannelListingErrorFragment,
   EntryDetailsQuery,
   EntryErrorWithAttributesFragment,
+  EntryTypeDetailsFragment,
   PublishableChannelListingInput,
   SearchAttributesQuery,
   SearchAttributeValuesQuery,
@@ -80,7 +81,7 @@ interface EntryDetailsPageProps {
   paginator: Paginator;
   fetchCategories: (data: string) => void;
   fetchMoreCategories: FetchMoreProps;
-  attributes: RelayToFlat<SearchAttributesQuery["search"]>;
+  entryType: EntryTypeDetailsFragment;
   attributeValues: RelayToFlat<
     SearchAttributeValuesQuery["attribute"]["choices"]
   >;
@@ -99,7 +100,7 @@ export const EntryDetailsPage = ({
   errors,
   loading,
   categories: categoryChoiceList,
-  attributes,
+  entryType,
   paginator,
   fetchCategories,
   fetchMoreCategories,
@@ -112,7 +113,7 @@ export const EntryDetailsPage = ({
   const navigate = useNavigate();
   const [channelPickerOpen, setChannelPickerOpen] = React.useState(false);
   const categories = getChoices(categoryChoiceList);
-  const { entry: type } = useParams();
+  const { entryTypeId } = useParams();
   const { entryList } = useLinks();
   const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -135,7 +136,7 @@ export const EntryDetailsPage = ({
       onSubmit={onSubmit}
       loading={loading}
       categories={categories}
-      attributes={attributes}
+      attributes={entryType.entryAttributes}
       selectedCategories={selectedCategories}
       setSelectedCategories={setSelectedCategories}
     >
@@ -153,22 +154,15 @@ export const EntryDetailsPage = ({
 
         return (
           <>
-            <Backlink href={entryList(type)}>{t("back")}</Backlink>
-            <PageHeader title={entry.name} />
+            <Backlink href={entryList(entryTypeId)}>{t("back")}</Backlink>
+            <PageHeader title={entry.name} limitText={entryType.name} />
             <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
               <Tabs
                 value={value}
                 onChange={handleChange}
                 aria-label="basic tabs example"
               >
-                <Tab
-                  label={
-                    type === "vehicles"
-                      ? t("vehicles.title")
-                      : t("providers.title")
-                  }
-                  {...a11yProps(0)}
-                />
+                <Tab label={t("entry.title")} {...a11yProps(0)} />
                 <Tab label={t("document.plural")} {...a11yProps(1)} />
                 <Tab label={t("consult.plural")} {...a11yProps(2)} />
               </Tabs>
@@ -221,7 +215,7 @@ export const EntryDetailsPage = ({
               </Grid>
               <Savebar
                 onSubmit={submit}
-                onCancel={() => navigate(entryList(type))}
+                onCancel={() => navigate(entryList(entryTypeId))}
                 onDelete={onDelete}
                 loading={loading}
               />

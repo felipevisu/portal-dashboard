@@ -18,7 +18,7 @@ export const entryTypes = gql`
 export const entryTypeDetails = gql`
   query EntryTypeDetails($id: ID!) {
     entryType(id: $id) {
-      ...EntryType
+      ...EntryTypeDetails
     }
   }
 `;

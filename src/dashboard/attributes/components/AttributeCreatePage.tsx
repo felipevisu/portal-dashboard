@@ -60,7 +60,7 @@ export const AttributeCreatePage = ({
   const initialData: AttributePageFormData = {
     name: "",
     slug: "",
-    type: AttributeTypeEnum.VEHICLE_AND_PROVIDER,
+    type: AttributeTypeEnum.ENTRY_TYPE,
     entityType: null,
     inputType: AttributeInputTypeEnum.DROPDOWN,
     valueRequired: false,

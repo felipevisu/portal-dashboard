@@ -9,29 +9,31 @@ import useAppChannel from "@portal/components/AppLayout/AppChannelContext";
 import { DEFAULT_INITIAL_SEARCH_DATA } from "@portal/config";
 import { filterable } from "@portal/dashboard/attributes/utils/data";
 import {
+  AttributeTypeEnum,
   EntryBulkDeleteMutation,
   useEntriesQuery,
   useEntryBulkDeleteMutation,
+  useEntryTypeDetailsQuery,
   useInitialEntryFilterAttributesQuery,
   useInitialEntryFilterCategoriesQuery,
 } from "@portal/graphql";
 import { useBulkActions, useFilterHandler, usePaginator } from "@portal/hooks";
 import useModal from "@portal/hooks/useModal";
-import useAttributeSearch from "@portal/searches/useAttributeSearch";
 import useAttributeValueSearch from "@portal/searches/useAttributeValueSearch";
 import useCategorySearch from "@portal/searches/useCategorySearch";
 import { mapEdgesToItems, mapNodeToChoice } from "@portal/utils/maps";
 
 import { EntryListPage } from "../../components/EntryListPage";
-import { mapType } from "../utils";
 
 import { getFilterOpts, getFilterVariables } from "./filters";
+import NotFound from "@portal/components/NotFound";
+import CircularLoading from "@portal/components/Circular";
 
 export const VehicleList = () => {
   const [searchParams] = useSearchParams();
   const [focusedAttribute, setFocusedAttribute] = useState<string>();
   const { pagination, handleNextPage, handlePreviousPage } = usePaginator();
-  const { entry: type } = useParams();
+  const { entryTypeId } = useParams();
   const { isSelected, listElements, toggle, toggleAll, reset } = useBulkActions(
     []
   );
@@ -39,10 +41,9 @@ export const VehicleList = () => {
 
   const { isOpen, openModal, closeModal } = useModal();
 
-  const { data: initialFilterAttributes } =
-    useInitialEntryFilterAttributesQuery({
-      variables: { type: mapType[type] },
-    });
+  const entryType = useEntryTypeDetailsQuery({
+    variables: { id: entryTypeId },
+  });
 
   const { data: initialFilterCategories } =
     useInitialEntryFilterCategoriesQuery({
@@ -56,15 +57,6 @@ export const VehicleList = () => {
     variables: {
       ...DEFAULT_INITIAL_SEARCH_DATA,
       first: 5,
-      type: mapType[type],
-    },
-  });
-
-  const searchAttributes = useAttributeSearch({
-    variables: {
-      ...DEFAULT_INITIAL_SEARCH_DATA,
-      first: 10,
-      type: mapType[type],
     },
   });
 
@@ -82,9 +74,9 @@ export const VehicleList = () => {
     ? mapNodeToChoice(availableChannels, (channel) => channel.slug)
     : null;
 
-  const attributes = (
-    mapEdgesToItems(initialFilterAttributes?.attributes) || []
-  ).filter(filterable);
+  const attributes = (entryType?.data?.entryType?.entryAttributes || []).filter(
+    filterable
+  );
 
   const { data, loading, refetch } = useEntriesQuery({
     fetchPolicy: "network-only",
@@ -92,7 +84,7 @@ export const VehicleList = () => {
       ...pagination,
       channel: searchParams.get("channel"),
       filter: {
-        type: mapType[type],
+        entryTypes: [entryTypeId],
         ...getFilterVariables(searchParams, attributes),
       },
     },
@@ -123,6 +115,9 @@ export const VehicleList = () => {
     channelOpts
   );
 
+  if (entryType.loading) return <CircularLoading />;
+  if (!entryType.data) return <NotFound />;
+
   return (
     <>
       <EntryListPage
@@ -130,6 +125,7 @@ export const VehicleList = () => {
         toggle={toggle}
         toggleAll={toggleAll}
         entries={mapEdgesToItems(data?.entries)}
+        entryType={entryType.data.entryType}
         selected={listElements.length}
         isChecked={isSelected}
         toolbar={

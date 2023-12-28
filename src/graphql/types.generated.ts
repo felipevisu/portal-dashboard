@@ -46,8 +46,7 @@ export type AttributeCreateInput = {
 
 /** An enumeration. */
 export enum AttributeEntityTypeEnum {
-  PROVIDER = 'PROVIDER',
-  VEHICLE = 'VEHICLE'
+  ENTRY = 'ENTRY'
 }
 
 export type AttributeFilterInput = {
@@ -105,10 +104,7 @@ export type AttributeSortingInput = {
 
 /** An enumeration. */
 export enum AttributeTypeEnum {
-  DOCUMENT = 'DOCUMENT',
-  PROVIDER = 'PROVIDER',
-  VEHICLE = 'VEHICLE',
-  VEHICLE_AND_PROVIDER = 'VEHICLE_AND_PROVIDER'
+  ENTRY_TYPE = 'ENTRY_TYPE'
 }
 
 export type AttributeUpdateInput = {
@@ -296,6 +292,7 @@ export type EntryFilterInput = {
   attributes?: InputMaybe<Array<AttributeInput>>;
   categories?: InputMaybe<Array<Scalars['ID']>>;
   channel?: InputMaybe<Scalars['String']>;
+  entryTypes?: InputMaybe<Array<Scalars['ID']>>;
   isPublished?: InputMaybe<Scalars['Boolean']>;
   search?: InputMaybe<Scalars['String']>;
   type?: InputMaybe<EntryTypeEnum>;
@@ -335,6 +332,8 @@ export enum EntryTypeEnum {
 }
 
 export type EntryTypeInput = {
+  /** List of attributes shared among all entries. */
+  entryAttributes?: InputMaybe<Array<Scalars['ID']>>;
   name?: InputMaybe<Scalars['String']>;
   slug?: InputMaybe<Scalars['String']>;
 };
@@ -490,6 +489,16 @@ export type SessionSortingInput = {
   /** Sort sessions by the selected field. */
   field: SessionSortField;
 };
+
+export type EntryTypeQueryVariables = Exact<{
+  before?: InputMaybe<Scalars['String']>;
+  after?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type EntryTypeQuery = { __typename: 'Query', entryTypes: { __typename: 'EntryTypeCountableConnection', edges: Array<{ __typename: 'EntryTypeCountableEdge', node: { __typename: 'EntryType', id: string, name: string, slug: string | null } }>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
 
 export type CheckDocumentLoadStatusQueryVariables = Exact<{
   id: Scalars['ID'];
@@ -848,9 +857,7 @@ export type EntryDetailsQueryVariables = Exact<{
 
 export type EntryDetailsQuery = { __typename: 'Query', entry: { __typename: 'Entry', id: string, name: string, slug: string, documentNumber: string | null, email: string | null, documents: { __typename: 'DocumentCountableConnection', edges: Array<{ __typename: 'DocumentCountableEdge', node: { __typename: 'Document', id: string, name: string, created: any | null, isPublished: boolean | null, expired: boolean | null, expires: boolean | null, defaultFile: { __typename: 'DocumentFile', id: string, beginDate: any | null, expirationDate: any | null } | null, entry: { __typename: 'Entry', id: string, name: string, type: EntryTypeEnum | null } | null } }>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null, categories: Array<{ __typename: 'Category', id: string, name: string }> | null, attributes: Array<{ __typename: 'SelectedAttribute', attribute: { __typename: 'Attribute', id: string, name: string | null, slug: string | null, type: AttributeTypeEnum | null, visibleInWebsite: boolean, filterableInDashboard: boolean, filterableInWebsite: boolean, inputType: AttributeInputTypeEnum | null, entityType: AttributeEntityTypeEnum | null, valueRequired: boolean }, values: Array<{ __typename: 'AttributeValue', id: string, name: string | null, slug: string | null, boolean: boolean | null, date: any | null, value: string | null, plainText: string | null, reference: string | null, file: { __typename: 'File', url: string } | null }> }>, consult: Array<{ __typename: 'Consult', id: string, created: any | null, plugin: string | null, response: any | null }> | null, channelListings: Array<{ __typename: 'EntryChannelListing', isPublished: boolean, isActive: boolean, channel: { __typename: 'Channel', id: string, name: string } }> | null } | null };
 
-export type InitialEntryFilterAttributesQueryVariables = Exact<{
-  type: AttributeTypeEnum;
-}>;
+export type InitialEntryFilterAttributesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type InitialEntryFilterAttributesQuery = { __typename: 'Query', attributes: { __typename: 'AttributeCountableConnection', edges: Array<{ __typename: 'AttributeCountableEdge', node: { __typename: 'Attribute', id: string, name: string | null, inputType: AttributeInputTypeEnum | null, slug: string | null } }> } | null };
@@ -899,7 +906,7 @@ export type EntryTypeDetailsQueryVariables = Exact<{
 }>;
 
 
-export type EntryTypeDetailsQuery = { __typename: 'Query', entryType: { __typename: 'EntryType', id: string, name: string, slug: string | null } | null };
+export type EntryTypeDetailsQuery = { __typename: 'Query', entryType: { __typename: 'EntryType', id: string, name: string, slug: string | null, entryAttributes: Array<{ __typename: 'Attribute', id: string, name: string | null, slug: string | null, type: AttributeTypeEnum | null, visibleInWebsite: boolean, filterableInDashboard: boolean, filterableInWebsite: boolean, inputType: AttributeInputTypeEnum | null, entityType: AttributeEntityTypeEnum | null, valueRequired: boolean }> | null } | null };
 
 export type EventsQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']>;
@@ -1095,6 +1102,8 @@ export type EntryDetailsFragment = { __typename: 'Entry', id: string, name: stri
 
 export type EntryTypeFragment = { __typename: 'EntryType', id: string, name: string, slug: string | null };
 
+export type EntryTypeDetailsFragment = { __typename: 'EntryType', id: string, name: string, slug: string | null, entryAttributes: Array<{ __typename: 'Attribute', id: string, name: string | null, slug: string | null, type: AttributeTypeEnum | null, visibleInWebsite: boolean, filterableInDashboard: boolean, filterableInWebsite: boolean, inputType: AttributeInputTypeEnum | null, entityType: AttributeEntityTypeEnum | null, valueRequired: boolean }> | null };
+
 export type ErrorFragment = { __typename: 'Error', code: string | null, field: string | null, message: string | null };
 
 export type BulkItemErrorFragment = { __typename: 'BulkItemError', code: string | null, field: string | null, message: string | null, index: number | null };
@@ -1135,7 +1144,6 @@ export type SearchAttributesQueryVariables = Exact<{
   after?: InputMaybe<Scalars['String']>;
   first: Scalars['Int'];
   query: Scalars['String'];
-  type: AttributeTypeEnum;
 }>;
 
 

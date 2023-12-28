@@ -7,3 +7,14 @@ export const entryTypeFragment = gql`
     slug
   }
 `;
+
+export const entryTypeDetailsFragment = gql`
+  fragment EntryTypeDetails on EntryType {
+    id
+    name
+    slug
+    entryAttributes {
+      ...Attribute
+    }
+  }
+`;

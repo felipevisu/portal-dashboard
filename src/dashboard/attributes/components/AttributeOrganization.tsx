@@ -20,9 +20,6 @@ import {
   ErrorFragment,
 } from "@portal/graphql";
 import { ChangeEvent } from "@portal/types";
-import { getFormErrors } from "@portal/utils/errors";
-
-import { getTypeList, mapType } from "../utils";
 
 interface AttributeOrganizationProps {
   data: AttributeCreateInput;
@@ -38,47 +35,11 @@ export const AttributeOrganization = ({
   onChange,
 }: AttributeOrganizationProps) => {
   const { t } = useTranslation();
-  const formErrors = getFormErrors(["type"], errors);
 
   return (
     <Card>
       <CardHeader title="Organização" />
       <CardContent>
-        {instance && (
-          <>
-            <Typography>
-              {t("attribute.fields.type")}: {mapType(t)[instance.type]}
-            </Typography>
-          </>
-        )}
-        {!instance && (
-          <>
-            <FormSpacer />
-            <FormControl fullWidth>
-              <InputLabel error={formErrors.type && true}>
-                {t("attribute.fields.type")}
-              </InputLabel>
-              <Select
-                fullWidth
-                name="type"
-                label={t("attribute.fields.type")}
-                value={data.type}
-                onChange={onChange}
-                error={formErrors.type && true}
-              >
-                {getTypeList(t).map((type) => (
-                  <MenuItem key={type.value} value={type.value}>
-                    {type.label}
-                  </MenuItem>
-                ))}
-              </Select>
-              <FormHelperText error={formErrors.type && true}>
-                {formErrors.type?.message}
-              </FormHelperText>
-            </FormControl>
-          </>
-        )}
-        <FormSpacer />
         <FormControl fullWidth>
           <ControlledCheckbox
             label={t("attribute.fields.visibleInWebsite")}

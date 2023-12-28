@@ -263,6 +263,16 @@ export const EntryTypeFragmentDoc = gql`
   slug
 }
     `;
+export const EntryTypeDetailsFragmentDoc = gql`
+    fragment EntryTypeDetails on EntryType {
+  id
+  name
+  slug
+  entryAttributes {
+    ...Attribute
+  }
+}
+    ${AttributeFragmentDoc}`;
 export const ErrorFragmentDoc = gql`
     fragment Error on Error {
   code
@@ -432,6 +442,52 @@ export const SessionDetailsFragmentDoc = gql`
   }
 }
     `;
+export const EntryTypeDocument = gql`
+    query EntryType($before: String, $after: String, $first: Int, $last: Int) {
+  entryTypes(before: $before, after: $after, first: $first, last: $last) {
+    edges {
+      node {
+        ...EntryType
+      }
+    }
+    pageInfo {
+      ...PageInfo
+    }
+  }
+}
+    ${EntryTypeFragmentDoc}
+${PageInfoFragmentDoc}`;
+
+/**
+ * __useEntryTypeQuery__
+ *
+ * To run a query within a React component, call `useEntryTypeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEntryTypeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useEntryTypeQuery({
+ *   variables: {
+ *      before: // value for 'before'
+ *      after: // value for 'after'
+ *      first: // value for 'first'
+ *      last: // value for 'last'
+ *   },
+ * });
+ */
+export function useEntryTypeQuery(baseOptions?: Apollo.QueryHookOptions<Types.EntryTypeQuery, Types.EntryTypeQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<Types.EntryTypeQuery, Types.EntryTypeQueryVariables>(EntryTypeDocument, options);
+      }
+export function useEntryTypeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.EntryTypeQuery, Types.EntryTypeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<Types.EntryTypeQuery, Types.EntryTypeQueryVariables>(EntryTypeDocument, options);
+        }
+export type EntryTypeQueryHookResult = ReturnType<typeof useEntryTypeQuery>;
+export type EntryTypeLazyQueryHookResult = ReturnType<typeof useEntryTypeLazyQuery>;
+export type EntryTypeQueryResult = Apollo.QueryResult<Types.EntryTypeQuery, Types.EntryTypeQueryVariables>;
 export const CheckDocumentLoadStatusDocument = gql`
     query CheckDocumentLoadStatus($id: ID!) {
   documentLoad(id: $id) {
@@ -2217,8 +2273,8 @@ export type EntryDetailsQueryHookResult = ReturnType<typeof useEntryDetailsQuery
 export type EntryDetailsLazyQueryHookResult = ReturnType<typeof useEntryDetailsLazyQuery>;
 export type EntryDetailsQueryResult = Apollo.QueryResult<Types.EntryDetailsQuery, Types.EntryDetailsQueryVariables>;
 export const InitialEntryFilterAttributesDocument = gql`
-    query InitialEntryFilterAttributes($type: AttributeTypeEnum!) {
-  attributes(first: 100, filter: {type: $type}) {
+    query InitialEntryFilterAttributes {
+  attributes(first: 100) {
     edges {
       node {
         id
@@ -2243,11 +2299,10 @@ export const InitialEntryFilterAttributesDocument = gql`
  * @example
  * const { data, loading, error } = useInitialEntryFilterAttributesQuery({
  *   variables: {
- *      type: // value for 'type'
  *   },
  * });
  */
-export function useInitialEntryFilterAttributesQuery(baseOptions: Apollo.QueryHookOptions<Types.InitialEntryFilterAttributesQuery, Types.InitialEntryFilterAttributesQueryVariables>) {
+export function useInitialEntryFilterAttributesQuery(baseOptions?: Apollo.QueryHookOptions<Types.InitialEntryFilterAttributesQuery, Types.InitialEntryFilterAttributesQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<Types.InitialEntryFilterAttributesQuery, Types.InitialEntryFilterAttributesQueryVariables>(InitialEntryFilterAttributesDocument, options);
       }
@@ -2461,10 +2516,10 @@ export type EntryTypesQueryResult = Apollo.QueryResult<Types.EntryTypesQuery, Ty
 export const EntryTypeDetailsDocument = gql`
     query EntryTypeDetails($id: ID!) {
   entryType(id: $id) {
-    ...EntryType
+    ...EntryTypeDetails
   }
 }
-    ${EntryTypeFragmentDoc}`;
+    ${EntryTypeDetailsFragmentDoc}`;
 
 /**
  * __useEntryTypeDetailsQuery__
@@ -3264,12 +3319,8 @@ export type SessionDetailsQueryHookResult = ReturnType<typeof useSessionDetailsQ
 export type SessionDetailsLazyQueryHookResult = ReturnType<typeof useSessionDetailsLazyQuery>;
 export type SessionDetailsQueryResult = Apollo.QueryResult<Types.SessionDetailsQuery, Types.SessionDetailsQueryVariables>;
 export const SearchAttributesDocument = gql`
-    query SearchAttributes($after: String, $first: Int!, $query: String!, $type: AttributeTypeEnum!) {
-  search: attributes(
-    after: $after
-    first: $first
-    filter: {search: $query, type: $type}
-  ) {
+    query SearchAttributes($after: String, $first: Int!, $query: String!) {
+  search: attributes(after: $after, first: $first, filter: {search: $query}) {
     edges {
       node {
         ...Attribute
@@ -3298,7 +3349,6 @@ ${PageInfoFragmentDoc}`;
  *      after: // value for 'after'
  *      first: // value for 'first'
  *      query: // value for 'query'
- *      type: // value for 'type'
  *   },
  * });
  */

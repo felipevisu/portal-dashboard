@@ -39,7 +39,7 @@ export const EntryList = ({
 }: EntryListProps) => {
   const numberOfColumns = entries?.length === 0 ? 4 : 5;
   const { t } = useTranslation();
-  const { entry: type } = useParams();
+  const { entryTypeId } = useParams();
   const { entryDetails } = useLinks();
 
   return (
@@ -67,7 +67,7 @@ export const EntryList = ({
                 key={entry ? entry.id : "skeleton"}
                 sx={{ cursor: "pointer" }}
                 selected={isSelected}
-                href={entryDetails(type, entry.id)}
+                href={entryDetails(entryTypeId, entry.id)}
               >
                 <TableCell padding="checkbox">
                   <Checkbox

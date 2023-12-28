@@ -36,12 +36,8 @@ export const getInputTypeList = (t) => {
 export const getEntityTypeList = (t) => {
   return [
     {
-      value: AttributeEntityTypeEnum.PROVIDER,
-      label: t("providers.plural"),
-    },
-    {
-      value: AttributeEntityTypeEnum.VEHICLE,
-      label: t("vehicles.plural"),
+      value: AttributeEntityTypeEnum.ENTRY,
+      label: t("entry.plural"),
     },
   ];
 };
@@ -49,25 +45,15 @@ export const getEntityTypeList = (t) => {
 export const getTypeList = (t) => {
   return [
     {
-      value: AttributeTypeEnum.VEHICLE_AND_PROVIDER,
-      label: t("attribute.enums.type.vehicleAndProvider"),
-    },
-    {
-      value: AttributeTypeEnum.PROVIDER,
-      label: t("attribute.enums.type.provider"),
-    },
-    {
-      value: AttributeTypeEnum.VEHICLE,
-      label: t("attribute.enums.type.vehicle"),
+      value: AttributeTypeEnum.ENTRY_TYPE,
+      label: t("attribute.enums.type.entryType"),
     },
   ];
 };
 
 export const mapType = (t) => {
   return {
-    VEHICLE_AND_PROVIDER: t("attribute.enums.type.vehicleAndProvider"),
-    VEHICLE: t("attribute.enums.type.vehicle"),
-    PROVIDER: t("attribute.enums.type.provider"),
+    ENTRY_TYPE: t("attribute.enums.type.entryType"),
   };
 };
 

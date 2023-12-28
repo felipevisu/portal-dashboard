@@ -48,8 +48,8 @@ export const entryDetailsQuery = gql`
 `;
 
 export const initialEntryFilterAttributesQuery = gql`
-  query InitialEntryFilterAttributes($type: AttributeTypeEnum!) {
-    attributes(first: 100, filter: { type: $type }) {
+  query InitialEntryFilterAttributes {
+    attributes(first: 100) {
       edges {
         node {
           id

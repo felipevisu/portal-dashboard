@@ -15,6 +15,7 @@ import {
   useConsultDocumentMutation,
   useEntryDeleteMutation,
   useEntryDetailsQuery,
+  useEntryTypeDetailsQuery,
 } from "@portal/graphql";
 import { useLinks, usePaginator } from "@portal/hooks";
 import useModal from "@portal/hooks/useModal";
@@ -28,7 +29,7 @@ import { mapType } from "../utils";
 import { useEntryUpdateHandler } from "./handler";
 
 export const EntryDetails = () => {
-  const { entry: type, id } = useParams();
+  const { entryTypeId, id } = useParams();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { isOpen, openModal, closeModal } = useModal();
@@ -67,19 +68,16 @@ export const EntryDetails = () => {
   };
 
   const [deleteVehicle] = useEntryDeleteMutation({
-    onCompleted: () => navigate(entryList(type)),
+    onCompleted: () => navigate(entryList(entryTypeId)),
   });
 
   const handleVehicleDelete = async () => {
     await deleteVehicle({ variables: { id } });
   };
 
-  const { data: searchAttributeOpts } = useAttributesQuery({
+  const entryType = useEntryTypeDetailsQuery({
     fetchPolicy: "network-only",
-    variables: {
-      ...DEFAULT_INITIAL_SEARCH_DATA,
-      filter: { type: mapType[type] },
-    },
+    variables: { id: entryTypeId },
   });
 
   const {
@@ -89,7 +87,6 @@ export const EntryDetails = () => {
   } = useCategorySearch({
     variables: {
       ...DEFAULT_INITIAL_SEARCH_DATA,
-      type: mapType[type],
     },
   });
 
@@ -117,9 +114,8 @@ export const EntryDetails = () => {
     refetch();
   }, []);
 
-  if (loading && !data?.entry) return <CircularLoading />;
-
-  if (!data?.entry) return <NotFound />;
+  if (loading || entryType.loading) return <CircularLoading />;
+  if (!data?.entry || !entryType.data) return <NotFound />;
 
   return (
     <>
@@ -135,7 +131,7 @@ export const EntryDetails = () => {
         paginator={paginator}
         fetchCategories={searchCategory}
         fetchMoreCategories={fetchMoreCategories}
-        attributes={mapEdgesToItems(searchAttributeOpts?.attributes) || []}
+        entryType={entryType.data.entryType}
         attributeValues={
           mapEdgesToItems(searchAttributeValuesOpts?.data?.attribute.choices) ||
           []

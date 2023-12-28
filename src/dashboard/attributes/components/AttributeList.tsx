@@ -14,7 +14,7 @@ import { AttributeFragment } from "@portal/graphql";
 import { useLinks } from "@portal/hooks";
 import { renderCollection } from "@portal/misc";
 
-import { mapInputType, mapType } from "../utils";
+import { mapInputType } from "../utils";
 import EmptyTable from "@portal/components/EmptyTable";
 
 interface AttributeListProps {
@@ -31,7 +31,6 @@ export const AttributeList = ({ loading, attributes }: AttributeListProps) => {
       <Table>
         <TableHead>
           <TableCellHeader>{t("attribute.fields.name")}</TableCellHeader>
-          <TableCellHeader>{t("attribute.fields.type")}</TableCellHeader>
           <TableCellHeader>{t("attribute.fields.inputType")}</TableCellHeader>
           <TableCellHeader>
             {t("attribute.fields.visibleInWebsite")}
@@ -50,7 +49,6 @@ export const AttributeList = ({ loading, attributes }: AttributeListProps) => {
                 href={attributeDetails(attribute.id)}
               >
                 <TableCell sx={{ paddingLeft: 3 }}>{attribute.name}</TableCell>
-                <TableCell>{mapType(t)[attribute.type]}</TableCell>
                 <TableCell>{mapInputType(t)[attribute.inputType]}</TableCell>
                 <TableCell>
                   {attribute.visibleInWebsite

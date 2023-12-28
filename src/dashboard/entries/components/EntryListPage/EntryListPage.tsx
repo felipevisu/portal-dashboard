@@ -7,7 +7,7 @@ import { Button } from "@portal/components/Button";
 import { FilterBar } from "@portal/components/FilterBar";
 import PageHeader from "@portal/components/PageHeader";
 import { Pagination } from "@portal/components/Pagination";
-import { EntryFragment } from "@portal/graphql";
+import { EntryFragment, EntryTypeDetailsFragment } from "@portal/graphql";
 import { useLinks } from "@portal/hooks";
 import { FilterPageProps, ListActions, PaginateListProps } from "@portal/types";
 
@@ -24,11 +24,13 @@ interface EntryListPageProps
     PaginateListProps,
     FilterPageProps<EntryFilterKeys, EntryListFilterOpts> {
   entries: EntryFragment[];
+  entryType: EntryTypeDetailsFragment;
   disabled: boolean;
 }
 
 export const EntryListPage = ({
   entries,
+  entryType,
   pageInfo,
   selected,
   toolbar,
@@ -45,17 +47,21 @@ export const EntryListPage = ({
   onFilterReset,
   onFilterAttributeFocus,
 }: EntryListPageProps) => {
-  const { entry: type } = useParams();
-  const { t } = useTranslation("translation", { keyPrefix: type });
+  const { entryTypeId } = useParams();
+  const { t } = useTranslation();
   const { entryCreate } = useLinks();
 
   const filterStructure = createFilterStructure(filterOpts);
 
   return (
     <>
-      <PageHeader title={t("plural")}>
-        <Button color="primary" variant="contained" href={entryCreate(type)}>
-          {t("create")}
+      <PageHeader title={entryType.name}>
+        <Button
+          color="primary"
+          variant="contained"
+          href={entryCreate(entryTypeId)}
+        >
+          {t("entry.create")}
         </Button>
       </PageHeader>
       <Card>

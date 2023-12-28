@@ -209,6 +209,9 @@
 	"email": "Email",
 	"empty": "Nenhum item cadastrado.",
 	"entry": {
+		"create": "Adicionar",
+		"createTitle": "Adicionar cadastro em: ",
+		"title": "Cadastro",
 		"deleteDialog": {
 			"title": "Excluir Cadastro",
 			"description": "Deseja mesmo excluir {{ name }}? Lembre-se esta ação não é reversível."
