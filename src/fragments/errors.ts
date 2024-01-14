@@ -42,3 +42,19 @@ export const entryChannelListingErrorFragment = gql`
     channels
   }
 `;
+
+export const entryAttributeAssignErrorFragment = gql`
+  fragment EntryAttributeAssignErrorFragment on EntryError {
+    code
+    field
+    message
+  }
+`;
+
+export const entryAttributeUnassignErrorFragment = gql`
+  fragment EntryAttributeUnassignErrorFragment on EntryError {
+    code
+    field
+    message
+  }
+`;

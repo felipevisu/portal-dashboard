@@ -1,3 +1,4 @@
+import { FetchResult, MutationResult } from "@apollo/client";
 import { MultiAutocompleteChoiceType } from "./components/Attributes/utils";
 import { IFilter } from "./components/Filter/types";
 import { PageInfoFragment } from "./graphql";
@@ -113,3 +114,11 @@ export interface SlugNode {
 }
 
 export type MinMax = Record<"min" | "max", string>;
+
+export interface PartialMutationProviderOutput<
+  TData extends {} = {},
+  TVariables extends {} = {}
+> {
+  opts: MutationResult<TData>;
+  mutate: (variables: TVariables) => Promise<FetchResult<TData>>;
+}

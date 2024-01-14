@@ -67,12 +67,12 @@ export const EntryDetails = () => {
     await consultDocument({ variables: { id } });
   };
 
-  const [deleteVehicle] = useEntryDeleteMutation({
+  const [deleteEntry] = useEntryDeleteMutation({
     onCompleted: () => navigate(entryList(entryTypeId)),
   });
 
-  const handleVehicleDelete = async () => {
-    await deleteVehicle({ variables: { id } });
+  const handleEntryDelete = async () => {
+    await deleteEntry({ variables: { id } });
   };
 
   const entryType = useEntryTypeDetailsQuery({
@@ -143,7 +143,7 @@ export const EntryDetails = () => {
       />
       <ActionDialog
         onClose={closeModal}
-        onConfirm={handleVehicleDelete}
+        onConfirm={handleEntryDelete}
         open={isOpen}
         title={t("entry.deleteDialog.title")}
         variant="delete"

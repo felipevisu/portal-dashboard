@@ -35,3 +35,32 @@ export const entryTypeDelete = gql`
     }
   }
 `;
+
+export const assignEntryAttributeMutation = gql`
+  mutation AssignEntryAttribute(
+    $id: ID!
+    $operations: [EntryAttributeAssignInput!]!
+  ) {
+    entryAttributeAssign(entryTypeId: $id, operations: $operations) {
+      errors {
+        ...EntryAttributeAssignErrorFragment
+      }
+      entryType {
+        ...EntryTypeDetails
+      }
+    }
+  }
+`;
+
+export const unassignEntryAttributeMutation = gql`
+  mutation UnassignEntryAttribute($id: ID!, $ids: [ID!]!) {
+    entryAttributeUnassign(entryTypeId: $id, attributeIds: $ids) {
+      errors {
+        ...EntryAttributeUnassignErrorFragment
+      }
+      entryType {
+        ...EntryTypeDetails
+      }
+    }
+  }
+`;

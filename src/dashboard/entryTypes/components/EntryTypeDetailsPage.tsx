@@ -7,6 +7,7 @@ import { Form } from "@portal/components/Form";
 import PageHeader from "@portal/components/PageHeader";
 import { Savebar } from "@portal/components/Savebar";
 import {
+  EntryTypeDetailsFragment,
   EntryTypeFragment,
   EntryTypeInput,
   ErrorFragment,
@@ -15,13 +16,16 @@ import { useLinks } from "@portal/hooks";
 import { SubmitPromise } from "@portal/hooks/useForm";
 
 import EntryTypeForm, { FormProps } from "./EntryTypeForm";
+import EntryTypeAttributes from "./EntryTypeAttributes";
 
 interface EntryTypeDetailsPageProps {
-  entryType: EntryTypeFragment;
+  entryType: EntryTypeDetailsFragment;
   onSubmit: (data: EntryTypeInput) => SubmitPromise;
   onDelete: () => void;
   errors: ErrorFragment[];
   loading: boolean;
+  onAssignAttribute: () => void;
+  onUnassignAttribute: () => void;
 }
 
 export const EntryTypeDetailsPage = ({
@@ -30,6 +34,8 @@ export const EntryTypeDetailsPage = ({
   onDelete,
   errors,
   loading,
+  onAssignAttribute,
+  onUnassignAttribute,
 }: EntryTypeDetailsPageProps) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -52,6 +58,11 @@ export const EntryTypeDetailsPage = ({
               onChange={change}
               data={data}
               disabled={loading}
+            />
+            <EntryTypeAttributes
+              attributes={entryType.entryAttributes}
+              onAssignAttribute={onAssignAttribute}
+              onUnassignAttribute={onUnassignAttribute}
             />
             <Savebar
               onSubmit={submit}

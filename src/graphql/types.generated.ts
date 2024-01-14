@@ -283,6 +283,11 @@ export type DocumentUpdateByEntryInput = {
   file?: InputMaybe<Scalars['Upload']>;
 };
 
+export type EntryAttributeAssignInput = {
+  /** The ID of the attribute to assign. */
+  id: Scalars['ID'];
+};
+
 export type EntryChannelListingUpdateInput = {
   removeChannels?: InputMaybe<Array<Scalars['ID']>>;
   updateChannels?: InputMaybe<Array<PublishableChannelListingInput>>;
@@ -891,6 +896,22 @@ export type EntryTypeDeleteMutationVariables = Exact<{
 
 export type EntryTypeDeleteMutation = { __typename: 'Mutation', entryTypeDelete: { __typename: 'EntryTypeDelete', errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
 
+export type AssignEntryAttributeMutationVariables = Exact<{
+  id: Scalars['ID'];
+  operations: Array<EntryAttributeAssignInput> | EntryAttributeAssignInput;
+}>;
+
+
+export type AssignEntryAttributeMutation = { __typename: 'Mutation', entryAttributeAssign: { __typename: 'EntryAttributeAssign', errors: Array<{ __typename: 'EntryError', code: string | null, field: string | null, message: string | null }>, entryType: { __typename: 'EntryType', id: string, name: string, slug: string | null, entryAttributes: Array<{ __typename: 'Attribute', id: string, name: string | null, slug: string | null, type: AttributeTypeEnum | null, visibleInWebsite: boolean, filterableInDashboard: boolean, filterableInWebsite: boolean, inputType: AttributeInputTypeEnum | null, entityType: AttributeEntityTypeEnum | null, valueRequired: boolean }> | null } | null } | null };
+
+export type UnassignEntryAttributeMutationVariables = Exact<{
+  id: Scalars['ID'];
+  ids: Array<Scalars['ID']> | Scalars['ID'];
+}>;
+
+
+export type UnassignEntryAttributeMutation = { __typename: 'Mutation', entryAttributeUnassign: { __typename: 'EntryAttributeUnassign', errors: Array<{ __typename: 'EntryError', code: string | null, field: string | null, message: string | null }>, entryType: { __typename: 'EntryType', id: string, name: string, slug: string | null, entryAttributes: Array<{ __typename: 'Attribute', id: string, name: string | null, slug: string | null, type: AttributeTypeEnum | null, visibleInWebsite: boolean, filterableInDashboard: boolean, filterableInWebsite: boolean, inputType: AttributeInputTypeEnum | null, entityType: AttributeEntityTypeEnum | null, valueRequired: boolean }> | null } | null } | null };
+
 export type EntryTypesQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
@@ -1114,6 +1135,10 @@ export type EntryErrorWithAttributesFragment = { __typename: 'EntryError', attri
 
 export type EntryChannelListingErrorFragment = { __typename: 'EntryChannelListingError', code: string | null, field: string | null, message: string | null, attributes: Array<string> | null, values: Array<string> | null, channels: Array<string> | null };
 
+export type EntryAttributeAssignErrorFragmentFragment = { __typename: 'EntryError', code: string | null, field: string | null, message: string | null };
+
+export type EntryAttributeUnassignErrorFragmentFragment = { __typename: 'EntryError', code: string | null, field: string | null, message: string | null };
+
 export type EventFragment = { __typename: 'Event', id: string, date: any | null, type: EventTypesEnum | null, message: string | null, userEmail: string | null, user: { __typename: 'User', id: string, email: string, firstName: string | null, lastName: string | null, isStaff: boolean | null } | null };
 
 export type EventDetailsFragment = { __typename: 'Event', id: string, date: any | null, type: EventTypesEnum | null, message: string | null, userEmail: string | null, documentName: string | null, user: { __typename: 'User', id: string, email: string, firstName: string | null, lastName: string | null, isStaff: boolean | null } | null, document: { __typename: 'Document', id: string, name: string, entry: { __typename: 'Entry', id: string, name: string } | null } | null };
@@ -1158,6 +1183,16 @@ export type SearchAttributeValuesQueryVariables = Exact<{
 
 
 export type SearchAttributeValuesQuery = { __typename: 'Query', attribute: { __typename: 'Attribute', id: string, choices: { __typename: 'AttributeValueCountableConnection', edges: Array<{ __typename: 'AttributeValueCountableEdge', node: { __typename: 'AttributeValue', plainText: string | null, id: string, name: string | null, slug: string | null, boolean: boolean | null, date: any | null, value: string | null, reference: string | null, file: { __typename: 'File', url: string } | null } }>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null } | null };
+
+export type SearchAvailableEntryAttributesQueryVariables = Exact<{
+  id: Scalars['ID'];
+  after?: InputMaybe<Scalars['String']>;
+  first: Scalars['Int'];
+  query: Scalars['String'];
+}>;
+
+
+export type SearchAvailableEntryAttributesQuery = { __typename: 'Query', entryType: { __typename: 'EntryType', id: string, availableAttributes: { __typename: 'AttributeCountableConnection', edges: Array<{ __typename: 'AttributeCountableEdge', node: { __typename: 'Attribute', id: string, name: string | null, slug: string | null } }>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null } | null };
 
 export type SearchCategoriesQueryVariables = Exact<{
   after?: InputMaybe<Scalars['String']>;

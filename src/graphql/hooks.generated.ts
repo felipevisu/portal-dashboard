@@ -311,6 +311,20 @@ export const EntryChannelListingErrorFragmentDoc = gql`
   channels
 }
     `;
+export const EntryAttributeAssignErrorFragmentFragmentDoc = gql`
+    fragment EntryAttributeAssignErrorFragment on EntryError {
+  code
+  field
+  message
+}
+    `;
+export const EntryAttributeUnassignErrorFragmentFragmentDoc = gql`
+    fragment EntryAttributeUnassignErrorFragment on EntryError {
+  code
+  field
+  message
+}
+    `;
 export const EventDetailsFragmentDoc = gql`
     fragment EventDetails on Event {
   id
@@ -2467,6 +2481,86 @@ export function useEntryTypeDeleteMutation(baseOptions?: Apollo.MutationHookOpti
 export type EntryTypeDeleteMutationHookResult = ReturnType<typeof useEntryTypeDeleteMutation>;
 export type EntryTypeDeleteMutationResult = Apollo.MutationResult<Types.EntryTypeDeleteMutation>;
 export type EntryTypeDeleteMutationOptions = Apollo.BaseMutationOptions<Types.EntryTypeDeleteMutation, Types.EntryTypeDeleteMutationVariables>;
+export const AssignEntryAttributeDocument = gql`
+    mutation AssignEntryAttribute($id: ID!, $operations: [EntryAttributeAssignInput!]!) {
+  entryAttributeAssign(entryTypeId: $id, operations: $operations) {
+    errors {
+      ...EntryAttributeAssignErrorFragment
+    }
+    entryType {
+      ...EntryTypeDetails
+    }
+  }
+}
+    ${EntryAttributeAssignErrorFragmentFragmentDoc}
+${EntryTypeDetailsFragmentDoc}`;
+export type AssignEntryAttributeMutationFn = Apollo.MutationFunction<Types.AssignEntryAttributeMutation, Types.AssignEntryAttributeMutationVariables>;
+
+/**
+ * __useAssignEntryAttributeMutation__
+ *
+ * To run a mutation, you first call `useAssignEntryAttributeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAssignEntryAttributeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [assignEntryAttributeMutation, { data, loading, error }] = useAssignEntryAttributeMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      operations: // value for 'operations'
+ *   },
+ * });
+ */
+export function useAssignEntryAttributeMutation(baseOptions?: Apollo.MutationHookOptions<Types.AssignEntryAttributeMutation, Types.AssignEntryAttributeMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Types.AssignEntryAttributeMutation, Types.AssignEntryAttributeMutationVariables>(AssignEntryAttributeDocument, options);
+      }
+export type AssignEntryAttributeMutationHookResult = ReturnType<typeof useAssignEntryAttributeMutation>;
+export type AssignEntryAttributeMutationResult = Apollo.MutationResult<Types.AssignEntryAttributeMutation>;
+export type AssignEntryAttributeMutationOptions = Apollo.BaseMutationOptions<Types.AssignEntryAttributeMutation, Types.AssignEntryAttributeMutationVariables>;
+export const UnassignEntryAttributeDocument = gql`
+    mutation UnassignEntryAttribute($id: ID!, $ids: [ID!]!) {
+  entryAttributeUnassign(entryTypeId: $id, attributeIds: $ids) {
+    errors {
+      ...EntryAttributeUnassignErrorFragment
+    }
+    entryType {
+      ...EntryTypeDetails
+    }
+  }
+}
+    ${EntryAttributeUnassignErrorFragmentFragmentDoc}
+${EntryTypeDetailsFragmentDoc}`;
+export type UnassignEntryAttributeMutationFn = Apollo.MutationFunction<Types.UnassignEntryAttributeMutation, Types.UnassignEntryAttributeMutationVariables>;
+
+/**
+ * __useUnassignEntryAttributeMutation__
+ *
+ * To run a mutation, you first call `useUnassignEntryAttributeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUnassignEntryAttributeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [unassignEntryAttributeMutation, { data, loading, error }] = useUnassignEntryAttributeMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      ids: // value for 'ids'
+ *   },
+ * });
+ */
+export function useUnassignEntryAttributeMutation(baseOptions?: Apollo.MutationHookOptions<Types.UnassignEntryAttributeMutation, Types.UnassignEntryAttributeMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Types.UnassignEntryAttributeMutation, Types.UnassignEntryAttributeMutationVariables>(UnassignEntryAttributeDocument, options);
+      }
+export type UnassignEntryAttributeMutationHookResult = ReturnType<typeof useUnassignEntryAttributeMutation>;
+export type UnassignEntryAttributeMutationResult = Apollo.MutationResult<Types.UnassignEntryAttributeMutation>;
+export type UnassignEntryAttributeMutationOptions = Apollo.BaseMutationOptions<Types.UnassignEntryAttributeMutation, Types.UnassignEntryAttributeMutationVariables>;
 export const EntryTypesDocument = gql`
     query EntryTypes($first: Int, $last: Int, $after: String, $before: String) {
   entryTypes(first: $first, last: $last, after: $after, before: $before) {
@@ -3412,6 +3506,55 @@ export function useSearchAttributeValuesLazyQuery(baseOptions?: Apollo.LazyQuery
 export type SearchAttributeValuesQueryHookResult = ReturnType<typeof useSearchAttributeValuesQuery>;
 export type SearchAttributeValuesLazyQueryHookResult = ReturnType<typeof useSearchAttributeValuesLazyQuery>;
 export type SearchAttributeValuesQueryResult = Apollo.QueryResult<Types.SearchAttributeValuesQuery, Types.SearchAttributeValuesQueryVariables>;
+export const SearchAvailableEntryAttributesDocument = gql`
+    query SearchAvailableEntryAttributes($id: ID!, $after: String, $first: Int!, $query: String!) {
+  entryType(id: $id) {
+    id
+    availableAttributes(after: $after, first: $first, filter: {search: $query}) {
+      edges {
+        node {
+          ...AvailableAttribute
+        }
+      }
+      pageInfo {
+        ...PageInfo
+      }
+    }
+  }
+}
+    ${AvailableAttributeFragmentDoc}
+${PageInfoFragmentDoc}`;
+
+/**
+ * __useSearchAvailableEntryAttributesQuery__
+ *
+ * To run a query within a React component, call `useSearchAvailableEntryAttributesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSearchAvailableEntryAttributesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSearchAvailableEntryAttributesQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *      after: // value for 'after'
+ *      first: // value for 'first'
+ *      query: // value for 'query'
+ *   },
+ * });
+ */
+export function useSearchAvailableEntryAttributesQuery(baseOptions: Apollo.QueryHookOptions<Types.SearchAvailableEntryAttributesQuery, Types.SearchAvailableEntryAttributesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<Types.SearchAvailableEntryAttributesQuery, Types.SearchAvailableEntryAttributesQueryVariables>(SearchAvailableEntryAttributesDocument, options);
+      }
+export function useSearchAvailableEntryAttributesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.SearchAvailableEntryAttributesQuery, Types.SearchAvailableEntryAttributesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<Types.SearchAvailableEntryAttributesQuery, Types.SearchAvailableEntryAttributesQueryVariables>(SearchAvailableEntryAttributesDocument, options);
+        }
+export type SearchAvailableEntryAttributesQueryHookResult = ReturnType<typeof useSearchAvailableEntryAttributesQuery>;
+export type SearchAvailableEntryAttributesLazyQueryHookResult = ReturnType<typeof useSearchAvailableEntryAttributesLazyQuery>;
+export type SearchAvailableEntryAttributesQueryResult = Apollo.QueryResult<Types.SearchAvailableEntryAttributesQuery, Types.SearchAvailableEntryAttributesQueryVariables>;
 export const SearchCategoriesDocument = gql`
     query SearchCategories($after: String, $first: Int!, $query: String!, $type: EntryTypeEnum) {
   search: categories(

@@ -1,4 +1,6 @@
+import { MutationFunction, MutationResult } from "@apollo/client";
 import moment from "moment";
+import { PartialMutationProviderOutput } from "./types";
 
 export function renderCollection<T>(
   collection: T[],
@@ -73,4 +75,17 @@ export function joinDateTime(date: string, time?: string) {
   const setTime = time || "00:00";
   const dateTime = moment(date + " " + setTime).format();
   return dateTime;
+}
+
+export function getMutationProviderData<
+  TData extends object,
+  TVariables extends object
+>(
+  mutateFn: MutationFunction<TData, TVariables>,
+  opts: MutationResult<TData>
+): PartialMutationProviderOutput<TData, TVariables> {
+  return {
+    mutate: (variables) => mutateFn({ variables }),
+    opts,
+  };
 }

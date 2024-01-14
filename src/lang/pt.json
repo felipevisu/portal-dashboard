@@ -225,7 +225,22 @@
 		"title": "Tipo de Cadastro",
 		"plural": "Tipos de Cadastro",
 		"create": "Adicionar Tipo de Cadastro",
-		"delete": "Excluir Tipo de Cadastro"
+		"delete": "Excluir Tipo de Cadastro",
+		"attributes": {
+			"title": "Atributos",
+			"add": "Adicionar atributos",
+			"dialog": {
+				"title": "Adicionar atributos"
+			},
+			"unassignDialog": {
+				"title": "Desvincular atribute deste tipo de cadastro",
+				"description": "Esta é uma ação irreversível e todos dados relacionados serão perdidos."
+			}
+		},
+		"deleteDialog":{
+			"title": "Excluir Tipo de Cadastro",
+			"description": "Atenção, esta ação é irreversível e todos os dados relacionados serão perdidos."
+		}
 	},
 	"entryTypes": "Veículo/Fornecedor",
 	"events": {
