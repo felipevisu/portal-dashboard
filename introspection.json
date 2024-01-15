@@ -6236,6 +6236,18 @@
             "deprecationReason": null
           },
           {
+            "name": "entryType",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "isPublished",
             "description": null,
             "type": {
@@ -6277,18 +6289,6 @@
             "type": {
               "kind": "SCALAR",
               "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "type",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "EntryTypeEnum",
               "ofType": null
             },
             "defaultValue": null,

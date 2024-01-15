@@ -16,7 +16,6 @@ import useCategorySearch from "@portal/searches/useCategorySearch";
 import useAttributeValueSearchHandler from "@portal/utils/handlers/attributeValueSearchHandler";
 import { mapEdgesToItems } from "@portal/utils/maps";
 
-import { mapType } from "./utils";
 import CircularLoading from "@portal/components/Circular";
 import NotFound from "@portal/components/NotFound";
 

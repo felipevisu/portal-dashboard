@@ -310,11 +310,11 @@ export type EntryInput = {
   categories?: InputMaybe<Array<Scalars['ID']>>;
   documentNumber?: InputMaybe<Scalars['String']>;
   email?: InputMaybe<Scalars['String']>;
+  entryType?: InputMaybe<Scalars['ID']>;
   isPublished?: InputMaybe<Scalars['Boolean']>;
   name?: InputMaybe<Scalars['String']>;
   phone?: InputMaybe<Scalars['String']>;
   slug?: InputMaybe<Scalars['String']>;
-  type?: InputMaybe<EntryTypeEnum>;
 };
 
 export enum EntrySortField {

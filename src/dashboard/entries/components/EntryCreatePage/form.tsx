@@ -25,8 +25,6 @@ import {
 } from "@portal/utils/data";
 import createMultiAutocompleteSelectHandler from "@portal/utils/handlers/multiAutocompleteSelectChangeHandler";
 
-import { mapType } from "../../views/utils";
-
 export interface UseEntryCreateFormOpts {
   attributes: AttributeFragment[];
   categories: SingleAutocompleteChoiceType[];
@@ -42,7 +40,7 @@ export interface EntryCreateFormData {
   categories: string[];
   email: string;
   documentNumber: string;
-  type: EntryTypeEnum;
+  entryType: string;
 }
 
 export interface EntryCreateData extends EntryCreateFormData {
@@ -69,14 +67,14 @@ const useEntryCreateForm = (
   loading: boolean,
   opts: UseEntryCreateFormOpts
 ): UseEntryCreateFormOutput => {
-  const { entry: type } = useParams();
+  const { entryTypeId } = useParams();
   const initialData = {
     name: "",
     slug: "",
     documentNumber: "",
     categories: [],
     email: "",
-    type: mapType[type],
+    entryType: entryTypeId,
   };
 
   const form = useForm(initialData, onSubmit);
