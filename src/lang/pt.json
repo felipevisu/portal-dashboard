@@ -56,12 +56,6 @@
 			"description": "Deseja mesmo excluir estes atributos? Lembre-se esta ação não é reversível."
 		},
 		"enums": {
-			"type": {
-				"document": "Documento",
-				"vehicleAndProvider": "Veículo e fornecedor",
-				"vehicle": "Veículo",
-				"provider": "Fornecedor"
-			},
 			"inputType": {
 				"dropdown": "Seleção",
 				"multiselect": "Múltipla seleção",
@@ -97,7 +91,11 @@
 		"title": "Atividade",
 		"plural": "Atividades",
 		"create": "Adicionar Atividade",
-		"delete": "Excluir Atividade"
+		"delete": "Excluir Atividade",
+		"deleteDialog": {
+			"title": "Excluir Atividade",
+			"description": "Deseja mesmo excluir a atividade {{ name }}? Lembre-se esta ação não é reversível."
+		}
 	},
 	"channel": {
 		"title": "Canal",

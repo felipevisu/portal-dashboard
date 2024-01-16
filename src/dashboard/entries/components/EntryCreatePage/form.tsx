@@ -8,11 +8,7 @@ import {
   createAttributeMultiChangeHandler,
   prepareAttributesInput,
 } from "@portal/dashboard/attributes/utils/handlers";
-import {
-  AttributeFragment,
-  AttributeValueInput,
-  EntryTypeEnum,
-} from "@portal/graphql";
+import { AttributeFragment, AttributeValueInput } from "@portal/graphql";
 import useForm, {
   CommonUseFormResultWithHandlers,
   FormChange,

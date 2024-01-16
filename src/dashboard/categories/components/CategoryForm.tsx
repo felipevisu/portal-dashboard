@@ -7,21 +7,16 @@ import {
   CardHeader,
   FormControl,
   FormHelperText,
-  Grid,
-  InputLabel,
-  MenuItem,
-  Select,
   TextField,
 } from "@mui/material";
 import FormSpacer from "@portal/components/FormSpacer";
-import { EntryTypeEnum, ErrorFragment } from "@portal/graphql";
+import { ErrorFragment } from "@portal/graphql";
 import { ChangeEvent } from "@portal/types";
 import { getFormErrors } from "@portal/utils/errors";
 
 export type FormProps = {
   name: string;
   slug: string;
-  type: EntryTypeEnum | null;
 };
 
 interface CategoryFormProps {
@@ -41,78 +36,41 @@ export const CategoryForm = ({
   const { t } = useTranslation();
 
   return (
-    <Grid container spacing={{ xs: 0, md: 2 }}>
-      <Grid item xs={12} md={8}>
-        <Card>
-          <CardHeader title={t("generalInfo")} />
-          <CardContent>
-            <FormControl fullWidth>
-              <TextField
-                error={formErrors.name && true}
-                fullWidth
-                type="text"
-                name="name"
-                label={t("name")}
-                value={data.name}
-                onChange={onChange}
-                helperText={formErrors.name?.message}
-                disabled={disabled}
-              />
-              <FormHelperText>{t("helperText.name")}</FormHelperText>
-            </FormControl>
-            <FormSpacer />
-            <FormControl fullWidth>
-              <TextField
-                error={formErrors.slug && true}
-                fullWidth
-                type="text"
-                name="slug"
-                label={t("slug")}
-                value={data.slug}
-                onChange={onChange}
-                helperText={formErrors.slug?.message}
-                disabled={disabled}
-              />
-              <FormHelperText>{t("helperText.slug")}</FormHelperText>
-            </FormControl>
-            <FormSpacer />
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid item xs={12} md={4}>
-        <Card>
-          <CardHeader title="Classificação" />
-          <CardContent>
-            <FormControl fullWidth>
-              <InputLabel error={formErrors.type && true}>
-                {t("type")}
-              </InputLabel>
-              <Select
-                fullWidth
-                name="type"
-                label={t("type")}
-                value={data.type}
-                onChange={onChange}
-                error={formErrors.type && true}
-                disabled={disabled}
-              >
-                {[
-                  { value: "VEHICLE", label: t("vehicles.title") },
-                  { value: "PROVIDER", label: t("providers.title") },
-                ].map((category) => (
-                  <MenuItem key={category.value} value={category.value}>
-                    {category.label}
-                  </MenuItem>
-                ))}
-              </Select>
-              <FormHelperText error={formErrors.type && true}>
-                {formErrors.type?.message}
-              </FormHelperText>
-            </FormControl>
-          </CardContent>
-        </Card>
-      </Grid>
-    </Grid>
+    <Card>
+      <CardHeader title={t("generalInfo")} />
+      <CardContent>
+        <FormControl fullWidth>
+          <TextField
+            error={formErrors.name && true}
+            fullWidth
+            type="text"
+            name="name"
+            label={t("name")}
+            value={data.name}
+            onChange={onChange}
+            helperText={formErrors.name?.message}
+            disabled={disabled}
+          />
+          <FormHelperText>{t("helperText.name")}</FormHelperText>
+        </FormControl>
+        <FormSpacer />
+        <FormControl fullWidth>
+          <TextField
+            error={formErrors.slug && true}
+            fullWidth
+            type="text"
+            name="slug"
+            label={t("slug")}
+            value={data.slug}
+            onChange={onChange}
+            helperText={formErrors.slug?.message}
+            disabled={disabled}
+          />
+          <FormHelperText>{t("helperText.slug")}</FormHelperText>
+        </FormControl>
+        <FormSpacer />
+      </CardContent>
+    </Card>
   );
 };
 

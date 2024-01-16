@@ -86,7 +86,6 @@ export const CategoryFragmentDoc = gql`
   id
   name
   slug
-  type
   totalEntries
 }
     `;
@@ -114,7 +113,10 @@ export const DocumentFragmentDoc = gql`
   entry {
     id
     name
-    type
+    entryType {
+      id
+      name
+    }
   }
 }
     `;
@@ -173,7 +175,10 @@ export const DocumentDetailsFragmentDoc = gql`
   entry {
     id
     name
-    type
+    entryType {
+      id
+      name
+    }
   }
 }
     ${DocumentFileFragmentDoc}
@@ -3556,12 +3561,8 @@ export type SearchAvailableEntryAttributesQueryHookResult = ReturnType<typeof us
 export type SearchAvailableEntryAttributesLazyQueryHookResult = ReturnType<typeof useSearchAvailableEntryAttributesLazyQuery>;
 export type SearchAvailableEntryAttributesQueryResult = Apollo.QueryResult<Types.SearchAvailableEntryAttributesQuery, Types.SearchAvailableEntryAttributesQueryVariables>;
 export const SearchCategoriesDocument = gql`
-    query SearchCategories($after: String, $first: Int!, $query: String!, $type: EntryTypeEnum) {
-  search: categories(
-    after: $after
-    first: $first
-    filter: {search: $query, type: $type}
-  ) {
+    query SearchCategories($after: String, $first: Int!, $query: String!) {
+  search: categories(after: $after, first: $first, filter: {search: $query}) {
     edges {
       node {
         id
@@ -3590,7 +3591,6 @@ export const SearchCategoriesDocument = gql`
  *      after: // value for 'after'
  *      first: // value for 'first'
  *      query: // value for 'query'
- *      type: // value for 'type'
  *   },
  * });
  */
@@ -3619,7 +3619,10 @@ export const ValidateTokenDocument = gql`
       }
       entry {
         name
-        type
+        entryType {
+          id
+          name
+        }
       }
     }
     errors {

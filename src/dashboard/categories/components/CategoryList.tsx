@@ -42,7 +42,6 @@ export const CategoryList = ({
           toolbar={toolbar}
         >
           <TableCellHeader>{t("name")}</TableCellHeader>
-          <TableCellHeader>{t("type")}</TableCellHeader>
           <TableCellHeader sx={{ width: 160, textAlign: "center" }}>
             {t("registrations")}
           </TableCellHeader>
@@ -67,11 +66,6 @@ export const CategoryList = ({
                   />
                 </TableCell>
                 <TableCell>{category.name}</TableCell>
-                <TableCellHeader>
-                  {category.type === "VEHICLE"
-                    ? t("vehicles.title")
-                    : t("providers.title")}
-                </TableCellHeader>
                 <TableCell sx={{ width: 160, textAlign: "center" }}>
                   {category.totalEntries}
                 </TableCell>

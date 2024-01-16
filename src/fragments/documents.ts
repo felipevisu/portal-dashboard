@@ -16,7 +16,10 @@ export const documentFragment = gql`
     entry {
       id
       name
-      type
+      entryType {
+        id
+        name
+      }
     }
   }
 `;
@@ -56,7 +59,10 @@ export const documentDetailsFragment = gql`
     entry {
       id
       name
-      type
+      entryType {
+        id
+        name
+      }
     }
   }
 `;

@@ -8,7 +8,12 @@ import PageHeader from "@portal/components/PageHeader";
 import { Pagination } from "@portal/components/Pagination";
 import { CategoryFragment } from "@portal/graphql";
 import useLinks from "@portal/hooks/useLinks";
-import { FilterPageProps, ListActions, PaginateListProps } from "@portal/types";
+import {
+  FilterPageProps,
+  ListActions,
+  PaginateListProps,
+  SearchPageProps,
+} from "@portal/types";
 
 import CategoryList from "./CategoryList";
 import {
@@ -16,11 +21,12 @@ import {
   CategoryListFilterOpts,
   createFilterStructure,
 } from "./filters";
+import SearchBar from "@portal/components/SearchBar";
 
 interface CategoryListPageProps
   extends ListActions,
     PaginateListProps,
-    FilterPageProps<CategoryFilterKeys, CategoryListFilterOpts> {
+    SearchPageProps {
   categories: CategoryFragment[];
   disabled: boolean;
 }
@@ -31,21 +37,16 @@ export const CategoryListPage = ({
   selected,
   toolbar,
   initialSearch,
-  filterOpts,
   toggle,
   toggleAll,
   isChecked,
   onNextPage,
   onPreviousPage,
   onSearchChange,
-  onFilterChange,
-  onFilterReset,
   disabled,
 }: CategoryListPageProps) => {
   const { t } = useTranslation();
   const { categoryCreate } = useLinks();
-
-  const filterStructure = createFilterStructure(filterOpts);
 
   return (
     <>
@@ -55,13 +56,10 @@ export const CategoryListPage = ({
         </Button>
       </PageHeader>
       <Card>
-        <FilterBar
+        <SearchBar
           initialSearch={initialSearch}
           onSearchChange={onSearchChange}
           searchPlaceholder="Pesquisar"
-          filterStructure={filterStructure}
-          onFilterChange={onFilterChange}
-          onFilterReset={onFilterReset}
         />
         <CategoryList
           selected={selected}

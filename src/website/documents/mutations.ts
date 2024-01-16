@@ -14,7 +14,10 @@ export const validateTokenMutation = gql`
         }
         entry {
           name
-          type
+          entryType {
+            id
+            name
+          }
         }
       }
       errors {

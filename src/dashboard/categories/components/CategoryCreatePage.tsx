@@ -30,7 +30,6 @@ export const CategoryCreatePage = ({
   const initialData: FormProps = {
     name: "",
     slug: "",
-    type: null,
   };
 
   return (

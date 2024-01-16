@@ -46,7 +46,7 @@ export const CategoryList = () => {
     onCompleted: handleCategoryBulkDelete,
   });
 
-  const [changeFilters, resetFilters, handleSearchChange] = useFilterHandler();
+  const [, , handleSearchChange] = useFilterHandler();
 
   const filterOpts = getFilterOpts(searchParams);
 
@@ -67,10 +67,7 @@ export const CategoryList = () => {
         onNextPage={handleNextPage}
         onPreviousPage={handlePreviousPage}
         pageInfo={data?.categories?.pageInfo}
-        filterOpts={filterOpts}
         onSearchChange={handleSearchChange}
-        onFilterChange={changeFilters}
-        onFilterReset={resetFilters}
         initialSearch={searchParams.get("search") || ""}
       />
       <ActionDialog
