@@ -50,7 +50,7 @@ export const InvestmentList = ({
           <TableCellHeader>{t("visibility")}</TableCellHeader>
         </TableHead>
         <TableBody>
-          {!disabled && !investments.length && <EmptyTable colSpan={5} />}
+          {!disabled && !investments?.length && <EmptyTable colSpan={5} />}
           {renderCollection(investments, (investment) => {
             const isSelected = investment ? isChecked(investment.id) : false;
             return (

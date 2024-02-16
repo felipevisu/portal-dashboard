@@ -66,12 +66,6 @@ export const SessionDetailsPage = ({
           <>
             <Backlink href="/sessions">{t("back")}</Backlink>
             <PageHeader title={session.name} />
-            <SessionForm
-              errors={errors}
-              onChange={change}
-              data={data}
-              disabled={loading}
-            />
             <Grid container spacing={2}>
               <Grid item xs={12} lg={8}>
                 <SessionForm

@@ -22,8 +22,8 @@ export const InvestmentList = () => {
   );
   const { isOpen, openModal, closeModal } = useModal();
 
-  const { data, loading, refetch } = useInvestmentsQuery({
-    fetchPolicy: "cache-and-network",
+  const { data, error, loading, refetch } = useInvestmentsQuery({
+    fetchPolicy: "network-only",
     variables: { ...pagination },
   });
 
@@ -38,6 +38,8 @@ export const InvestmentList = () => {
   const [investmentBulkDelete] = useInvestmentBulkDeleteMutation({
     onCompleted: handleInvestmentBulkDelete,
   });
+
+  console.log(data, error);
 
   return (
     <>
