@@ -92,7 +92,6 @@ export const PasswordReset = () => {
               />
               <FormSpacer />
               <TextField
-                autoFocus
                 fullWidth
                 type="password"
                 name="password2"
