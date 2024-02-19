@@ -27,7 +27,8 @@
 			"return": "Retornar para login",
 			"submit": "Enviar",
 			"fields": {
-				"password": "Senha"
+				"password": "Senha",
+				"password2": "Confirmação de senha"
 			},
 			"message": {
 				"success": "Senha redefinida com sucesso, retorne para a tela de login."

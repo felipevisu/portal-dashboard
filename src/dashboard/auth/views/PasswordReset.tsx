@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
 
@@ -28,6 +28,7 @@ export const PasswordReset = () => {
   const [success, setSuccess] = useState(false);
   const [form, setForm] = useState({
     password: "",
+    password2: "",
   });
   const [errors, setErrors] = useState<Array<ErrorFragment>>([]);
 
@@ -59,6 +60,12 @@ export const PasswordReset = () => {
     });
   };
 
+  const isButtonDisabled = useMemo(() => {
+    return (
+      (!form.password && !form.password2) || form.password !== form.password2
+    );
+  }, [form]);
+
   return (
     <Layout>
       <Card>
@@ -84,7 +91,17 @@ export const PasswordReset = () => {
                 onChange={handleChange}
               />
               <FormSpacer />
+              <TextField
+                autoFocus
+                fullWidth
+                type="password"
+                name="password2"
+                label={t("account.reset.fields.password2")}
+                onChange={handleChange}
+              />
+              <FormSpacer />
               <LoadingButton
+                disabled={isButtonDisabled}
                 loading={requestResult.loading}
                 sx={{ width: "100%" }}
                 color="primary"
