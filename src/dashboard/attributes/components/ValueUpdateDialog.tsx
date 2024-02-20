@@ -41,27 +41,25 @@ export const ValueUpdateDialog = ({
   return (
     <Form initial={initial} onSubmit={onConfirm}>
       {({ data, change, submit }) => (
-        <>
-          <ActionDialog
-            title={t("attribute.values.update")}
-            onConfirm={submit}
-            onClose={handleClose}
-            open={isOpen}
-          >
-            <Box sx={{ paddingTop: (theme) => theme.spacing(1) }}>
-              <FormControl fullWidth>
-                <TextField
-                  fullWidth
-                  name="name"
-                  error={!!formErrors.name}
-                  label={t("name")}
-                  value={data.name}
-                  onChange={change}
-                />
-              </FormControl>
-            </Box>
-          </ActionDialog>
-        </>
+        <ActionDialog
+          title={t("attribute.values.update")}
+          onConfirm={submit}
+          onClose={handleClose}
+          open={isOpen}
+        >
+          <Box sx={{ paddingTop: (theme) => theme.spacing(1) }}>
+            <FormControl fullWidth>
+              <TextField
+                fullWidth
+                name="name"
+                error={!!formErrors.name}
+                label={t("name")}
+                value={data.name}
+                onChange={change}
+              />
+            </FormControl>
+          </Box>
+        </ActionDialog>
       )}
     </Form>
   );

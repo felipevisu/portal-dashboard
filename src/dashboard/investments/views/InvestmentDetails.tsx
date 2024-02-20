@@ -11,17 +11,22 @@ import {
   InvestmentUpdateInput,
   InvestmentUpdateMutation,
   ItemCreateInput,
+  ItemInput,
+  ItemUpdateMutation,
   useInvestmentDeleteMutation,
   useInvestmentDetailsQuery,
   useInvestmentUpdateMutation,
   useItemCreateMutation,
   useItemDeleteMutation,
+  useItemUpdateMutation,
 } from "@portal/graphql";
 import { useLinks, useModal } from "@portal/hooks";
 
 import InvestmentDetailsPage from "../components/InvestmentDetailsPage";
 import ItemCreateDialog from "../components/ItemCreateDialog";
 import ItemDeleteDialog from "../components/ItemDeleteDialog";
+import ItemUpdateDialog from "../components/ItemUpdateDialog";
+import { itemFragmentToFormData } from "../utils/data";
 
 export const InvestmentDetails = () => {
   const { t } = useTranslation();
@@ -62,6 +67,7 @@ export const InvestmentDetails = () => {
 
   const createItemModal = useModal();
   const deleteItemModal = useModal();
+  const updateItemModal = useModal();
 
   const [createItem] = useItemCreateMutation({
     onCompleted: () => {
@@ -79,6 +85,16 @@ export const InvestmentDetails = () => {
     },
   });
 
+  const [updateItem, updateItemResult] = useItemUpdateMutation({
+    onCompleted: (data: ItemUpdateMutation) => {
+      if (!data.itemUpdate.errors.length) {
+        setSearchParams({});
+        updateItemModal.closeModal();
+        refetch();
+      }
+    },
+  });
+
   const handleItemCreate = (item: ItemCreateInput) => {
     createItem({ variables: { investmentId: id, input: item } });
   };
@@ -88,6 +104,13 @@ export const InvestmentDetails = () => {
     if (itemId) {
       deleteItem({ variables: { id: itemId } });
     }
+  };
+
+  const handleItemUpdate = async (input: ItemInput) => {
+    const valueId = searchParams.get("id");
+    await updateItem({
+      variables: { id: valueId, input: input },
+    });
   };
 
   if (loading) return <CircularLoading />;
@@ -111,12 +134,24 @@ export const InvestmentDetails = () => {
           </Button>
         }
         onDeleteItem={deleteItemModal.openModal}
+        onUpdateItem={updateItemModal.openModal}
         loading={updateInvestmentResult.loading}
       />
       <ItemCreateDialog
         isOpen={createItemModal.isOpen}
         onClose={createItemModal.closeModal}
         onConfirm={handleItemCreate}
+      />
+      <ItemUpdateDialog
+        item={itemFragmentToFormData(
+          data?.investment.items?.find(
+            (value) => searchParams.get("id") === value.id
+          ) ?? null
+        )}
+        errors={updateItemResult.data?.itemUpdate?.errors || []}
+        isOpen={updateItemModal.isOpen}
+        onClose={updateItemModal.closeModal}
+        onConfirm={handleItemUpdate}
       />
       <ItemDeleteDialog
         isOpen={deleteItemModal.isOpen}

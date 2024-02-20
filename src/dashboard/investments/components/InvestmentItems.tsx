@@ -18,15 +18,18 @@ import { Pagination } from "@portal/components/Pagination";
 import TableCellHeader from "@portal/components/TableCell";
 import { ItemFragment } from "@portal/graphql";
 import { formatMoney } from "@portal/utils/money";
+import TableRowLink from "@portal/components/TableRowLink";
 
 interface InvestmentItemsProps {
   onDeleteItem: () => void;
+  onUpdateItem: () => void;
   tollbar: React.ReactNode;
   items: ItemFragment[];
 }
 
 export const InvestmentItems = ({
   onDeleteItem,
+  onUpdateItem,
   tollbar,
   items,
 }: InvestmentItemsProps) => {
@@ -36,6 +39,11 @@ export const InvestmentItems = ({
   const handleItemDelete = (id: string) => {
     setSearchParams({ id });
     onDeleteItem();
+  };
+
+  const handleItemUpdate = (id: string) => {
+    setSearchParams({ id });
+    onUpdateItem();
   };
 
   return (
@@ -62,7 +70,12 @@ export const InvestmentItems = ({
               </TableRow>
             )}
             {items.map((item, index) => (
-              <TableRow key={index}>
+              <TableRowLink
+                key={index}
+                hover={true}
+                sx={{ cursor: "pointer" }}
+                onClick={() => handleItemUpdate(item.id)}
+              >
                 <TableCell sx={{ paddingLeft: 3 }}>{item.name}</TableCell>
                 <TableCell>{formatMoney(item.value)}</TableCell>
                 <TableCell align="right" sx={{ paddingRight: 3 }}>
@@ -70,7 +83,7 @@ export const InvestmentItems = ({
                     <Delete />
                   </IconButton>
                 </TableCell>
-              </TableRow>
+              </TableRowLink>
             ))}
           </TableBody>
         </Table>

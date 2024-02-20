@@ -28,6 +28,7 @@ interface InvestmentDetailsPageProps {
   loading: boolean;
   tollbar: React.ReactNode;
   onDeleteItem: () => void;
+  onUpdateItem: () => void;
 }
 
 export const InvestmentDetailsPage = ({
@@ -38,6 +39,7 @@ export const InvestmentDetailsPage = ({
   loading,
   tollbar,
   onDeleteItem,
+  onUpdateItem,
 }: InvestmentDetailsPageProps) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -71,6 +73,7 @@ export const InvestmentDetailsPage = ({
                   tollbar={tollbar}
                   items={investment.items}
                   onDeleteItem={onDeleteItem}
+                  onUpdateItem={onUpdateItem}
                 />
               </Grid>
               <Grid item xs={12} lg={4}>
