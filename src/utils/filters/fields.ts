@@ -58,3 +58,33 @@ export function createDateField<K extends string>(
     value: [defaultValue.min, defaultValue.max],
   };
 }
+
+export function createTextField<K extends string>(
+  name: K,
+  label: string,
+  defaultValue: string
+): FilterElementGeneric<K, FieldType.text> {
+  return {
+    active: false,
+    label,
+    multiple: false,
+    name,
+    type: FieldType.text,
+    value: [defaultValue],
+  };
+}
+
+export function createNumberField<K extends string>(
+  name: K,
+  label: string,
+  defaultValue: string
+): FilterElementGeneric<K, FieldType.number> {
+  return {
+    active: false,
+    label,
+    multiple: false,
+    name,
+    type: FieldType.number,
+    value: [defaultValue],
+  };
+}

@@ -29,7 +29,7 @@ export interface SearchProps {
   onSearchChange: (value: string) => void;
 }
 export interface SearchPageProps extends SearchProps {
-  initialSearch: string;
+  initialSearch?: string;
 }
 
 export interface ListActionsWithoutToolbar {

@@ -11,6 +11,7 @@ import FilterAutocompleteField, {
 } from "./FilterAutocompleteField";
 import FilterDateField from "./FilterDateField";
 import FilterOptionField from "./FilterOptionField";
+import FilterTextField from "./FilterTextField";
 
 const filterTestingContext = "filter-field-";
 
@@ -56,6 +57,13 @@ export const FilterContentBody = <K extends string = string>({
       {isFilterType(filter, FieldType.date) && (
         <FilterDateField
           filter={filter}
+          onFilterPropertyChange={onFilterPropertyChange}
+        />
+      )}
+      {isFilterType(filter, FieldType.number) && (
+        <FilterTextField
+          filter={filter}
+          type={"number"}
           onFilterPropertyChange={onFilterPropertyChange}
         />
       )}

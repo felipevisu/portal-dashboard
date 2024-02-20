@@ -58,6 +58,7 @@ export enum FieldType {
   date = "date",
   options = "options",
   text = "text",
+  number = "number",
   keyValue = "keyValue",
 }
 

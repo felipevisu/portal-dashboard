@@ -9,12 +9,21 @@ import {
   useInvestmentBulkDeleteMutation,
   useInvestmentsQuery,
 } from "@portal/graphql";
-import { useBulkActions, useModal, usePaginator } from "@portal/hooks";
-import { mapEdgesToItems } from "@portal/utils/maps";
+import {
+  useBulkActions,
+  useFilterHandler,
+  useModal,
+  usePaginator,
+} from "@portal/hooks";
+import { mapEdgesToItems, mapNodeToChoice } from "@portal/utils/maps";
 
-import InvestmentListPage from "../components/InvestmentListPage";
+import InvestmentListPage from "../components/InvestmentListPage/InvestmentListPage";
+import useAppChannel from "@portal/components/AppLayout/AppChannelContext";
+import { getFilterOpts, getFilterVariables } from "./filters";
+import { useSearchParams } from "react-router-dom";
 
 export const InvestmentList = () => {
+  const [searchParams] = useSearchParams();
   const { t } = useTranslation();
   const { pagination, handleNextPage, handlePreviousPage } = usePaginator();
   const { isSelected, listElements, toggle, toggleAll, reset } = useBulkActions(
@@ -22,9 +31,24 @@ export const InvestmentList = () => {
   );
   const { isOpen, openModal, closeModal } = useModal();
 
+  const [changeFilters, resetFilters, handleSearchChange] = useFilterHandler();
+
+  const { availableChannels } = useAppChannel();
+  const channelOpts = availableChannels
+    ? mapNodeToChoice(availableChannels, (channel) => channel.slug)
+    : null;
+
+  const filterOpts = getFilterOpts(searchParams, channelOpts);
+
   const { data, error, loading, refetch } = useInvestmentsQuery({
     fetchPolicy: "network-only",
-    variables: { ...pagination },
+    variables: {
+      ...pagination,
+      channel: searchParams.get("channel"),
+      filter: {
+        ...getFilterVariables(searchParams),
+      },
+    },
   });
 
   const handleInvestmentBulkDelete = (data: InvestmentBulkDeleteMutation) => {
@@ -38,8 +62,6 @@ export const InvestmentList = () => {
   const [investmentBulkDelete] = useInvestmentBulkDeleteMutation({
     onCompleted: handleInvestmentBulkDelete,
   });
-
-  console.log(data, error);
 
   return (
     <>
@@ -58,6 +80,10 @@ export const InvestmentList = () => {
         onNextPage={handleNextPage}
         onPreviousPage={handlePreviousPage}
         pageInfo={data?.investments?.pageInfo}
+        filterOpts={filterOpts}
+        onSearchChange={handleSearchChange}
+        onFilterChange={changeFilters}
+        onFilterReset={resetFilters}
       />
       <ActionDialog
         onClose={closeModal}
