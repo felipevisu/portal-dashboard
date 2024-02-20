@@ -47,7 +47,7 @@ export const SessionList = ({
           <TableCellHeader>{t("visibility")}</TableCellHeader>
         </TableHead>
         <TableBody>
-          {!disabled && !sessions.length && <EmptyTable colSpan={5} />}
+          {!disabled && !sessions?.length && <EmptyTable colSpan={5} />}
           {renderCollection(sessions, (session) => {
             const isSelected = sessions ? isChecked(session.id) : false;
             return (

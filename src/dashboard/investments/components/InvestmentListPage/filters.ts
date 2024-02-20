@@ -20,8 +20,8 @@ export type InvestmentFilterKeys =
 
 export interface InvestmentListFilterOpts {
   isPublished: FilterOpts<string>;
-  year: FilterOpts<number>;
-  month: FilterOpts<number>;
+  year: FilterOpts<string>;
+  month: FilterOpts<string>;
   channel: FilterOpts<string> & { choices: SingleAutocompleteChoiceType[] };
 }
 

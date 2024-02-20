@@ -6,11 +6,20 @@ import { Button } from "@portal/components/Button";
 import PageHeader from "@portal/components/PageHeader";
 import { Pagination } from "@portal/components/Pagination";
 import { SessionFragment } from "@portal/graphql";
-import { ListActions, PaginateListProps } from "@portal/types";
+import { FilterPageProps, ListActions, PaginateListProps } from "@portal/types";
 
 import SessionList from "./SessionList";
+import {
+  SessionFilterKeys,
+  SessionListFilterOpts,
+  createFilterStructure,
+} from "./filter";
+import FilterBar from "@portal/components/FilterBar";
 
-interface SessionListPageProps extends ListActions, PaginateListProps {
+interface SessionListPageProps
+  extends ListActions,
+    PaginateListProps,
+    FilterPageProps<SessionFilterKeys, SessionListFilterOpts> {
   sessions: SessionFragment[];
   disabled: boolean;
 }
@@ -20,6 +29,11 @@ export const SessionListPage = ({
   pageInfo,
   selected,
   toolbar,
+  initialSearch,
+  filterOpts,
+  onFilterChange,
+  onFilterReset,
+  onSearchChange,
   toggle,
   toggleAll,
   isChecked,
@@ -28,6 +42,9 @@ export const SessionListPage = ({
   disabled,
 }: SessionListPageProps) => {
   const { t } = useTranslation();
+
+  const filterStructure = createFilterStructure(filterOpts);
+
   return (
     <>
       <PageHeader title={t("session.plural")}>
@@ -36,6 +53,14 @@ export const SessionListPage = ({
         </Button>
       </PageHeader>
       <Card>
+        <FilterBar
+          initialSearch={initialSearch}
+          onSearchChange={onSearchChange}
+          searchPlaceholder="Pesquisar"
+          filterStructure={filterStructure}
+          onFilterChange={onFilterChange}
+          onFilterReset={onFilterReset}
+        />
         <SessionList
           selected={selected}
           sessions={sessions}

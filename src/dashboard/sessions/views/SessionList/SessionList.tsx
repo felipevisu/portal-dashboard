@@ -9,12 +9,21 @@ import {
   useSessionBulkDeleteMutation,
   useSessionsQuery,
 } from "@portal/graphql";
-import { useBulkActions, useModal, usePaginator } from "@portal/hooks";
-import { mapEdgesToItems } from "@portal/utils/maps";
+import {
+  useBulkActions,
+  useFilterHandler,
+  useModal,
+  usePaginator,
+} from "@portal/hooks";
+import { mapEdgesToItems, mapNodeToChoice } from "@portal/utils/maps";
 
-import SessionListPage from "../components/SessionListPage";
+import SessionListPage from "../../components/SessionListPage";
+import { getFilterOpts, getFilterVariables } from "./filter";
+import { useSearchParams } from "react-router-dom";
+import useAppChannel from "@portal/components/AppLayout/AppChannelContext";
 
 export const SessionList = () => {
+  const [searchParams] = useSearchParams();
   const { t } = useTranslation();
   const { pagination, handleNextPage, handlePreviousPage } = usePaginator();
 
@@ -24,9 +33,20 @@ export const SessionList = () => {
 
   const { isOpen, openModal, closeModal } = useModal();
 
+  const { availableChannels } = useAppChannel();
+  const channelOpts = availableChannels
+    ? mapNodeToChoice(availableChannels, (channel) => channel.slug)
+    : null;
+
   const { data, loading, refetch } = useSessionsQuery({
     fetchPolicy: "cache-and-network",
-    variables: { ...pagination },
+    variables: {
+      ...pagination,
+      channel: searchParams.get("channel"),
+      filter: {
+        ...getFilterVariables(searchParams),
+      },
+    },
   });
 
   const handleSessionBulkDelete = (data: SessionBulkDeleteMutation) => {
@@ -40,6 +60,12 @@ export const SessionList = () => {
   const [sessionBulkDelete] = useSessionBulkDeleteMutation({
     onCompleted: handleSessionBulkDelete,
   });
+
+  const [changeFilters, resetFilters, handleSearchChange] = useFilterHandler();
+
+  const filterOpts = getFilterOpts(searchParams, channelOpts);
+
+  console.log(data);
 
   return (
     <>
@@ -58,6 +84,11 @@ export const SessionList = () => {
         onNextPage={handleNextPage}
         onPreviousPage={handlePreviousPage}
         pageInfo={data?.sessions?.pageInfo}
+        filterOpts={filterOpts}
+        onSearchChange={handleSearchChange}
+        onFilterChange={changeFilters}
+        onFilterReset={resetFilters}
+        initialSearch={searchParams.get("search") || ""}
       />
       <ActionDialog
         onClose={closeModal}
