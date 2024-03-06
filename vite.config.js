@@ -7,6 +7,9 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   base: "https://aws-deploy.d2vvvkxhy37j37.amplifyapp.com/",
+  build: {
+    assetsDir: "",
+  },
   plugins: [react(), viteTsconfigPaths(), svgrPlugin()],
   resolve: {
     alias: {
