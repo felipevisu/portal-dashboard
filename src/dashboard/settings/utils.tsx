@@ -31,9 +31,9 @@ export const createConfigurationMenu = (): SettingsItem[] => {
       icon: <UsbIcon fontSize="large" />,
     },
     {
-      title: "Canais",
+      title: "Anunciantes",
       description:
-        "Crie um canal para cada público do seu site e organize seu conteúdo.",
+        "Crie um anunciante para cada público do seu site e organize seu conteúdo.",
       url: "/channels",
       icon: <PublicIcon fontSize="large" />,
     },

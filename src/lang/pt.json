@@ -99,18 +99,18 @@
 		}
 	},
 	"channel": {
-		"title": "Canal",
-		"plural": "Canais",
-		"create": "Adicionar Canal",
-		"delete": "Excluir Canal",
+		"title": "Anunciante",
+		"plural": "Anunciantes",
+		"create": "Adicionar Anunciante",
+		"delete": "Excluir Anunciante",
 		"dialog": {
-			"title": "Vincule o cadastro aos canais disponíveis."
+			"title": "Vincule o cadastro aos anunciantes disponíveis."
 		},
-		"availability": "Disponível em {{ available }} de {{ total }} canais.",
-		"createMessage": "Primeiro salve o cadastro para depoius vinculá-lo aos canais disponíveis.",
-		"visibility_zero": "{{ count }} canais",
-		"visibility_one": "{{ count }} canal",
-		"visibility_other": "{{ count }} canais"
+		"availability": "Disponível em {{ available }} de {{ total }} anunciantes.",
+		"createMessage": "Primeiro salve o cadastro para depoius vinculá-lo aos anunciantes disponíveis.",
+		"visibility_zero": "{{ count }} anunciantes",
+		"visibility_one": "{{ count }} anunciante",
+		"visibility_other": "{{ count }} anunciantes"
 	},
 	"clickHere": "Clique aqui",
 	"configurationType": "Tipo de configuração",
@@ -302,9 +302,9 @@
 		"plural": "Plugins",
 		"type": {
 			"global": "Global",
-			"channel": "Por canal"
+			"channel": "Por anunciante"
 		},
-		"commomConfiguration": "Esta configuração de Plugin é comum em todos os canais.",
+		"commomConfiguration": "Esta configuração de Plugin é comum em todos os anunciantes.",
 		"info": "Informações do Plugin e status",
 		"setActive": "Marcar Plugin como ativo",
 		"settings": "Configurações do Plugin",

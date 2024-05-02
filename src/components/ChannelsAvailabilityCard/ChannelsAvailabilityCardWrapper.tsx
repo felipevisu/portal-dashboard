@@ -22,7 +22,7 @@ export const ChannelsAvailabilityWrapper = ({
   return (
     <Card>
       <CardHeader
-        title="Canais"
+        title="Anunciantes"
         action={
           <Button onClick={openModal} color="primary" variant="outlined">
             {t("manage")}
