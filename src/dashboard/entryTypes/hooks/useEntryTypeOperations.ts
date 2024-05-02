@@ -1,3 +1,4 @@
+import useAppMenu from "@portal/components/AppLayout/AppMenuContext";
 import {
   AssignEntryAttributeMutation,
   EntryTypeDeleteMutation,
@@ -21,9 +22,13 @@ const useEntryTypeOperations = ({
 }: EntryTypeOperationsProps) => {
   const navigate = useNavigate();
   const { entryTypeList } = useLinks();
+  const { refetch: refetchMenu } = useAppMenu();
 
   const deleteEntryType = useEntryTypeDeleteMutation({
-    onCompleted: () => navigate(entryTypeList()),
+    onCompleted: () => {
+      refetchMenu();
+      navigate(entryTypeList());
+    },
   });
 
   const assignAttribute = useAssignEntryAttributeMutation({

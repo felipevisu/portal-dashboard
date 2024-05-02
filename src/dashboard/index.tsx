@@ -18,6 +18,7 @@ import Plugins from "./plugins";
 import Sessions from "./sessions";
 import Settings from "./settings";
 import EntryTypes from "./entryTypes";
+import { AppMenuProvider } from "@portal/components/AppLayout/AppMenuContext";
 
 const RoutesComponent = () => {
   const { authenticated, authenticating } = useUser();
@@ -50,9 +51,11 @@ const RoutesComponent = () => {
 export const Dashboard = () => {
   return (
     <AuthProvider>
-      <AppChannelProvider>
-        <RoutesComponent />
-      </AppChannelProvider>
+      <AppMenuProvider>
+        <AppChannelProvider>
+          <RoutesComponent />
+        </AppChannelProvider>
+      </AppMenuProvider>
     </AuthProvider>
   );
 };

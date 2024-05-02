@@ -1,83 +1,13 @@
 import React, { useEffect, useState } from "react";
-import i18n from "i18next";
 import { Link, useLocation } from "react-router-dom";
 
-import { AttachMoney } from "@mui/icons-material";
-import CategoryIcon from "@mui/icons-material/Category";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import DesignServicesIcon from "@mui/icons-material/DesignServices";
-import DisplaySettingsIcon from "@mui/icons-material/DisplaySettings";
-import EventNoteIcon from "@mui/icons-material/EventNote";
-import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
-import { useLinks } from "@portal/hooks";
-
 import { Label, MenuContent, MenuItem, MenuMain, SubMenuItem } from "./styles";
-import { useEntryTypesQuery } from "@portal/graphql";
-
-type MenuItemProps = {
-  label: string;
-  path: string;
-  icon: React.ReactNode;
-  subItems?: { label: string; path: string }[];
-};
-
-const useMenuItems = (): MenuItemProps[] => {
-  const { t } = i18n;
-  const links = useLinks();
-  const { data } = useEntryTypesQuery({ variables: { first: 10 } });
-
-  const entryTypesMenu =
-    data?.entryTypes?.edges?.map(({ node }) => ({
-      label: node.name,
-      path: links.entryList(node.id),
-      icon: <DashboardIcon />,
-    })) || [];
-
-  return [
-    {
-      label: t("homepage"),
-      path: links.homepage(),
-      icon: <DashboardIcon />,
-    },
-    {
-      label: t("category.plural"),
-      path: links.categoryList(),
-      icon: <CategoryIcon />,
-    },
-    {
-      label: "Cadastros",
-      path: "#",
-      icon: <DesignServicesIcon />,
-      subItems: entryTypesMenu,
-    },
-
-    {
-      label: t("document.plural"),
-      path: links.documentList(),
-      icon: <InsertDriveFileIcon />,
-    },
-    {
-      label: t("investment.plural"),
-      path: "/investments",
-      icon: <AttachMoney />,
-    },
-    {
-      label: t("session.plural"),
-      path: "/sessions",
-      icon: <EventNoteIcon />,
-    },
-    {
-      label: t("settings"),
-      path: "/settings",
-      icon: <DisplaySettingsIcon />,
-    },
-  ];
-};
+import useAppMenu from "../AppLayout/AppMenuContext";
 
 type ItemProps = {
   label: string;
   path: string;
-  icon: React.ReactNode | string;
+  icon?: React.ReactNode | string;
   active: boolean;
   subItems?: {
     label: string;
@@ -134,13 +64,13 @@ export const Item = ({ label, path, icon, active, subItems }: ItemProps) => {
 
 export const Menu = ({ opened }: { opened: boolean }) => {
   const location = useLocation();
-  const menuItems = useMenuItems();
+  const { menus } = useAppMenu();
 
   return (
     <MenuMain>
       <MenuContent opened={opened}>
         <ul>
-          {menuItems.map((item) => (
+          {menus.map((item) => (
             <Item
               key={item.path}
               {...item}

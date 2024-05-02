@@ -86,7 +86,7 @@ export const EntryCreatePage = ({
                   categories={categories}
                   disabled={loading}
                 />
-                {data.attributes.length && (
+                {data.attributes.length > 0 && (
                   <Attributes
                     attributes={data.attributes}
                     attributeValues={attributeValues}
