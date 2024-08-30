@@ -15,10 +15,10 @@ type MenuItem = { label: string; path: string; icon?: React.ReactNode };
 
 interface UseAppMenu {
   menus: (MenuItem & { subItems?: MenuItem[] })[];
-  refetch: () => undefined;
+  refetch: () => void;
 }
 
-const AppMenuContext = createContext({
+const AppMenuContext = createContext<UseAppMenu>({
   menus: [],
   refetch: () => undefined,
 });
