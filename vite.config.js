@@ -6,7 +6,7 @@ import viteTsconfigPaths from "vite-tsconfig-paths";
 import react from "@vitejs/plugin-react";
 
 export default defineConfig({
-  base: "https://main.d209t9j33vlfre.amplifyapp.com/",
+  base: "https://admin.publicidadedacidade.com.br/",
   build: {
     assetsDir: "",
   },
