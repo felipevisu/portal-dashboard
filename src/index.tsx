@@ -58,7 +58,7 @@ const RoutesComponent = () => {
 
 root.render(
   <ApolloProvider client={client}>
-    <BrowserRouter basename="/admin">
+    <BrowserRouter>
       <ColorModeProvider>
         <CssBaseline />
         <BackgroundTasksProvider>
