@@ -49,6 +49,8 @@ export const Home = () => {
     return <CircularLoading />;
   }
 
+  if (!events || !expired || !closeToExpire) return null;
+
   return (
     <Homepage
       events={mapEdgesToItems(events.events)}

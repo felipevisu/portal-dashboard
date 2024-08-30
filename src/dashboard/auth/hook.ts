@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { ApolloClient } from "@apollo/client";
+import { ApolloClient, useApolloClient } from "@apollo/client";
 import { useMeQuery, useTokenCreateMutation } from "@portal/graphql";
 import { deleteToken, setToken } from "@portal/lib/auth";
 
@@ -9,6 +9,7 @@ export interface UseAuthProviderOpts {
 }
 
 export function useAuthProvider({ apolloClient }) {
+  const client = useApolloClient();
   const [error, setError] = useState<string | undefined>();
   const [user, setUser] = useState(undefined);
   const [authenticated, setAuthenticated] = useState<boolean>(false);
@@ -53,6 +54,8 @@ export function useAuthProvider({ apolloClient }) {
 
   const handleLogout = () => {
     deleteToken();
+    client.stop();
+    client.clearStore();
     document.location.reload();
     window.location.pathname = "/";
   };

@@ -115,8 +115,10 @@ export const VehicleList = () => {
     channelOpts
   );
 
+  console.log(entryType);
+
   if (entryType.loading) return <CircularLoading />;
-  if (!entryType.data) return <NotFound />;
+  if (!entryType.data || entryType.data === undefined) return <NotFound />;
 
   return (
     <>

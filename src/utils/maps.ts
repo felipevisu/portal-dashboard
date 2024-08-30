@@ -12,7 +12,7 @@ interface Connection<T> {
 export function mapEdgesToItems<T>(
   data: Connection<T> | undefined
 ): T[] | undefined {
-  return data?.edges?.map(({ node }) => node);
+  return data?.edges?.map(({ node }) => node) || [];
 }
 
 type ExtendedNode = Node & Record<"name", string>;
