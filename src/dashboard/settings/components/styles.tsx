@@ -18,4 +18,5 @@ export const NavigationCard = styled(Paper)(({ theme }) => ({
   alignItems: "center",
   gap: theme.spacing(3),
   height: "100%",
+  borderRadius: theme.spacing(1),
 }));

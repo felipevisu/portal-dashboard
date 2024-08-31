@@ -31,6 +31,7 @@ export const Savebar = ({
           borderRadius: "8px 8px 0 0",
           paddingBottom: "0 !important",
           marginBottom: 0,
+          boxShadow: "0 0px 5px rgba(0, 0, 0, 0.1);",
         }}
       >
         <CardContent sx={{ paddingBottom: "16px !important" }}>

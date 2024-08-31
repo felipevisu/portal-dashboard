@@ -3,30 +3,17 @@ import { useTranslation } from "react-i18next";
 
 import { Card } from "@mui/material";
 import { Button } from "@portal/components/Button";
-import { FilterBar } from "@portal/components/FilterBar";
 import PageHeader from "@portal/components/PageHeader";
 import { Pagination } from "@portal/components/Pagination";
 import { CategoryFragment } from "@portal/graphql";
 import useLinks from "@portal/hooks/useLinks";
-import {
-  FilterPageProps,
-  ListActions,
-  PaginateListProps,
-  SearchPageProps,
-} from "@portal/types";
+import { PaginateListProps, SearchPageProps } from "@portal/types";
 
 import CategoryList from "./CategoryList";
-import {
-  CategoryFilterKeys,
-  CategoryListFilterOpts,
-  createFilterStructure,
-} from "./filters";
+
 import SearchBar from "@portal/components/SearchBar";
 
-interface CategoryListPageProps
-  extends ListActions,
-    PaginateListProps,
-    SearchPageProps {
+interface CategoryListPageProps extends PaginateListProps, SearchPageProps {
   categories: CategoryFragment[];
   disabled: boolean;
 }
@@ -34,12 +21,7 @@ interface CategoryListPageProps
 export const CategoryListPage = ({
   categories,
   pageInfo,
-  selected,
-  toolbar,
   initialSearch,
-  toggle,
-  toggleAll,
-  isChecked,
   onNextPage,
   onPreviousPage,
   onSearchChange,
@@ -61,15 +43,7 @@ export const CategoryListPage = ({
           onSearchChange={onSearchChange}
           searchPlaceholder="Pesquisar"
         />
-        <CategoryList
-          selected={selected}
-          categories={categories}
-          isChecked={isChecked}
-          toggle={toggle}
-          toggleAll={toggleAll}
-          toolbar={toolbar}
-          disabled={disabled}
-        />
+        <CategoryList categories={categories} disabled={disabled} />
         {pageInfo && (
           <Pagination
             pageInfo={pageInfo}
