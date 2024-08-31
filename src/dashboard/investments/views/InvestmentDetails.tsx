@@ -37,8 +37,9 @@ export const InvestmentDetails = () => {
 
   const { isOpen, openModal, closeModal } = useModal();
 
-  const { data, loading, refetch } = useInvestmentDetailsQuery({
+  const { data, loading, refetch, error } = useInvestmentDetailsQuery({
     variables: { id },
+    fetchPolicy: "cache-and-network",
   });
 
   const handleUpdateInvestment = (data: InvestmentUpdateMutation) => {
@@ -113,9 +114,8 @@ export const InvestmentDetails = () => {
     });
   };
 
+  if (error) return <NotFound />;
   if (loading) return <CircularLoading />;
-
-  if (!data?.investment) return <NotFound />;
 
   return (
     <>

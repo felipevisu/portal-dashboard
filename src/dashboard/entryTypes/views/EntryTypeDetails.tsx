@@ -29,9 +29,7 @@ import { mapEdgesToItems } from "@portal/utils/maps";
 export const EntryTypeDetails = () => {
   const { t } = useTranslation();
   const { id } = useParams();
-  const navigate = useNavigate();
-  const { entryTypeList } = useLinks();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const deleteModal = useModal();
   const assignAttributesModal = useModal();
   const unassignAttributeModal = useModal();
@@ -50,8 +48,9 @@ export const EntryTypeDetails = () => {
     formErrors: [],
   });
 
-  const { data, loading, refetch } = useEntryTypeDetailsQuery({
+  const { data, loading, refetch, error } = useEntryTypeDetailsQuery({
     variables: { id },
+    fetchPolicy: "cache-and-network",
   });
 
   const handleUpdateEntryType = (data: EntryTypeUpdateMutation) => {
@@ -123,9 +122,8 @@ export const EntryTypeDetails = () => {
     });
   };
 
+  if (error) return <NotFound />;
   if (loading) return <CircularLoading />;
-
-  if (!data?.entryType) return <NotFound />;
 
   return (
     <>

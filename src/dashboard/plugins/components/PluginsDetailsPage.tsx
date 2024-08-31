@@ -36,7 +36,6 @@ export interface PluginsDetailsPageProps {
   onEdit: (field: string) => void;
   onSubmit: (data: PluginDetailsPageFormData) => SubmitPromise;
   selectedConfig?: PluginConfigurationExtendedFragment;
-  setSelectedChannelId: (channelId: string) => void;
 }
 
 export const PluginsDetailsPage = ({
@@ -47,7 +46,6 @@ export const PluginsDetailsPage = ({
   onEdit,
   onSubmit,
   selectedConfig,
-  setSelectedChannelId,
 }: PluginsDetailsPageProps) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -65,10 +63,8 @@ export const PluginsDetailsPage = ({
       })),
   };
 
-  const selectedChannelId = selectedConfig?.channel?.id;
-
   return (
-    <Form initial={initialFormData} onSubmit={onSubmit} key={selectedChannelId}>
+    <Form initial={initialFormData} onSubmit={onSubmit}>
       {({ data, submit, set }) => {
         const onChange = (event: ChangeEvent) => {
           const { name, value } = event.target;
@@ -90,44 +86,33 @@ export const PluginsDetailsPage = ({
           <>
             <Backlink href={"/plugins"}>{t("back")}</Backlink>
             <PageHeader title={plugin.name} />
-            <Grid container spacing={{ xs: 0, md: 2 }}>
-              <Grid item xs={12} md={4}>
-                <PluginDetailsChannelsCard
-                  plugin={plugin}
-                  selectedChannelId={selectedChannelId}
-                  setSelectedChannelId={setSelectedChannelId}
-                />
-              </Grid>
-              <Grid item xs={12} md={8}>
-                <PluginInfo
+            <PluginInfo
+              data={data}
+              description={plugin?.description || ""}
+              errors={errors}
+              name={plugin?.name || ""}
+              onChange={onChange}
+            />
+            {data.configuration && (
+              <Box>
+                <PluginSettings
                   data={data}
-                  description={plugin?.description || ""}
+                  fields={selectedConfig?.configuration || []}
                   errors={errors}
-                  name={plugin?.name || ""}
+                  disabled={disabled}
                   onChange={onChange}
                 />
-                {data.configuration && (
-                  <Box>
-                    <PluginSettings
-                      data={data}
-                      fields={selectedConfig?.configuration || []}
-                      errors={errors}
-                      disabled={disabled}
-                      onChange={onChange}
-                    />
-                    {selectedConfig?.configuration.some((field) =>
-                      isSecretField(selectedConfig?.configuration, field.name)
-                    ) && (
-                      <PluginAuthorization
-                        fields={selectedConfig.configuration}
-                        onClear={onClear}
-                        onEdit={onEdit}
-                      />
-                    )}
-                  </Box>
+                {selectedConfig?.configuration.some((field) =>
+                  isSecretField(selectedConfig?.configuration, field.name)
+                ) && (
+                  <PluginAuthorization
+                    fields={selectedConfig.configuration}
+                    onClear={onClear}
+                    onEdit={onEdit}
+                  />
                 )}
-              </Grid>
-            </Grid>
+              </Box>
+            )}
             <Savebar
               loading={disabled}
               onCancel={() => navigate("/plugins")}

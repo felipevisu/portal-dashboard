@@ -17,6 +17,7 @@ import { mapEdgesToItems } from "@portal/utils/maps";
 import CategoryListPage from "../components/CategoryListPage";
 
 import { getFilterVariables } from "./filters";
+import NotFound from "@portal/components/NotFound";
 
 export const CategoryList = () => {
   const [searchParams] = useSearchParams();
@@ -29,8 +30,8 @@ export const CategoryList = () => {
 
   const { isOpen, openModal, closeModal } = useModal();
 
-  const { data, loading, refetch } = useCategoriesQuery({
-    fetchPolicy: "network-only",
+  const { data, loading, refetch, error } = useCategoriesQuery({
+    fetchPolicy: "cache-and-network",
     variables: { ...pagination, filter: getFilterVariables(searchParams) },
   });
 
@@ -47,6 +48,8 @@ export const CategoryList = () => {
   });
 
   const [, , handleSearchChange] = useFilterHandler();
+
+  if (error) return <NotFound />;
 
   return (
     <>

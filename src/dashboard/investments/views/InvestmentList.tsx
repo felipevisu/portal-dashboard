@@ -21,6 +21,7 @@ import InvestmentListPage from "../components/InvestmentListPage/InvestmentListP
 import useAppChannel from "@portal/components/AppLayout/AppChannelContext";
 import { getFilterOpts, getFilterVariables } from "./filters";
 import { useSearchParams } from "react-router-dom";
+import NotFound from "@portal/components/NotFound";
 
 export const InvestmentList = () => {
   const [searchParams] = useSearchParams();
@@ -41,7 +42,7 @@ export const InvestmentList = () => {
   const filterOpts = getFilterOpts(searchParams, channelOpts);
 
   const { data, error, loading, refetch } = useInvestmentsQuery({
-    fetchPolicy: "network-only",
+    fetchPolicy: "cache-and-network",
     variables: {
       ...pagination,
       channel: searchParams.get("channel"),
@@ -62,6 +63,8 @@ export const InvestmentList = () => {
   const [investmentBulkDelete] = useInvestmentBulkDeleteMutation({
     onCompleted: handleInvestmentBulkDelete,
   });
+
+  if (error) return <NotFound />;
 
   return (
     <>

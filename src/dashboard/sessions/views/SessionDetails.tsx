@@ -48,11 +48,12 @@ export const SessionDetails = () => {
     await deleteSession({ variables: { id } });
   };
 
-  const { data, loading } = useSessionDetailsQuery({ variables: { id: id } });
+  const { data, loading, error } = useSessionDetailsQuery({
+    variables: { id: id },
+  });
 
+  if (error) return <NotFound />;
   if (loading) return <CircularLoading />;
-
-  if (!data?.session) return <NotFound />;
 
   return (
     <>

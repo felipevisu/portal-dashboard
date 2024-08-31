@@ -43,6 +43,7 @@ export const VehicleList = () => {
 
   const entryType = useEntryTypeDetailsQuery({
     variables: { id: entryTypeId },
+    fetchPolicy: "cache-and-network",
   });
 
   const { data: initialFilterCategories } =
@@ -50,6 +51,7 @@ export const VehicleList = () => {
       variables: {
         categories: searchParams.getAll("categories"),
       },
+      fetchPolicy: "cache-and-network",
       skip: !searchParams.getAll("categories")?.length,
     });
 
@@ -79,7 +81,7 @@ export const VehicleList = () => {
   );
 
   const entries = useEntriesQuery({
-    fetchPolicy: "network-only",
+    fetchPolicy: "cache-and-network",
     variables: {
       ...pagination,
       channel: searchParams.get("channel"),
@@ -115,10 +117,13 @@ export const VehicleList = () => {
     channelOpts
   );
 
+  if (entryType.error || entries.error) return <NotFound />;
+  if (entryType.loading) return <CircularLoading />;
+
   return (
     <>
       <EntryListPage
-        disabled={entryType.loading || entries.loading}
+        disabled={entries.loading}
         toggle={toggle}
         toggleAll={toggleAll}
         entries={mapEdgesToItems(entries?.data?.entries)}

@@ -5,14 +5,17 @@ import { usePaginator } from "@portal/hooks";
 import { mapEdgesToItems } from "@portal/utils/maps";
 
 import EntryTypeListPage from "../components/EntryTypeListPage";
+import NotFound from "@portal/components/NotFound";
 
 export const EntryTypeList = () => {
   const { pagination, handleNextPage, handlePreviousPage } = usePaginator();
 
-  const { data, loading } = useEntryTypesQuery({
-    fetchPolicy: "network-only",
+  const { data, loading, error } = useEntryTypesQuery({
+    fetchPolicy: "cache-and-network",
     variables: { ...pagination },
   });
+
+  if (error) return <NotFound />;
 
   return (
     <>

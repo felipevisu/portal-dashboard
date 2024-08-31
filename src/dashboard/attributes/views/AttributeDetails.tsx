@@ -39,8 +39,9 @@ export const AttributeDetails = () => {
 
   const { pagination, handleNextPage, handlePreviousPage } = usePaginator();
 
-  const { data, loading, refetch } = useAttributeDetailsQuery({
+  const { data, loading, refetch, error } = useAttributeDetailsQuery({
     variables: { id, ...pagination },
+    fetchPolicy: "cache-and-network",
   });
 
   const handleUpdateAttribute = (data: AttributeUpdateMutation) => {
@@ -116,9 +117,8 @@ export const AttributeDetails = () => {
     }
   };
 
+  if (error) return <NotFound />;
   if (loading) return <CircularLoading />;
-
-  if (!data?.attribute) return <NotFound />;
 
   return (
     <>

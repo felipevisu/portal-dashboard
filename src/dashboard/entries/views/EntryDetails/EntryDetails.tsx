@@ -24,7 +24,6 @@ import useAttributeValueSearchHandler from "@portal/utils/handlers/attributeValu
 import { mapEdgesToItems } from "@portal/utils/maps";
 
 import { EntryDetailsPage } from "../../components/EntryDetailsPage";
-import { mapType } from "../utils";
 
 import { useEntryUpdateHandler } from "./handler";
 
@@ -36,21 +35,22 @@ export const EntryDetails = () => {
   const paginator = usePaginator();
   const { entryList } = useLinks();
 
-  const { data, loading, refetch } = useEntryDetailsQuery({
+  const entry = useEntryDetailsQuery({
     variables: { id: id, ...paginator.pagination },
+    fetchPolicy: "cache-and-network",
   });
 
   const { availableChannels } = useAppChannel();
 
   const [updateEntry, updateEntryResult] = useEntryUpdateHandler(
-    data?.entry,
-    refetch
+    entry.data?.entry,
+    entry.refetch
   );
 
   const handleConsultDocumentResult = (data: ConsultDocumentMutation) => {
     if (!data?.consultDocument?.errors.length) {
       toast(t("consult.success"), { type: toast.TYPE.SUCCESS });
-      refetch();
+      entry.refetch();
     }
     if (data?.consultDocument?.errors.length) {
       toast(data.consultDocument.errors[0].message, {
@@ -76,7 +76,7 @@ export const EntryDetails = () => {
   };
 
   const entryType = useEntryTypeDetailsQuery({
-    fetchPolicy: "network-only",
+    fetchPolicy: "cache-and-network",
     variables: { id: entryTypeId },
   });
 
@@ -110,19 +110,15 @@ export const EntryDetails = () => {
     onFetchMore: loadMoreAttributeValues,
   };
 
-  useEffect(() => {
-    refetch();
-  }, []);
-
-  if (loading || entryType.loading) return <CircularLoading />;
-  if (!data?.entry || !entryType.data) return <NotFound />;
+  if (entry.loading || entryType.loading) return <CircularLoading />;
+  if (entryType.error || entry.error) return <NotFound />;
 
   return (
     <>
       <EntryDetailsPage
         channels={availableChannels}
         channelsErrors={[]}
-        entry={data?.entry}
+        entry={entry?.data?.entry}
         onSubmit={updateEntry}
         onDelete={openModal}
         errors={updateEntryResult.errors}
@@ -131,7 +127,7 @@ export const EntryDetails = () => {
         paginator={paginator}
         fetchCategories={searchCategory}
         fetchMoreCategories={fetchMoreCategories}
-        entryType={entryType.data.entryType}
+        entryType={entryType?.data?.entryType}
         attributeValues={
           mapEdgesToItems(searchAttributeValuesOpts?.data?.attribute.choices) ||
           []
@@ -150,7 +146,7 @@ export const EntryDetails = () => {
       >
         <DialogContentText>
           {t("channel.deleteDialog.description", {
-            name: data.entry.name,
+            name: entry.data.entry.name,
           })}
         </DialogContentText>
       </ActionDialog>

@@ -23,6 +23,7 @@ import PluginSecretFieldDialog from "../components/PluginSecretFieldDialog";
 import { isSecretField } from "../utils";
 
 import { getConfigByChannelId, isPluginGlobal } from "./utils";
+import NotFound from "@portal/components/NotFound";
 
 export function getConfigurationInput(
   config: ConfigurationItemFragment[] | null,
@@ -47,26 +48,13 @@ export const PluginDetails = () => {
   const clearModal = useModal();
   const fieldModal = useModal();
 
-  const { data, loading } = usePluginQuery({
+  const { data, loading, error } = usePluginQuery({
     variables: { id: id },
+    fetchPolicy: "cache-and-network",
   });
 
   const plugin = data?.plugin;
-
-  const initialSelectedChannelValue =
-    plugin && !isPluginGlobal(plugin.globalConfiguration)
-      ? plugin.channelConfigurations[0].channel.id
-      : null;
-
-  const [selectedChannelId, setSelectedChannelId] = useStateFromProps(
-    initialSelectedChannelValue
-  );
-
-  const selectedConfig = isPluginGlobal(plugin?.globalConfiguration)
-    ? plugin?.globalConfiguration
-    : plugin?.channelConfigurations.find(
-        getConfigByChannelId(selectedChannelId)
-      );
+  const selectedConfig = plugin?.globalConfiguration;
 
   const [pluginUpdate, pluginUpdateOpts] = usePluginUpdateMutation({
     onCompleted: (data) => {
@@ -83,7 +71,6 @@ export const PluginDetails = () => {
   const handleFieldUpdate = async (value: string) => {
     await pluginUpdate({
       variables: {
-        channelId: selectedChannelId,
         id,
         input: {
           configuration: [
@@ -100,7 +87,6 @@ export const PluginDetails = () => {
   const handleSubmit = async (formData: PluginDetailsPageFormData) => {
     await pluginUpdate({
       variables: {
-        channelId: selectedChannelId,
         id,
         input: {
           active: formData.active,
@@ -113,16 +99,17 @@ export const PluginDetails = () => {
     });
   };
 
-  const handleFieldEdit = (id) => {
+  const handleFieldEdit = (id: string) => {
     setFieldId(id);
     fieldModal.openModal();
   };
 
-  const handleFieldClear = (id) => {
+  const handleFieldClear = (id: string) => {
     setFieldId(id);
     clearModal.openModal();
   };
 
+  if (error) return <NotFound />;
   if (loading) return <CircularLoading />;
 
   return (
@@ -135,7 +122,6 @@ export const PluginDetails = () => {
         onEdit={handleFieldEdit}
         onSubmit={handleSubmit}
         selectedConfig={selectedConfig}
-        setSelectedChannelId={setSelectedChannelId}
       />
       {selectedConfig && fieldId && (
         <>

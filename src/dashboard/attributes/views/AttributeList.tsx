@@ -5,16 +5,19 @@ import { usePaginator } from "@portal/hooks";
 import { mapEdgesToItems } from "@portal/utils/maps";
 
 import AttributeListPage from "../components/AttributeListPage";
+import NotFound from "@portal/components/NotFound";
 
 export const AttributeList = () => {
   const { pagination, handleNextPage, handlePreviousPage } = usePaginator();
 
-  const { data, loading } = useAttributesQuery({
-    fetchPolicy: "network-only",
+  const { data, loading, error } = useAttributesQuery({
+    fetchPolicy: "cache-and-network",
     variables: {
       ...pagination,
     },
   });
+
+  if (error) return <NotFound />;
 
   return (
     <AttributeListPage

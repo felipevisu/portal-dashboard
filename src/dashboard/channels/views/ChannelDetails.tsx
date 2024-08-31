@@ -27,8 +27,9 @@ export const ChannelDetails = () => {
   const { refreshChannels } = useAppChannel();
   const { isOpen, openModal, closeModal } = useModal();
 
-  const { data, loading } = useChannelDetailsQuery({
+  const { data, loading, error } = useChannelDetailsQuery({
     variables: { id },
+    fetchPolicy: "cache-and-network",
   });
 
   const handleUpdateChannel = (data: ChannelUpdateMutation) => {
@@ -59,9 +60,8 @@ export const ChannelDetails = () => {
     });
   };
 
+  if (error) return <NotFound />;
   if (loading) return <CircularLoading />;
-
-  if (!data?.channel) return <NotFound />;
 
   return (
     <>

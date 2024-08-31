@@ -24,11 +24,11 @@ import DocumentDetailsPage from "../components/DocumentDetailsPage";
 import { useDocumentActions } from "./hooks";
 
 export const DocumentDetails = () => {
-  const { id } = useParams();
+  const { entryTypeId, id } = useParams();
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { data, loading, refetch } = useDocumentDetailsQuery({
-    fetchPolicy: "network-only",
+  const { data, loading, refetch, error } = useDocumentDetailsQuery({
+    fetchPolicy: "cache-and-network",
     variables: { id: id },
   });
   const deleteModal = useModal();
@@ -52,14 +52,8 @@ export const DocumentDetails = () => {
     await updateDocument({ variables: { id, input: data } });
   };
 
-  const entryDetailsURL = useMemo(() => {
-    const type =
-      data?.document.entry.type === "VEHICLE" ? "vehicles" : "providers";
-    return entryDetails(type, data?.document.entry.id) + "?tab=1";
-  }, [data]);
-
   const [deleteDocument] = useDocumentDeleteMutation({
-    onCompleted: () => navigate(entryDetailsURL),
+    onCompleted: () => navigate(entryDetails(entryTypeId, id)),
   });
 
   const handleDocumentDelete = async () => {
@@ -114,9 +108,8 @@ export const DocumentDetails = () => {
 
   const { handleAction } = useDocumentActions({ callback: refetch });
 
+  if (error) return <NotFound />;
   if (loading) return <CircularLoading />;
-
-  if (!data?.document) return <NotFound />;
 
   return (
     <>

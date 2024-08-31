@@ -28,9 +28,8 @@ export const CategoryDetails = () => {
 
   const { data, loading, error } = useCategoryDetailsQuery({
     variables: { id },
+    fetchPolicy: "cache-and-network",
   });
-
-  console.log(error);
 
   const handleUpdateCategory = (data: CategoryUpdateMutation) => {
     if (data.categoryUpdate.errors.length === 0)
@@ -55,9 +54,8 @@ export const CategoryDetails = () => {
     });
   };
 
+  if (error) return <NotFound />;
   if (loading) return <CircularLoading />;
-
-  if (!data?.category) return <NotFound />;
 
   return (
     <>

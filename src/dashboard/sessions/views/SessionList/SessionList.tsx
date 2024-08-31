@@ -21,6 +21,7 @@ import SessionListPage from "../../components/SessionListPage";
 import { getFilterOpts, getFilterVariables } from "./filter";
 import { useSearchParams } from "react-router-dom";
 import useAppChannel from "@portal/components/AppLayout/AppChannelContext";
+import NotFound from "@portal/components/NotFound";
 
 export const SessionList = () => {
   const [searchParams] = useSearchParams();
@@ -38,7 +39,7 @@ export const SessionList = () => {
     ? mapNodeToChoice(availableChannels, (channel) => channel.slug)
     : null;
 
-  const { data, loading, refetch } = useSessionsQuery({
+  const { data, loading, refetch, error } = useSessionsQuery({
     fetchPolicy: "cache-and-network",
     variables: {
       ...pagination,
@@ -64,6 +65,8 @@ export const SessionList = () => {
   const [changeFilters, resetFilters, handleSearchChange] = useFilterHandler();
 
   const filterOpts = getFilterOpts(searchParams, channelOpts);
+
+  if (error) return <NotFound />;
 
   return (
     <>

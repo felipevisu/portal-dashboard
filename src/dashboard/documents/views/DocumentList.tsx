@@ -21,6 +21,7 @@ import { mapEdgesToItems } from "@portal/utils/maps";
 import { DocumentListPage } from "../components/DocumentListPage";
 
 import { getFilterOpts, getFilterVariables } from "./filters";
+import NotFound from "@portal/components/NotFound";
 
 export const DocumentList = () => {
   const { t } = useTranslation();
@@ -32,8 +33,8 @@ export const DocumentList = () => {
 
   const { isOpen, openModal, closeModal } = useModal();
 
-  const { data, loading, refetch } = useDocumentsQuery({
-    fetchPolicy: "network-only",
+  const { data, loading, refetch, error } = useDocumentsQuery({
+    fetchPolicy: "cache-and-network",
     variables: { ...pagination, filter: getFilterVariables(searchParams) },
   });
 
@@ -52,6 +53,8 @@ export const DocumentList = () => {
   const [changeFilters, resetFilters, handleSearchChange] = useFilterHandler();
 
   const filterOpts = getFilterOpts(searchParams);
+
+  if (error) return <NotFound />;
 
   return (
     <>
