@@ -1,7 +1,14 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import { Table, TableBody, TableCell, TableContainer } from "@mui/material";
+import {
+  Link,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  Typography,
+} from "@mui/material";
 import Checkbox from "@portal/components/Checkbox";
 import TableCellHeader from "@portal/components/TableCell";
 import TableCellWithStatus from "@portal/components/TableCellWithStatus";
@@ -13,6 +20,8 @@ import { renderCollection } from "@portal/misc";
 import { ListActions } from "@portal/types";
 import { formatDate } from "@portal/utils/date";
 import EmptyTable from "@portal/components/EmptyTable";
+import { DocumentStatus } from "./DocumentStatus";
+import { FileLink } from "./FileLink";
 
 interface DocumentListProps extends ListActions {
   documents: DocumentFragment[];
@@ -44,10 +53,10 @@ export const DocumentList = ({
           toolbar={toolbar}
         >
           <TableCellHeader>{t("name")}</TableCellHeader>
-          <TableCellHeader>{t("entryTypes")}</TableCellHeader>
           <TableCellHeader>{t("visibility")}</TableCellHeader>
-          <TableCellHeader>{t("created")}</TableCellHeader>
+          <TableCellHeader>{t("document.status")}</TableCellHeader>
           <TableCellHeader>{t("expiresIn")}</TableCellHeader>
+          <TableCellHeader>{t("file.title")}</TableCellHeader>
         </TableHead>
         <TableBody>
           {!disabled && !documents.length && <EmptyTable colSpan={6} />}
@@ -68,16 +77,27 @@ export const DocumentList = ({
                     onChange={() => toggle(document.id)}
                   />
                 </TableCell>
-                <TableCell>{document.name}</TableCell>
-                <TableCell>{document.entry.name}</TableCell>
+                <TableCell>
+                  {document.name}
+                  <br />
+                  <Typography fontSize="small">
+                    {document.entry.name}
+                  </Typography>
+                </TableCell>
+
                 <TableCellWithStatus status={document.isPublished} />
-                <TableCell>{formatDate(document.created)}</TableCell>
+                <TableCell>
+                  <DocumentStatus document={document} />
+                </TableCell>
                 <TableCell sx={{ color: document.expired ? "error.main" : "" }}>
                   {document.expires
                     ? document.defaultFile?.expirationDate
                       ? formatDate(document.defaultFile?.expirationDate)
                       : "Não definido"
                     : "Não expirável"}
+                </TableCell>
+                <TableCell align="center">
+                  <FileLink document={document} />
                 </TableCell>
               </TableRowLink>
             );

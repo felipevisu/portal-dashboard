@@ -1,5 +1,5 @@
 schema:
-  - http://localhost:8000/clientes/visualize/graphql/
+  - https://api.publicidadedacidade.com.br/clientes/visualize/graphql/
 generates:
   ./src/graphql/hooks.generated.ts:
     documents:

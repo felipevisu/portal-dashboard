@@ -151,6 +151,7 @@
 		"plural": "Documentos",
 		"create": "Adicionar Documento",
 		"delete": "Excluir Documento",
+		"status": "Situação",
 		"messages": {
 			"updating": "O sistema está atualizando o documento e você será notificado quando terminar."
 		},
@@ -181,8 +182,8 @@
 		"loadType": {
 			"label": "Consulta otimizada",
 			"EMPTY": "Sem consulta",
-      "CND": "CND FEDERAL (Certidão da PGFN Receita Federal)",
-      "CNDT": "CNDT (Certidão do Tribunal Superior do Trabalho)",
+      		"CND": "CND FEDERAL (Certidão da PGFN Receita Federal)",
+      		"CNDT": "CNDT (Certidão do Tribunal Superior do Trabalho)",
 			"CNEP": "CGU (Certidão da Controladoria Geral da União – CGU-PJ, CEIS, CNEP e CEPIM)",
 			"FGTS": "CRF FGTS  (Certidão da CAIXA / Regularidade do Empregador)",
 			"SEFAZ_MG": "CND ESTADUAL MG (Certidão do SEFAZ / MG)",

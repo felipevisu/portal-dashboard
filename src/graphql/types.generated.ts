@@ -44,7 +44,6 @@ export type AttributeCreateInput = {
   visibleInWebsite?: InputMaybe<Scalars['Boolean']>;
 };
 
-/** An enumeration. */
 export enum AttributeEntityTypeEnum {
   ENTRY = 'ENTRY'
 }
@@ -69,7 +68,6 @@ export type AttributeInput = {
   valuesRange?: InputMaybe<IntRangeInput>;
 };
 
-/** An enumeration. */
 export enum AttributeInputTypeEnum {
   BOOLEAN = 'BOOLEAN',
   DATE = 'DATE',
@@ -102,7 +100,6 @@ export type AttributeSortingInput = {
   field: AttributeSortField;
 };
 
-/** An enumeration. */
 export enum AttributeTypeEnum {
   ENTRY_TYPE = 'ENTRY_TYPE'
 }
@@ -188,7 +185,6 @@ export type ConfigurationItemInput = {
   value?: InputMaybe<Scalars['String']>;
 };
 
-/** An enumeration. */
 export enum ConfigurationTypeFieldEnum {
   BOOLEAN = 'BOOLEAN',
   MULTILINE = 'MULTILINE',
@@ -213,7 +209,6 @@ export type DateTimeRangeInput = {
   lte?: InputMaybe<Scalars['DateTime']>;
 };
 
-/** An enumeration. */
 export enum DocumentFileStatusEnum {
   APPROVED = 'APPROVED',
   REFUSED = 'REFUSED',
@@ -242,7 +237,6 @@ export type DocumentInput = {
   provider?: InputMaybe<Scalars['ID']>;
 };
 
-/** An enumeration. */
 export enum DocumentLoadOptionsEnum {
   CND = 'CND',
   CNDT = 'CNDT',
@@ -257,7 +251,6 @@ export enum DocumentLoadOptionsEnum {
   TCU = 'TCU'
 }
 
-/** An enumeration. */
 export enum DocumentLoadStatusEnum {
   ERROR = 'ERROR',
   PENDING = 'PENDING',
@@ -343,7 +336,6 @@ export type EntryTypeSortingInput = {
   field: EntryTypeSortField;
 };
 
-/** An enumeration. */
 export enum EventTypesEnum {
   DOCUMENT_APPROVED = 'DOCUMENT_APPROVED',
   DOCUMENT_CREATED = 'DOCUMENT_CREATED',
@@ -461,7 +453,6 @@ export type PublishableChannelListingInput = {
 };
 
 export type SessionFilterInput = {
-  channel?: InputMaybe<Scalars['ID']>;
   isPublished?: InputMaybe<Scalars['Boolean']>;
   search?: InputMaybe<Scalars['String']>;
 };
@@ -703,7 +694,7 @@ export type DocumentCreateMutationVariables = Exact<{
 }>;
 
 
-export type DocumentCreateMutation = { __typename: 'Mutation', documentCreate: { __typename: 'DocumentCreate', document: { __typename: 'Document', id: string, name: string, created: any | null, isPublished: boolean | null, expired: boolean | null, expires: boolean | null, defaultFile: { __typename: 'DocumentFile', id: string, beginDate: any | null, expirationDate: any | null } | null, entry: { __typename: 'Entry', id: string, name: string, entryType: { __typename: 'EntryType', id: string, name: string } | null } | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
+export type DocumentCreateMutation = { __typename: 'Mutation', documentCreate: { __typename: 'DocumentCreate', document: { __typename: 'Document', id: string, name: string, created: any | null, isPublished: boolean | null, expired: boolean | null, expires: boolean | null, defaultFile: { __typename: 'DocumentFile', id: string, beginDate: any | null, expirationDate: any | null, status: DocumentFileStatusEnum | null, file: { __typename: 'File', url: string } | null } | null, entry: { __typename: 'Entry', id: string, name: string, entryType: { __typename: 'EntryType', id: string, name: string } | null } | null } | null, errors: Array<{ __typename: 'Error', code: string | null, field: string | null, message: string | null }> } | null };
 
 export type DocumentUpdateMutationVariables = Exact<{
   id: Scalars['ID'];
@@ -785,7 +776,7 @@ export type DocumentsQueryVariables = Exact<{
 }>;
 
 
-export type DocumentsQuery = { __typename: 'Query', documents: { __typename: 'DocumentCountableConnection', edges: Array<{ __typename: 'DocumentCountableEdge', node: { __typename: 'Document', id: string, name: string, created: any | null, isPublished: boolean | null, expired: boolean | null, expires: boolean | null, defaultFile: { __typename: 'DocumentFile', id: string, beginDate: any | null, expirationDate: any | null } | null, entry: { __typename: 'Entry', id: string, name: string, entryType: { __typename: 'EntryType', id: string, name: string } | null } | null } }>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
+export type DocumentsQuery = { __typename: 'Query', documents: { __typename: 'DocumentCountableConnection', edges: Array<{ __typename: 'DocumentCountableEdge', node: { __typename: 'Document', id: string, name: string, created: any | null, isPublished: boolean | null, expired: boolean | null, expires: boolean | null, defaultFile: { __typename: 'DocumentFile', id: string, beginDate: any | null, expirationDate: any | null, status: DocumentFileStatusEnum | null, file: { __typename: 'File', url: string } | null } | null, entry: { __typename: 'Entry', id: string, name: string, entryType: { __typename: 'EntryType', id: string, name: string } | null } | null } }>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
 
 export type EntryCreateMutationVariables = Exact<{
   input: EntryInput;
@@ -850,7 +841,7 @@ export type EntryDetailsQueryVariables = Exact<{
 }>;
 
 
-export type EntryDetailsQuery = { __typename: 'Query', entry: { __typename: 'Entry', id: string, name: string, slug: string, documentNumber: string | null, email: string | null, documents: { __typename: 'DocumentCountableConnection', edges: Array<{ __typename: 'DocumentCountableEdge', node: { __typename: 'Document', id: string, name: string, created: any | null, isPublished: boolean | null, expired: boolean | null, expires: boolean | null, defaultFile: { __typename: 'DocumentFile', id: string, beginDate: any | null, expirationDate: any | null } | null, entry: { __typename: 'Entry', id: string, name: string, entryType: { __typename: 'EntryType', id: string, name: string } | null } | null } }>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null, categories: Array<{ __typename: 'Category', id: string, name: string }> | null, attributes: Array<{ __typename: 'SelectedAttribute', attribute: { __typename: 'Attribute', id: string, name: string | null, slug: string | null, type: AttributeTypeEnum | null, visibleInWebsite: boolean, filterableInDashboard: boolean, filterableInWebsite: boolean, inputType: AttributeInputTypeEnum | null, entityType: AttributeEntityTypeEnum | null, valueRequired: boolean }, values: Array<{ __typename: 'AttributeValue', id: string, name: string | null, slug: string | null, boolean: boolean | null, date: any | null, value: string | null, plainText: string | null, reference: string | null, file: { __typename: 'File', url: string } | null }> }>, consult: Array<{ __typename: 'Consult', id: string, created: any | null, plugin: string | null, response: any | null }> | null, channelListings: Array<{ __typename: 'EntryChannelListing', isPublished: boolean, isActive: boolean, channel: { __typename: 'Channel', id: string, name: string } }> | null } | null };
+export type EntryDetailsQuery = { __typename: 'Query', entry: { __typename: 'Entry', id: string, name: string, slug: string, documentNumber: string | null, email: string | null, documents: { __typename: 'DocumentCountableConnection', edges: Array<{ __typename: 'DocumentCountableEdge', node: { __typename: 'Document', id: string, name: string, created: any | null, isPublished: boolean | null, expired: boolean | null, expires: boolean | null, defaultFile: { __typename: 'DocumentFile', id: string, beginDate: any | null, expirationDate: any | null, status: DocumentFileStatusEnum | null, file: { __typename: 'File', url: string } | null } | null, entry: { __typename: 'Entry', id: string, name: string, entryType: { __typename: 'EntryType', id: string, name: string } | null } | null } }>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null, categories: Array<{ __typename: 'Category', id: string, name: string }> | null, attributes: Array<{ __typename: 'SelectedAttribute', attribute: { __typename: 'Attribute', id: string, name: string | null, slug: string | null, type: AttributeTypeEnum | null, visibleInWebsite: boolean, filterableInDashboard: boolean, filterableInWebsite: boolean, inputType: AttributeInputTypeEnum | null, entityType: AttributeEntityTypeEnum | null, valueRequired: boolean }, values: Array<{ __typename: 'AttributeValue', id: string, name: string | null, slug: string | null, boolean: boolean | null, date: any | null, value: string | null, plainText: string | null, reference: string | null, file: { __typename: 'File', url: string } | null }> }>, consult: Array<{ __typename: 'Consult', id: string, created: any | null, plugin: string | null, response: any | null }> | null, channelListings: Array<{ __typename: 'EntryChannelListing', isPublished: boolean, isActive: boolean, channel: { __typename: 'Channel', id: string, name: string } }> | null } | null };
 
 export type InitialEntryFilterAttributesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1097,7 +1088,7 @@ export type ChannelFragment = { __typename: 'Channel', id: string, name: string,
 
 export type ConsultFragment = { __typename: 'Consult', id: string, created: any | null, plugin: string | null, response: any | null };
 
-export type DocumentFragment = { __typename: 'Document', id: string, name: string, created: any | null, isPublished: boolean | null, expired: boolean | null, expires: boolean | null, defaultFile: { __typename: 'DocumentFile', id: string, beginDate: any | null, expirationDate: any | null } | null, entry: { __typename: 'Entry', id: string, name: string, entryType: { __typename: 'EntryType', id: string, name: string } | null } | null };
+export type DocumentFragment = { __typename: 'Document', id: string, name: string, created: any | null, isPublished: boolean | null, expired: boolean | null, expires: boolean | null, defaultFile: { __typename: 'DocumentFile', id: string, beginDate: any | null, expirationDate: any | null, status: DocumentFileStatusEnum | null, file: { __typename: 'File', url: string } | null } | null, entry: { __typename: 'Entry', id: string, name: string, entryType: { __typename: 'EntryType', id: string, name: string } | null } | null };
 
 export type DocumentFileFragment = { __typename: 'DocumentFile', id: string, created: any | null, beginDate: any | null, expirationDate: any | null, status: DocumentFileStatusEnum | null, file: { __typename: 'File', url: string } | null };
 

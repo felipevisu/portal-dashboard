@@ -12,6 +12,10 @@ export const documentFragment = gql`
       id
       beginDate
       expirationDate
+      file {
+        url
+      }
+      status
     }
     entry {
       id

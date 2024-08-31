@@ -12,6 +12,7 @@
         "kind": "OBJECT",
         "name": "ApproveDocumentFile",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "documentFile",
@@ -59,6 +60,7 @@
         "kind": "OBJECT",
         "name": "Attribute",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "choices",
@@ -447,6 +449,7 @@
         "kind": "ENUM",
         "name": "AttributeChoicesSortField",
         "description": null,
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -470,6 +473,7 @@
         "kind": "INPUT_OBJECT",
         "name": "AttributeChoicesSortingInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -513,6 +517,7 @@
         "kind": "OBJECT",
         "name": "AttributeCountableConnection",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "edges",
@@ -576,6 +581,7 @@
         "kind": "OBJECT",
         "name": "AttributeCountableEdge",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "cursor",
@@ -619,6 +625,7 @@
         "kind": "OBJECT",
         "name": "AttributeCreate",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "attribute",
@@ -666,6 +673,7 @@
         "kind": "INPUT_OBJECT",
         "name": "AttributeCreateInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -813,6 +821,7 @@
         "kind": "OBJECT",
         "name": "AttributeDelete",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "attribute",
@@ -859,7 +868,8 @@
       {
         "kind": "ENUM",
         "name": "AttributeEntityTypeEnum",
-        "description": "An enumeration.",
+        "description": null,
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -877,6 +887,7 @@
         "kind": "INPUT_OBJECT",
         "name": "AttributeFilterInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -1000,6 +1011,7 @@
         "kind": "INPUT_OBJECT",
         "name": "AttributeInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -1094,7 +1106,8 @@
       {
         "kind": "ENUM",
         "name": "AttributeInputTypeEnum",
-        "description": "An enumeration.",
+        "description": null,
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -1154,6 +1167,7 @@
         "kind": "ENUM",
         "name": "AttributeSortField",
         "description": null,
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -1201,6 +1215,7 @@
         "kind": "INPUT_OBJECT",
         "name": "AttributeSortingInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -1243,7 +1258,8 @@
       {
         "kind": "ENUM",
         "name": "AttributeTypeEnum",
-        "description": "An enumeration.",
+        "description": null,
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -1261,6 +1277,7 @@
         "kind": "OBJECT",
         "name": "AttributeUpdate",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "attribute",
@@ -1308,6 +1325,7 @@
         "kind": "INPUT_OBJECT",
         "name": "AttributeUpdateInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -1431,6 +1449,7 @@
         "kind": "OBJECT",
         "name": "AttributeValue",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "boolean",
@@ -1572,6 +1591,7 @@
         "kind": "OBJECT",
         "name": "AttributeValueCountableConnection",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "edges",
@@ -1635,6 +1655,7 @@
         "kind": "OBJECT",
         "name": "AttributeValueCountableEdge",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "cursor",
@@ -1678,6 +1699,7 @@
         "kind": "OBJECT",
         "name": "AttributeValueCreate",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "attribute",
@@ -1737,6 +1759,7 @@
         "kind": "INPUT_OBJECT",
         "name": "AttributeValueCreateInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -1800,6 +1823,7 @@
         "kind": "OBJECT",
         "name": "AttributeValueDelete",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "attribute",
@@ -1859,6 +1883,7 @@
         "kind": "INPUT_OBJECT",
         "name": "AttributeValueFilterInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -1902,6 +1927,7 @@
         "kind": "INPUT_OBJECT",
         "name": "AttributeValueInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -2069,6 +2095,7 @@
         "kind": "INPUT_OBJECT",
         "name": "AttributeValueSelectableTypeInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -2104,6 +2131,7 @@
         "kind": "OBJECT",
         "name": "AttributeValueUpdate",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "attribute",
@@ -2163,6 +2191,7 @@
         "kind": "INPUT_OBJECT",
         "name": "AttributeValueUpdateInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -2222,6 +2251,7 @@
         "kind": "SCALAR",
         "name": "Boolean",
         "description": "The `Boolean` scalar type represents `true` or `false`.",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -2232,6 +2262,7 @@
         "kind": "OBJECT",
         "name": "BulkItemError",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "code",
@@ -2291,6 +2322,7 @@
         "kind": "OBJECT",
         "name": "Category",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "id",
@@ -2364,6 +2396,7 @@
         "kind": "OBJECT",
         "name": "CategoryBulkDelete",
         "description": "Deletes categories.",
+        "isOneOf": null,
         "fields": [
           {
             "name": "count",
@@ -2415,6 +2448,7 @@
         "kind": "OBJECT",
         "name": "CategoryCountableConnection",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "edges",
@@ -2478,6 +2512,7 @@
         "kind": "OBJECT",
         "name": "CategoryCountableEdge",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "cursor",
@@ -2521,6 +2556,7 @@
         "kind": "OBJECT",
         "name": "CategoryCreate",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "category",
@@ -2568,6 +2604,7 @@
         "kind": "OBJECT",
         "name": "CategoryDelete",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "category",
@@ -2615,6 +2652,7 @@
         "kind": "INPUT_OBJECT",
         "name": "CategoryFilterInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -2658,6 +2696,7 @@
         "kind": "INPUT_OBJECT",
         "name": "CategoryInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -2693,6 +2732,7 @@
         "kind": "ENUM",
         "name": "CategorySortField",
         "description": null,
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -2710,6 +2750,7 @@
         "kind": "INPUT_OBJECT",
         "name": "CategorySortingInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -2753,6 +2794,7 @@
         "kind": "OBJECT",
         "name": "CategoryUpdate",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "category",
@@ -2800,6 +2842,7 @@
         "kind": "OBJECT",
         "name": "Channel",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "id",
@@ -2893,6 +2936,7 @@
         "kind": "OBJECT",
         "name": "ChannelActivate",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "channel",
@@ -2940,6 +2984,7 @@
         "kind": "OBJECT",
         "name": "ChannelCreate",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "channel",
@@ -2987,6 +3032,7 @@
         "kind": "OBJECT",
         "name": "ChannelDeactivate",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "channel",
@@ -3034,6 +3080,7 @@
         "kind": "OBJECT",
         "name": "ChannelDelete",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "channel",
@@ -3081,6 +3128,7 @@
         "kind": "INPUT_OBJECT",
         "name": "ChannelInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -3136,6 +3184,7 @@
         "kind": "OBJECT",
         "name": "ChannelUpdate",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "channel",
@@ -3183,6 +3232,7 @@
         "kind": "OBJECT",
         "name": "ConfigurationItem",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "helpText",
@@ -3258,6 +3308,7 @@
         "kind": "INPUT_OBJECT",
         "name": "ConfigurationItemInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -3296,7 +3347,8 @@
       {
         "kind": "ENUM",
         "name": "ConfigurationTypeFieldEnum",
-        "description": "An enumeration.",
+        "description": null,
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -3350,6 +3402,7 @@
         "kind": "OBJECT",
         "name": "Consult",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "created",
@@ -3431,6 +3484,7 @@
         "kind": "OBJECT",
         "name": "ConsultDocument",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "entry",
@@ -3478,6 +3532,7 @@
         "kind": "OBJECT",
         "name": "CreateToken",
         "description": "Create JWT token.",
+        "isOneOf": null,
         "fields": [
           {
             "name": "csrfToken",
@@ -3561,6 +3616,7 @@
         "kind": "SCALAR",
         "name": "Date",
         "description": "The `Date` scalar type represents a Date\nvalue as specified by\n[iso8601](https://en.wikipedia.org/wiki/ISO_8601).",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -3571,6 +3627,7 @@
         "kind": "INPUT_OBJECT",
         "name": "DateRangeInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -3606,6 +3663,7 @@
         "kind": "SCALAR",
         "name": "DateTime",
         "description": "The `DateTime` scalar type represents a DateTime\nvalue as specified by\n[iso8601](https://en.wikipedia.org/wiki/ISO_8601).",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -3616,6 +3674,7 @@
         "kind": "INPUT_OBJECT",
         "name": "DateTimeRangeInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -3651,6 +3710,7 @@
         "kind": "OBJECT",
         "name": "DeactivateAllUserTokens",
         "description": "Deactivate all JWT tokens of the currently authenticated user.",
+        "isOneOf": null,
         "fields": [
           {
             "name": "errors",
@@ -3686,6 +3746,7 @@
         "kind": "SCALAR",
         "name": "Decimal",
         "description": "The `Decimal` scalar type represents a python Decimal.",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -3696,6 +3757,7 @@
         "kind": "OBJECT",
         "name": "Document",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "created",
@@ -3893,6 +3955,7 @@
         "kind": "OBJECT",
         "name": "DocumentBulkDelete",
         "description": "Deletes segments.",
+        "isOneOf": null,
         "fields": [
           {
             "name": "count",
@@ -3944,6 +4007,7 @@
         "kind": "OBJECT",
         "name": "DocumentCountableConnection",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "edges",
@@ -4007,6 +4071,7 @@
         "kind": "OBJECT",
         "name": "DocumentCountableEdge",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "cursor",
@@ -4050,6 +4115,7 @@
         "kind": "OBJECT",
         "name": "DocumentCreate",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "document",
@@ -4097,6 +4163,7 @@
         "kind": "OBJECT",
         "name": "DocumentDelete",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "document",
@@ -4144,6 +4211,7 @@
         "kind": "OBJECT",
         "name": "DocumentFile",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "beginDate",
@@ -4261,6 +4329,7 @@
         "kind": "OBJECT",
         "name": "DocumentFileDelete",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "documentFile",
@@ -4307,7 +4376,8 @@
       {
         "kind": "ENUM",
         "name": "DocumentFileStatusEnum",
-        "description": "An enumeration.",
+        "description": null,
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -4337,6 +4407,7 @@
         "kind": "INPUT_OBJECT",
         "name": "DocumentFilterInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -4420,6 +4491,7 @@
         "kind": "INPUT_OBJECT",
         "name": "DocumentInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -4551,6 +4623,7 @@
         "kind": "OBJECT",
         "name": "DocumentLoad",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "document",
@@ -4631,7 +4704,8 @@
       {
         "kind": "ENUM",
         "name": "DocumentLoadOptionsEnum",
-        "description": "An enumeration.",
+        "description": null,
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -4708,7 +4782,8 @@
       {
         "kind": "ENUM",
         "name": "DocumentLoadStatusEnum",
-        "description": "An enumeration.",
+        "description": null,
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -4738,6 +4813,7 @@
         "kind": "ENUM",
         "name": "DocumentSortField",
         "description": null,
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -4755,6 +4831,7 @@
         "kind": "INPUT_OBJECT",
         "name": "DocumentSortingInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -4798,6 +4875,7 @@
         "kind": "OBJECT",
         "name": "DocumentUpdate",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "document",
@@ -4845,6 +4923,7 @@
         "kind": "OBJECT",
         "name": "DocumentUpdateByEntry",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "documentFile",
@@ -4892,6 +4971,7 @@
         "kind": "INPUT_OBJECT",
         "name": "DocumentUpdateByEntryInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -4939,6 +5019,7 @@
         "kind": "OBJECT",
         "name": "Entry",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "attributes",
@@ -5221,6 +5302,7 @@
         "kind": "OBJECT",
         "name": "EntryAttributeAssign",
         "description": "Assign attributes to a given entry type.",
+        "isOneOf": null,
         "fields": [
           {
             "name": "entryType",
@@ -5268,6 +5350,7 @@
         "kind": "INPUT_OBJECT",
         "name": "EntryAttributeAssignInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -5295,6 +5378,7 @@
         "kind": "OBJECT",
         "name": "EntryAttributeUnassign",
         "description": "Un-assign attributes from a given entry type.",
+        "isOneOf": null,
         "fields": [
           {
             "name": "entryType",
@@ -5342,6 +5426,7 @@
         "kind": "OBJECT",
         "name": "EntryBulkDelete",
         "description": "Deletes entries.",
+        "isOneOf": null,
         "fields": [
           {
             "name": "count",
@@ -5393,6 +5478,7 @@
         "kind": "OBJECT",
         "name": "EntryChannelListing",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "channel",
@@ -5474,6 +5560,7 @@
         "kind": "OBJECT",
         "name": "EntryChannelListingError",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "attributes",
@@ -5581,6 +5668,7 @@
         "kind": "OBJECT",
         "name": "EntryChannelListingUpdate",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "entry",
@@ -5628,6 +5716,7 @@
         "kind": "INPUT_OBJECT",
         "name": "EntryChannelListingUpdateInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -5679,6 +5768,7 @@
         "kind": "OBJECT",
         "name": "EntryCountableConnection",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "edges",
@@ -5742,6 +5832,7 @@
         "kind": "OBJECT",
         "name": "EntryCountableEdge",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "cursor",
@@ -5785,6 +5876,7 @@
         "kind": "OBJECT",
         "name": "EntryCreate",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "entry",
@@ -5832,6 +5924,7 @@
         "kind": "OBJECT",
         "name": "EntryDelete",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "entry",
@@ -5879,6 +5972,7 @@
         "kind": "OBJECT",
         "name": "EntryError",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "attributes",
@@ -5966,6 +6060,7 @@
         "kind": "INPUT_OBJECT",
         "name": "EntryFilterInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -6073,6 +6168,7 @@
         "kind": "INPUT_OBJECT",
         "name": "EntryInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -6232,6 +6328,7 @@
         "kind": "ENUM",
         "name": "EntrySortField",
         "description": null,
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -6267,6 +6364,7 @@
         "kind": "INPUT_OBJECT",
         "name": "EntrySortingInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -6310,6 +6408,7 @@
         "kind": "OBJECT",
         "name": "EntryType",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "availableAttributes",
@@ -6464,6 +6563,7 @@
         "kind": "OBJECT",
         "name": "EntryTypeCountableConnection",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "edges",
@@ -6527,6 +6627,7 @@
         "kind": "OBJECT",
         "name": "EntryTypeCountableEdge",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "cursor",
@@ -6570,6 +6671,7 @@
         "kind": "OBJECT",
         "name": "EntryTypeCreate",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "entryType",
@@ -6617,6 +6719,7 @@
         "kind": "OBJECT",
         "name": "EntryTypeDelete",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "entryType",
@@ -6664,6 +6767,7 @@
         "kind": "INPUT_OBJECT",
         "name": "EntryTypeInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -6719,6 +6823,7 @@
         "kind": "ENUM",
         "name": "EntryTypeSortField",
         "description": null,
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -6736,6 +6841,7 @@
         "kind": "INPUT_OBJECT",
         "name": "EntryTypeSortingInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -6779,6 +6885,7 @@
         "kind": "OBJECT",
         "name": "EntryTypeUpdate",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "entryType",
@@ -6826,6 +6933,7 @@
         "kind": "OBJECT",
         "name": "EntryUpdate",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "entry",
@@ -6873,6 +6981,7 @@
         "kind": "OBJECT",
         "name": "Error",
         "description": "Represents an error in the input of a mutation.",
+        "isOneOf": null,
         "fields": [
           {
             "name": "code",
@@ -6920,6 +7029,7 @@
         "kind": "OBJECT",
         "name": "Event",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "date",
@@ -7049,6 +7159,7 @@
         "kind": "OBJECT",
         "name": "EventCountableConnection",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "edges",
@@ -7112,6 +7223,7 @@
         "kind": "OBJECT",
         "name": "EventCountableEdge",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "cursor",
@@ -7154,7 +7266,8 @@
       {
         "kind": "ENUM",
         "name": "EventTypesEnum",
-        "description": "An enumeration.",
+        "description": null,
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -7238,6 +7351,7 @@
         "kind": "OBJECT",
         "name": "File",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "url",
@@ -7265,6 +7379,7 @@
         "kind": "SCALAR",
         "name": "Float",
         "description": "The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point).",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -7275,6 +7390,7 @@
         "kind": "SCALAR",
         "name": "GenericScalar",
         "description": "The `GenericScalar` scalar type represents a generic\nGraphQL scalar value that could be:\nString, Boolean, Int, Float, List or Object.",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -7285,6 +7401,7 @@
         "kind": "SCALAR",
         "name": "ID",
         "description": "The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `\"4\"`) or integer (such as `4`) input value will be accepted as an ID.",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -7295,6 +7412,7 @@
         "kind": "SCALAR",
         "name": "Int",
         "description": "The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -7305,6 +7423,7 @@
         "kind": "INPUT_OBJECT",
         "name": "IntRangeInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -7340,6 +7459,7 @@
         "kind": "OBJECT",
         "name": "Investment",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "channel",
@@ -7461,6 +7581,7 @@
         "kind": "OBJECT",
         "name": "InvestmentBulkDelete",
         "description": "Deletes segments.",
+        "isOneOf": null,
         "fields": [
           {
             "name": "count",
@@ -7512,6 +7633,7 @@
         "kind": "OBJECT",
         "name": "InvestmentCountableConnection",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "edges",
@@ -7575,6 +7697,7 @@
         "kind": "OBJECT",
         "name": "InvestmentCountableEdge",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "cursor",
@@ -7618,6 +7741,7 @@
         "kind": "OBJECT",
         "name": "InvestmentCreate",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "errors",
@@ -7665,6 +7789,7 @@
         "kind": "OBJECT",
         "name": "InvestmentDelete",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "errors",
@@ -7712,6 +7837,7 @@
         "kind": "INPUT_OBJECT",
         "name": "InvestmentFilterInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -7759,6 +7885,7 @@
         "kind": "INPUT_OBJECT",
         "name": "InvestmentInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -7838,6 +7965,7 @@
         "kind": "ENUM",
         "name": "InvestmentSortField",
         "description": null,
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -7855,6 +7983,7 @@
         "kind": "INPUT_OBJECT",
         "name": "InvestmentSortingInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -7898,6 +8027,7 @@
         "kind": "OBJECT",
         "name": "InvestmentUpdate",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "errors",
@@ -7945,6 +8075,7 @@
         "kind": "INPUT_OBJECT",
         "name": "InvestmentUpdateInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -8044,6 +8175,7 @@
         "kind": "OBJECT",
         "name": "Item",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "id",
@@ -8117,6 +8249,7 @@
         "kind": "OBJECT",
         "name": "ItemBulkCreate",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "errors",
@@ -8168,6 +8301,7 @@
         "kind": "INPUT_OBJECT",
         "name": "ItemBulkInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -8203,6 +8337,7 @@
         "kind": "OBJECT",
         "name": "ItemCreate",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "errors",
@@ -8262,6 +8397,7 @@
         "kind": "INPUT_OBJECT",
         "name": "ItemCreateInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -8305,6 +8441,7 @@
         "kind": "OBJECT",
         "name": "ItemDelete",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "errors",
@@ -8352,6 +8489,7 @@
         "kind": "INPUT_OBJECT",
         "name": "ItemInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -8399,6 +8537,7 @@
         "kind": "OBJECT",
         "name": "ItemUpdate",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "errors",
@@ -8446,6 +8585,7 @@
         "kind": "SCALAR",
         "name": "JSONString",
         "description": "Allows use of a JSON String for input / output from the GraphQL schema.\n\nUse of this type is *not recommended* as you lose the benefits of having a defined, static\nschema (one of the key benefits of GraphQL).",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -8456,6 +8596,7 @@
         "kind": "OBJECT",
         "name": "LoadNewDocumentFromAPI",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "documentLoad",
@@ -8503,6 +8644,7 @@
         "kind": "OBJECT",
         "name": "Mutation",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "approveDocumentFile",
@@ -10506,6 +10648,7 @@
         "kind": "INTERFACE",
         "name": "Node",
         "description": "An object with an ID",
+        "isOneOf": null,
         "fields": [
           {
             "name": "id",
@@ -10614,6 +10757,7 @@
         "kind": "ENUM",
         "name": "OrderDirection",
         "description": null,
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -10637,6 +10781,7 @@
         "kind": "OBJECT",
         "name": "PageInfo",
         "description": "The Relay compliant `PageInfo` type, containing data necessary to paginate this connection.",
+        "isOneOf": null,
         "fields": [
           {
             "name": "endCursor",
@@ -10704,6 +10849,7 @@
         "kind": "OBJECT",
         "name": "Permission",
         "description": "Represents a permission object in a friendly form.",
+        "isOneOf": null,
         "fields": [
           {
             "name": "code",
@@ -10747,6 +10893,7 @@
         "kind": "OBJECT",
         "name": "Plugin",
         "description": "Plugin.",
+        "isOneOf": null,
         "fields": [
           {
             "name": "channelConfigurations",
@@ -10842,6 +10989,7 @@
         "kind": "OBJECT",
         "name": "PluginConfiguration",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "active",
@@ -10901,6 +11049,7 @@
         "kind": "ENUM",
         "name": "PluginConfigurationType",
         "description": null,
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -10924,6 +11073,7 @@
         "kind": "OBJECT",
         "name": "PluginCountableConnection",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "edges",
@@ -10987,6 +11137,7 @@
         "kind": "OBJECT",
         "name": "PluginCountableEdge",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "cursor",
@@ -11030,6 +11181,7 @@
         "kind": "INPUT_OBJECT",
         "name": "PluginFilterInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -11077,6 +11229,7 @@
         "kind": "ENUM",
         "name": "PluginSortField",
         "description": null,
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -11100,6 +11253,7 @@
         "kind": "INPUT_OBJECT",
         "name": "PluginSortingInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -11143,6 +11297,7 @@
         "kind": "INPUT_OBJECT",
         "name": "PluginStatusInChannelsInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -11194,6 +11349,7 @@
         "kind": "OBJECT",
         "name": "PluginUpdate",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "errors",
@@ -11241,6 +11397,7 @@
         "kind": "INPUT_OBJECT",
         "name": "PluginUpdateInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -11284,6 +11441,7 @@
         "kind": "INPUT_OBJECT",
         "name": "PublishableChannelListingInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -11335,6 +11493,7 @@
         "kind": "OBJECT",
         "name": "Query",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "attribute",
@@ -12517,6 +12676,7 @@
         "kind": "OBJECT",
         "name": "RefreshToken",
         "description": "Refresh JWT token. Mutation tries to take refreshToken from the input.If it fails it will try to take refreshToken from the http-only cookie -refreshToken. csrfToken is required when refreshToken is provided as a cookie.",
+        "isOneOf": null,
         "fields": [
           {
             "name": "errors",
@@ -12576,6 +12736,7 @@
         "kind": "OBJECT",
         "name": "RefuseDocumentFile",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "documentFile",
@@ -12623,6 +12784,7 @@
         "kind": "OBJECT",
         "name": "RequestNewDocument",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "errors",
@@ -12658,6 +12820,7 @@
         "kind": "OBJECT",
         "name": "RequestPasswordReset",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "errors",
@@ -12693,6 +12856,7 @@
         "kind": "OBJECT",
         "name": "RestoreDocumentFile",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "documentFile",
@@ -12740,6 +12904,7 @@
         "kind": "OBJECT",
         "name": "SelectedAttribute",
         "description": "Represents a custom attribute.",
+        "isOneOf": null,
         "fields": [
           {
             "name": "attribute",
@@ -12791,6 +12956,7 @@
         "kind": "OBJECT",
         "name": "Session",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "channel",
@@ -12900,6 +13066,7 @@
         "kind": "OBJECT",
         "name": "SessionBulkDelete",
         "description": "Deletes sessions.",
+        "isOneOf": null,
         "fields": [
           {
             "name": "count",
@@ -12951,6 +13118,7 @@
         "kind": "OBJECT",
         "name": "SessionCountableConnection",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "edges",
@@ -13014,6 +13182,7 @@
         "kind": "OBJECT",
         "name": "SessionCountableEdge",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "cursor",
@@ -13057,6 +13226,7 @@
         "kind": "OBJECT",
         "name": "SessionCreate",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "errors",
@@ -13104,6 +13274,7 @@
         "kind": "OBJECT",
         "name": "SessionDelete",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "errors",
@@ -13151,20 +13322,9 @@
         "kind": "INPUT_OBJECT",
         "name": "SessionFilterInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
-          {
-            "name": "channel",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "ID",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
           {
             "name": "isPublished",
             "description": null,
@@ -13198,6 +13358,7 @@
         "kind": "INPUT_OBJECT",
         "name": "SessionInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -13281,6 +13442,7 @@
         "kind": "ENUM",
         "name": "SessionSortField",
         "description": null,
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -13298,6 +13460,7 @@
         "kind": "INPUT_OBJECT",
         "name": "SessionSortingInput",
         "description": null,
+        "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
@@ -13341,6 +13504,7 @@
         "kind": "OBJECT",
         "name": "SessionUpdate",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "entry",
@@ -13400,6 +13564,7 @@
         "kind": "OBJECT",
         "name": "SetPassword",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "errors",
@@ -13435,6 +13600,7 @@
         "kind": "SCALAR",
         "name": "String",
         "description": "The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -13445,6 +13611,7 @@
         "kind": "SCALAR",
         "name": "Upload",
         "description": "Variables of this type must be set to null in mutations. They will be replaced with a filename from a following multipart part containing a binary file. See: https://github.com/jaydenseric/graphql-multipart-request-spec.",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -13455,6 +13622,7 @@
         "kind": "OBJECT",
         "name": "User",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "email",
@@ -13556,6 +13724,7 @@
         "kind": "OBJECT",
         "name": "ValidateDocumentToken",
         "description": null,
+        "isOneOf": null,
         "fields": [
           {
             "name": "document",
@@ -13603,6 +13772,7 @@
         "kind": "OBJECT",
         "name": "VerifyToken",
         "description": "Verify JWT token.",
+        "isOneOf": null,
         "fields": [
           {
             "name": "errors",
@@ -13678,6 +13848,7 @@
         "kind": "OBJECT",
         "name": "__Directive",
         "description": "A Directive provides a way to describe alternate runtime execution and type validation behavior in a GraphQL document.\n\nIn some cases, you need to provide options to alter GraphQL's execution behavior in ways field arguments will not suffice, such as conditionally including or skipping a field. Directives provide this by describing additional information to the executor.",
+        "isOneOf": null,
         "fields": [
           {
             "name": "name",
@@ -13794,6 +13965,7 @@
         "kind": "ENUM",
         "name": "__DirectiveLocation",
         "description": "A Directive can be adjacent to many parts of the GraphQL language, a __DirectiveLocation describes one such possible adjacencies.",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -13919,6 +14091,7 @@
         "kind": "OBJECT",
         "name": "__EnumValue",
         "description": "One possible value for a given Enum. Enum values are unique values, not a placeholder for a string or numeric value. However an Enum value is returned in a JSON response as a string.",
+        "isOneOf": null,
         "fields": [
           {
             "name": "name",
@@ -13986,6 +14159,7 @@
         "kind": "OBJECT",
         "name": "__Field",
         "description": "Object and Interface types are described by a list of Fields, each of which has a name, potentially a list of arguments, and a return type.",
+        "isOneOf": null,
         "fields": [
           {
             "name": "name",
@@ -14106,6 +14280,7 @@
         "kind": "OBJECT",
         "name": "__InputValue",
         "description": "Arguments provided to Fields or Directives and the input fields of an InputObject are represented as Input Values which describe their type and optionally a default value.",
+        "isOneOf": null,
         "fields": [
           {
             "name": "name",
@@ -14201,6 +14376,7 @@
         "kind": "OBJECT",
         "name": "__Schema",
         "description": "A GraphQL Schema defines the capabilities of a GraphQL server. It exposes all available types and directives on the server, as well as the entry points for query, mutation, and subscription operations.",
+        "isOneOf": null,
         "fields": [
           {
             "name": "description",
@@ -14312,6 +14488,7 @@
         "kind": "OBJECT",
         "name": "__Type",
         "description": "The fundamental unit of any GraphQL Schema is the type. There are many kinds of types in GraphQL as represented by the `__TypeKind` enum.\n\nDepending on the kind of a type, certain fields describe information about that type. Scalar types provide no information beyond a name, description and optional `specifiedByURL`, while Enum types provide their values. Object and Interface types provide the fields they describe. Abstract types, Union and Interface, provide the Object types possible at runtime. List and NonNull types compose other types.",
+        "isOneOf": null,
         "fields": [
           {
             "name": "kind",
@@ -14515,6 +14692,18 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "isOneOf",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -14526,6 +14715,7 @@
         "kind": "ENUM",
         "name": "__TypeKind",
         "description": "An enum describing what kind of type a given `__Type` is.",
+        "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,

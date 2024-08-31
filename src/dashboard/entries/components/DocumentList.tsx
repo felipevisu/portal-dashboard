@@ -21,6 +21,8 @@ import { DocumentFragment, PageInfoFragment } from "@portal/graphql";
 import { useLinks } from "@portal/hooks";
 import { Paginator } from "@portal/types";
 import { formatDate } from "@portal/utils/date";
+import { DocumentStatus } from "@portal/dashboard/documents/components/DocumentStatus";
+import { FileLink } from "@portal/dashboard/documents/components/FileLink";
 
 interface DocumentListProps {
   documents: DocumentFragment[];
@@ -58,8 +60,9 @@ export const DocumentList = ({
               {t("name")}
             </TableCellHeader>
             <TableCellHeader>{t("visibility")}</TableCellHeader>
-            <TableCellHeader>{t("created")}</TableCellHeader>
+            <TableCellHeader>{t("document.status")}</TableCellHeader>
             <TableCellHeader>{t("expiresIn")}</TableCellHeader>
+            <TableCellHeader align="center">{t("file.title")}</TableCellHeader>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -71,13 +74,18 @@ export const DocumentList = ({
             >
               <TableCell sx={{ paddingLeft: 3 }}>{document.name}</TableCell>
               <TableCellWithStatus status={document.isPublished} />
-              <TableCell>{formatDate(document.created)}</TableCell>
+              <TableCell>
+                <DocumentStatus document={document} />
+              </TableCell>
               <TableCell sx={{ color: document.expired ? "error.main" : "" }}>
                 {document.expires
                   ? document.defaultFile?.expirationDate
                     ? formatDate(document.defaultFile.expirationDate)
                     : "Não definido"
                   : "Não expirável"}
+              </TableCell>
+              <TableCell align="center">
+                <FileLink document={document} />
               </TableCell>
             </TableRowLink>
           ))}
