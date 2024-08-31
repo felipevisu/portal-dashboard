@@ -55,7 +55,7 @@ export const EntryListPage = ({
 
   return (
     <>
-      <PageHeader title={entryType.name}>
+      <PageHeader title={entryType?.name}>
         <Button
           color="primary"
           variant="contained"

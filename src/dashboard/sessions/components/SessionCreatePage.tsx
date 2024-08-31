@@ -37,7 +37,6 @@ export const SessionCreatePage = ({
   };
 
   const handleSubmit = (data: FormProps) => {
-    console.log(data);
     onSubmit({
       name: data.name,
       slug: data.slug,

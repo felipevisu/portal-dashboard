@@ -26,9 +26,11 @@ export const CategoryDetails = () => {
   const { categoryList } = useLinks();
   const { isOpen, openModal, closeModal } = useModal();
 
-  const { data, loading } = useCategoryDetailsQuery({
+  const { data, loading, error } = useCategoryDetailsQuery({
     variables: { id },
   });
+
+  console.log(error);
 
   const handleUpdateCategory = (data: CategoryUpdateMutation) => {
     if (data.categoryUpdate.errors.length === 0)

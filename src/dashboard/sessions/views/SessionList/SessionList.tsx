@@ -65,8 +65,6 @@ export const SessionList = () => {
 
   const filterOpts = getFilterOpts(searchParams, channelOpts);
 
-  console.log(data);
-
   return (
     <>
       <SessionListPage

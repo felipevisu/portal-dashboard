@@ -1,7 +1,5 @@
 import React from "react";
 
-import { useApolloClient } from "@apollo/client";
-
 import useAuthProvider from "./hook";
 import { UserContext } from ".";
 
@@ -10,8 +8,7 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const apolloClient = useApolloClient();
-  const authProvider = useAuthProvider({ apolloClient });
+  const authProvider = useAuthProvider();
 
   return (
     <UserContext.Provider value={authProvider}>{children}</UserContext.Provider>

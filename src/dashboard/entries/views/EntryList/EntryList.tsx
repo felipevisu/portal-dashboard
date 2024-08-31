@@ -78,7 +78,7 @@ export const VehicleList = () => {
     filterable
   );
 
-  const { data, loading, refetch } = useEntriesQuery({
+  const entries = useEntriesQuery({
     fetchPolicy: "network-only",
     variables: {
       ...pagination,
@@ -90,16 +90,16 @@ export const VehicleList = () => {
     },
   });
 
-  const handleVehicleBulkDelete = (data: EntryBulkDeleteMutation) => {
+  const handleEntryBulkDelete = (data: EntryBulkDeleteMutation) => {
     if (data.entryBulkDelete.errors.length === 0) {
-      refetch();
+      entries.refetch();
       reset();
       closeModal();
     }
   };
 
-  const [vehicleBulkDelete] = useEntryBulkDeleteMutation({
-    onCompleted: handleVehicleBulkDelete,
+  const [entryBulkDelete] = useEntryBulkDeleteMutation({
+    onCompleted: handleEntryBulkDelete,
   });
 
   const [changeFilters, resetFilters, handleSearchChange] = useFilterHandler();
@@ -115,19 +115,14 @@ export const VehicleList = () => {
     channelOpts
   );
 
-  console.log(entryType);
-
-  if (entryType.loading) return <CircularLoading />;
-  if (!entryType.data || entryType.data === undefined) return <NotFound />;
-
   return (
     <>
       <EntryListPage
-        disabled={loading}
+        disabled={entryType.loading || entries.loading}
         toggle={toggle}
         toggleAll={toggleAll}
-        entries={mapEdgesToItems(data?.entries)}
-        entryType={entryType.data.entryType}
+        entries={mapEdgesToItems(entries?.data?.entries)}
+        entryType={entryType?.data?.entryType}
         selected={listElements.length}
         isChecked={isSelected}
         toolbar={
@@ -137,7 +132,7 @@ export const VehicleList = () => {
         }
         onNextPage={handleNextPage}
         onPreviousPage={handlePreviousPage}
-        pageInfo={data?.entries?.pageInfo}
+        pageInfo={entries?.data?.entries?.pageInfo}
         filterOpts={filterOpts}
         onSearchChange={handleSearchChange}
         onFilterChange={changeFilters}
@@ -147,9 +142,7 @@ export const VehicleList = () => {
       />
       <ActionDialog
         onClose={closeModal}
-        onConfirm={() =>
-          vehicleBulkDelete({ variables: { ids: listElements } })
-        }
+        onConfirm={() => entryBulkDelete({ variables: { ids: listElements } })}
         open={isOpen}
         title={t("entry.deleteDialogList.title")}
         variant="delete"

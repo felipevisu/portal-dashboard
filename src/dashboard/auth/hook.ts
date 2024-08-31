@@ -1,14 +1,10 @@
 import { useEffect, useState } from "react";
 
-import { ApolloClient, useApolloClient } from "@apollo/client";
+import { useApolloClient } from "@apollo/client";
 import { useMeQuery, useTokenCreateMutation } from "@portal/graphql";
 import { deleteToken, setToken } from "@portal/lib/auth";
 
-export interface UseAuthProviderOpts {
-  apolloClient: ApolloClient<any>;
-}
-
-export function useAuthProvider({ apolloClient }) {
+export function useAuthProvider() {
   const client = useApolloClient();
   const [error, setError] = useState<string | undefined>();
   const [user, setUser] = useState(undefined);
@@ -16,7 +12,7 @@ export function useAuthProvider({ apolloClient }) {
   const [authenticating, setAuthenticating] = useState<boolean>(true);
 
   const meQuery = useMeQuery({
-    client: apolloClient,
+    client: client,
     fetchPolicy: "network-only",
   });
 
@@ -29,7 +25,7 @@ export function useAuthProvider({ apolloClient }) {
   }, [meQuery]);
 
   const [tokenCreate, tokenCreateResult] = useTokenCreateMutation({
-    client: apolloClient,
+    client,
   });
 
   useEffect(() => {
@@ -40,7 +36,7 @@ export function useAuthProvider({ apolloClient }) {
   }, [tokenCreateResult]);
 
   useEffect(() => {
-    if (authenticated) apolloClient.resetStore();
+    if (authenticated) client.resetStore();
   }, [authenticated]);
 
   const handleLogin = async (email: string, password: string) => {

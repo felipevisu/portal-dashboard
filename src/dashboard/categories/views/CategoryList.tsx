@@ -16,7 +16,7 @@ import { mapEdgesToItems } from "@portal/utils/maps";
 
 import CategoryListPage from "../components/CategoryListPage";
 
-import { getFilterOpts, getFilterVariables } from "./filters";
+import { getFilterVariables } from "./filters";
 
 export const CategoryList = () => {
   const [searchParams] = useSearchParams();
@@ -47,8 +47,6 @@ export const CategoryList = () => {
   });
 
   const [, , handleSearchChange] = useFilterHandler();
-
-  const filterOpts = getFilterOpts(searchParams);
 
   return (
     <>

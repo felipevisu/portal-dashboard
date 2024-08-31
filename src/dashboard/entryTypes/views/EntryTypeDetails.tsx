@@ -78,7 +78,6 @@ export const EntryTypeDetails = () => {
       data.entryAttributeAssign.errors !== null &&
       data.entryAttributeAssign.errors.length > 0
     ) {
-      console.log(data);
       setErrors((prevErrors) => ({
         ...prevErrors,
         addAttributeErrors: data.entryAttributeAssign.errors,

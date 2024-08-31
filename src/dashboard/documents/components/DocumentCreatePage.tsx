@@ -35,7 +35,7 @@ export const DocumentCreatePage = ({
   setFile,
 }: DocumentCreatePageProps) => {
   const { t } = useTranslation();
-  const { entry: type, id: entryId } = useParams();
+  const { entryTypeId, id: entryId } = useParams();
   const navigate = useNavigate();
   const { entryDetails } = useLinks();
 
@@ -60,7 +60,9 @@ export const DocumentCreatePage = ({
       {({ change, submit, data }) => {
         return (
           <>
-            <Backlink href={entryDetails(type, entryId)}>{t("back")}</Backlink>
+            <Backlink href={entryDetails(entryTypeId, entryId) + "?tab=1"}>
+              {t("back")}
+            </Backlink>
             <PageHeader title={t("document.create")} />
             <Grid container spacing={{ xs: 0, md: 2 }}>
               <Grid item xs={12} md={8}>
@@ -89,7 +91,9 @@ export const DocumentCreatePage = ({
             </Grid>
             <Savebar
               onSubmit={submit}
-              onCancel={() => navigate(entryDetails(type, entryId))}
+              onCancel={() =>
+                navigate(entryDetails(entryTypeId, entryId) + "?tab=1")
+              }
               loading={loading}
             />
           </>
